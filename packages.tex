@@ -1,0 +1,93 @@
+%Includes
+%=============================
+
+\usepackage[latin1]{inputenc} 		%Caracteres francais
+%\usepackage[utf8]{inputenc} 		%Caracteres francais
+\usepackage[T1]{fontenc} 		%Caracteres francais
+\usepackage[francais]{babel}		%On ecrit en francais
+\usepackage{graphicx}			%Pour les images
+\usepackage[top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}%Marges etc...
+\usepackage{fancybox}			%Des boites
+\usepackage[tikz]{bclogo}		%Pour faire des boites avec logo (remarques, etc...)
+\usepackage{xcolor}			%Pour d�finir les couleurs
+\usepackage{titlesec} 			%Pour modifier l'aspet des titres (sections, etc...)
+\usepackage{soul} 			%Pour souligner
+\usepackage{ifthen}			%Package des conditions
+\usepackage{fancyhdr}			%Pour l'entete et le pied de page
+\usepackage{lastpage}			%Pour connaitre le nombre total de page pour le pied de page
+\usepackage{subfig}			%Pour faire des figures dans les figures
+\usepackage{amsmath}			%Pour faire des maths (environnement ``align'' notamment)
+\usepackage{amsfonts}			%Pour faire des maths (ensemble des reels, notamment)
+\usepackage{amssymb}
+\usepackage{mathrsfs}			%Pour faire des maths (notamment le L de la transform�e de Laplace)
+\usepackage{answers}
+\usepackage{pifont}			%Pour faire des chiffres entour�s
+\usepackage[colorlinks=true,linktocpage]{hyperref}	%Pour faire des liens
+\usepackage{calc}			%Pour faire heightof et des calculs de coordonn�es
+\usepackage{import}			%Permet de g�rer les chemins relatifs des fichiers dans Latex
+\usepackage{multirow}			%Pour faire des tableau avec plusieurs lignes
+\usepackage{tikz}			%Pour faire des dessins
+\usetikzlibrary{calc}
+\usepackage{pgfplots}			%Pour faire des dessins (bis) (voir --> http://bertrandmasson.free.fr/index.php?article28/comment-faire-de-beaux-graphiques-avec-tikz-et-pgfplots)
+\usepackage{enumerate}			%Pour personnaliser les listes ``enumerate''
+\usepackage{wasysym}			%Pour faire le symbole diametre
+\usepackage{array}			%Tableaux (notamment alignements)
+\usepackage{placeins} 	%Pour utiliser la commande \FloatBarrier pour vider la m�moire des figures.
+\usepackage{calc} %Pour faire des calculs
+\usepackage{eurosym} %package euro
+\usepackage{epstopdf} % gestion du format eps
+\usepackage{hyperref}%Gestion des liens hypertextes
+\usepackage{fancyvrb}%Gestion des boites pour l'informatique
+\usepackage{listings}
+\usepackage{fourier}
+\lstset{
+	language={Python},
+	columns=flexible,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}, % je voudrais mettre les mots-clé en gras (\bfseries) mais c'est incompatible avec typewriter
+	commentstyle=\color{gray}, % commentaires
+	backgroundcolor=\color{green!10}, % couleur du fond
+	frame=single, rulecolor=\color{green!10}, % encadrement + couleur de l'encadrement
+	%numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,
+	showstringspaces=false, % supprime les espaces apparents dans les lignes de texte
+	stringstyle=\color{red!50}\itshape,
+}
+\usepackage{multicol}
+\usepackage{algorithm2e}
+\usepackage{pgf, tikz} % dessins et courbes
+\usepackage{tkz-tab} % tableaux de variations
+\usepackage{circuitikz} % l est un "L" minuscule
+\DeclareSymbolFontAlphabet{\mathcal}{symbols}
+\usepackage{color}
+\usepackage{colortbl}
+\newcommand*\lstinputpath[1]{\lstset{inputpath=#1}}
+
+\definecolor{gris25}{gray}{0.75}
+\definecolor{bleu}{RGB}{50,50,220}
+\definecolor{bleuf}{RGB}{42,94,171}
+\definecolor{bleuc}{RGB}{231,239,247}
+\definecolor{rougef}{RGB}{185,18,27}
+\definecolor{rouge}{RGB}{255,40,40}
+\definecolor{rougec}{RGB}{255,230,231}
+\definecolor{vertf}{RGB}{103,126,82}
+\definecolor{vert}{RGB}{40,150,40}
+\definecolor{vertc}{RGB}{220,255,191}
+\definecolor{violetf}{RGB}{112,48,160}
+\definecolor{violetc}{RGB}{230,224,236}
+\definecolor{jaunec}{RGB}{220,255,191}
+\definecolor{jaune}{RGB}{255,246,100}
+%\usepackage{rpcinematik}
+
+%\usepackage[table]{xcolor}%Mettre des coleurs dans les tableaux
+
+\usepackage{float}
+\usepackage{bodegraph}
+
+\usepackage{booktabs}
+\usepackage{rotating}
+
+\usepackage{amsmath}
+\usepackage[overload]{empheq}
+
+\usepackage{longtable,booktabs}
+

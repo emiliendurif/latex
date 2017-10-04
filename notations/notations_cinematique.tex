@@ -1,0 +1,107 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%	Cinématique
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{tikz}
+
+
+
+%Raccourcis
+\newcommand{\CIR}	{centre instantané de rotation}
+\newcommand{\cir}	{\CIR}
+\newcommand{\Cir}	{Centre instantané de rotation}
+
+
+%DDL
+\newcommand{\Rx}	{\ensuremath{	R_x	}}
+\newcommand{\Ry}	{\ensuremath{	R_y	}}
+\newcommand{\Rz}	{\ensuremath{	R_z	}}
+
+\newcommand{\Tx}	{\ensuremath{	T_x	}}
+\newcommand{\Ty}	{\ensuremath{	T_y	}}
+\newcommand{\Tz}	{\ensuremath{	T_z	}}
+
+
+
+%Géométrie
+\newcommand{\solide}[1]	{\ensuremath{	#1	}}		%Solide
+\newcommand{\sS}[1]	{\solide{S_{#1}}}	%Solides S1, S2, ...
+\newcommand{\s}[1]	{\ensuremath{(#1)}}	%Solides (1), (2), ...
+
+%Repères
+\newcommand{\repere}[4]	{\ensuremath{	\left(#1,#2,#3,#4\right)	}}
+\newcommand{\rR}[1]	{\ensuremath{	R_{#1}	}	}
+
+
+%coordonnées variables fonction du temps
+\newcommand{\xt}	{\fonction{x}{t}}
+\newcommand{\yt}	{\fonction{y}{t}}
+\newcommand{\zt}	{\fonction{z}{t}}
+\newcommand{\rt}	{\fonction{r}{t}}
+\newcommand{\thetat}	{\fonction{\theta}{t}}
+
+\newcommand{\thetap}	{\ensuremath{\dot\theta}}
+
+\newcommand{\xtp}	{\fonction{\dot{x}}{t}}
+\newcommand{\ytp}	{\fonction{\dot{y}}{t}}
+\newcommand{\ztp}	{\fonction{\dot{z}}{t}}
+\newcommand{\rtp}	{\fonction{\dot{r}}{t}}
+\newcommand{\thetatp}	{\fonction{\dot\theta}{t}}
+
+%Vitesse
+\newcommand{\vVitesse}[3][]		{\ifthenelse{\equal{#1}{}}{\vecteur{V_{\left(#2/#3\right)}}}{\vecteur{V_{\left(#1\in#2/#3\right)}}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
+\newcommand{\vAcceleration}[3][]	{\ifthenelse{\equal{#1}{}}{\vecteur{\Gamma_{#2/#3}}}{\vecteur{\Gamma_{#1\in#2/#3}}}}
+\newcommand{\vRotation}[2]		{\vecteur{\Omega_{\left(#1/#2\right)}}}
+\newcommand{\vPivotement}[2]		{\vecteur{{\Omega_p}_{\left(#1/#2\right)}}}
+\newcommand{\vRoulement}[2]		{\vecteur{{\Omega_r}_{\left(#1/#2\right)}}}
+
+%Déplacement de vitesse
+\newcommand{\deplaceVitesse}[4]	{\ensuremath{	\vVitesse[#3]{#1}{#2}+\vecteur{#4#3}\wedge\vRotation{#1}{#2}	}}	%\deplaceVitesse{Solid}{Referentiel}{Pdepart}{Parrivee}
+
+
+%petits déplacements
+\newcommand{\vDeplacement}[3][]		{\ifthenelse{\equal{#1}{}}{\vecteur{U_{#2/#3}}}{\vecteur{U_{#1\in#2/#3}}}}
+\newcommand{\vDep}[3][]			{\vDeplacement[#1]{#2}{#3}}
+\newcommand{\vPetitDeplacement}[3][]	{\ifthenelse{\equal{#1}{}}{\vecteur{U_{#2/#3}}}{\vecteur{U_{#1\in#2/#3}}}}
+\newcommand{\vPetitDep}[3][]		{\vPetitDeplacement[#1]{#2}{#3}}
+\newcommand{\vPetiteRotation}[2]	{\vecteur{\theta_{#1/#2}}}
+\newcommand{\vPetiteRot}[2]		{\vPetiteRotation{#1}{#2}}
+
+\newcommand{\wx}			{\ensuremath{	\omega_x	}}
+\newcommand{\wy}			{\ensuremath{	\omega_y	}}
+\newcommand{\wz}			{\ensuremath{	\omega_z	}}
+
+%Torseur
+\newcommand{\V}				{\ensuremath{	\mathscr{V}	}}	%Symbole du torseur cinematique
+\newcommand{\C}				{\ensuremath{	\mathscr{C}	}}	%Symbole du torseur cinetique
+\newcommand{\Dyn}				{\ensuremath{	\mathscr{D}	}}	%Symbole du torseur dynamique
+\newcommand{\tCinematique}[3][]		{\ensuremath{	\torseur{\V^{#1}_{\left(#2/#3\right)}}	}}%torseur cinematique
+\newcommand{\tCinetique}[3][]		{\ensuremath{	\torseur{\C^{#1}_{\left(#2/#3\right)}}	}}%torseur cinetique
+\newcommand{\tDynamique}[3][]		{\ensuremath{	\torseur{\Dyn^{#1}_{\left(#2/#3\right)}}	}}%torseur dynamique
+\newcommand{\tV}[2]			{\tCinematique{#1}{#2}}	%torseur cinematique
+\newcommand{\tC}[2]			{\tCinetique{#1}{#2}}	%torseur cinetique
+\newcommand{\tDyn}[2]			{\tDynamique{#1}{#2}}	%torseur dynamique
+\newcommand{\D}				{\ensuremath{	\mathscr{D}	}}	%Symbole du torseur petit déplacement
+\newcommand{\tPetitDeplacement}[3][]	{\ensuremath{	\torseur{\D^{#1}_{\left(#2/#3\right)}}	}}%torseur petit déplacement
+\newcommand{\tPetitDep}[3][]		{\tPetitDeplacement[#1]{#2}{#3}}
+\newcommand{\tD}[3][]			{\tPetitDeplacement[#1]{#2}{#3}}
+
+%Moments dynamiques et cinetiques
+\newcommand{\vSigma}[3][]		{\ifthenelse{\equal{#1}{}}{\vecteur{\sigma_{\left(#2/#3\right)}}}{\vecteur{\sigma_{#1}\left(#2/#3\right)}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
+\newcommand{\vDelta}[3][]		{\ifthenelse{\equal{#1}{}}{\vecteur{\delta_{\left(#2/#3\right)}}}{\vecteur{\delta_{#1}\left(#2/#3\right)}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
+%Graphique / figures
+%Figures planes de projection
+\newcommand{\scFigCalc}[6][]{
+\begin{tikzpicture}
+\draw[->] (0,0) -- (3,0) node[above] {$\overrightarrow{#2}$};
+\draw[->] (0,0) -- (0,3) node[right] {$\overrightarrow{#3}$};
+\draw[->] (0cm,0cm) -- (25:3cm) node[above] {$\overrightarrow{#4}$};
+\draw[->] (0cm,0cm) -- (115:3cm) node[right] {$\overrightarrow{#5}$};
+\draw[->] (1,0) arc (0:25:1cm)node[right=0.5em] {$#6$} ;
+\draw[->] (0,1) arc (90:115:1cm)node[above=0.5em] {$#6$} ;
+\node[below](0,0){$\overrightarrow{#1}$};
+\end{tikzpicture}
+}
+
+

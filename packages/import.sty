@@ -1,0 +1,17 @@
+%%%% debut macro %%%%
+% import.sty: allows input of a file from another directory:
+%
+% \import{path}{file}
+
+\def\import{\begingroup
+  \protected@edef\@tempa{\endgroup
+    \noexpand\@import{\@ifundefined{input@path}{}{\input@path}}%
+    {\@ifundefined{Ginput@path}{}{\Ginput@path}}}%
+  \@tempa}
+\def\@import#1#2#3#4{%
+  \def\input@path{{#3}#1}\def\Ginput@path{{#3}#2}%
+  \input{#4}%
+  \def\input@path{#1}\ifx\input@path\@empty \let\input@path\@undefined \fi
+  \def\Ginput@path{#2}\ifx\Ginput@path\@empty \let\Ginput@path\@undefined \fi
+}
+%%%% fin macro %%%%

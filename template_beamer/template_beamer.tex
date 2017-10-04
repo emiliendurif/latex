@@ -1,0 +1,267 @@
+\documentclass[8pt]{beamer}
+\usetheme{roosevelt}
+%\documentclass[8pt,blue]{beamer}
+%\usetheme{Antibes}
+%\usecolortheme{lily}
+
+\usepackage{thumbpdf}
+\usepackage{wasysym}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{verbatim}
+\usepackage[french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage[utf8]{inputenc}
+\usepackage{bm}
+\usepackage{subfigure}
+\usepackage{multimedia}
+%\usepackage{movie16}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{multido}
+\usepackage{multirow}
+\usepackage{beamerfoils}
+\usepackage{animate}
+\usepackage{textcomp}
+\usepackage{animate}
+\def\etal{{\it et al.}}
+\usepackage{mathrsfs}
+\usepackage{epstopdf} 
+
+%\graphicspath{{./}{figures/}}
+\usepackage{bm} 
+
+
+
+%-----------------------------------------------------------------------
+%
+% chemins des fichiers graphiques
+%
+%\ifpdf
+%\graphicspath{{./}{figures/pdfs/}{figures/others/}}
+%\else
+%\RequirePackage{psfrag}
+%\graphicspath{{./}{figures/epss/}{figures/pdfs/}{figures/others/}}
+%\fi
+%-----------------------------------------------------------------------
+
+
+\pdfinfo
+{
+  /Title       ()
+  /Creator (E. DURIF)
+  /Author (Émilien DURIF)
+}
+
+
+\title[Analyse fréquentielle]{\Large{Automatique : analyse fréquentielle des systèmes linéaires continus et invariants}}
+%\vspace{-1.cm}
+\author{Émilien DURIF}
+
+
+\date{\normalsize{Lycée F. Roosevelt\\
+     Classe de PCSI\\
+}}
+
+
+
+
+\begin{document}
+
+%\newcommand{\biblio_en}[1]{\textcolor[rgb]{0.9 0.9 0.9}{\it{#1}}}
+\newcommand{\biblioen}[1]{\textcolor[rgb]{0.2 0.5 0.9}{\small{\it{#1}}}}
+\setbeamertemplate{navigation symbols}{}
+%\rmfamily
+
+\frame{
+\vspace{-1.cm}
+\titlepage
+\vspace{-.5cm}
+
+}
+
+\newcommand<>{\highlighton}[1]{%
+  \alt#2{\structure{#1}}{{#1}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Content starts here %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer> 
+\frametitle{Plan}
+\tableofcontents		
+\end{frame}
+
+%pour afficher le plan entre chaque section
+%\AtBeginSection[]{
+%  \frame<handout:0>{
+%    \frametitle{Plan}
+%    \tableofcontents[current]
+%  }
+%}
+%Affichage de la table des matières
+\AtBeginSubsection[]{
+  \frame<handout:0>{
+    \frametitle{Plan}
+    \tableofcontents[current]
+  }
+}
+\section{Définitions et intérêts de l'analyse fréquentielle}
+\subsection{Définition de l'analyse fréquentielle}
+%----------------------------------------------
+
+%Exemple d'une page classique avec images, équations, et blocks.
+	\frame{
+	\frametitle{Définition de l'analyse fréquentielle}
+
+\begin{block}{Analyse fréquentielle ou harmonique}
+\textbf{L'analyse fréquentielle} d'un système linéaire, continu et invariant consiste à étudier la réponse ($s(t)$) vis à vis d'une entrée ($e(t)$) de type \textbf{harmonique ou sinusoïdale} :
+
+\begin{align}\label{entree_harmonique}
+\boxed{
+e(t) = e_0\;\sin(\omega\; t)\;u(t)=e_0\;\sin(2\pi f\; t)\;u(t)
+}
+\end{align}
+
+Ce signal est caractérisé par :
+\begin{itemize}
+\item sa \textbf{fréquence} $f=1/T$ (inverse de la période T),
+\item ou sa \textbf{pulsation} $\omega=2\pi f$,
+\item son \textbf{amplitude} $e_0$.
+\end{itemize}
+
+\end{block}
+\begin{columns}
+\column{.5\textwidth}
+		\begin{center}
+		\includegraphics[width=0.8\textwidth]{images/systeme_lineaire.pdf}			
+		\end{center}
+\column{.5\textwidth}
+		\begin{center}
+		\includegraphics[width=0.8\textwidth]{images/entree_harmonique.pdf}			
+		\end{center}		
+\end{columns}
+}
+
+\subsection{Intérêts de l'étude fréquentielle}
+%---------------------------------
+
+%Utilisation de la commande overprint pour faire des animations
+
+	\frame{
+	\frametitle{Intérêts de l'étude fréquentielle}
+Reconstitution d'un signal carré périodique à l'aide d'une décomposition finie en série de Fourrier :
+\begin{align*}
+\boxed{
+\tilde{e}(t)=a_0+\displaystyle{\sum^{n}_{k=1}}a_k\cdot sin(2\pi\; k\; f\;t)
+}
+\end{align*}	
+	
+\begin{overprint}
+\onslide<1>
+		\begin{center}
+		\includegraphics[width=0.9\textwidth]{images/creneau_fourier_0.png}				
+		\end{center}
+\onslide<2>
+		\begin{center}
+		\includegraphics[width=0.9\textwidth]{images/creneau_fourier_1.png}			
+		\end{center}
+\onslide<3>
+		\begin{center}
+		\includegraphics[width=0.9\textwidth]{images/creneau_fourier_2.png}				
+		\end{center}
+\onslide<4>
+		\begin{center}
+		\includegraphics[width=0.9\textwidth]{images/creneau_fourier_3.png}				
+		\end{center}
+\end{overprint}		
+		}
+		
+	\frame{
+	\frametitle{Intérêts de l'étude fréquentielle}		
+
+\begin{block}{Étude d'un signal quelconque}
+Pour étudier la réponse d'un système vis-à-vis d'un signal quelconque, il faudra alors être capable de caractériser \textbf{la réponse fréquentielle} sur une plage de fréquence ($f$) ou de pulsation ($\omega$) étendue. 
+
+On peut également choisir cette méthode d'analyse pour vérifier le comportement d'un système vis à vis d'une entrée harmonique caractérisée par différentes valeurs de fréquence ($f$) ou de pulsation ($\omega$).
+\end{block}
+
+\begin{center}
+			{\includegraphics[width=.6\textwidth]{images/creneau_fourier_final.pdf}}
+	\end{center}
+
+
+
+}		
+
+\subsection{Définition du support du cours}
+%-------------------------------------------------
+	\frame{
+	\frametitle{Exemple d'une suspension d'un véhicule}		
+
+\begin{block}{Suspension de véhicule}
+\begin{itemize}
+\item $m=100kg$,
+\item $c=106\;N.s.m^{-1}$,
+\item $k=80kN.m^{-1}$.
+\end{itemize}		
+\end{block}
+
+
+\begin{columns}
+\column{.3\textwidth}
+		\begin{center}
+		\includegraphics[width=0.8\textwidth]{images/suspension_moto.jpg}			
+		\end{center}
+\column{.7\textwidth}
+		\begin{center}
+		\includegraphics[width=0.8\textwidth]{images/suspension0.pdf}		
+		\end{center}		
+\end{columns}
+
+}	
+
+
+
+%Utilisation de la commande \animategraphics pour animer une séquence d'images
+	\frame{
+	\frametitle{Exemple d'une suspension d'un véhicule}		
+
+\begin{itemize}
+\item<1-> Le PFD en résultante suivant la direction $\overrightarrow{y}$ appliqué à l'habitacle par rapport au repère $R_0$ :
+
+\begin{align*}
+-c\left(\frac{d(s(t)-e(t))}{dt}\right)-k(s(t)-e(t))=m\frac{d^2s(t)}{dt^2}.
+\end{align*}
+
+\item<2-> La fonction de transfert du système $H(p)=S(p)/E(p)$ est égale à :
+
+
+\begin{align*}
+H(p)=\frac{c\;p+k}{m\;p^2+c\;p+k}=\frac{\frac{c}{k}\;p+1}{\frac{m}{k}\;p^2+\frac{c}{k}\;p+1}
+\end{align*}
+
+\end{itemize}
+
+\begin{columns}
+\column{.4\textwidth}
+		\begin{center}
+\begin{align*}
+e(t)=e_0\sin(\omega t).
+\end{align*}			
+		\end{center}
+\column{.6\textwidth}
+
+		\begin{center}
+		\animategraphics[autoplay,loop,width=1.0\textwidth]{10}{images/suspension_12_}{1}{41}				
+		\end{center}
+
+\end{columns}		
+
+
+
+}		
+
+
+\end{document}

@@ -1,0 +1,33 @@
+%Includes
+%=============================
+
+\usepackage[latin1]{inputenc} 		%Caracteres francais
+\usepackage[T1]{fontenc} 		%Caracteres francais
+\usepackage[fenchb]{babel}		%On ecrit en francais
+\usepackage{graphicx}			%Pour les images
+\usepackage[top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}%Marges etc...
+\usepackage{fancybox}			%Des boites
+\usepackage[tikz]{bclogo}		%Pour faire des boites avec logo (remarques, etc...)
+\usepackage{xcolor}			%Pour définir les couleurs
+\usepackage{titlesec} 			%Pour modifier l'aspet des titres (sections, etc...)
+\usepackage{soul} 			%Pour souligner
+\usepackage{ifthen}			%Package des conditions
+\usepackage{fancyhdr}			%Pour l'entete et le pied de page
+\usepackage{lastpage}			%Pour connaitre le nombre total de page pour le pied de page
+\usepackage{subfig}			%Pour faire des figures dans les figures
+\usepackage{amsmath}			%Pour faire des maths (environnement ``align'' notamment)
+\usepackage{amsfonts}			%Pour faire des maths (ensemble des reels, notamment)
+\usepackage{amssymb}
+\usepackage{mathrsfs}			%Pour faire des maths (notamment le L de la transformée de Laplace)
+\usepackage{answers}
+\usepackage{pifont}			%Pour faire des chiffres entourés
+\usepackage[colorlinks=true,linktocpage]{hyperref}	%Pour faire des liens
+\usepackage{calc}			%Pour faire heightof et des calculs de coordonnées
+\usepackage{import}			%Permet de gérer les chemins relatifs des fichiers dans Latex
+\usepackage{multirow}			%Pour faire des tableau avec plusieurs lignes
+\usepackage{tikz}			%Pour faire des dessins
+	\usetikzlibrary{calc}
+\usepackage{pgfplots}			%Pour faire des dessins (bis) (voir --> http://bertrandmasson.free.fr/index.php?article28/comment-faire-de-beaux-graphiques-avec-tikz-et-pgfplots)
+\usepackage{enumerate}			%Pour personnaliser les listes ``enumerate''
+\usepackage{wasysym}			%Pour faire le symbole diametre
+\usepackage{array}			%Tableaux (notamment alignements)

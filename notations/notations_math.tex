@@ -1,0 +1,34 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Notations mathématiques
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\ssi}{si et seulement si }
+\newcommand{\indiceGauche}[2]	{\ensuremath{	{\vphantom{#2}}_{#1}{#2} 	}}
+\newcommand{\exposantGauche}[2]	{\ensuremath{	{\vphantom{#2}}^{#1}{#2} 	}}
+\newcommand{\transposee}[1]	{\ensuremath{	\exposantGauche{\mathit t}{#1}	}}%{\vphantom{#1}}_{\mathit t}{#1}	}}
+
+% FONCTION
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\fonction}[2]	{\ensuremath{	{#1}_{\left(#2\right)}		}}
+\newcommand{\f}[2]		{	\fonction{#1}{#2}		}
+\newcommand{\deriv}[3][]	{\ifthenelse{\equal{#1}{}}	{\ensuremath{	\frac{d{#2}}{d{#3}}}}	{\ensuremath{	\left[\frac{d{#2}}{d{#3}}\right]_{#1}}}}
+\newcommand{\atan}[1][]		{\ifthenelse{\equal{#1}{}}	{\ensuremath{	\tan^{-1}	}}	{\ensuremath{	\tan^{-1}\left(#1\right)	}}}
+
+
+% ENSEMBLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\R}		{\ensuremath{\mathbb{R}}	}
+\newcommand{\couple}[2]{\ensuremath{\left(#1,#2\right)}}	%Couple (ex : (U,V) )
+\newcommand{\triplet}[3]{\ensuremath{\left(#1,#2,#3\right)}}	%Triplet (ex : (U,V,W) )
+\newcommand{\quadruplet}[4]{\ensuremath{\left(#1,#2,#3,#4\right)}}	%Triplet (ex : (U,V,W) )
+
+
+
+% GEOMETRIE
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\segment}[1]	{\ensuremath{	\left[#1\right]		}}		%Fait un sement
+\newcommand{\droite}[1]		{\ensuremath{	\left(#1\right)		}}
+\newcommand{\arc}[1]		{\ensuremath{	\overset{\frown}{#1}	}}		%Arc
+\renewcommand{\angle}[1]	{\ensuremath{	\left(\widehat{#1}\right)	}} %(Redéfini : la fonction angle correspondait au symbole angle)

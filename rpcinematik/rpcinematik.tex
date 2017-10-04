@@ -1,0 +1,772 @@
+%--------------DOCUMENT--------------------------------------------------------
+
+\documentclass[a4paper,11pt]{article}                      % Type de document
+\usepackage[frenchb]{babel}                  % Titres en français
+\usepackage[T1]{fontenc}   % Correspondance clavier -> document
+\usepackage{fourier} 
+%-------------PACKAGES---------------------------------------------------------
+\usepackage[Lenny]{fncychap}                % beaux chapitres
+\usepackage{fancyhdr}                       % entete et pied de pages
+\usepackage[outerbars]{changebar}           % positionnement barre en marge externe
+\usepackage{makeidx}                       % Indexation du document
+\usepackage{multicol}                       % gestion plusieurs colonnes
+
+\usepackage{openbib}                        % gestion avancée de Bibtex
+\usepackage{here}                           % avoir ses figures a la suite du texte
+
+\usepackage{alltt}                       % envir. verbatim suppl
+\usepackage{fancyvrb}                       % envir. verbatim suppl
+%\usepackage{listings}                    % incl. code langages info  
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{calc,fullpage}
+\usepackage{geometry}
+\geometry{ hmargin=2.5cm, vmargin=2.5cm }
+\usepackage{textcomp}
+\usepackage{subfigure}
+\usepackage{epic,bez123}
+\usepackage{floatflt}% package for floatingfigure environment
+\usepackage{wrapfig}% package for wrapfigure environment
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage{parallel}
+
+\usepackage{tkzexample}
+\usepackage{siunitx}
+%-------------PACKAGES PERSO---------------------------------------------------------
+\usepackage{rpcinematik}
+
+%-------------ENTETE-ET-PIED-DE-PAGE-------------------------------------------
+\headheight= 1.5cm                          % taille entete
+\renewcommand{\headrulewidth}{0pt}          % epaisseur du trait apres entete
+\renewcommand{\footrulewidth}{0pt}          % epaisseur du trait avant pied de page
+\pagestyle{fancy}
+
+%\lhead{gauche haut}                                   % entete gauche perso
+%\chead{}                                   % entete centre perso
+%\rhead{}                                   % entete droit  perso
+%\lfoot{}                                   % pied gauche perso
+%\cfoot{}                                   % pied centre perso
+%\rfoot{}                                   % pied droit  perso
+
+%-------------PAGE-DE-GARDE----------------------------------------------------
+
+\title{Schémas cinématiques avec PGF/Tikz}                                    % Titre
+\author{Papanicola Robert}                                   % Auteur(s)
+\date{\today}                                     % Date (\today pour aujourd'hui)
+%\graphicspath{}
+
+%%%% debut macro %%%%
+\makeatletter
+\def\@captype{figure}
+\makeatother
+%%%% fin macro %%%%
+
+
+\newdimen\oldparindent
+\makeindex
+%-------------DEBUT-DU-DOCUMENT-----------------------------------------------
+
+
+\begin{document}
+\maketitle
+
+\begin{description}
+\item[version 0.6]: avril 2009, petites modifications( \verb"\scRef" et \verb"\scPoin"), le package est renommé en \emph{rpcinematik};
+\item[version 0.5]: 18 janvier 2009,  première mise en ligne du package \emph{rpliaisons}.
+\end{description}
+
+\section{Présentation}
+
+Ce package a pour objectif de faciliter la création de schémas cinématiques normalisés avec pgf/tikz, il est encore largement incomplet et ne demande qu'a être améliorer. N'hésitez pas à faire parvenir vos remarques garce au forum de l'article.
+
+
+\section{Les symboles}
+\subsection{Liaisons normalisées}
+\begin{description}
+\item[Pivot] : commande de base \verb"\scPivotx[angle]{nom}{position}" 
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scPivot{A}{0,0}           \scPivotx{B}{6,0}         \scPivotx[30]{C}{12,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\item [Pivot Glissant] : commande de base \verb"\scPivotGlissantx[angle]{nom}{position}" 
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scPivot{A}{0,0}       \scPivotGlissantx{B}{6,0}  \scPivotGlissantx[-30]{C}{12,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+\item[Glissière] commande de base \verb"\scGlissierex[angle]{nom}{position}" 
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scGlissiere{A}{0,0}   \scGlissierex{B}{6,0}      \scGlissierex[-30]{C}{12,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\item[Hélicoïdale] commande de base \verb"\scHelicoidalex[angle]{nom}{position}" 
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scHelicoidale{A}{0,0}  \scHelicoidalex{B}{6,0}  \scHelicoidalex[-30]{C}{12,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+\item[Sphère cylindre] commande de base \verb"\SphereCylindrex[angle]{nom}{position}" 
+
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scSphereCylindre[0]{A}{0,0}       \scSphereCylindrex{B}{6,0} \scSphereCylindrex[-30]{C}{11,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+\item[Sphèrique] commande de base \verb"\Spherique[angle]{nom}{position}" 
+
+\begin{tkzexample}[small]
+\begin{tikzpicture}
+\scSpherique{A}{0,0}                                
+\draw[scStylesolideext,thick](A-out)--++(0,-1.5em);
+\draw[scStylesolideint](A-int) --++(1.5em,1.5em);
+\end{tikzpicture}
+\end{tkzexample}
+
+\begin{tkzexample}[small]
+\begin{tikzpicture}
+\scSpherique[-30]{A}{12,0}
+\draw[scStylesolideext,thick](A-out)--++(0,-1.5em);
+\draw[scStylesolideint](A-int) --++(1.5em,1.5em);
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\item[Sphérique à doigt] commande de base \verb"\SpheriqueDoigt[angle]{nom}{position}" 
+
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scSpheriqueDoigt{A}{0,0}                         \scSpheriqueDoigt[-30]{C}{12,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\item[Sphére Plan] commande de base \verb"\SpherePlan[angle]{nom}{position}" 
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scSpherePlan{A}{0,0}                            \scSpherePlan[-30]{C}{11,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\item[Cylindre Plan] commande de base \verb"\scCylindrePlanx[angle]{nom}{position}" 
+
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scCylindrePlan[30]{A}{0,0}    \scCylindrePlanx{B}{5,0}     \scCylindrePlanx[-30]{C}{11,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+\newpage
+
+
+\item[Appui Plan] commande de base \verb"\scAppuiPlan[angle]{nom}{position}" 
+
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scAppuiPlan{A}{0,0}                            \scAppuiPlan[-30]{C}{11,0}  
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\item[Bâti] commande de base \verb"\scBati[angle]{nom}{position}" 
+
+\begin{tkzexample}[small,vbox]
+\begin{tikzpicture}
+\scBati{A}{0,0}                                    \scBati[-30]{C}{11,0}
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\end{description}
+
+
+\subsection{Engrenages et poulies}
+
+Cette partie est encore très succincte, et s'agrandira avec les futures versions.
+
+\begin{description}
+\item[Roue dentée] commande de base \verb"\scRoueDentee[angle]{position}{rayon}"
+
+\begin{tikzpicture}
+\coordinate(A) at (0,0);\scRoueDentee{A}{3em} \node[above of=A,node distance=4em,text width=3cm]{\verb"\coordinate(A) at (0,0);" \verb"\scRoueDentee{A}{3em}"};
+
+\coordinate(B) at (11,0);\scRoueDentee[30]{B}{3em} \node[above of=B,node distance=4em,text width=3cm]{\verb"\coordinate(B) at (11,0);" \verb"\scRoueDentee[30]{B}{3em}"};
+\end{tikzpicture}
+
+
+\item[Couronne] commande de base \verb"\scCouronne[angle]{position}{rayon}"
+
+\begin{tikzpicture}
+\coordinate(A) at (0,0);\scCouronne{A}{3em} \node[above of=A,node distance=4em,text width=3cm]{\verb"\coordinate(A) at (0,0);" \verb"\scCouronne{A}{3em}"};
+
+\coordinate(B) at (11,0);\scCouronne[-30]{B}{3em} \node[above of=B,node distance=4em,text width=3cm]{\verb"\coordinate(B) at (11,0);" \verb"\scCouronne[-30]{B}{3em}"};
+\end{tikzpicture}
+
+\item[Poulie] commande de base \verb"\scPoulie[angle]{position}{rayon}"
+
+\begin{tikzpicture}
+\coordinate(A) at (0,0);\scPoulie{A}{3em} \node[above of=A,node distance=4em,text width=3cm]{\verb"\coordinate(A) at (0,0);" \verb"\scPoulie{A}{3em}"};
+
+\coordinate(B) at (11,0);\scPoulie[15]{B}{3em} \node[above of=B,node distance=4em,text width=3cm]{\verb"\coordinate(B) at (11,0);" \verb"\scPoulie[15]{B}{3em}"};
+\end{tikzpicture}
+
+\end{description}
+
+
+
+\subsection{Styles et couleurs}
+
+Par défaut, les symboles sont bicolores bleu et rouge et traits épais au sens de tikz \og thick \fg : \tikz \scPivotx{A}{0,0};. En bleu, la partie \og extérieure \fg du symbole et en rouge, la partie \og intérieure \fg.
+
+Trois commandes permettent de choisir les couleurs et style.
+\begin{itemize}
+\item \verb"\scSolideExt[nom style]{style et couleur}" :  permet de définir le style et la couleur de l'extérieur du symbole, cette commande est mémorisée jusqu'à la prochaine définition. L'option nom du style permet de réutiliser le style sans le redéfinir. Cette macro est équivalente à la commande tikz \verb"\tikzstyle{nom style}=[style, couleur]"
+
+\item \verb"\scSolideInt[nom style]{style et couleur}" : permet de définir le style et la couleur de l'intérieur du symbole, cette commande est mémorisée jusqu'à la prochaine définition.
+
+
+\item \verb"\scSolides{style ext}{style int}" : permet de configurer simultanément les deux parties du symbole.
+
+Ces commandes permettent aussi de définir le style des autres symboles (roues dentées et poulies). Pour celles-ci il est préférable d'utiliser directement la commande \verb"\scSolides{style}{style}", avec le même style pour les deux paramètres.
+\end{itemize}
+
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+\scPivotx{A1}{0,0}
+\scSolideExt[S0]{black, thick}
+\scSolideInt[S1]{green, ultra thick}
+\scPivotx{A2}{0,-1.5}
+\scSolides{purple, thick, fill=purple!50,opacity=.5,}
+{brown, dotted, thick}
+\scPivotx{A3}{0,-3}
+\scSolides{S1}{S0}
+\scPivotx{A3}{0,-4.5}
+
+\scSolides{S0}{S0}
+\coordinate(A4) at (0,-6);
+\scRoueDentee{A4}{1.5cm}
+\end{tikzpicture}
+
+\end{tkzexample}
+
+
+\subsection{Dessin de lignes}
+
+Aux commandes classiques de dessin tikz le package rajoute quelques macros.
+
+\begin{itemize}
+\item \verb"\scRelier[style]{N1]{N2}"  permet de tracer une ligne directe entre le n\oe ud N1  et le n\oe ud N2 avec le style passé en option;
+\item \verb"\scRelierxy[style]{N1]{N2}"  permet de tracer une ligne brisée débutant par une ligne horizontale puis une ligne verticale entre le n\oe ud N1  et le n\oe ud N2 avec le style passé en option;
+\item  \verb"\scRelieryx[style]{N1]{N2}"  permet de tracer une ligne brisée débutant par une ligne verticale   puis une ligne horizontale  entre le n\oe ud N1  et le n\oe ud N2 avec le style passé en option;
+\end{itemize}
+
+Pour chacun de ces liens trois points intermédiaires sont définis:
+\begin{itemize}
+\item N1-N2 : le point milieu,
+\item N1-N2a : le point à 0{,}25 du début,
+\item N1-N2b : le point à 0{,}75 du début.
+\end{itemize}
+
+
+\section{Autres commandes}
+
+\subsection{Référence de solides et points}
+
+La commande \verb"\scRef[pos relative]{noeud}{texte}"  permet de placer le texte du n\oe ud. une flèche relit le texte au n\oe ud.
+
+le style de la flèche et du texte est configurable par les deux commandes de configuration \verb"\scStyleRef[nom]{style}"  pour le texte et \verb"\scStyleLien[nom]{style}" pour la flèche.
+
+\subsection {graphe de structure}
+\begin{description}
+\item[Graphe de structure bouclé] \verb"\GraphStrucBoucle[angle]{nb}{liste des solides}{rayon}"
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=8cm,very small]
+\begin{tikzpicture}
+\GraphStructBoucle[-15]{5}
+{$S_1$,$S_2$,$S_3$,$S_6$,$S_7$}{3.5cm}
+\node[below right of=LGraphe1,
+node distance=1.5em]{LGraphe1};
+\node[right of= LGraphe2]{LGraphe2};
+\node[above of=LGraphe3,
+node distance=1em]{LGraphe3};
+\node[left of=LGraphe4]{LGraphe4};
+\node[left of=LGraphe5] {LGraphe5};
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Graphe de structure bouclé}
+\label{fig:graphboucle}
+\end{figure}
+
+
+\begin{itemize}
+\item Les sommets du graphe sont nommé NGraphei avec i le numéro d'ordre du sommet.
+\item Les arcs entre les n\oe uds du schéma sont nommés LGraphei  avec i le numéro d'ordre de l'arc.
+\item par défaut, le graphe place le premier n\oe ud en bas angle=\ang{0} , pour débuter en haut, il faut préciser en option un  angle de \ang{180}.
+\item Le graphe est centré sur l'origine (0,0), pour le placer ailleurs il faudra utiliser un décalage d'origine.
+
+\end{itemize}
+ 
+
+\item[Graphe de structure ouvert] \verb"\GraphStrucOuvert{nb}{liste des solides}{rayon}"
+
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[very small,latex=8cm]
+\begin{tikzpicture}
+\GraphStructOuvert{5}{1,2,3,6,7}{3.5cm}
+\node[right of=LGraphe1]{LGraphe1};
+\node[right of= LGraphe2]{LGraphe2};
+\node[above of=LGraphe3,node distance=1em]{LGraphe3};
+\node[left of=LGraphe4]{LGraphe4};
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Graphe de structure ouvert}
+\label{fig:graphboucleouvert}
+\end{figure}
+
+
+
+\end{description}
+
+\subsection{Figures de calculs}
+
+\begin{tabular}{c c}
+\verb"\scFigCalc{x_0}{y_0}{x_1}{y_1}{\alpha}" & \verb"\scFigCalc[\vv{z_0}]{x_0}{y_0}{x_1}{y_1}{\alpha}" \\
+\scFigCalc{x_0}{y_0}{x_1}{y_1}{\alpha} & \scFigCalc[\vv{z_0}]{x_0}{y_0}{x_1}{y_1}{\alpha}
+\end{tabular}
+
+
+
+
+\section{Exemples}
+
+\subsection{Système vis-ecrou}
+
+\begin{figure}[!ht]
+\centering 
+\begin{tkzexample}[very small]
+
+\begin{tikzpicture}
+\scSolideExt[corps]{red,ultra thick}
+\scSolideExt[vis]{blue,thick}
+\scSolideExt[table]{black,thick}
+\scSolides{corps}{vis}
+\scPivotx{A}{0,0}
+\begin{scope}[xshift=10em]
+\scSolides{table}{vis}
+\scHelicoidalex{B}{0,0}
+\node[below=1em](Btext) at (B){B};
+\scSolides{table}{corps}
+\scGlissierex{C}{0,9em}
+\end{scope}
+\scRelier[vis]{A}{B}
+\scRelier[table]{B}{C}
+\scRelieryx[corps]{A}{C}
+\scStyleRef{left}
+\scRef[-1.5em,1.5em]{B-C}{1-table}
+\scRef[-1.5em,2em]{A-Bb}{2-vis}
+\scRef[-1.5em,2em]{A-Cb}{0-corps}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Système vis -écrou}
+\label{fig:vis-ecrou}
+\end{figure}
+
+
+
+
+
+\subsection{Mécanisme de tête à polir}
+
+
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+%definitions du style des solides
+\scSolideExt[S1]{blue,thick} \scSolideExt[S0]{black,thick}
+\scSolideExt[S2]{red,thick} \scSolideExt[S3]{brown,thick}
+\scSolideExt[S4]{gray,thick} \scSolideExt[S5]{green,thick}
+%definition des coordonnées
+\coordinate(O) at (0,0); \coordinate(B) at (15em,0);
+\coordinate(A) at (10em,5em); \coordinate(Oprime) at (5em,5em);
+\coordinate(C) at (0,10em); \coordinate(D) at (0,20em);
+\coordinate(E) at (-8em,20em); \coordinate(bat) at (5em,20em);
+%\definition des coordonnées des centres
+% des roues dentées
+\coordinate(P1) at (-8em,15em); \coordinate(P3) at (0,15em);
+\coordinate(P2) at (-8em,11em); \node[rectangle,minimum size=1.5em](P4) at (0,11em){};
+
+%liaisons
+\scSolides{S0}{S1} \scPivotx[90]{L01}{D} 
+\scSolides{S3}{S1} \scPivotx[90]{L31}{C}
+\scSolides{S0}{S2} \scPivotx[90]{L02}{E}
+\scSolides{S4}{S3} \scPivotGlissantx[90]{L34}{Oprime}
+\scSolides{S5}{S4} \scPivotGlissantx[0]{L45}{A}
+\scSolides{S1}{S5} \scPivotx[0]{L15}{B}
+\scSolides{S0}{S0}\scBati[90]{Bati}{bat}{S0}
+\scRelier[S0]{Bati}{L01}
+\scRelier[S0]{L01}{L02}
+\scRelier[S1]{L01}{L31}
+\draw[S1](L31) -- (O)-- ++(0,-2em)coordinate[name=soudure] -| 
+ (L15) coordinate[pos=0.25,name=Sol6];
+%\draw[S0](L01) -- (L02);
+\scRelierxy[S3]{L31}{L34} \scRelier[S4]{L34}{L45}
+\scRelieryx[S5]{L45}{L15} %roues dentées
+\scSolides{S2}{S2} \scRoueDentee{P1}{2.9em}
+\scRoueDentee{P2}{2.9em} \scRelier[S2]{L02}{P2}
+\scSolides{S1}{S1} \scRoueDentee{P3}{4.9em}
+\scSolides{S3}{S3} \scRoueDentee{P4}{4.9em}
+%patin oscillant
+\node[draw,rectangle,S5,minimum width=3em,
+minimum height=1em](G5) [below of=L15,
+node distance=5em]{$\times$};
+
+\draw[S5] (L15) -- ++ (4em,0) -- ++(0,-3em) -|(G5);
+
+\begin{scope}[node distance=1.2em]
+\node (A) [above of =L45]{$A$}; \node (B) [above of =L15] {$B$};
+\node (O1) [left of =L34] {$O'$}; \node (textO)  [left of=O] {$O$};
+\node (G) [below of=G5] {$G_5$}; \end{scope}
+
+\scRef{L01-L31a}{1} \scRef[-1.5em,3em]{L01-L02}{Carter 0}
+\scRef[-3em,-3em]{L31}{3} \scRef[-1.5em,-2em]{Sol6}{6}
+\scRef[2em,2em]{L34-L45}{4} \scRef[3em,2em]{L45-L15a}{5}
+
+\scStyleRef{text width=8em, left}
+\scRef[-1,-2em]{soudure}{Liaison encastrement entre 1 et 6};
+\fill[S1] (soudure) --++ (0,1em) -- ++ (1em,-1em) -- cycle;
+%axes
+\begin{scope}[->,>=latex,ultra thin,dotted]
+\draw (O) -- ++ (23em,0)node[above] {$\overrightarrow{y_1}$};
+\draw (O) -- ++ (0,25em)node[right] {$\overrightarrow{z_1}$};
+\end{scope}
+
+\end{tikzpicture}
+\end{tkzexample}
+
+
+
+
+
+\subsection{Train épicycloïdal}
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+\coordinate(P1) at (0,0);       \coordinate (P2) at (2,0);
+\coordinate (PS1) at (0,2);     \coordinate (PS2) at (2,2);
+\coordinate (O1) at (-2.8,0);   \coordinate (O2) at (3.5,0);
+\coordinate (O3) at (-1.2,0);   \coordinate (A) at (-1.2,2);
+\scSolideExt[pl1]{thick,red}    \scSolideExt[pl2]{thick,blue}
+\scSolideExt[ps1]{thick,brown}  \scSolideExt[sat]{green,thick}
+\scSolideExt[S0]{thick,black}   \scSolides{S0}{pl1}\scPivotx{piv1}{O1}
+\scRoueDentee[90]{P1}{1cm}      \scSolides{S0}{pl2}\scPivotx{piv2}{O2}
+\scRoueDentee[90]{P2}{1.5cm}    \scSolides{ps1}{sat}
+\scPivotx{piv3}{A}              \scRoueDentee[90]{PS1}{1cm}
+\scRoueDentee[90]{PS2}{0.5cm}   \scSolides{ps1}{pl1}
+\scPivotx{piv4}{O3}
+\draw[S0](piv1) --++(0,3.2) -| (piv2);
+\draw[pl1] (piv1) -- (piv4) -- (P1);
+\draw[pl2] (piv2) -- (P2);
+\draw[ps1](piv4) -- (piv3);
+\draw[sat](piv3) -- (PS1) -- (PS2);
+\end{tikzpicture}
+\end{tkzexample}
+
+
+
+\subsection{Pont élévateur}
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+
+\begin{scope}[yshift=0.5cm,scale=0.6,smooth, tension=.7,purple,thick] %dessin du véhicule
+\draw  plot coordinates {(-2.5,-0.) (-2,1) (-1,1)};
+\draw  plot coordinates {(2.5,-.0) (2,1) (1,1)};
+\draw  plot coordinates {(-2,1) (-1,1.3) (1,1.3) (2,1)};
+\draw  plot coordinates {(-2,1) (-1,2.5) (1,2.5) (2,1)};
+\draw  plot coordinates {(-1.8,1.2) (-0.8,1.5) (0.8,1.5) (1.8,1.2)};
+\draw  plot  coordinates {(-1.8,1.2) (-1,2.3) (1,2.3) (1.8,1.2)};
+\draw  plot  coordinates {(-2.5,0) (-1,-0.2) (1,-0.2) (2.5,0)};
+\draw  plot  coordinates {(-2.3,0) (-2.3,-0.8) (-1.5,-0.8) (-1.5,-0.1)};
+\draw  plot coordinates {(2.3,0) (2.3,-0.8) (1.5,-0.8) (1.5,-0.1)};
+\end{scope}
+
+\coordinate (GD) at (2.5,0); \coordinate (GG) at (-2.5,0);
+\coordinate (HD) at (3.5,0); \coordinate (HG) at (-3.5,0);
+\coordinate (PD) at (3.5,-2);\coordinate (PG) at (-3.5,-2);
+\coordinate (ZD) at (3.5,-3);\coordinate (ZG) at (-3.5,-3);
+\coordinate (ZhautD) at (3.5,1.5);\coordinate (ZhautM) at (6,1.5);
+\coordinate (PM) at (6,0.5);\coordinate (bati) at (6,-2);
+
+%style des solides, couleurs épaisseurs
+\tikzstyle{Chassis0}=[black,thick];
+\tikzstyle{Vis1}=[blue,thick];
+\tikzstyle{Vis2}=[red,thick];
+\tikzstyle{Bras3}=[brown,thick];
+\tikzstyle{Bras4}=[gray,thick];
+\tikzstyle{AxeMoteur5}=[green,thick];
+
+% liaisons 
+\begin{small}
+\scSolides{Bras3}{Chassis0} \scGlissierex[90]{glissG}{GG}
+\scSolides{Bras3}{Vis1} \scHelicoidalex[90]{heliG}{HG}
+\scSolides{Chassis0}{Vis1} \scPivotx[90]{pivG}{PG}
+\scRoueDentee{ZG}{1cm} % le noeud associé est note ZG#1
+
+\scSolides{Bras4}{Chassis0} \scGlissierex[90]{glissD}{GD}
+\scSolides{Bras4}{Vis2} \scHelicoidalex[-90]{heliD}{HD}
+\scSolides{Chassis0}{Vis2} \scPivotx[90]{pivD}{PD}
+\scRoueDentee{ZD}{1cm}
+\scPoulie{ZhautD}{0.3cm}
+\scSolides{Chassis0}{AxeMoteur5}\scPivotx[90]{pivM}{PM}
+\scPoulie{ZhautM}{0.8cm}
+\scBati[90]{Bati}{bati}
+\end{small}
+
+\draw[Bras3] (heliG)-- (glissG)coordinate[name=finbrasgauche,pos=5] -- 
+(finbrasgauche)coordinate[midway, name=bras3];
+\draw[Bras4] (heliD)--(glissD) coordinate[name=finbrasdroit,pos=5]  -- 
+(finbrasdroit)coordinate[midway, name=bras4];
+\draw[Chassis0] (glissD) |- (pivD) -- (Bati);
+\draw[Chassis0] (glissG) |- (pivG) -- (pivD)-- ++(1.8cm,0)|- (pivM)coordinate[pos=0.1, name=bat];
+\draw[Vis2] (ZD) --(pivD) -- (heliD)coordinate[pos=0.7, name=vis2]  -- (ZhautD);
+\draw[Vis1] (ZG) -- (pivG) -- (heliG) coordinate[pos=0.7, name=vis1];
+\draw[AxeMoteur5] (pivM) -- (ZhautM);
+\draw[dotted,thick,black] (RDZD) -- (RDZG);
+\draw[dotted,thick,black] (PoulZhautD) -- (PoulZhautM);
+
+\draw[<-] (bras3) -- ++ (-0.5,1.2) node[above]{Bras 3};
+\draw[<-] (bras4) -- ++ (0.5,1.2) node[above]{Bras 4};
+\draw[<-] (vis1) -- ++ (-1,0.5) node[above]{Vis 1};
+\draw[<-] (vis2) -- ++ (1,0.5) node[above]{Vis 2};
+\draw[<-] (bat) -- ++ (0.5,0.5) node[above right]{Chassis 0};
+\end{tikzpicture}
+\end{tkzexample}
+
+
+
+\subsection{Direction Scooter Piaggio  }
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+\tikzstyle{chassis0}=[black, thick];
+\tikzstyle{bras1}=[blue, thick];
+\tikzstyle{bras2}=[purple, thick];
+\tikzstyle{colonne3}=[red, thick];
+\tikzstyle{colonne4}=[green, thick];
+\tikzstyle{roue}=[thick,brown];
+\tikzstyle{axe}=[thick,gray];
+
+\path (-2,0) coordinate(Og) -- (0,0) coordinate(O) -- (2,0) coordinate(Od);
+\begin{scope}[rotate=-15]
+\draw[-latex,thin,dashed] (O) -- (0,6.5)coordinate(O1) --(0,8.5)coordinate(O2)--(0,9.2);
+\path[thin] (Og) -- +(0,2) coordinate(R1) -- +(0,5)coordinate(M1)-- 
+ +(0,6.5)coordinate(G1) -- +(0,8.5)coordinate(G2);
+\path[thin] (Od) -- +(0,2) coordinate(R2) -- +(0,5)coordinate(M2)-- 
++(0,6.5)coordinate(D1) -- +(0,8.5)coordinate(D2);
+
+\scSolides{chassis0}{bras1}
+\scPivot{pivO1}{O1}
+\scSolides{chassis0}{bras2}
+\scPivot{pivO2}{O2}
+\draw[chassis0] (pivO1)--(pivO2)node[right,midway]{0};
+
+\scSolides{colonne3}{bras1}
+\scPivot{pivG1}{G1}
+\scSolides{colonne3}{bras2}
+\scPivot{pivG2}{G2}
+\scSolides{colonne3}{axe}
+\scPivotx[90]{pivM1}{M1}
+\draw[colonne3] (pivG2)--(pivG1)node[left,midway,black]{3}--++(0,-1.5em)--++(-1.5em,0) |- (pivM1);
+\scSolides{roue}{axe}
+\scPivotx{pivR1}{R1}
+\draw[axe] (pivM1.west) -|(pivR1.east)node[right,pos=0.7,black]{5};
+
+\path[roue] (pivR1)--++(0,-1.7)coordinate(I1);\path[roue] (pivR1)--++(0,1.7)coordinate(J1);
+\node[ roue,circle,draw,minimum size=2em](PJ1) at (J1){};
+
+\scSolides{colonne4}{bras1}
+\scPivot{pivD1}{D1}
+\scSolides{colonne4}{bras2}
+\scPivot{pivD2}{D2}
+\scSolides{colonne4}{axe}
+\scPivotx[90]{pivM2}{M2}
+\draw[colonne4] (pivD2)--(pivD1)node[right,midway,black]{4}--++(0,-1.5em)--++(1.5em,0) |- (pivM2);
+\scSolides{roue}{axe}
+\scPivotx{pivR2}{R2}
+\draw[axe] (pivM2.west) -|(pivR2.west)node[left,pos=0.7,black]{6};
+
+\draw[bras1] (pivD1) -- (pivO1)node[above,midway,black]{1} -- (pivG1);
+\draw[bras2] (pivD2) -- (pivO2)node[above,midway,black]{2} -- (pivG2);
+
+\path[roue] (pivR2)--++(0,-1.7)coordinate(I2);\path[roue] (pivR2)--++(0,1.7)coordinate(J2);
+\node[ roue,circle,draw,minimum size=2em](PJ2) at (J2){};
+
+\end{scope}
+
+\node[ roue,circle,draw,minimum size=2em](PI1) at (I1){};
+\node[ roue,circle,draw,minimum size=2em](PI2) at (I2){};
+
+\draw[roue] (PI1) -- (pivR1)node[left,midway,black]{roue 7} -- (PJ1);
+\draw[roue] (PI2) -- (pivR2)node[left,midway,black]{roue 8} -- (PJ2);
+
+\draw[fill=gray!15] (PI1.south) --++(-1,0)coordinate(coin) --(PI2.south) --++(1,0)--++(0,-0.5)-|(coin);
+
+\node[above left=0.2em of O1]{$O_1$};
+\node[above left=0.2em of O2]{$O_2$};
+
+\node[above left=0.2em of G1]{$G_1$};
+\node[above left=0.2em of G2]{$G_2$};
+
+\node[above right=0.2em of D1]{$D_1$};
+\node[above right=0.2em of D2]{$D_2$};
+\end{tikzpicture}
+\end{tkzexample}
+
+\subsection{Scooter Piaggio - 2 }
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+\tikzstyle{S10}=[black, thick];
+\tikzstyle{S13}=[blue, thick];
+\tikzstyle{S14}=[purple, thick];
+\tikzstyle{C3}=[red, thick];
+\tikzstyle{S12}=[violet, thick];
+\tikzstyle{roue}=[ultra thick,brown,dotted];
+\tikzstyle{S11}=[thick,gray];
+
+\draw[-latex] (0,0)coordinate (I) -- (3,0) node[above]{$\vv{y_0}$};
+\draw[-latex] (I) -- (0,3.3) node[left]{$\vv{z_0}$};
+
+\coordinate(O) at (0,2);
+
+\scSolides{S11}{roue}
+\scPivot{pivO}{O}
+\node[roue,draw,circle,minimum size=4cm] (R) at (O) {};
+\draw[roue] (R.-115) -- (pivO);
+
+\begin{scope}[shift={(O)},rotate=-15]
+\draw[-latex,ultra thin] (O) -- (0,2.5)coordinate(G1) -- (0,3.8) coordinate(P2)-- (0,4.5)coordinate(N)-- (0,6)node[left]{$\vv{z_{13}}$};
+
+\scSolides{S13}{S12}
+\scGlissierex[90]{glisG1}{G1};
+\scSolides{S10}{S12}
+\scPivot{pivN}{N}
+\draw[S12](pivO) -- (glisG1)node[right,midway,black]{12};
+\draw[S13] (glisG1) --++(1.5em,0) |- (P2)node[right,pos=0.4,black]{13} -- (pivN);
+
+\path (-1cm,0.5cm) coordinate(M)-- ++(0,3.2cm)coordinate(G2);
+\scSolides{S12}{S14}
+\scPivot{pivM}{M}
+\draw[S12] (pivM) -- (pivM-|glisG1);
+\scSolides{S13}{S14}
+\scPivotGlissantx[90]{glisG2}{G2};
+\draw[S14](glisG2) -- (pivM)node[midway,left,black]{14};
+
+\draw[S13](glisG2) -| (pivN);
+
+\end{scope}
+
+\path (O) --++(1.8cm,0.3cm) coordinate(P);
+\begin{scope}[shift={(P)},rotate=-10]
+\scSolides{S11}{S10}
+\scPivot{pivP}{P}
+\path (P) -- (0,5.5)coordinate(G3);
+\scSolides{C3}{S12}
+\scPivotx[90]{pivG3}{G3};
+\draw[S11] (pivO) -- (pivP) node[below,midway,black]{11};
+\draw[S10](pivP) -- (pivG3)node[midway,right,black]{10}coordinate[pos=0.9](P4);
+\draw[S10] (pivN) -- (P4);
+\end{scope}
+
+\draw[C3] (pivG3) --++(1,0) --++(0,0.5)--++(0,-1)node[below,text width=1.5cm]{colonne 3 ou 4};
+
+\node[left=0.8em of O]{O};
+\node[above left=0.8em of N]{N};
+\node[above left=0.8em of M]{M};
+\node[right=0.8em of P]{P};
+
+\draw[latex-] (glisG1) -- ++ (-2,+1) node[left,text width=3.5cm]{Bras de suspension, le ressort n'est pas représenté};
+
+\draw[latex-] (glisG2) -- ++ (-1.5,+1) node[left,text width=3cm]{Verrou de blocage libre};
+\end{tikzpicture}
+\end{tkzexample}
+
+
+
+
+
+
+\section{Vers le 3D}
+
+Dès que les possibilité de pgf/tikz le permettront, ce package évoluera pour permettre la  représentation spatiale des liaisons afin de réaliser des schémas cinématiques 3D. 
+
+Pour l'instant, il est possible de réaliser ce type de schéma avec les commandes de base de tikz.
+
+\begin{tkzexample}[very small]
+\begin{tikzpicture}[scale=0.8, aspect=0.5,minimum height=1.5cm,minimum width=0.8cm]
+\coordinate (O) at (0,0,0); \coordinate (A) at (3,5.5,0);
+\coordinate (B) at (3,2,-1.5); \coordinate (C) at (0,5.5,0);
+\node [cylinder, cylinder uses custom fill, cylinder end fill=red!50,
+cylinder body fill=red!25](pivO) at (O) {0};
+\node [cylinder, cylinder uses custom fill, cylinder end fill=black!50,
+cylinder body fill=black!25](pivB) at (B) {B};
+\node [cylinder, cylinder uses custom fill, cylinder end fill=black!50,
+cylinder body fill=black!25] (pivA) at (A) {A};
+\node [cylinder, cylinder uses custom fill, shape border rotate=90, cylinder end fill=blue!50,
+cylinder body fill=blue!25] (pivC)at (C) {C};
+
+\draw[red,thick] (pivO) -- (pivC)coordinate[pos=0.5,name=carter]coordinate[pos=1.3,name=fin]--(fin);
+\draw[blue,thick] (pivC) -- (pivA)coordinate[pos=0.5,name=guide]coordinate[pos=0.9,name=g]
+ coordinate[pos=1.5,name=fin]--++(2,0,0)coordinate[pos=0.2,name=d]--(d)--++(0,0.5,0)--++(0,-1,0)--
+++(0,0.5,0) --(pivA) -- (g)--++(0,0.5,0)--++(0,-1,0);
+\draw[black,thick] (pivA) -- (pivB)coordinate[pos=0.5,name=patte]coordinate[pos=2.5,name=P]--(P);
+\draw[brown,thick] (pivO) -- (1.5,0,0)coordinate[name=c1]coordinate[pos=0.2,name=d1]  --
+ (1.5,2,-1.5)coordinate[pos=0.5,name=maneton]coordinate[name=c2]--( pivB)coordinate[pos=0.8,name=g]
+  --++(2,0,0)coordinate[pos=0.2,name=d]--(d)--++(0,0.5,0)--++(0,-1,0)--++(0,0.5,0) --(pivB) --
+ (g)--++(0,0.5,0)--++(0,-1,0);
+\draw[brown,thick] (pivO) -- (-1.5,0,0)coordinate[pos=0.2,name=g1] --(g1)--++(0,0.5,0)--++(0,-1,0)--
+++(0,0.5,0)--(pivO) --(d1)--++(0,0.5,0)--++(0,-1,0);
+
+\begin{scope}[ultra thin,-latex]
+\draw (pivO) -- (6,0,0) node[pos=0.95,above]{$\vv{z_0}$};
+\draw (c1) -- (c2)coordinate[pos=1.3,name=fin]--(fin) node[pos=0.95,left]{$\vv{x_1}$};
+\draw (c1) -- ++(0,0,-4) node[pos=0.95,right]{$\vv{x_0}$};
+\draw (pivO) -- (pivC) coordinate[pos=1.6,name=fin]--(fin)node[pos=0.95,right]{$\vv{y_0}$};
+\draw (pivB) -- (pivA) coordinate[pos=2,name=fin]--(fin)node[pos=0.95,right]{$\vv{y_2}$};
+\end{scope}
+\scPoint[right]{P}{P}
+
+\scRef[1,1]{carter}{0} \scRef[1,1]{patte}{2}
+\scRef[1,1]{guide}{3}  \scRef[-1,1]{maneton}{1}
+
+\end{tikzpicture}
+\end{tkzexample}
+
+
+
+\section{Installation}
+\begin{itemize}
+\item Copier  le package rpcinematik.sty dans votre répertoire localtexmf/tex/latex \dots
+\item Placer dans l'entête de votre document \verb"\usepackage{rpcinematik}"
+\end{itemize}
+\end{document}

@@ -1,0 +1,35 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	NOTATION TORSEURS
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%Ecriture
+%--------------------------------------
+\newcommand{\T}			{\ensuremath{	\mathcal{T}			}}	%T en joli
+\newcommand{\torseur}[1]	{\ensuremath{	\left\lbrace #1\right\rbrace	}}	%Torseur quelconque
+\newcommand{\tT}{\ensuremath{\torseur{\mathcal{T}}}}	%Torseur T
+\newcommand{\tNul}{\ensuremath{\torseur{0}}}	%Torseur T
+
+%Elements de reduction
+\newcommand{\M}	{\ensuremath{	\mathcal{M}	}}	%M en joli
+\newcommand{\resultante}[2][]	{\ifthenelse{\equal{#1}{}}
+					{\ensuremath{	\vecteur{R_{\left(#2\right)}}	}}
+					{\ensuremath{	\vecteur{R_{\left(#1\rightarrow#2\right)}}	}}}	%\restultante[origine]{ensembleIsole}
+\newcommand{\moment}[3][]	{\ifthenelse{\equal{#1}{}}
+					{\ensuremath{	\vecteur{{\M_{#2}}_{\left(#3\right)}}	}}
+					{\ensuremath{	\vecteur{{\M_{#1}}_{\left(#2\rightarrow#3\right)}}	}}}
+\newcommand{\torseurLigne}[3]	{\ensuremath{	\indiceGauche{#1}{\left\lbrace\begin{array}{c}#2\\#3\end{array}\right\rbrace}	}}
+\newcommand{\tLigne}[3]		{\ensuremath{	\torseurLigne{#1}{#2}{#3}	}}
+\newcommand{\torseurColonne}[4]	{\ensuremath{	\indiceGauche{#1}{\left\lbrace\begin{array}{c}#2\end{array}\begin{array}{c}#3\end{array}\right\rbrace}_{#4}	}}
+\newcommand{\tColonne}[4]	{\ensuremath{	\torseurColonne{#1}{#2}{#3}{#4}	}}
+
+
+%Operateurs
+\newcommand{\automoment}[1][\T]{\ensuremath{a_{(#1)}}}
+
+
+

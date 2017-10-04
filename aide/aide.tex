@@ -1,0 +1,443 @@
+%ENTETE / INCLUDES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,10pt]{article}
+
+\input{../packages.tex}
+\import{../}{notations.tex}
+\input{../style.tex}
+
+
+
+%Infos pages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand	{\partie}		{Cinématique}
+\renewcommand	{\titre}		{Cinématique du solide}
+\renewcommand	{\numero}		{1}
+\renewcommand	{\auteur}		{Raphaël ALLAIS}
+\renewcommand	{\etablissement}	{Lycée Gustave Eiffel de Dijon}
+\renewcommand	{\discipline}		{Sciences de L'ingénieur}
+\renewcommand	{\classe}		{Classe préparatoire P.T.S.I.}
+\renewcommand	{\annee}		{2011 - 2012}
+\renewcommand	{\icone}		{../../latex/images/logo_eiffel.png}
+
+
+%DEBUT DU DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%ù
+\begin{document}
+	\subsection{Commandes de base}
+	%------------------------------------
+	\newcommand{\bs}{\textbackslash}
+
+		\subsubsection{Lettres grecques oubliées}
+		%...........................................
+
+			\begin{tabular}{|c|c|c|}
+				\hline
+					\bs Mu			&	\Mu			& Le $\mu$ grecque majuscule\\
+				\hline
+			\end{tabular}
+
+		\subsubsection{Mise en forme du texte}
+		%........................................
+			\begin{tabular}{|c|c|c|}
+				\hline
+					\bs gras\{mon texte\}	&	\gras{mon texte}	& Mettre le texte en gras (identique à \bf textbf)\\
+				\hline
+					\bs bouton\{Mon texte\}	&	\bouton{mon texte}	& Fait un bouton (pour représenter une icône, par exemple)\\
+				\hline
+			\end{tabular}
+
+	\subsection{Maths générales}
+	%.................................
+
+		\begin{tabular}{|c|c|c|}
+			\hline
+				\bs R					&	\R			& Ensemble des réels\\
+			\hline
+				\bs ssi					&	\ssi			& \\
+			\hline
+				\bs indiceGauche\{i\}\{X\}		&	\indiceGauche{i}{X}	& Indice à gauche \\
+			\hline
+				\bs exposantGauche\{i\}\{X\}		&	\exposantGauche{i}{X}	& Exposant à gauche \\
+			\hline
+				\bs transposee\{M\}			&	$\transposee{M}$	& Symbole transposée\\
+			\hline
+				\bs fonction\{f\}\{x\}			&	\fonction{f}{x}		& Met en forme une fonction\\
+			\hline
+				\bs f\{g\}\{x\}				&	\f{g}{x}		& Raccourci de \bs fonction\\
+			\hline
+				\bs deriv\{f\}\{t\}			&	\deriv{f}{t}		& Dérivation \\
+			\hline
+				\bs deriv[R]\{f\}\{t\}			&	\deriv[R]{f}{t}		& Dérivation dans un repère\\
+			\hline			
+				\bs angle\{ABC\}			&	\angle{ABC}		& Met en forme un angle (remplace le symbole angle)\\
+			\hline
+				\bs couple\{A\}\{B\}			&	\couple{A}{B}		& Couple d'objets\\
+			\hline
+				\bs triplet\{A\}\{B\}\{C\}		&	\triplet{A}{B}{C}		& Triplet d'objets\\
+			\hline
+				\bs quadruplet\{A\}\{B\}\{C\}\{D\}	&	\quadruplet{A}{B}{C}{D}		& Quadruplet d'objets\\
+			\hline
+				\bs segment\{AB\}			&	\segment{AB}				& Segment\\
+			\hline
+				\bs droite\{AB\}			&	\droite{AB}				& Droite\\
+			\hline
+		\end{tabular}
+
+
+
+	\subsection{Analyse fonctionnelle}
+	%-------------------------------------
+
+			\begin{tabular}{|c|c|c|}
+				\hline
+					\bs MO				&	\MO			& \\
+				\hline
+					\bs VA				&	\VA			& \\
+				\hline
+			\end{tabular}
+
+
+	\subsection{Asservissements}
+	%---------------------------------
+
+			\begin{tabular}{|c|c|c|}
+				\hline
+					\bs TOR				&	\TOR			& \\
+				\hline
+					\bs L				&	\L			& Symbole de Laplace (ancien L barré)\\
+				\hline
+			\end{tabular}
+
+	\subsection{Vecteurs}
+	%--------------------------------
+
+		\subsubsection{Commandes de base}
+		%...................................
+
+			\begin{tabular}{|c|c|p{10cm}|}
+				\hline
+					\bs vecteur\{V\}			&	\vecteur{V}			& écriture de base d'un vecteur\\
+				\hline
+					\bs vecteurIndice\{V\}\{i\},	&	\vecteurIndice{V}{i}		& vecteur avec un indice. Si l'indice est un espace, alors le vecteur redevient classique\\
+				\hline
+					\bs vecteurChamp\{OP\}\{t\}		&	\vecteurChamp{OP}{t}		& combinaison entre \bs vecteur et \bs fonction \\
+				\hline
+					\bs bipoint\{A\}\{B\}		&	\bipoint{A}{B}		& Bipoint.\\
+				\hline
+			\end{tabular}
+
+		\subsubsection{Espaces}
+		%...........................
+
+			\emph{(Le nom des espaces commence toujours par un ``e'')}
+
+			\begin{tabular}{|c|c|p{10cm}|}
+				\hline
+					\bs eAffine		&	\eAffine		& Espace Affine de dimension 3.	\\
+				\hline
+					\bs eAffine[n]		&	\eAffine[n]		& Espace Affine de dimension n.	\\
+				\hline
+					\bs eVectoriel		&	\eVectoriel		& Espace Vectoriel de dimension 3.\\
+				\hline
+					\bs eVectoriel[n]	&	\eVectoriel[n]		& Espace Vectoriel de dimension n.\\
+				\hline
+			\end{tabular}
+
+		\subsubsection{Représentation des vecteurs}
+		%............................................;
+
+			\begin{tabular}{|c|c|p{10cm}|}
+				\hline
+					\bs vColonne\{x\}\{y\}\{z\}	&	\vColonne{x}{y}{z}	& Vecteur colonne (sans la base).\\
+				\hline
+					\bs vColonne[B]\{x\}\{y\}\{z\}	&	\vColonne[B]{x}{y}{z}	& Vecteur colonne (avec base).\\
+				\hline
+			\end{tabular}
+
+		\subsubsection{Opérateurs vectoriels}
+		%.......................................
+
+			\begin{tabular}{|c|c|p{10cm}|}
+				\hline
+					\bs norme\{X\}				&	\norme{X}			& Norme.\\
+				\hline
+					\bs abs\{X\}				&	\abs{X}				& Valeur absolue / module.\\
+				\hline
+					\bs prodMixte\{A\}\{B\}\{C\}		&	\prodMixte{A}{B}{C}		& Produit mixte.\\
+				\hline
+					\bs doubleProdVect\{A\}\{B\}\{C\}	&	\doubleProdVect{A}{B}{C}	& Double produit vectoriel\\
+				\hline
+			\end{tabular}
+
+
+		\subsubsection{Vecteur Pré-fabriqués}
+		%.......................................
+
+			\emph{(Tous les noms de vecteur commencent par la lettre ``v'')}
+
+			\begin{tabular}{|c|c|p{10cm}|}
+				\hline
+					\bs vNul				&	\vNul			& Vecteur Nul\\
+				\hline
+					\bs vPreFab\{U\}			&	\vPreFab{U}			& Vecteur qui permet de choisir entre un vecteur ou un champ
+															(Certains vecteurs héritent de ça)	\\
+				\hline
+					\bs vPreFab[M]\{U\}			&	\vPreFab[M]{U}			& Vecteur qui permet de choisir entre un vecteur ou un champ
+															(Certains vecteurs héritent de ça)	\\
+				\hline
+					\bs ve\{i\}				&	\ve{i}			& Vecteurs e...	\\
+				\hline
+					\bs ve1 				&	\ve1		& (valable pour tous chiffres \ve2, \ve3, ...)\\
+				\hline
+					\bs vex					&	\vex 			& \\
+				\hline
+					\bs vey					&	\vey 			& \\
+				\hline
+					\bs vez					&	\vez 			& \\
+				\hline
+					\bs vu					&	\vu 			& \\
+				\hline
+					\bs vu[M]				&	\vu[M] 			& \\
+				\hline
+					\bs vv					&	\vv 			& \\
+				\hline
+					\bs vv[M]				&	\vv[M] 			& \\
+				\hline
+					\bs vw					&	\vw 			& \\
+				\hline
+					\bs vw[M]				&	\vw[M] 			& \\
+				\hline
+					\bs vU					&	\vU 			& \\
+				\hline
+					\bs vU[M]				&	\vU[M] 			& \\
+				\hline
+					\bs vV					&	\vV 			& \\
+				\hline
+					\bs vV[M]				&	\vV[M] 			& \\
+				\hline
+					\bs vW					&	\vW 			& \\
+				\hline
+					\bs vW[M]				&	\vW[M] 			& \\
+				\hline
+					\bs vOM					&	\vOM 			& \\
+				\hline
+					\bs OM					&	\vOM 			& (identique à \bs vOM)\\
+				\hline
+					\bs vOM[M]				&	\vOM[M]			& \\
+				\hline
+					\bs vOP					&	\vOP			& \\
+				\hline
+					\bs OP					&	\vOP 			& (identique à \bs vOP)\\
+				\hline
+					\bs vOP[M]				&	\vOP[M]			& \\
+				\hline
+					\bs vi					&	\vi			& \\
+				\hline
+					\bs vi\{0\}				&	\vi0			& \\
+				\hline
+					\bs vj					&	\vj			& \\
+				\hline
+					\bs vj\{0\}				&	\vj0			& \\
+				\hline
+					\bs vk					&	\vk			& \\
+				\hline
+					\bs vk\{0\}				&	\vk0			& \\
+				\hline
+			\end{tabular}
+
+		\subsubsection{Bases}
+		%.......................;
+
+			\begin{tabular}{|c|c|p{10cm}|}
+				\hline
+					\bs B					&	\B				& Symbole de base.\\
+				\hline
+					\bs Bxyz				&	\Bxyz				& Base x y z\\
+				\hline
+					\bs Buvw				&	\Buvw				& Base u v w\\
+				\hline
+			\end{tabular}
+
+
+
+
+	\subsection{Torseurs}
+	%-----------------------
+
+		\subsubsection{Globalament}
+		%..............................
+
+			\begin{tabular}{|c|c|p{10cm}|}
+				\hline
+					\bs T					&	\T				& Symbole torseur.\\
+				\hline
+					\bs torseur\{X\}			&	\torseur{X}			& Torseur X.\\
+				\hline
+					\bs tT					&	\tT				& Torseur \T	\\
+				\hline
+			\end{tabular}
+
+		\subsubsection{Éléments de réduction}
+		%........................................;
+
+			\begin{tabular}{|c|c|p{10cm}|}
+				\hline
+					\bs M					&	\M				& ``M'' de moment\\
+				\hline
+					\bs resultante				&	\resultante			& Résultante (générique) du torseur (\torseur{\T} par défaut)\\
+				\hline
+					\bs resultante[1/2]			&	\resultante[1/2]		& Résultante (générique)\\
+				\hline
+					\bs moment\{A\}				&	\moment{A}			& Moment au point A du torseur (\torseur{\T} par défaut)\\
+				\hline
+					\bs moment[1/2]\{A\}			&	\moment[1/2]{A}		& Moment au point A\\
+				\hline
+			\end{tabular}
+
+			\begin{tabular}{|c|c|l|}
+				\hline
+					\bs torseurLigne\{A\}\{\bs vu\}\{\bs vv\}	&	\torseurLigne{A}{\vu}{\vv}			& torseur ligne\\
+				\hline
+					\bs tLigne\{A\}\{\bs vu\}\{\bs vv\}		&	\tLigne{A}{\vu}{\vv}				& raccourci de \bs torseurLigne\\
+				\hline
+					\bs torseurColonne\{A\}\{X\bs\bs Y\bs\bs Z\}\{L\bs\bs M\bs\bs N\}\{R\}	&	\torseurColonne{A}{X\\Y\\Z}{L\\M\\N}{R}	& Torseur colonne\\
+				\hline
+					\bs tColonne\{A\}\{X\bs\bs Y\bs\bs Z\}\{L\bs\bs M\bs\bs N\}\{R\}	&	\tColonne{A}{X\\Y\\Z}{L\\M\\N}{R}	& Raccourci de \bs torseurColonne\\
+				\hline
+			\end{tabular}
+
+		\subsubsection{Opérateurs}
+		%............................;
+
+			\begin{tabular}{|c|c|l|}
+				\hline
+					\bs automoment 		&	\automoment		& Automoment (par défaut de \tT)\\
+				\hline
+					\bs automoment[1/2]	&	\automoment[1/2]	& Automoment\\
+				\hline
+			\end{tabular}
+
+
+
+
+	\subsection{cinématique}
+	%------------------------------
+
+
+			\begin{tabular}{|c|c|l|}
+				\hline
+					\bs V				&	\V		& Symbole du torseur cinématique\\
+				\hline
+					\bs tCinematique\{1\}\{2\}	&	\tCinematique{1}{2}		& Torseur cinématique\\
+				\hline
+					\bs tV\{1\}\{2\}		&	\tV{1}{2}		& Raccourci de \bs tCinematique \\
+				\hline
+			\end{tabular}
+
+
+
+
+
+
+
+	\subsection{Les boîtes}
+	%------------------------
+
+
+
+
+		\subsubsection{Définitions :}
+
+			\fbox{	\begin{minipage}{10cm}
+					\gras{\bs begin\{}definition\gras{\}}[Titre optionnel]\\
+						Ma définition\\
+					\gras{\bs end\{}definition\gras{\}}
+				\end{minipage}}
+
+			\begin{definition}[Titre optionnel]
+				Ma définition
+			\end{definition}
+
+
+
+			\fbox{	\begin{minipage}{10cm}
+					\gras{\bs begin\{}definitions\gras{\}}[Titre optionnel]\\
+						\gras{\bs item} définition 1\\
+						\gras{\bs item} définition 2\\
+					\gras{\bs end\{}definitions\gras{\}}
+				\end{minipage}}
+
+			\begin{definitions}[Titre optionnel]
+				\item définition 1
+				\item définition 2
+			\end{definitions}
+
+
+
+
+
+		\subsubsection{Remarques :}
+
+			\fbox{	\begin{minipage}{10cm}
+					\gras{\bs begin\{}remarque\gras{\}}[Titre optionnel]\\
+						\qquad Ma remarque\\
+					\gras{\bs end\{}remarque\gras{\}}
+				\end{minipage}}
+
+			\begin{remarque}[Titre optionnel]
+				Ma remarque
+			\end{remarque}
+
+
+
+
+		\fbox{	\begin{minipage}{10cm}
+				\gras{\bs begin\{}remarques\gras{\}}[Titre optionnel]\\
+					\gras{\bs item} première remarque\\
+					\gras{\bs item} deuxième remarque\\
+				\gras{\bs end\{}remarques\gras{\}}
+			\end{minipage}}
+
+		\begin{remarques}[Titre optionnel]
+			\item première remarque
+			\item deuxième remarque
+		\end{remarques}
+
+
+
+
+
+		\subsubsection{Attention :}
+
+			\fbox{	\begin{minipage}{10cm}
+					\gras{\bs begin\{}attention\gras{\}}[Titre optionnel]\\
+						Il faut faire attention !\\
+					\gras{\bs end\{}attention\gras{\}}
+				\end{minipage}}
+
+
+
+			\begin{attention}[Titre optionnel]
+				Il faut faire attention
+			\end{attention}
+
+
+
+
+		\subsubsection{Important :}
+
+			\fbox{	\begin{minipage}{10cm}
+					\gras{\bs begin\{}important\gras{\}}[Titre optionnel]\\
+						Chose importante.\\
+					\gras{\bs end\{}important\gras{\}}
+				\end{minipage}}
+
+
+
+			\begin{important}[Titre optionnel]
+				Chose importante.
+			\end{important}
+
+
+\end{document}

@@ -1,0 +1,591 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	BOITES
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% Environnements
+%==================================
+
+\newcommand{\tailleDesBoites}{0.9}%pourcentage de la taille de la ligne
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEFINITION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_definition}{RGB}{255,245,245}
+\definecolor{bord_definition}{RGB}{0,0,0} 
+
+\newcounter{cptDefinition}	%Compteur de definitions
+
+\newenvironment{definition}[1][]	{\refstepcounter{cptDefinition}
+					\begin{center}
+						\begin{minipage}{\tailleDesBoites\linewidth}
+							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{Définition \thecptDefinition\ : \emph{#1}}}
+					{		\end{bclogo}
+						\end{minipage}
+					\end{center}}
+
+\newenvironment{definitions}[1][]	{\refstepcounter{cptDefinition}
+					\begin{center}
+						\begin{minipage}{\tailleDesBoites\linewidth}
+							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{Définitions \thecptDefinition\ : \emph{#1}}
+								\begin{itemize}}
+					{			\end{itemize}
+							\end{bclogo}
+						\end{minipage}
+					\end{center}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PRINCIPE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_principe}{RGB}{255,245,245}
+\definecolor{bord_principe}{RGB}{0,0,0} 
+
+\newenvironment{principe}[1][]	{	\begin{center}
+						\begin{minipage}{\tailleDesBoites\linewidth}
+							\begin{bclogo}[couleur=fond_principe,couleurBord=bord_principe,arrondi=0.2,logo=\bcplume]{Principe : \emph{#1}}}
+					{		\end{bclogo}
+						\end{minipage}
+					\end{center}}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Remarques
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_remarque}{RGB}{255,255,255}%{245,245,255} %Couleur du fond
+\definecolor{bord_remarque}{RGB}{200,200,200}
+
+\newcounter{cptRemarque}	%Compteur de remarques
+
+\newenvironment{remarque}[1][]	{\refstepcounter{cptRemarque}	%Incremente le compteur
+					\begin{center}
+						\begin{minipage}{\tailleDesBoites\linewidth}
+							\begin{bclogo}[couleur=fond_remarque,couleurBord=bord_remarque,arrondi=0.2,logo=\bcinfo]{Remarque \thecptRemarque\ : \emph{#1}}}
+				{			\end{bclogo}
+						\end{minipage}
+					\end{center}}
+
+\newenvironment{remarques}[1][]	{\refstepcounter{cptRemarque}
+					\begin{center}
+						\begin{minipage}{\tailleDesBoites\linewidth}
+							\begin{bclogo}[couleur=fond_remarque,couleurBord=bord_remarque,arrondi=0.2,logo=\bcinfo]{Remarques \thecptRemarque\ :\emph{#1}}
+								\begin{itemize}}
+				{				\end{itemize}
+							\end{bclogo}
+						\end{minipage}
+					\end{center}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Attention
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_attention}{RGB}{255,255,255}%{255,240,240} 
+\definecolor{bord_attention}{RGB}{255,200,200}%{255,240,240} 
+
+\newenvironment{attention}[1][]	{\begin{center}
+					\begin{minipage}{\tailleDesBoites\linewidth}
+						\begin{bclogo}[couleur=fond_attention,couleurBord=bord_attention,arrondi=0.2,logo=\bcattention]{Attention : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% IMPORTANT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_important}{RGB}{255,255,255}%{255,240,240} 
+\definecolor{bord_important}{RGB}{255,200,200}%{255,240,240} 
+
+\newenvironment{important}[1][]	{\begin{center}
+					\begin{minipage}{\tailleDesBoites\linewidth}
+						\begin{bclogo}[couleur=fond_important,couleurBord=bord_important,arrondi=0.2,logo=\bcattention]{Important : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROPRIETES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{bord_propriete}{RGB}{200,200,200}
+\definecolor{fond_propriete}{RGB} {245,245,255}
+
+\newcounter{cptPropriete}
+
+\newenvironment{propriete}[1][]	{\refstepcounter{cptPropriete}
+				\begin{center}
+					\begin{minipage}{\tailleDesBoites\linewidth}
+						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{Propriété \thecptPropriete\ : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+\newenvironment{proprietes}[1][]{\refstepcounter{cptPropriete}
+				\begin{center}
+					\begin{minipage}{\tailleDesBoites\linewidth}
+						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{Propriétés \thecptPropriete\ : \emph{#1}}
+							\begin{itemize}}
+				{			\end{itemize}
+						\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{bord_theoreme}{RGB}{200,200,200}
+\definecolor{fond_theoreme}{RGB} {245,245,255}
+
+\newcounter{cptTheoreme}
+
+\newenvironment{theoreme}[1][]	{\refstepcounter{cptTheoreme}
+				\begin{center}
+					\begin{minipage}{\tailleDesBoites\linewidth}
+						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{Théorème \thecptTheoreme\ : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+\newenvironment{theoremes}[1][]	{\refstepcounter{cptTheoreme}
+				\begin{center}
+					\begin{minipage}{\tailleDesBoites\linewidth}
+						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{Théorèmes \thecptTheoreme\ : \emph{#1}}
+							\begin{itemize}}
+				{			\end{itemize}
+						\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXEMPLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_exemple}{RGB}{250,250,250} %Couleur du fond
+\definecolor{bord_exemple}{RGB}{0,0,0} %Couleur du fond
+
+\newcounter{cptExemple}
+
+\newenvironment{exemple}[1][]	{\refstepcounter{cptExemple}
+				\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_exemple,couleurBord=bord_exemple,arrondi=0.2,logo=\bcbook]{Exemple \thecptExemple\ : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+\newenvironment{exemples}[1][]	{\refstepcounter{cptExemple}
+				\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_exemple,couleurBord=bord_exemple,arrondi=0.2,logo=\bcbook]{Exemples \thecptExemple\ : \emph{#1}}
+							\begin{itemize}}
+				{			\end{itemize}
+						\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ASTUCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_astuce}{RGB}{255,255,255}%{250,250,250} %Couleur du fond
+\definecolor{bord_astuce}{RGB}{0,0,0}%{250,250,250} %Couleur du fond
+
+\newcounter{cptAstuce}
+
+\newenvironment{astuce}[1][]	{\refstepcounter{cptAstuce}
+				\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_exemple,couleurBord=bord_astuce,arrondi=0.2,logo=\bclampe]{Astuce \thecptAstuce\ : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+\newenvironment{astuce*}[1][]	{\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_exemple,couleurBord=bord_astuce,arrondi=0.2,logo=\bclampe]{Astuce : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+\newenvironment{astuces}[1][]	{\refstepcounter{cptAstuce}
+				\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_exemple,couleurBord=bord_astuce,arrondi=0.2,logo=\bclampe]{Astuces \thecptAstuce\ : \emph{#1}}
+							\begin{itemize}}
+				{			\end{itemize}
+						\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+\newenvironment{astuces*}[1][]	{\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_exemple,couleurBord=bord_astuce,arrondi=0.2,logo=\bclampe]{Astuces : \emph{#1}}
+							\begin{itemize}}
+				{			\end{itemize}
+						\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEMONSTRATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_demo}{RGB}{255,255,255}%{250,250,250} %Couleur du fond
+\definecolor{bord_demo}{RGB}{0,0,0}%{250,250,250} %Couleur du fond
+
+\newcounter{cptDemonstration}
+
+\newenvironment{demonstration}[1][]	{\stepcounter{cptDemonstration}
+					\begin{center}
+						\begin{minipage}{0.95\linewidth}
+							\begin{bclogo}[couleur=fond_demo,couleurBord=bord_demo,arrondi=0.2,logo=\bcpanchant]{Démonstration \thecptDemonstration\ : \emph{#1}}}
+					{		\end{bclogo}
+						\end{minipage}
+					\end{center}}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RESUME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_resume}{RGB}{255,255,255}%{250,250,250} %Couleur du fond
+\definecolor{bord_resume}{RGB}{0,0,0}%{250,250,250} %Couleur du fond
+
+\newcounter{cptResume}
+
+\newenvironment{resume}[1][]	{\stepcounter{cptResume}
+					\begin{center}
+						\begin{minipage}{0.95\linewidth}
+							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{Résumé \thecptResume\ : \emph{#1}}}
+					{		\end{bclogo}
+						\end{minipage}
+					\end{center}}
+
+\newenvironment{resume*}[1][]	{	\begin{center}
+						\begin{minipage}{0.95\linewidth}
+							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{Résumé : \emph{#1}}}
+					{		\end{bclogo}
+						\end{minipage}
+					\end{center}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAKING-OF
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%MakingOf
+
+%Booleen qui affiche les notes - commentaires
+\newboolean{makingOf}
+%\setboolean{makingOf}{false}	%Petite condition qui choisit entre 2 formats d'image
+\newcommand{\setMakingOfOn}{\setboolean{makingOf}{true}}	%Active le texte à trous
+\newcommand{\setMakingOfOff}{\setboolean{makingOf}{false}}	%Active le texte à trous
+\setMakingOfOff
+
+\definecolor{fond_makingOf}{RGB}{230,255,230} %Couleur du fond
+\definecolor{bord_makingOf}{RGB}{0,0,0} %Couleur du bord
+
+\newenvironment{makingOf}	{
+					\setbox0=\vbox\bgroup
+				}
+				{
+					\egroup
+					\ifthenelse{\boolean{makingOf}}
+						{
+							\begin{bclogo}[couleur=fond_makingOf,couleurBord=bord_makingOf,arrondi=0.2,logo=\bcetoile]{Commentaire :}
+								\box0
+							\end{bclogo}
+						}
+						{
+						}
+				}
+%\newenvironment{makingOf}{\begin{center}\begin{minipage}{\linewidth}\begin{bclogo}[couleur=fond_makingOf,couleurBord=black,arrondi=0.2,logo=\bcetoile]{Commentaire :}}{\end{bclogo}\end{minipage}\end{center}}
+
+%Zone a trou (l'argument est l'espace vertical que doit prendre le trou)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEXTE CACHE - TROU
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newbox\dada
+\definecolor{couleurCache}{rgb}{0,0.5,0}
+\newenvironment{texteCache}[1][0cm]	{	\par
+						\ifthenelse{\boolean{texteATrou}}
+							{\vspace{#1}}
+							{}
+						\setbox1=\vbox
+						\bgroup
+					}
+					{	\egroup
+						\ifthenelse{\boolean{texteATrou}}
+							{	\ifthenelse{\boolean{makingOf}}
+									{\textcolor{couleurTrou}{\box1}}
+									{\phantom{\box1}}%{\vphantom{\box1}}
+							}
+							{\box1}
+						\par
+					}
+%\newenvironment{textCache}[1][0cm]{\setbox\dada=\vbox{\vspace{#1}} \setbox1=\vbox\bgroup}{\egroup\ifthenelse{\boolean{textATrou}}{\box\dada}{\box1}}
+%\newenvironment{texteCache}{\setbox1=\hbox\bgroup}{\egroup\ifthenelse{\boolean{textATrou}}{secret}{\box1}}
+
+
+
+\newcommand{\remplaceCache}[2]	{\ifthenelse{\boolean{texteATrou} \AND \NOT \boolean{makingOf}}{#1}{#2}}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OBJECTIF
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{fond_objectif}{RGB}{255,255,255}%{250,250,250} %Couleur du fond
+\definecolor{bord_objectif}{RGB}{0,0,0}%{250,250,250} %Couleur du fond
+
+\newcounter{cptObjectif}
+
+\newenvironment{objectif}[1][]	{\refstepcounter{cptObjectif}
+				\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_objectif,couleurBord=bord_objectif,arrondi=0.2,logo=\bclampe]{Objectif \thecptObjectif\ : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+\newenvironment{objectif*}[1][]	{\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_objectif,couleurBord=bord_objectif,arrondi=0.2,logo=\bclampe]{Objectif : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+\newenvironment{objectifs}[1][]	{\refstepcounter{cptObjectif}
+				\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_objectif,couleurBord=bord_objectif,arrondi=0.2,logo=\bclampe]{Objectifs \thecptObjectif\ : \emph{#1}}
+							\begin{itemize}}
+				{			\end{itemize}
+						\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+\newenvironment{objectifs*}[1][]{\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_objectif,couleurBord=bord_objectif,arrondi=0.2,logo=\bclampe]{Objectifs : \emph{#1}}
+							\begin{itemize}}
+				{			\end{itemize}
+						\end{bclogo}
+					\end{minipage}
+				\end{center}}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXERCICE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{cptExos}
+\newcommand{\exercice}[1]	{\refstepcounter{cptExos}
+				\section*{Exercice \thecptExos : #1}
+				\resetQuestions}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% QUESTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{cptQuestions}
+
+\newcommand{\resetQuestions}{\setcounter{cptQuestions}{0}}
+
+
+\newcommand{\question}[1]
+				{	\par	%Fini un paragraphe
+					\refstepcounter{cptQuestions}
+					%\global\advance\cptQuestions\@ne	%Incrémente le compteur
+					\vspace{0.3cm}
+					\fbox{\gras{Q\thecptQuestions.}} 
+					{\itshape #1 }
+					%\par\vspace{0.3cm}
+				}
+
+%\newenvironment{question}[1][]	{	\par	%Fini un paragraphe
+%					\refstepcounter{cptQuestions}
+%					%\global\advance\cptQuestions\@ne	%Incrémente le compteur
+%					\itshape\vspace{0.3cm}
+%					\fbox{Q\thecptQuestions.} 
+%				}
+%				{
+%					\par\vspace{0.3cm}
+%				}
+
+
+\newenvironment{questions}[1][]	{
+
+					\itshape \vspace{0.3cm}
+					\addtocounter{cptQuestions}{-1}	%Désincrémenter le compteur
+					%\global\advance\cptQuestions-\@ne
+					%\def\labelitemi{\global\advance\cptQuestions\@ne Q\the\cptQuestions.}
+					\renewcommand{\labelitemi}{\refstepcounter{cptQuestions}\fbox{Q\thecptQuestions.}}
+					\begin{itemize}
+				}
+				{
+					\end{itemize}\vspace{0.3cm}
+				}
+
+\newenvironment{question*}[1][]	{	\par	%Fini un paragraphe
+					\itshape\vspace{0.3cm}
+					\fbox{Q.} 
+				}
+				{
+					\par\vspace{0.3cm}
+				}
+
+
+\newenvironment{questions*}[1][]	{
+
+					\itshape \vspace{0.3cm}
+					\renewcommand{\labelitemi}{\fbox{Q.}}
+					\begin{itemize}
+				}
+				{
+					\end{itemize}\vspace{0.3cm}
+				}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REPONSE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newboolean{reponses}
+\newcommand{\setReponsesOn}{\setboolean{reponses}{true}}	%Active le texte à trous
+\newcommand{\setReponsesOff}{\setboolean{reponses}{false}}	%Active le texte à trous
+\setReponsesOff
+
+\newenvironment{reponse}[1][]	{	\par	%Fini un paragraphe
+					\setbox1=\vbox
+					\bgroup
+				}
+				{	\egroup
+					\ifthenelse{\boolean{makingOf}}
+						{\color{red}\box1}
+						{	\ifthenelse{\boolean{reponses}}
+								{\box1}
+								{}
+						}
+					\par
+				}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT RESSOURCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcounter{cptDocRessource}
+
+\newenvironment{docRessource}[1][]
+				{	\renewcommand{\thecptDocRessource}{DOC-\arabic{cptDocRessource}}
+					\refstepcounter{cptDocRessource}
+					\clearpage
+					\newpage %Nouvelle page
+					\appendix
+					
+					
+					\fbox{\GRAND{\thecptDocRessource}}
+				}
+				{	
+					\clearpage
+					\newpage
+				}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT REPONSE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcounter{cptDocReponse}
+
+\newenvironment{docReponse}[1][]
+				{	\renewcommand{\thecptDocReponse}{DR-\arabic{cptDocReponse}}
+					\refstepcounter{cptDocReponse}
+					\clearpage
+					\newpage %Nouvelle page
+					
+					\begin{tabular}{cc}
+						\begin{minipage}{0.5\linewidth}
+							\fbox{\GRAND{\thecptDocReponse}}
+						\end{minipage}
+					&
+						\begin{minipage}{0.5\linewidth}
+							\begin{flushright}\fbox{\GRAND{Nom : \hspace{6cm}}}\end{flushright}
+							                                                   
+						\end{minipage}
+					\end{tabular}
+
+					
+				}
+				{
+					\clearpage
+					\newpage
+				}

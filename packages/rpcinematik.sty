@@ -1,0 +1,418 @@
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{rpcinematik}[2009/01/19]
+
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+\RequirePackage{esvect}
+\usetikzlibrary{shapes,arrows,patterns,snakes,decorations,chains,fit}
+
+%verions 0.1 - 12/10/2007
+%version 0.5 -  19 janvier 2009 - mise en ligne
+
+
+%initialisation des styles
+\tikzstyle{scStylesolideext}=[blue,thick]
+\tikzstyle{scStylesolideint}=[red, thick]
+\tikzstyle{scStyleRef}=[]
+\tikzstyle{scStyleLien}=[]
+\tikzstyle{scStyleTextRef}=[]
+\tikzstyle{scStylePointRef}=[]
+% Commandes de changement de style
+
+
+\newcommand{\scSolide}[2][scStylesolideext]{
+\tikzstyle{scStylesolideext}+=[#2]
+\tikzstyle{#1}+=[#2]
+}
+\newcommand{\scSolideExt}[2][scStylesolideext]{
+\tikzstyle{scStylesolideext}+=[#2]
+\tikzstyle{#1}+=[#2]
+}
+
+\newcommand{\scSolideInt}[2][scStylesolideint]{
+\tikzstyle{scStylesolideint}=[#2]
+\tikzstyle{#1}=[#2]
+}
+
+\newcommand{\scStyleRef}[2][scStyleRef]{
+\tikzstyle{scStyleRef}=[#2]
+\tikzstyle{#1}=[#2]
+}
+\newcommand{\scStyleLien}[2][scStyleLien]{
+\tikzstyle{scStyleLien}=[#2]
+\tikzstyle{#1}=[#2]
+}
+
+\newcommand{\scStyleTextRef}[2][scStyleTextRef]{
+\tikzstyle{scStyleTextRef}=[#2]
+\tikzstyle{#1}=[#2]
+}
+\newcommand{\scStylePointRef}[2][scStylePointRef]{
+\tikzstyle{scStylePointRef}=[#2]
+\tikzstyle{#1}=[#2]
+}
+
+\newcommand{\scSolides}[2]{
+\tikzstyle{scStylesolideext}=[#1]
+\tikzstyle{scStylesolideint}=[#2]
+}
+
+\newcommand{\scBati}[3][0]{
+\coordinate (#2) at (#3);
+\begin{scope}[rotate=#1,transform shape]
+\node[rectangle,minimum height=1.5em,minimum width=3em,thick] (#2) at (#2) {};
+\draw[scStylesolideext,snake=border,segment angle=-45, segment length=0.6em,segment amplitude=1em,thin] (#2.north west) -- (#2.north east);
+\draw[scStylesolideext] (#2.north west) -- (#2.north east);
+\end{scope}
+}
+
+
+\newcommand{\scPivot}[2]{
+\node[draw,circle,minimum size=1.5em,thick,,scStylesolideext] (#1) at (#2) {};
+\node[circle,minimum size=1.5em,thick,] (#1-int) at (#1) {};
+\node[circle,minimum size=1.5em,thick,] (#1-out) at (#1) {};
+}
+
+\newcommand{\scPivotGlissant}[2]{
+\node[draw,circle,minimum size=1.5em,thick,,scStylesolideext] (#1) at (#2) {};
+\node[circle,minimum size=1.5em,thick,] (#1-int) at (#1) {};
+\node[circle,minimum size=1.5em,thick,] (#1-out) at (#1) {};
+}
+
+\newcommand{\scGlissiere}[2]{
+\node[draw,minimum size=1.5em,thick,scStylesolideext] (#1) at (#2) {};
+\draw[thin,scStylesolideint](#1.north east) -- (#1.south west);
+\draw[thin,scStylesolideint](#1.north west) -- (#1.south east);
+}
+
+\newcommand{\scHelicoidale}[2]{
+\begin{scope}[shift={(#2)}]
+\node[draw,circle,minimum size=1.5em,thick,,scStylesolideext] (#1) at (0,0) {};
+\node[circle,minimum size=1.5em] (#1-out) at (#1) {};
+\node[circle,minimum size=0.5em] (#1-int) at (#1) {};
+\draw[thin,scStylesolideint] (#1-int.east) arc (0:270:0.5em);
+\end{scope}
+}
+
+
+\newcommand{\scSpherePlan}[3][0]{
+\begin{scope}[shift={(#3)},rotate=#1]
+\node[draw,circle,minimum size=1.5em,thick,,scStylesolideint] (#2) at (0,0) {};
+\node[circle,minimum size=1.5em,thick,] (#2-int) at (#2) {};
+\draw[scStylesolideext](-1em,-0.75em) -- (1em,-0.75em);
+\end{scope}
+}
+
+\newcommand{\scSphereCylindre}[3][0]{
+\begin{scope}[shift={(#2)},,rotate=#1]
+\node[draw,circle,minimum size=1.5em,thick,,scStylesolideint] (#2) at (0,0) {};
+\node[circle,minimum size=1.5em,thick,] (#2-int) at (0,0) {};
+\node[circle,minimum size=2em,thick] (#2-out) at (0,0) {};
+\draw[scStylesolideext] (-1em,0) arc ({-180}:0:1em);
+\draw[scStylesolideext](#2-out.{-90+#1}) -- +(1em,0)--+(-1em,0);
+\end{scope}
+}
+
+\newcommand{\scSpherique}[3][0]{
+\begin{scope}[shift={(#3)},rotate=#1]
+\node[draw,circle,minimum size=1.5em,thick,,scStylesolideint] (#2) at (0,0) {};
+\node[circle,minimum size=2em,thick,,scStylesolideint] (#2ext) at (0,0) {};
+\node[circle,minimum size=1.5em,thick,] (#2-int) at (0,0) {};
+\node[circle,minimum size=2em,thick] (#2-out) at (0,0) {};
+\draw[scStylesolideext] (0em,-1em) arc (-90:30:1em);
+\draw[scStylesolideext] (0em,-1em) arc (-90:-170:1em);
+\end{scope}
+}
+
+
+\newcommand{\scSpheriqueDoigt}[3][0]{
+\begin{scope}[shift={(#3)},rotate=#1]
+\draw[scStylesolideext] (0em,-1em) arc (-90:30:1em);
+\draw[scStylesolideext] (0em,-1em) arc (-90:-170:1em);
+\begin{scope}[thick,scStylesolideint]
+\node[draw,circle,minimum size=1.5em] (#2) at (0,0) {};
+\node[circle,minimum size=1.5em,thick,] (#2-int) at (0,0) {};
+\node[circle,minimum size=2em,thick] (#2-out) at (0,0) {};
+\draw (#2) --++(1.2em,0);
+\end{scope}
+\end{scope}
+}
+
+
+\newcommand{\scPivotx}[3][0]{
+\coordinate (#2) at (#3);
+\begin{scope}[rotate=#1,transform shape]
+\node[draw,rectangle,minimum height=1.5em,minimum width=3em,thick,scStylesolideext] (#2out) at (#2) {};
+\begin{scope}[scStylesolideint]
+\node[rectangle,minimum height=1.5em,minimum width=4em] (#2in) at (#2) {};
+\draw(#2in.north west) -- (#2in.south west);
+\draw(#2in.north east) -- (#2in.south east);
+\node[rectangle,minimum height=1.5em,minimum width=5em] (#2in) at (#2) {};
+\draw(#2in.east) -- (#2in.west);
+\end{scope}
+\node[rectangle,minimum height=1.5em,minimum width=5em] (#2) at (#2) {};
+\end{scope}
+}
+
+
+
+
+
+
+\newcommand{\scPivotGlissantx}[3][0]{
+\coordinate (#2) at (#3);
+\begin{scope}[rotate=#1,transform shape]
+\node[draw,rectangle,minimum height=1.5em,minimum width=3em,thick,scStylesolideext] (#2out) at (#2) {};
+\begin{scope}[scStylesolideint]
+\node[rectangle,minimum height=1.5em,minimum width=5em] (#2in) at (#2) {};
+\draw(#2in.east) -- (#2in.west);
+\end{scope}
+\node[rectangle,minimum height=1.5em,minimum width=5em] (#2) at (#2) {};
+\end{scope}
+}
+
+
+
+\newcommand{\scGlissierex}[3][0]{
+\coordinate (#2) at (#3);
+\begin{scope}[rotate=#1,transform shape]
+\node[draw,rectangle,minimum height=1.5em,minimum width=3em,thick,scStylesolideext] (#2out) at (#2) {};
+\begin{scope}[scStylesolideint]
+\node[rectangle,minimum height=1.5em,minimum width=5em] (#2in) at (#2) {};
+\draw(#2in.east) -- (#2out.east);
+\draw(#2in.west) -- (#2out.west);
+\end{scope}
+\node[rectangle,minimum height=1.5em,minimum width=5em] (#2) at (#2) {};
+\end{scope}
+}
+
+\newcommand{\scCylindrePlanx}[3][0]{
+\begin{scope}[shift={(#3)},rotate=#1,transform shape]
+\begin{scope}[thick,scStylesolideint]
+\node[rectangle,minimum height=1.5em,minimum width=3em](#2) at (0,0){};
+\node[rectangle,minimum size=1.5em](#2in) at (0,0){};
+\draw(#2.north west) -- (#2.north east) -- (#2in.south east) -- (#2in.south west) -- cycle;
+\end{scope}
+\begin{scope}[thick,scStylesolideext]
+\draw (#2.south west) -- (#2.south east);
+\end{scope}
+\end{scope}
+}
+
+\newcommand{\scCylindrePlan}[3][0]{
+\begin{scope}[shift={(#3)},rotate=#1,transform shape]
+\begin{scope}[thick,scStylesolideint]
+\node[rectangle,minimum height=1.5em,minimum width=2em](#2) at (0,0){};
+\draw(#2.north west) -- (#2.north east) -- (#2.south) -- cycle;
+\end{scope}
+\begin{scope}[thick,scStylesolideext]
+\draw (#2.south west) -- (#2.south east);
+\end{scope}
+\end{scope}
+}
+
+\newcommand{\scAppuiPlan}[3][0]{
+\begin{scope}[shift={(#3)},rotate=#1,transform shape]
+\begin{scope}[thick,scStylesolideint]
+\node[rectangle,minimum height=0.25em,minimum width=3em](#2) at (0,0){};
+\draw(#2.north west) -- (#2.north east) ;
+\end{scope}
+\begin{scope}[thick,scStylesolideext]
+\draw (#2.south west) -- (#2.south east);
+\end{scope}
+\end{scope}
+}
+
+\newcommand{\scHelicoidalex}[3][0]{
+\coordinate (#2) at (#3);
+\begin{scope}[rotate=#1,transform shape]
+    \node[draw,rectangle,minimum height=1.5em,minimum width=3em,thick,scStylesolideext] (#2out) at (#2) {};
+    \begin{scope}[scStylesolideint,decoration={snake,segment length=1em}]
+       \node[rectangle,minimum height=1.5em,minimum width=5em] (#2in) at (#2) {};
+       \draw(#2in.east) -- (#2out.east);
+       \draw(#2in.west) -- (#2out.west);
+
+       %\draw[] (#2out.west) to[out=45,in=135](#2);
+       %\draw[] (#2) to[out=-45,in=-135](#2out.east);
+       \draw[decorate, ](#2out.west) -- (#2out.east);
+     \end{scope}
+     \node[rectangle,minimum height=1.5em,minimum width=5em] (#2) at (#2) {};
+\end{scope}
+}
+
+\newcommand{\scSphereCylindrex}[3][0]{
+\coordinate (#2) at (#3);
+\begin{scope}[rotate=#1,transform shape,scStylesolideext]
+\node[,rectangle,minimum height=1.5em,minimum width=3em,thick] (#2out) at (#2) {};
+\draw (#2out.west) -- (#2out.south west) -- (#2out.south east) --(#2out.east) -- (#2out.west);
+\begin{scope}[scStylesolideint]
+\node[rectangle,minimum height=1.5em,minimum width=5em] (#2in) at (#2) {};
+%\draw(#2in.east) --  (#2in.west);
+\node[circle,draw,minimum size=1.5em,fill=white](#2in) at (#2){};
+\end{scope}
+\node[rectangle,minimum height=1.5em,minimum width=5em] (#2) at (#2) {};
+\end{scope}
+}
+
+
+
+\newcommand{\scRelier}[3][]{
+ \draw [#1] (#2) --  (#3)coordinate[pos=0.5,name=#2-#3]coordinate[pos=0.25,name=#2-#3a]coordinate[pos=0.75,name=#2-#3b];
+}
+\newcommand{\scRelieryx}[3][]{
+\draw [#1] (#2)  |-   (#3) coordinate[pos=0.5,name=#2-#3]coordinate[pos=0.25,name=#2-#3a]coordinate[pos=0.75,name=#2-#3b];
+}
+\newcommand{\scRelierxy}[3][]{
+\draw [#1] (#2)  -|   (#3)  coordinate[pos=0.5,name=#2-#3]coordinate[pos=0.25,name=#2-#3a]coordinate[pos=0.75,name=#2-#3b];
+}
+
+
+\newcommand{\scRef}[3][1.5em,1.5em]{
+\begin{scope}[shift={(#2)}]
+\node[scStyleRef] (text#2) at (#1){#3};
+\draw[-latex,scStyleLien](text#2) -- (#2);
+\end{scope}
+}
+
+
+
+
+\newcommand{\GraphStructBouclea}[4][180]{
+\node[regular polygon, regular polygon sides=#2, minimum size=#4,rotate=#1](sommet) at (0,0) {};
+\node[regular polygon, regular polygon sides=#2, minimum size=#4,rotate={#1+#1/#2}](lien) at (0,0)  {};
+\pgfmathparse{180/(#2+1)}
+\foreach \i in {1,...,#2}{
+\node (LGraphe\i) at (lien.corner \i){};
+}
+\begin{scope}[start chain=graphe placed {at=(sommet.corner \tikzchaincount)}, every join/.style={bend right=\pgfmathresult}]
+\foreach \i in {#3}{
+\node [on chain,join, circle, draw](NGraphe\tikzchaincount) {\i};
+}
+\end{scope}
+\draw (graphe-end) to[bend right={\pgfmathresult}] (graphe-begin);
+}
+
+\newcommand{\GraphStructBoucle}[4][0]{
+\node[regular polygon, regular polygon sides=#2, minimum size=#4,rotate=180+#1](sommet) at (0,0) {};
+\node[regular polygon, regular polygon sides=#2, minimum size=#4,rotate={180+(180)/#2+#1}](lien) at (0,0)  {};
+\pgfmathparse{180/(#2+1)}
+\foreach \i in {1,...,#2}{
+\node (LGraphe\i) at (lien.corner \i){};
+}
+\begin{scope}[start chain=graphe placed {at=(sommet.corner \tikzchaincount)}, every join/.style={bend right=\pgfmathresult}]
+\foreach \i in {#3}{
+\node [on chain,join, circle, draw](NGraphe\tikzchaincount) {\i};
+}
+\end{scope}
+\draw (graphe-end) to[bend right={\pgfmathresult}] (graphe-begin);
+}
+
+
+
+
+
+\newcommand{\GraphStructOuvert}[4][0]{
+\node[regular polygon, regular polygon sides=#2, minimum size=#4,rotate=180+#1](sommet) at (0,0) {};
+\node[regular polygon, regular polygon sides=#2, minimum size=#4,rotate={180+(180)/#2+#1}](lien) at (0,0)  {};
+\pgfmathparse{180/(#2+1)}
+\foreach \i in {1,...,#2}{
+\node (LGraphe\i) at (lien.corner \i){};
+}
+\begin{scope}[start chain=graphe placed {at=(sommet.corner \tikzchaincount)}, every join/.style={bend right=\pgfmathresult}]
+\foreach \i in {#3}{
+\node [on chain,join, circle, draw](NGraphe\tikzchaincount) {\i};
+}
+\end{scope}
+%\draw (graphe-end) to[bend right={\pgfmathresult}] (graphe-begin);
+}
+
+
+%Symboles transmissions de puissance
+
+\newcommand*{\scRoueDentee}[3][0]{
+\node[minimum width=2*#3,minimum height=0.5em] (RD#2) at (#2){};
+\begin{scope}[rotate=#1,transform shape]
+\coordinate[right of=RD#2, node distance=#3](dZ#2);
+\coordinate[left of=RD#2, node distance=#3](gZ#2);
+\draw[scStylesolideint] (dZ#2)--++(0,0.5em)++(0,-1em)--++(0,0.5em)--(#2)--(gZ#2) --++(0,0.5em)++(0,-1em)--++(0,0.5em);
+\end{scope}
+}
+
+\newcommand{\scCouronne}[3][0]{
+\node[minimum width=2*#3,minimum height=0.5em] (RD#2) at (#2){};
+\begin{scope}[rotate=#1,transform shape]
+\coordinate[right of=RD#2, node distance=#3](dZ#2);
+\coordinate[left of=RD#2, node distance=#3](gZ#2);
+\draw[scStylesolideext] (dZ#2) -- ++(0,0.5em) --++ (0,-1em);
+\draw[scStylesolideext] (gZ#2) -- ++(0,0.5em) --++ (0,-1em);
+\draw[scStylesolideext] (gZ#2) -- ++(-1em,0)coordinate[name=gZ#2];
+\draw[scStylesolideext] (dZ#2) -- ++(1em,0)coordinate[name=dZ#2];
+\end{scope}
+}
+
+\newcommand*{\scPoulie}[3][0]{
+\node[minimum width=2*#3,minimum height=0.5em] (Poul#2) at (#2){};
+\coordinate (#2) at (Poul#2.north);
+\begin{scope}[rotate=#1,transform shape]
+\draw[scStylesolideint] (Poul#2.south east) -- (Poul#2.north east) -- (Poul#2.north west)-- (Poul#2.south west);
+\end{scope}
+}
+
+
+%Ressort
+\newcommand{\scRessort}[3][1em]{
+\begin{scope}[decoration={zigzag,amplitude=#1}]
+\draw [decorate](#2) -- (#3)coordinate[name=scRessort,midway] ;
+\end{scope}
+}
+
+\newcommand{\scArcFleche}[4]{
+\begin{scope}[shift={(#1)}]
+\draw[->] (#3:#2) arc (#3:#4:#2);
+\node[circle,minimum size={#2*2}](NoeudArc)at(#1){};
+\pgfmathparse{(#3+#4)/2}
+\node(NoeudArc#1) at (NoeudArc.\pgfmathresult){};
+\end{scope}
+}
+
+
+%figures de calculs 
+% la commande non étoilée permet le dessin d'un figure de calcul indépendant la commande étoilée doit être intégrée dans un environnement tikz
+
+\newcommand*{\scFigCalc}{\@ifstar\scFigCalcSeul\scFigCalctikz}
+\newcommand{\scFigCalctikz}[6][]{\begin{tikzpicture}
+\begin{scope}[thick, >=latex]
+\draw[->] (0,0) -- (3,0) node[above] {$\vv{#2}$};
+\draw[->] (0,0) -- (0,3) node[right] {$\vv{#3}$};
+\draw[->] (0cm,0cm) -- (25:3cm) node[above] {$\vv{#4}$};
+\draw[->] (0cm,0cm) -- (115:3cm) node[right] {$\vv{#5}$};
+\draw[->] (1,0) arc (0:25:1cm)node[right=0.5em] {$#6$} ;
+\node[below](0,0){${#1}$};
+\end{scope}
+\end{tikzpicture}}
+
+\newcommand{\scFigCalcSeul}[6][]{
+\begin{scope}[thick, >=latex]
+\draw[->] (0,0) -- (3,0) node[above] {$\vv{#2}$};
+\draw[->] (0,0) -- (0,3) node[right] {$\vv{#3}$};
+\draw[->] (0cm,0cm) -- (25:3cm) node[above] {$\vv{#4}$};
+\draw[->] (0cm,0cm) -- (115:3cm) node[right] {$\vv{#5}$};
+\draw[->] (1,0) arc (0:25:1cm)node[right=0.5em] {$#6$} ;
+\node[below](0,0){${#1}$};
+\end{scope}}
+
+
+% dessin d'un point et de son nom, la commande étoilée permet d'utilisée les notations mathématiques pour les points ou un nom long différent de la référence, position du texte est précisée en option [above right] par défaut.
+
+\newcommand*{\scPoint}{\@ifstar\scPointmath\scPointseul}
+\newcommand{\scPointseul}[3][above right]{
+\coordinate (#2) at (#3);
+\node[#1,scStyleTextRef] at (#2){#2};
+\draw[fill,scStylePointRef] (#2) circle (0.3mm);
+}
+\newcommand{\scPointmath}[4][above right]{
+\coordinate (#2) at (#3);
+\node[#1,scStyleTextRef] at (#2){#4};
+\draw[fill,scStylePointRef] (#2) circle (0.3mm);
+}
+

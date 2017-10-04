@@ -1,0 +1,97 @@
+\usetheme{Rochester}
+\useinnertheme{rounded}
+\RequirePackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\RequirePackage{colortbl}
+\RequirePackage{amsmath,amssymb,amsfonts}
+
+%\pgfdeclareimage[width=1.0\paperwidth]{Figs/BandeauEMSE2}{Figs/BandeauEMSE2}
+\pgfdeclareimage[width=1.0\paperwidth]{figures/bandeau}{figures/bandeau}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercovered{transparent}
+
+\beamer@headheight=0.13\paperwidth
+
+\definecolor{emseorange}{HTML}{F7800A}
+\definecolor{emsegray}{HTML}{686868}
+\definecolor{emselightgray}{HTML}{EEEEEE}
+\definecolor{emseblue}{HTML}{015aaa}
+\definecolor{emselightblue}{HTML}{6991c5}
+\setbeamercolor*{Title bar}{fg=blue}
+\setbeamercolor*{Location bar}{fg=emselightblue,bg=emselightgray}
+\setbeamercolor*{frametitle}{fg=emseblue}
+\setbeamercolor*{block title}{bg=emseblue,fg=white}
+\setbeamercolor*{block body}{bg=emselightgray,fg=emsegray}
+\setbeamercolor*{normal text}{bg=white,fg=emsegray}
+\setbeamercolor*{section in head/foot}{bg=emseblue,fg=white}
+\setbeamercolor*{section in foot}{bg=emseblue,fg=white}
+
+\usecolortheme[named=emseblue]{structure}
+
+\setbeamerfont{section in head/foot}{size=\tiny,series=\normalfont}
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{framesubtitle}{size=\small}
+
+\setbeamertemplate{frametitle}
+{
+  \vskip-0.3\beamer@headheight
+  \vskip-\baselineskip
+  \vskip-0.2cm
+  \hskip0.cm\parbox[t]{10.cm}{\usebeamerfont*{frametitle}\insertframetitle}
+  \vskip-0.10em
+  \hskip0.cm\usebeamerfont*{framesubtitle}\insertframesubtitle
+  \vskip0.cm
+  
+}
+
+\setbeamertemplate{headline}
+{
+%\pgfuseimage{Figs/BandeauEMSE2}
+%\pgfuseimage{Figs/bandeau5}
+\pgfuseimage{figures/bandeau}
+\vskip -.6cm
+  %\vskip -.65cm
+   %\linethickness{0.25pt}
+  \linethickness{0pt}
+
+  \framelatex{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.3\beamer@headheight]{Title bar}
+    \usebeamerfont{section in head/foot}%
+    \insertsectionnavigationhorizontal{10pt}{\hskip0.3cm}{}%
+  \end{beamercolorbox}}
+
+  \framelatex{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.7\beamer@headheight]{Title bar}
+  \end{beamercolorbox}}
+}
+\newcommand{\Appendix}{\addtocontents{nav}{\protect\headcommand{\protect\def\protect\insertappendixstartframe{\insertframenumber}}} \appendix}
+%
+\newif\ifbeamer@sb@appendix
+\DeclareOptionBeamer{appendix}[true]{\csname beamer@sb@appendix#1\endcsname}
+\ExecuteOptionsBeamer{appendix=false}
+\ProcessOptionsBeamer
+\def\insertappendixstartframe{1}
+
+
+
+\setbeamertemplate{footline}
+{
+  \linethickness{0.25pt}
+  \framelatex{
+  \begin{beamercolorbox}[leftskip=.3cm,wd=\paperwidth,ht=0.2\beamer@headheight,sep=0.05cm]{Location bar}
+    \usebeamerfont{section in head/foot}%
+    \insertshortauthor
+    %~|~\insertshortdate
+    \hfill
+    \insertframenumber/\inserttotalframenumber
+%\insertframenumber/26
+%  \ifbeamer@sb@appendix 
+%%  \insertframenumber/\insertappendixstartframe
+%%  \insertframenumber/\inserttotalframenumber
+%  \else   
+%  \insertframenumber/\inserttotalframenumber
+%  \fi
+  \end{beamercolorbox}}
+}
+
+

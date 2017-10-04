@@ -1,0 +1,146 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Notations vecteurs/torseurs
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%Commandes de base
+%-----------------------------
+\newcommand{\vecteur}[1]	{\ensuremath{	\protect\overrightarrow{#1}}}	%Fait un vecteur
+\newcommand{\vecteurIndice}[2]	{\ifthenelse{\equal{#2}{\ }}{\vecteur{{#1}}\ }{\vecteur{{#1}_{#2}}}}	%Fait un vecteur avec un indice (x1, y1...), ou un vecteur simple si indice = espace
+\newcommand{\vecteurChamp}[2]	{\fonction{\vecteur{#1}}{#2}}
+\newcommand{\bipoint}[2]	{\ensuremath{	\vecteur{\segment{#1#2}}	}}	%bipoint
+\newcommand{\vLie}[2]		{\ensuremath{	\couple{#1}{#2}	}}			%Vecteur lie
+\newcommand{\vGlissant}[2]	{\ensuremath{	\couple{#1}{#2}	}}			%Vecteur glissant
+\newcommand{\fN}[2][] {\ensuremath{	\protect\overrightarrow{N_{#1\rightarrow#2}}}}			%Vecteur lie
+\newcommand{\fT}[2][]	{\ensuremath{	\protect\overrightarrow{T_{#1\rightarrow#2}}}}
+\newcommand{\fpbis}	{\ensuremath{	\protect\overrightarrow{f_{p (S_1\rightarrow S_2)}}}}
+
+%Espaces
+%--------------------------------
+\newcommand{\eAffine}[1][3]	{\ensuremath{	\mathscr{E}^{#1}	}}	%Espace affine
+\newcommand{\eVectoriel}[1][3]	{\ensuremath{	E^{#1}			}}	%Espace vectoriel
+
+
+
+%Représentation des vecteurs
+\newcommand{\vColonne}[2][]	{\ensuremath{	\left( \begin{array}{c} #2 \end{array} \right)_{#1}	}}	%Vecteur colonne (avec coordonnées)
+
+
+%Operateurs Vectoriel
+
+\newcommand{\norme}[1]		{\ensuremath{	\left\Vert #1 \right\Vert	}}	%Norme
+\newcommand{\abs}[1]		{\ensuremath{	\left\vert #1 \right\vert	}}	%Valeur absolue
+\newcommand{\prodMixte}[3]	{\ensuremath{	\left(#1\wedge#2\right)\cdot#3	}}	%produit mixte
+\newcommand{\doubleProdVect}[3]	{\ensuremath{	#1\wedge\left(#2\wedge#3\right)	}}	%produit vectoriel
+
+
+
+%VECTEUR PRE-FAVRIQUES
+%------------------------------
+
+
+\newcommand{\vNul}		{\ensuremath{	\overrightarrow{0}	}}	%Symbole d'une base
+\newcommand{\vPreFab}[2][]	{\ifthenelse{\equal{#1}{}}	{\vecteur{#2}}	{\vecteurChamp{#2}{#1}}	}	%Vecteur qui choisit tout seul si c'est un vecteur simple ou un champ (présence d'un parametre ou non)
+
+
+%Tout ce qui est vecteurs e_i
+\newcommand{\ve}[1]{\vecteurIndice{e}{#1}}
+
+\newcommand{\vex}{\ve{x}}	%e_x
+\newcommand{\vey}{\ve{y}}	%e_y
+\newcommand{\vez}{\ve{z}}	%e_z
+
+%\newcommand{\e}{\ensuremath{\overrightarrow {e_2}}}
+%\newcommand{\e}{\ensuremath{\overrightarrow {e_3}}}
+
+\newcommand{\vx}[1]{\vecteurIndice{x}{#1}}	%x_i
+\newcommand{\vy}[1]{\vecteurIndice{y}{#1}}	%y_i
+\newcommand{\vz}[1]{\vecteurIndice{z}{#1}}	%z_i
+
+%\newcommand{\vXzero}{\ensuremath{\vecteur{x_1}}}
+%\newcommand{\vYun}{\ensuremath{\vecteur{y_1}}}
+%\newcommand{\vZun}{\ensuremath{\vecteur{z_1}}}
+
+%\newcommand{\vXun}{\ensuremath{\vecteur{x_1}}}
+%\newcommand{\vYun}{\ensuremath{\vecteur{y_1}}}
+%\newcommand{\vZun}{\ensuremath{\vecteur{z_1}}}
+
+%\newcommand{\vXdeux}{\ensuremath{\vecteur{x_2}}}
+%\newcommand{\vYdeux}{\ensuremath{\vecteur{y_2}}}
+%\newcommand{\vZdeux}{\ensuremath{\vecteur{z_2}}}
+
+
+\newcommand{\vn}[1][]	{	\vPreFab[#1]{n}	}
+
+\newcommand{\vu}[1][]	{	\vPreFab[#1]{u}	}
+\newcommand{\vU}[1][]	{	\vPreFab[#1]{U}	}
+%\ifthenelse{\equal{#1}{}}	{\vecteur{U}}	{\vecteurChamp{U}{#1}}	}
+%\newcommand{\vU}[1][]	{\ifthenelse{\equal{#1}{}}	{ \ensuremath{\overrightarrow{U}}  }{   \ensuremath{\overrightarrow{U_{(#1)}}}     }}	%Vecteur U ou champ U(M)
+
+\newcommand{\ux}{\ensuremath{u_x}}
+\newcommand{\uy}{\ensuremath{u_y}}
+\newcommand{\uz}{\ensuremath{u_z}}
+
+\newcommand{\vv}[1][]	{	\vPreFab[#1]{v}	}
+\newcommand{\vV}[1][]	{	\vPreFab[#1]{V}	}
+%\newcommand{\vV}[1]{\vecteur{V_{#1}}}
+%\newcommand{\vV}[1][]{\ifthenelse{\equal{#1}{}}{ \ensuremath{\overrightarrow{V}}  }{   \ensuremath{\overrightarrow{V_{(#1)}}}     }}
+%\newcommand{\Vx}{\ensuremath{v_x}}	\newcommand{\vx}{\Vx}
+%\newcommand{\Vy}{\ensuremath{v_y}}	\newcommand{\vy}{\Vy}
+%\newcommand{\Vz}{\ensuremath{v_z}}	\newcommand{\vz}{\Vz}
+
+
+\newcommand{\vw}[1][]	{	\vPreFab[#1]{w}	}
+\newcommand{\vW}[1][]	{	\vPreFab[#1]{W}	}
+%\ifthenelse{\equal{#1}{}}	{\vecteur{W}}	{\vecteurChamp{W}{#1}}	}
+%\newcommand{\vW}[1][]{\ifthenelse{\equal{#1}{}}{ \ensuremath{\overrightarrow{W}}  }{   \ensuremath{\overrightarrow{W_{(#1)}}}     }}
+\newcommand{\Wx}{\ensuremath{w_x}}	%\newcommand{\wx}{\Wx}
+\newcommand{\Wy}{\ensuremath{w_y}}	%\newcommand{\wy}{\Wy}
+\newcommand{\Wz}{\ensuremath{w_z}}	%\newcommand{\wz}{\Wz}
+
+\newcommand{\vOM}[1][]	{	\vPreFab[#1]{OM}	}
+\newcommand{\OM}[1][]	{	\vOM[#1]	}
+\newcommand{\Mx}{\ensuremath{m_x}}	\newcommand{\mx}{\Mx}
+\newcommand{\My}{\ensuremath{m_y}}	\newcommand{\my}{\My}
+\newcommand{\Mz}{\ensuremath{m_z}}	\newcommand{\mz}{\Mz}
+
+\newcommand{\vUun}{\ensuremath{\vecteur{U_1}}}
+\newcommand{\vUn}{\ensuremath{\vecteur{U_n}}}
+\newcommand{\vVun}{\ensuremath{\vecteur{U_1}}}
+\newcommand{\vVp}{\ensuremath{\vecteur{V_p}}}
+
+
+\newcommand{\vOP}[1][]	{	\vPreFab[#1]{OP}	}
+\newcommand{\OP}[1][]	{	\vOP[#1]	}
+
+\newcommand{\vAB}[1][]	{	\vPreFab[#1]{AB}	}
+\newcommand{\AB}[1][]	{	\vAB[#1]	}
+
+\newcommand{\vBA}[1][]	{	\vPreFab[#1]{BA}	}
+\newcommand{\BA}[1][]	{	\vBA[#1]	}
+
+\newcommand{\vOA}[1][]	{	\vPreFab[#1]{OA}	}
+\newcommand{\OA}[1][]	{	\vOA[#1]	}
+
+\newcommand{\vOB}[1][]	{	\vPreFab[#1]{OB}	}
+\newcommand{\OB}[1][]	{	\vOB[#1]	}
+
+\newcommand{\vi}[1]	{\ensuremath{	\vecteur{i_{#1}}	}}
+\newcommand{\vj}[1]	{\ensuremath{	\vecteur{j_{#1}}	}}
+\newcommand{\vk}[1]	{\ensuremath{	\vecteur{k_{#1}}	}}
+
+
+%Bases
+%-------------------------
+\newcommand{\B}		{\ensuremath{	\mathscr{B}	}}	%Symbole d'une base
+\newcommand{\Bxyz}	{\triplet{\vex}{\vey}{\vez}}
+\newcommand{\Buvw}	{\triplet{\vu}{\vv}{\vw}}
+\newcommand{\base}[3]	{\ensuremath{\left(#1,#2,#3\right)}}	
+
+
+%Repere
+%-------------------------
+%\newcommand{\repere}[4]	{\ensuremath{	\left(#1,#2,#3,#4\right)	}}

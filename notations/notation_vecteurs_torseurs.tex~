@@ -1,0 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Notations vecteurs/torseurs
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%Espaces
+\newcommand{\eAffine}[1][3]{\ensuremath{\mathscr{E}^{#1}}}	%Espace affine
+\newcommand{\eVectoriel}[1][3]{\ensuremath{E^{#1}}}	%Espace affine

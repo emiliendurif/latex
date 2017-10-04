@@ -1,0 +1,23 @@
+
+
+%Torseur
+%=================================================
+
+\newcommand{\tStatique}[2]	{\ensuremath{	\torseur{\T_{\left({#1}\rightarrow{#2}\right)}}	}}
+
+
+%Résultates
+%=================================
+
+
+\newcommand{\vForce}[3][F]	{\ifthenelse{\equal{#2}{}}
+					{\vecteur{{#1}_{#3}}}
+					{\vecteur{{#1}_{\left(#2\rightarrow#3\right)}}	}}
+\newcommand{\vF}[2][]		{\vForce[F]{#1}{#2}}	%Raccourci
+\newcommand{\vT}[2][]		{\vForce[T]{#1}{#2}}	%Raccourci
+\newcommand{\vP}[2][]		{\vForce[P]{#1}{#2}}	%Raccourci
+
+%Moments
+%==================================
+
+\newcommand{\momentForce}[3]	{\moment[#2\rightarrow#3]{#1}}
