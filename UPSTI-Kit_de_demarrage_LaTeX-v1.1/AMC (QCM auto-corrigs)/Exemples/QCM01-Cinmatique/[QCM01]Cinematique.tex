@@ -1,0 +1,329 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% E.Pinault-Bigeard - s2i@pinault-bigeard.com
+% http://s2i.pinault-bigeard.com
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Package UPSTI_Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\RequirePackage[QCM,noTypographie]{UPSTI_Document}             
+\RequirePackage{multicol}
+
+%---------------------------------%
+% Paramètres du package
+%---------------------------------%
+
+% Variante
+\newcommand{\UPSTIvariante}{2}
+
+% Classe
+% 1: PTSI				5: MPSI			9: ATS
+% 2: PT	(par défaut)	6: MP			10: PC(?)
+% 3: PCSI				7: TSI1			11: Sup
+% 4: PSI				8: TSI2			12: Spé
+\newcommand{\UPSTIidClasse}{2}
+
+% Type de document
+% 1: Cours (par défaut)		8: Fiche Synthèse    		15: Programme de colle 
+% 2: TD     				9: Formulaire				16: QCM
+% 3: TP						10: Memo
+% 4: Colle					11: Dossier Technique
+% 5: DS						12: Dossier Ressource
+% 6: DM						13: Concours Blanc
+% 7: Fiche Méthode			14: Document Réponses
+\newcommand{\UPSTIidTypeDocument}{16} % QCM
+
+% Titre dans l'en-tête
+\newcommand{\UPSTItitreEnTete}{Cinématique}      
+
+% Durée de l'activité (pour DS, DM et TP)
+\newcommand{\UPSTIduree}{15 min} 
+
+% Numéro (ajoute " n°1" après DS ou DM)
+\newcommand{\UPSTInumero}{1}
+
+% Version du document
+\newcommand{\UPSTInumeroVersion}{1.0}
+
+%----------------------------------------------- 
+\UPSTIcompileVars		% "Compile" les variables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%---------------------------------%
+% Barême
+%---------------------------------%
+% Barême pour les questions simples
+% 	e = incohérent
+% 	v = vide
+% 	b = bonne
+% 	m = mauvaise
+\baremeDefautS{e=0,v=0,b=2,m=-0.5}
+
+% Barême pour les questions multiples
+% 	e = incohérent
+% 	v = vide
+% 	b = bonne
+% 	m = mauvaise
+% 	formula = Une formule "maison" que j'ai faite. Elle se lit comme ceci : 
+\baremeDefautM{e=0,v=0,formula=(NBC+NMC>0 ? -0.25*NMC+1*NBC : ( NB>0 ? 0 : 0 ))}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Début du document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{document}
+
+
+%---------------------------------%
+% Groupes de question
+%---------------------------------%
+
+\element{figure1}{
+%*************************%
+\begin{question}{projection1}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{minipage}[c]{.25\linewidth}
+\setCouleursParametrage{black}{UPSTIcustomColor1}
+\parametrageAngulaire{\theta}{\vy1}{\vz1}{\vx1}{\vy2}{\vz2}[\vx2]
+\end{minipage}\hfill
+\begin{minipage}[c]{0.73\linewidth}
+Projeter \vz1 dans \bB2 :
+\begin{reponses}
+	\bonne{$\cos\theta.\vz2+\sin\theta.\vy2$}
+	\mauvaise{$-\cos\theta.\vz2+\sin\theta.\vy2$}
+	\mauvaise{$\sin\theta.\vz2+\cos\theta.\vy2$}
+	\mauvaise{$\cos\theta$}
+\end{reponses}
+\end{minipage}
+\end{minipage} 
+\end{question}
+%*************************%
+}
+	
+\element{questionsFigure1}{
+%*************************%
+\begin{question}{produitScalaire1}
+Sur la même figure, calculer $\vy1\cdot\vz1$:
+\begin{reponseshoriz}
+	\bonne{$0$}
+	\mauvaise{$\cos\theta$}
+	\mauvaise{$-\cos\theta$}
+	\mauvaise{$\sin\theta$}
+	\mauvaise{$-\sin\theta.\vz1$}
+	\mauvaise{$\vx1$}
+\end{reponseshoriz}
+\end{question}
+%*************************%
+
+%*************************%
+\begin{question}{produitVectoriel1}
+Sur la même figure, calculer $\vy2\vect\vy1$:
+\begin{reponseshoriz}
+	\bonne{$-\sin\theta.\vx1$}
+	\mauvaise{$\sin\theta.\vx1$}
+	\mauvaise{$\cos\theta.\vx1$}
+	\mauvaise{$\cos\theta$}
+	\mauvaise{$-\cos\theta.\vz1$}
+	\mauvaise{$\sin\theta.\vx2$}
+\end{reponseshoriz}
+\end{question}
+%*************************%
+	
+%*************************%
+\begin{question}{produitVectoriel2}
+Sur la même figure, calculer $\vy1\vect\vz2$:
+\begin{reponseshoriz}
+	\bonne{$\cos\theta.\vx1$}
+	\mauvaise{$-\sin\theta.\vx1$}
+	\mauvaise{$\sin\theta.\vx1$}
+	\mauvaise{$\cos\theta$}
+	\mauvaise{$-\cos\theta.\vz1$}
+	\mauvaise{$\sin\theta.\vx2$}
+\end{reponseshoriz}
+\end{question}
+%*************************%
+}
+
+\element{figure2}{
+%*************************%
+\begin{question}{projection2}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{minipage}[c]{.55\linewidth}
+\setCouleursParametrage{black}{red}
+\parametrageAngulaire{\theta}{\vy1}{\vz1}{\vx1}{\vy2}{\vz2}[\vx2]\qquad
+\setCouleursParametrage{red}{UPSTIcustomColor1}
+\parametrageAngulaire{\varphi}{\vz2}{\vx2}{\vy2}{\vz3}{\vx3}[\vy3]
+\end{minipage}\hfill
+\begin{minipage}[c]{0.40\linewidth}
+Projeter \vx3 dans \bB1 :
+\begin{reponses}
+	\bonne{$\cos\varphi.\vx1+\sin\varphi\sin\theta.\vy1-\sin\varphi\cos\theta.\vz1$}
+	\mauvaise{$\cos\varphi.\vx1-\sin\varphi\sin\theta.\vy1-\sin\varphi\cos\theta.\vz1$}
+	\mauvaise{$\cos\varphi.\vx1+\sin\varphi\vy1$}
+	\mauvaise{$\cos\varphi.\vx1-\sin\varphi\sin\theta.\vy1+\sin\varphi\cos\theta.\vz1$}
+\end{reponses}
+\end{minipage}
+\end{minipage} 
+\end{question}
+%*************************%
+}
+
+\element{questionsFigure2}{
+%*************************%
+\begin{question}{produitScalaire2}
+Sur la même figure, calculer $\vz3\cdot\vz1$:
+\begin{reponseshoriz}
+	\bonne{$\cos\varphi\cos\theta$}
+	\mauvaise{$\cos\varphi$}
+	\mauvaise{$-\cos\varphi\cos\theta$}
+	\mauvaise{$\sin\varphi\cos\theta$}
+	\mauvaise{$0$}
+	\mauvaise{$\vx1$}
+\end{reponseshoriz}
+\end{question}
+%*************************%
+
+%*************************%
+\begin{question}{produitVectoriel3}
+Sur la même figure, calculer $\vy2\vect\vx3$:
+\begin{reponseshoriz}
+	\bonne{$-\vz3$}
+	\mauvaise{$\cos\varphi.\vx2-\sin\varphi.\vz2$}
+	\mauvaise{$0$}
+	\mauvaise{$\cos\varphi\cos\theta.\vy1$}
+	\mauvaise{$\cos\varphi.\vx2+\sin\varphi.\vz2$}
+\end{reponseshoriz}
+\end{question}
+%*************************%
+	
+%*************************%
+\begin{question}{derivationVectorielle1}
+Sur la même figure, calculer $\derivV{\vy2}{\bB1}$:
+\begin{reponseshoriz}
+	\bonne{$\thetap.\vz2$}
+	\mauvaise{$-\thetap.\vz2$}
+	\mauvaise{$\vz2$}
+	\mauvaise{$\cos\theta.\vz1$}
+	\mauvaise{$-\cos\theta.\vz1$}
+	\mauvaise{$0$}
+\end{reponseshoriz}
+\end{question}
+%*************************%
+
+%*************************%
+\begin{question}{derivationVectorielle2}
+Sur la même figure, calculer $\derivV{\vz3}{\bB1}$:
+\begin{reponseshoriz}
+	\bonne{$\varphip.\vx3-\thetap\cos\varphi.\vy3$}
+	\mauvaise{$\varphip.\vx3+\thetap\sin\theta.\vy3$}
+	\mauvaise{$\varphip.\vx3$}
+	\mauvaise{$\vNul$}
+	\mauvaise{$\varphip(\vx1+\vy1)$}
+\end{reponseshoriz}
+\end{question}
+%*************************%
+
+}
+
+\element{liaisons}{
+%*************************%
+\begin{questionmult}{tableauLiaison}
+\AMCnoCompleteMulti
+\begin{reponseshoriz}[o]
+\begin{minipage}{\linewidth}
+\begin{center}
+\begin{tabular}{c||c|c|c}
+& \tCan{M}{\tCinematiqueCan{M}{2}{1}{0}{0}{1}{1}{1}{0}}{\bB{}}	& \tCan{A}{\tCinematiqueCan{A}{2}{1}{1}{1}{1}{1}{0}{0}}{\bB{}}	& \tCan{A}{\tCinematiqueCan{A}{2}{1}{1}{1}{1}{0}{0}{0}}{\bB{}}
+\\\hline\hline
+Sphère/Cylindre ? &\mauvaise{}		&\bonne{}		& \mauvaise{}
+\\\hline
+Sphérique ?	&\mauvaise{}		&\mauvaise{}		& \bonne{}
+\\\hline
+Appui plan ? &\bonne{}		&\mauvaise{}		& \mauvaise{}
+\end{tabular}
+\end{center}
+\end{minipage}
+\end{reponseshoriz}
+\end{questionmult}
+%*************************%
+
+%*************************%
+\begin{question}{trajectoires}
+Parmi ces 4 propositions, une seule peut conclure la phrase suivante de manière cohérente. Laquelle ?: \og La trajectoire de $C$ appartenant à \np{5} par rapport à \np{3} est...\fg{}:
+\begin{multicols}{2}
+\begin{reponses}
+	\bonne{...un cercle de centre $H$ et de rayon \segment{HC}}
+	\mauvaise{...une rotation d'axe $\couple{H}{\vz1}$}
+	\mauvaise{...une pivot d'axe $\couple{H}{\vz1}$}
+	\mauvaise{...une translation}
+\end{reponses}
+\end{multicols}
+\end{question}
+%*************************%
+
+%*************************%
+\begin{question}{liaisons2}
+Le torseur cinématique d'une liaison linéaire rectiligne de droite de contact \axe{A}{\vx{}} et de normale au plan \vz{} est:
+\begin{multicols}{2}
+\begin{reponses}
+	\bonne{\tCan{A}{\tCinematiqueCan{A}{2}{1}{1}{0}{1}{1}{1}{0}}{\bB{}}}
+	\mauvaise{\tCan{A}{\tCinematiqueCan{A}{2}{1}{0}{1}{1}{1}{0}{0}}{\bB{}}}
+	\mauvaise{\tCan{A}{\tCinematiqueCan{A}{2}{1}{0}{1}{1}{1}{1}{0}}{\bB{}}}
+	\mauvaise{\tCan{A}{\tCinematiqueCan{A}{2}{1}{1}{0}{1}{0}{1}{0}}{\bB{}}}
+\end{reponses}
+\end{multicols}
+\end{question}
+%*************************%
+
+%*************************%
+\begin{questionmult}{torseurCinematique}
+Dans un torseur cinématique, la résultante est:
+\begin{multicols}{2}
+\begin{reponses}
+	\bonne{un vecteur}
+	\bonne{la colonne de gauche du torseur}
+	\mauvaise{la deuxième ligne du torseur}
+	\bonne{une vitesse de rotation}
+	\mauvaise{une accélération}
+	\mauvaise{dépendante du point considéré}
+	\mauvaise{un scalaire}
+\end{reponses}
+\end{multicols}
+\end{questionmult}
+%*************************%
+}
+
+%---------------------------------%
+% Début du questionnaire
+%---------------------------------%
+% Nombre d'exemplaires (c'est plus flexible de définir le nombre d'exemplaire directement dans AMC)
+\exemplaire{1}{
+
+% En-tête	
+\UPSTIbuildPage
+\UPSTIamcZoneIdentification
+
+\vspace{-2.5em}
+\section{Calcul vectoriel}
+\cleargroup{calcul}
+\copygroup{figure1}{calcul}
+\melangegroupe{questionsFigure1}\copygroup[1]{questionsFigure1}{calcul}
+\copygroup{figure2}{calcul}
+\melangegroupe{questionsFigure2}\copygroup[1]{questionsFigure2}{calcul}
+\restituegroupe{calcul}
+
+\vspace{-1em}
+\section{Cinématique}
+\cleargroup{liaisons}
+\melangegroupe{liaisons}\copygroup[1]{liaisons}{tout}
+\restituegroupe{liaisons}
+
+\clearpage    
+	
+}
+\end{document}

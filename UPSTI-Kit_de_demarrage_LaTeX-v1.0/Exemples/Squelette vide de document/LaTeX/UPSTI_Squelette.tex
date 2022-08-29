@@ -1,0 +1,108 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% E.Pinault-Bigeard - e.pinault-bigeard@upsti.fr
+% http://s2i.pinault-bigeard.com
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Package UPSTI_Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\usepackage{UPSTI_Document}
+
+%---------------------------------%
+% Paramètres du package
+%---------------------------------%
+
+% Version du document (pour la compilation)
+% 1: Document prof
+% 2: Document élève
+% 3: Document à publier
+\newcommand{\UPSTIidVersionDocument}{2}
+
+% Variante
+%\newcommand{\UPSTIvariante}{2}
+
+% Classe
+% 1: PTSI				6: PSI*			11: TSI2		16: Spé
+% 2: PT	(par défaut)	7: MPSI			12: ATS
+% 3: PT*				8: MP			13: PC
+% 4: PCSI				9: MP*			14: PC*
+% 5: PSI				10: TSI1		15: Sup
+\newcommand{\UPSTIidClasse}{2}
+
+% Affichage personnalisé de la classe
+%\newcommand{\UPSTIclasse}{PT/PT*}
+
+% Matière
+% 1: S2I (par défaut)    2: IPT     3: TIPE	
+%\newcommand{\UPSTIidMatiere}{9}
+
+% Type de document
+% 0: Custom*				7: Fiche Méthode			14: Document Réponses
+% 1: Cours (par défaut)		8: Fiche Synthèse    		15: Programme de colle 
+% 2: TD     				9: Formulaire
+% 3: TP						10: Memo
+% 4: Colle					11: Dossier Technique
+% 5: DS						12: Dossier Ressource
+% 6: DM						13: Concours Blanc
+% * Si on met la valeur 0, il faut décommenter la ligne suivante: 		
+%\newcommand{\UPSTItypeDocument}{Custom}
+\newcommand{\UPSTIidTypeDocument}{1}
+
+% Titre dans l'en-tête
+\newcommand{\UPSTItitreEnTete}{UPSTItitreEnTete}      
+%\newcommand{\UPSTItitreEnTetePages}{UPSTItitreEnTetePages}      
+%\newcommand{\UPSTIsousTitreEnTete}{UPSTIsousTitreEnTete}      
+
+% Titre 
+\newcommand{\UPSTItitrePreambule}{UPSTItitrePreambule}      
+\newcommand{\UPSTItitre}{UPSTItitre}      
+
+% Durée de l'activité (pour DS, DM et TP)
+%\newcommand{\UPSTIduree}{3h} 
+
+% Note de bas de première page
+%\newcommand{\UPSTInoteBasDePremierePage}{Note de bas de 1ère page}
+
+% Numéro (ajoute " n°1" après DS ou DM)
+%\newcommand{\UPSTInumero}{1}
+
+% Numéro chapitre
+\newcommand{\UPSTInumeroChapitre}{1}
+
+% En-tête customisé
+%\newcommand{\UPSTIenTetePrincipalCustom}{UPSTIenTetePrincipalCustom}
+
+% Message sous le titre
+%\newcommand{\UPSTImessage}{Message sous le titre}
+
+% Référence au programme
+%\newcommand{\UPSTIprogramme}{\EPBComp \EPBCompP{B1-02}, \EPBCompP{B2-49}, \EPBCompS{B2-50}, \EPBCompS{B2-51}, \EPBCompP{C1-07}, \EPBCompP{C1-08}}
+
+% Si l'auteur n'est pas l'auteur par défaut
+%\renewcommand{\UPSTIauteur}{UPSTI}
+
+% Si le document est réalisé au nom de l'équipe
+%\newcommand{\UPSTIdocumentCollegial}{1}
+
+% Source
+%\newcommand{\UPSTIsource}{UPSTI}
+
+% Version du document
+\newcommand{\UPSTInumeroVersion}{0.2}
+
+%----------------------------------------------- 
+\UPSTIcompileVars		% "Compile" les variables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Début du document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{document}
+\UPSTIbuildPage
+
+Contenu
+
+\end{document}

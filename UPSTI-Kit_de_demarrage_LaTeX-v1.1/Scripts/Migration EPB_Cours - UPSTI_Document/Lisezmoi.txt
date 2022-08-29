@@ -1,0 +1,5 @@
+Script pour convertir des documents rédigés avec les packages EPB_Cours.
+
+A exécuter avec Pyzo (par exemple...)
+
+Attention, la boîte de dialogue tkinter est toute petite....

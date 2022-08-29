@@ -1,0 +1,3 @@
+Ce dossier contient toutes les images et icônes utilisées par UPSTI_Document, dans sa configuration par défaut.
+
+Le plus simple est de copier le dossier UPSTIlatex à la racine du C, mais on peut le localiser où on veut, à condition toutefois de préciser le nouveau chemin dans le fichier UPSTI_Custom.

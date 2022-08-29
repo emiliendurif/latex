@@ -6,7 +6,7 @@
 \newcommand{\tStatique}[2]	{\ensuremath{	\torseur{\T_{\left({#1}\rightarrow{#2}\right)}}	}}
 
 
-%Résultates
+%RÃ©sultates
 %=================================
 
 
@@ -22,3 +22,34 @@
 %==================================
 
 \newcommand{\momentForce}[3]	{\moment[#2\rightarrow#3]{#1}}
+
+%\momentAMnn{P_2}{0}{1}{1}
+\newcommand{\momentAMnn}[4]{
+\ensuremath{
+\vecteur{M}_{#1}^{#4}(#2\to#3)
+}
+}
+
+
+\newcommand{\resultanteAMnn}[3]{
+\ensuremath{
+\vecteur{R}^{#3}(#1\to#2)
+}
+}
+
+\newcommand{\tActionMecaniqueCann}[9]{\tActionMecaniqueCan{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#8}}
+
+\newcommand{\momentAM}[3]{
+\ensuremath{
+\vecteur{M}_{#1}(#2\to#3)
+}
+}
+
+
+
+\newcommand{\resultanteAM}[2]{
+\ensuremath{
+\vecteur{R}_{#1\to#2}
+}
+}
+

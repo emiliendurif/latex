@@ -1,0 +1,5 @@
+Le dossier "Squelette vide de document" contient un modèle vide de document prêt à l'emploi pour l'utilisation du package UPSTI_Pedagogique.
+Vous pouvez aussi étudier les exemples contenus dans le dossier "Exemples de contenus pédagogiques".
+Enfin, de nombreuses ressources rédigées avec UPSTI_Document sont disponibles pour exemple sur http://s2i.pinault-bigeard.com (seulement en PT. Les ressources PCSI et TSI seront converties petit à petit).
+
+Emmanuel Pinault-Bigeard

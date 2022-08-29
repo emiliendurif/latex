@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%	CinÈmatique
+%	Cin√©matique
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{tikz}
@@ -8,9 +8,9 @@
 
 
 %Raccourcis
-\newcommand{\CIR}	{centre instantanÈ de rotation}
+\newcommand{\CIR}	{centre instantan√© de rotation}
 \newcommand{\cir}	{\CIR}
-\newcommand{\Cir}	{Centre instantanÈ de rotation}
+\newcommand{\Cir}	{Centre instantan√© de rotation}
 
 
 %DDL
@@ -24,17 +24,17 @@
 
 
 
-%GÈomÈtrie
+%G√©om√©trie
 \newcommand{\solide}[1]	{\ensuremath{	#1	}}		%Solide
 \newcommand{\sS}[1]	{\solide{S_{#1}}}	%Solides S1, S2, ...
 \newcommand{\s}[1]	{\ensuremath{(#1)}}	%Solides (1), (2), ...
 
-%RepËres
-\newcommand{\repere}[4]	{\ensuremath{	\left(#1,#2,#3,#4\right)	}}
+%Rep√®res
+%\newcommand{\repere}[4]	{\ensuremath{	\left(#1,#2,#3,#4\right)	}}
 \newcommand{\rR}[1]	{\ensuremath{	R_{#1}	}	}
 
 
-%coordonnÈes variables fonction du temps
+%coordonn√©es variables fonction du temps
 \newcommand{\xt}	{\fonction{x}{t}}
 \newcommand{\yt}	{\fonction{y}{t}}
 \newcommand{\zt}	{\fonction{z}{t}}
@@ -50,17 +50,22 @@
 \newcommand{\thetatp}	{\fonction{\dot\theta}{t}}
 
 %Vitesse
-\newcommand{\vVitesse}[3][]		{\ifthenelse{\equal{#1}{}}{\vecteur{V_{\left(#2/#3\right)}}}{\vecteur{V_{\left(#1\in#2/#3\right)}}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
+%\newcommand{\vVitesse}[3][]		{\ifthenelse{\equal{#1}{}}{\vecteur{V_{\left(#2/#3\right)}}}{\vecteur{V_{\left(#1\in#2/#3\right)}}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
+
+\newcommand{\vVitesse}[3]		{\ifthenelse{\equal{#1}{00}}{\vecteur{V}_{\left(#2/#3\right)}}{\vecteur{V}{\left(#1\in#2/#3\right)}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
+
+\newcommand{\vvVitessea}[3][]		{\ifthenelse{\equal{#1}{00}}{\vecteur{V}_{\left(#2/#3\right)}}{\vecteur{V}{\left(#1\in#2/#3\right)}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
+
 \newcommand{\vAcceleration}[3][]	{\ifthenelse{\equal{#1}{}}{\vecteur{\Gamma_{#2/#3}}}{\vecteur{\Gamma_{#1\in#2/#3}}}}
 \newcommand{\vRotation}[2]		{\vecteur{\Omega_{\left(#1/#2\right)}}}
 \newcommand{\vPivotement}[2]		{\vecteur{{\Omega_p}_{\left(#1/#2\right)}}}
 \newcommand{\vRoulement}[2]		{\vecteur{{\Omega_r}_{\left(#1/#2\right)}}}
 
-%DÈplacement de vitesse
+%D√©placement de vitesse
 \newcommand{\deplaceVitesse}[4]	{\ensuremath{	\vVitesse[#3]{#1}{#2}+\vecteur{#4#3}\wedge\vRotation{#1}{#2}	}}	%\deplaceVitesse{Solid}{Referentiel}{Pdepart}{Parrivee}
 
 
-%petits dÈplacements
+%petits d√©placements
 \newcommand{\vDeplacement}[3][]		{\ifthenelse{\equal{#1}{}}{\vecteur{U_{#2/#3}}}{\vecteur{U_{#1\in#2/#3}}}}
 \newcommand{\vDep}[3][]			{\vDeplacement[#1]{#2}{#3}}
 \newcommand{\vPetitDeplacement}[3][]	{\ifthenelse{\equal{#1}{}}{\vecteur{U_{#2/#3}}}{\vecteur{U_{#1\in#2/#3}}}}
@@ -82,8 +87,8 @@
 \newcommand{\tV}[2]			{\tCinematique{#1}{#2}}	%torseur cinematique
 \newcommand{\tC}[2]			{\tCinetique{#1}{#2}}	%torseur cinetique
 \newcommand{\tDyn}[2]			{\tDynamique{#1}{#2}}	%torseur dynamique
-\newcommand{\D}				{\ensuremath{	\mathscr{D}	}}	%Symbole du torseur petit dÈplacement
-\newcommand{\tPetitDeplacement}[3][]	{\ensuremath{	\torseur{\D^{#1}_{\left(#2/#3\right)}}	}}%torseur petit dÈplacement
+\newcommand{\D}				{\ensuremath{	\mathscr{D}	}}	%Symbole du torseur petit d√©placement
+\newcommand{\tPetitDeplacement}[3][]	{\ensuremath{	\torseur{\D^{#1}_{\left(#2/#3\right)}}	}}%torseur petit d√©placement
 \newcommand{\tPetitDep}[3][]		{\tPetitDeplacement[#1]{#2}{#3}}
 \newcommand{\tD}[3][]			{\tPetitDeplacement[#1]{#2}{#3}}
 
@@ -92,16 +97,183 @@
 \newcommand{\vDelta}[3][]		{\ifthenelse{\equal{#1}{}}{\vecteur{\delta_{\left(#2/#3\right)}}}{\vecteur{\delta_{#1}\left(#2/#3\right)}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
 %Graphique / figures
 %Figures planes de projection
-\newcommand{\scFigCalc}[6][]{
-\begin{tikzpicture}
-\draw[->] (0,0) -- (3,0) node[above] {$\overrightarrow{#2}$};
-\draw[->] (0,0) -- (0,3) node[right] {$\overrightarrow{#3}$};
-\draw[->] (0cm,0cm) -- (25:3cm) node[above] {$\overrightarrow{#4}$};
-\draw[->] (0cm,0cm) -- (115:3cm) node[right] {$\overrightarrow{#5}$};
-\draw[->] (1,0) arc (0:25:1cm)node[right=0.5em] {$#6$} ;
-\draw[->] (0,1) arc (90:115:1cm)node[above=0.5em] {$#6$} ;
-\node[below](0,0){$\overrightarrow{#1}$};
-\end{tikzpicture}
+%\newcommand{\scFigCalc}[6][]{
+%\begin{tikzpicture}
+%\draw[->] (0,0) -- (3,0) node[above] {$\overrightarrow{#2}$};
+%\draw[->] (0,0) -- (0,3) node[right] {$\overrightarrow{#3}$};
+%\draw[->] (0cm,0cm) -- (25:3cm) node[above] {$\overrightarrow{#4}$};
+%\draw[->] (0cm,0cm) -- (115:3cm) node[right] {$\overrightarrow{#5}$};
+%\draw[->] (1,0) arc (0:25:1cm)node[right=0.5em] {$#6$} ;
+%\draw[->] (0,1) arc (90:115:1cm)node[above=0.5em] {$#6$} ;
+%\node[below](0,0){$\overrightarrow{#1}$};
+%\end{tikzpicture}
+%}
+
+%\newcommand*{\scFigCalc}{\@ifstar\scFigCalcSeul\scFigCalctikz}
+%\newcommand{\scFigCalctikz}[6][]{\begin{tikzpicture}
+%\begin{scope}[thick, >=latex]
+%\draw[->] (0,0) -- (3,0) node[above] {$\vv{#2}$};
+%\draw[->] (0,0) -- (0,3) node[right] {$\vv{#3}$};
+%\draw[->] (0cm,0cm) -- (25:3cm) node[above] {$\vv{#4}$};
+%\draw[->] (0cm,0cm) -- (115:3cm) node[right] {$\vv{#5}$};
+%\draw[->] (1,0) arc (0:25:1cm)node[right=0.5em] {$#6$} ;
+%\node[below](0,0){${#1}$};
+%\end{scope}
+%\end{tikzpicture}}
+
+%\newcommand{\scFigCalcSeul}[6][]{
+%\begin{scope}[thick, >=latex]
+%\draw[->] (0,0) -- (3,0) node[above] {$\vv{#2}$};
+%\draw[->] (0,0) -- (0,3) node[right] {$\vv{#3}$};
+%\draw[->] (0cm,0cm) -- (25:3cm) node[above] {$\vv{#4}$};
+%\draw[->] (0cm,0cm) -- (115:3cm) node[right] {$\vv{#5}$};
+%\draw[->] (1,0) arc (0:25:1cm)node[right=0.5em] {$#6$} ;
+%\node[below](0,0){${#1}$};
+%\end{scope}}
+
+
+%%% Matrices d'inertie
+
+\newcommand{\inertie}[2]{I_{#1}\left( #2\right)}
+\newcommand{\matinertie}[7]{
+\begin{pmatrix}
+#1 & #6 & #5 \\
+#6 & #2 & #4 \\
+#5 & #4 & #3 \\
+\end{pmatrix}_{#7}}
+%%%%%%%%%%%%%%
+
+% Vecteur vitesse
+ \newcommand{\vectv}[3]{%
+\vect{V\left( {#1} \in {#2}/{#3}\right)}
+}
+
+% Vecteur force
+\newcommand{\vectf}[2]{%
+\vect{R\left( {#1} \rightarrow {#2}\right)}
+}
+
+% Vecteur moment stat
+\newcommand{\vectm}[3]{%
+\vect{\mathcal{M}\left( {#1}, {#2} \rightarrow {#3}\right)}
+}
+
+
+ \newcommand{\torseurcol}[7]{
+\left\{%
+\begin{array}{cc}%
+{#1} & {#4}\\%
+{#2} & {#5}\\%
+{#3} & {#6}\\%
+\end{array}%
+\right\}_{#7}%
+}
+
+ \newcommand{\torseurl}[3]{%
+%\left\{\mathcal{#1}\right\}_{#2}=%
+\left\{%
+\begin{array}{l}%
+{#1} \\%
+{#2} %
+\end{array}%
+\right\}_{#3}%
+}
+
+\newcommand{\torseurcin}[3]{%
+\left\{\mathcal{#1} \left(#2/#3 \right) \right\}
+}
+
+\newcommand{\torseurci}[2]{%
+\left\{\sigma \left(#1/#2 \right) \right\}
+}
+\newcommand{\torseurdyn}[2]{%
+\left\{\delta \left(#1/#2 \right) \right\}
+}
+
+\newcommand{\torseurstat}[3]{%
+\left\{\mathcal{#1} \left(#2\rightarrow #3 \right) \right\}
+}
+
+% d droit pour le calcul diff√©rentiel
+\newcommand{\dd}{\text{d}}
+\newcommand{\ddd}{\text{dd}}
+
+% Vecteur acc√©l√©ration
+ \newcommand{\vectg}[3]{%
+\vect{\Gamma \left( {#1} \in {#2}/{#3}\right)}
+}
+
+
+% Vecteur r√©sultante dyn
+\newcommand{\vectrd}[2]{%
+\vect{R_d \left( {#1}/ {#2}\right)}
+}
+% Vecteur moment dyn
+\newcommand{\vectmd}[3]{%
+\vect{\delta \left( {#1}, {#2} /{#3}\right)}
+}
+
+
+% Vecteur r√©sultante cin
+\newcommand{\vectrc}[2]{%
+\vect{R_c \left( {#1}/ {#2}\right)}
+}
+% Vecteur moment cin
+\newcommand{\vectmc}[3]{%
+\vect{\sigma \left( {#1}, {#2} /{#3}\right)}
+}
+
+
+
+\newcommand{\axe}[2]{\couple{#1}{#2}}
+
+
+%==============================================================================%
+%	Graphes des liaisons
+%==============================================================================%
+\newenvironment{grapheLiaisons}[1][]{
+
+\begin{tikzpicture}[#1]
+
+\glConfig
+
+}{\end{tikzpicture}}
+
+\newcommandx{\glConfig}[2][1=,2=]{
+
+\tikzstyle{liaison}=[align=center,#1,]
+
+\tikzstyle{piece}=[circle,draw,align=center,#2,]
+
+}
+
+\newcommandx{\glPiece}[4][4=]{\node ({#2}) at ({#1})[piece,#4] {#3};}         % Pi√®ce
+
+\newcommandx{\glBati}[6][1=0,5=1,6=]{     % On a rajout√© l'√©chelle et l'angle 
+
+  \glPiece{#2}{#3}{#4}[#6]
+
+  \gbati[#1]{#3}[#5][#6]
+
+}             % B√¢ti  (le premier param√®tre est l'angle)
+
+\newcommandx{\glLiaison}[6][1=,2=,5=,6=above]{\draw [liaison,#2] ({#3}) to[#1] node[midway, #6]{#5} ({#4});}
+
+\newcommandx{\glDeuxL}[3][1=c]{\begin{tabular}{#1} {#2}\\{#3} \end{tabular}}  % deprecated (au profit de [align=center] et \\)
+
+\newcommandx{\gbati}[4][1=0,3=1,4=]{   % 1: angle, 2: position, 3: echelle, 4: parametres du noeud
+
+\begin{scope}[rotate=#1,scale=#3]
+
+\draw[#4] ({#2}.({#1}-90) --++(0,-0.2) coordinate (K);
+
+\draw[#4] (K) --++(0.35,0);
+
+\draw[#4] (K) --++(-0.35,0) coordinate (L);
+
+\foreach \x in {0,0.14, ...,0.65} {\draw[#4] ($(L) + (\x,0)$) --++(0.13,-0.13);};
+
+\end{scope}
 }
 
 

@@ -1,7 +1,7 @@
 %--------------DOCUMENT--------------------------------------------------------
 
 \documentclass[a4paper,11pt]{article}                      % Type de document
-\usepackage[frenchb]{babel}                  % Titres en français
+\usepackage[frenchb]{babel}                  % Titres en franÃ§ais
 \usepackage[T1]{fontenc}   % Correspondance clavier -> document
 \usepackage{fourier} 
 %-------------PACKAGES---------------------------------------------------------
@@ -11,7 +11,7 @@
 \usepackage{makeidx}                       % Indexation du document
 \usepackage{multicol}                       % gestion plusieurs colonnes
 
-\usepackage{openbib}                        % gestion avancée de Bibtex
+\usepackage{openbib}                        % gestion avancÃ©e de Bibtex
 \usepackage{here}                           % avoir ses figures a la suite du texte
 
 \usepackage{alltt}                       % envir. verbatim suppl
@@ -53,7 +53,7 @@
 
 %-------------PAGE-DE-GARDE----------------------------------------------------
 
-\title{Schémas cinématiques avec PGF/Tikz}                                    % Titre
+\title{SchÃ©mas cinÃ©matiques avec PGF/Tikz}                                    % Titre
 \author{Papanicola Robert}                                   % Auteur(s)
 \date{\today}                                     % Date (\today pour aujourd'hui)
 %\graphicspath{}
@@ -74,17 +74,17 @@
 \maketitle
 
 \begin{description}
-\item[version 0.6]: avril 2009, petites modifications( \verb"\scRef" et \verb"\scPoin"), le package est renommé en \emph{rpcinematik};
-\item[version 0.5]: 18 janvier 2009,  première mise en ligne du package \emph{rpliaisons}.
+\item[version 0.6]: avril 2009, petites modifications( \verb"\scRef" et \verb"\scPoin"), le package est renommÃ© en \emph{rpcinematik};
+\item[version 0.5]: 18 janvier 2009,  premiÃ¨re mise en ligne du package \emph{rpliaisons}.
 \end{description}
 
-\section{Présentation}
+\section{PrÃ©sentation}
 
-Ce package a pour objectif de faciliter la création de schémas cinématiques normalisés avec pgf/tikz, il est encore largement incomplet et ne demande qu'a être améliorer. N'hésitez pas à faire parvenir vos remarques garce au forum de l'article.
+Ce package a pour objectif de faciliter la crÃ©ation de schÃ©mas cinÃ©matiques normalisÃ©s avec pgf/tikz, il est encore largement incomplet et ne demande qu'a Ãªtre amÃ©liorer. N'hÃ©sitez pas Ã  faire parvenir vos remarques garce au forum de l'article.
 
 
 \section{Les symboles}
-\subsection{Liaisons normalisées}
+\subsection{Liaisons normalisÃ©es}
 \begin{description}
 \item[Pivot] : commande de base \verb"\scPivotx[angle]{nom}{position}" 
 
@@ -103,7 +103,7 @@ Ce package a pour objectif de faciliter la création de schémas cinématiques norm
 \end{tikzpicture}
 \end{tkzexample}
 
-\item[Glissière] commande de base \verb"\scGlissierex[angle]{nom}{position}" 
+\item[GlissiÃ¨re] commande de base \verb"\scGlissierex[angle]{nom}{position}" 
 
 \begin{tkzexample}[small,vbox]
 \begin{tikzpicture}
@@ -112,7 +112,7 @@ Ce package a pour objectif de faciliter la création de schémas cinématiques norm
 \end{tkzexample}
 
 
-\item[Hélicoïdale] commande de base \verb"\scHelicoidalex[angle]{nom}{position}" 
+\item[HÃ©licoÃ¯dale] commande de base \verb"\scHelicoidalex[angle]{nom}{position}" 
 
 \begin{tkzexample}[small,vbox]
 \begin{tikzpicture}
@@ -120,7 +120,7 @@ Ce package a pour objectif de faciliter la création de schémas cinématiques norm
 \end{tikzpicture}
 \end{tkzexample}
 
-\item[Sphère cylindre] commande de base \verb"\SphereCylindrex[angle]{nom}{position}" 
+\item[SphÃ¨re cylindre] commande de base \verb"\SphereCylindrex[angle]{nom}{position}" 
 
 
 \begin{tkzexample}[small,vbox]
@@ -129,7 +129,7 @@ Ce package a pour objectif de faciliter la création de schémas cinématiques norm
 \end{tikzpicture}
 \end{tkzexample}
 
-\item[Sphèrique] commande de base \verb"\Spherique[angle]{nom}{position}" 
+\item[SphÃ¨rique] commande de base \verb"\Spherique[angle]{nom}{position}" 
 
 \begin{tkzexample}[small]
 \begin{tikzpicture}
@@ -148,7 +148,7 @@ Ce package a pour objectif de faciliter la création de schémas cinématiques norm
 \end{tkzexample}
 
 
-\item[Sphérique à doigt] commande de base \verb"\SpheriqueDoigt[angle]{nom}{position}" 
+\item[SphÃ©rique Ã  doigt] commande de base \verb"\SpheriqueDoigt[angle]{nom}{position}" 
 
 
 \begin{tkzexample}[small,vbox]
@@ -158,7 +158,7 @@ Ce package a pour objectif de faciliter la création de schémas cinématiques norm
 \end{tkzexample}
 
 
-\item[Sphére Plan] commande de base \verb"\SpherePlan[angle]{nom}{position}" 
+\item[SphÃ©re Plan] commande de base \verb"\SpherePlan[angle]{nom}{position}" 
 
 \begin{tkzexample}[small,vbox]
 \begin{tikzpicture}
@@ -189,7 +189,7 @@ Ce package a pour objectif de faciliter la création de schémas cinématiques norm
 \end{tkzexample}
 
 
-\item[Bâti] commande de base \verb"\scBati[angle]{nom}{position}" 
+\item[BÃ¢ti] commande de base \verb"\scBati[angle]{nom}{position}" 
 
 \begin{tkzexample}[small,vbox]
 \begin{tikzpicture}
@@ -203,10 +203,10 @@ Ce package a pour objectif de faciliter la création de schémas cinématiques norm
 
 \subsection{Engrenages et poulies}
 
-Cette partie est encore très succincte, et s'agrandira avec les futures versions.
+Cette partie est encore trÃ¨s succincte, et s'agrandira avec les futures versions.
 
 \begin{description}
-\item[Roue dentée] commande de base \verb"\scRoueDentee[angle]{position}{rayon}"
+\item[Roue dentÃ©e] commande de base \verb"\scRoueDentee[angle]{position}{rayon}"
 
 \begin{tikzpicture}
 \coordinate(A) at (0,0);\scRoueDentee{A}{3em} \node[above of=A,node distance=4em,text width=3cm]{\verb"\coordinate(A) at (0,0);" \verb"\scRoueDentee{A}{3em}"};
@@ -237,18 +237,18 @@ Cette partie est encore très succincte, et s'agrandira avec les futures versions
 
 \subsection{Styles et couleurs}
 
-Par défaut, les symboles sont bicolores bleu et rouge et traits épais au sens de tikz \og thick \fg : \tikz \scPivotx{A}{0,0};. En bleu, la partie \og extérieure \fg du symbole et en rouge, la partie \og intérieure \fg.
+Par dÃ©faut, les symboles sont bicolores bleu et rouge et traits Ã©pais au sens de tikz \og thick \fg : \tikz \scPivotx{A}{0,0};. En bleu, la partie \og extÃ©rieure \fg du symbole et en rouge, la partie \og intÃ©rieure \fg.
 
 Trois commandes permettent de choisir les couleurs et style.
 \begin{itemize}
-\item \verb"\scSolideExt[nom style]{style et couleur}" :  permet de définir le style et la couleur de l'extérieur du symbole, cette commande est mémorisée jusqu'à la prochaine définition. L'option nom du style permet de réutiliser le style sans le redéfinir. Cette macro est équivalente à la commande tikz \verb"\tikzstyle{nom style}=[style, couleur]"
+\item \verb"\scSolideExt[nom style]{style et couleur}" :  permet de dÃ©finir le style et la couleur de l'extÃ©rieur du symbole, cette commande est mÃ©morisÃ©e jusqu'Ã  la prochaine dÃ©finition. L'option nom du style permet de rÃ©utiliser le style sans le redÃ©finir. Cette macro est Ã©quivalente Ã  la commande tikz \verb"\tikzstyle{nom style}=[style, couleur]"
 
-\item \verb"\scSolideInt[nom style]{style et couleur}" : permet de définir le style et la couleur de l'intérieur du symbole, cette commande est mémorisée jusqu'à la prochaine définition.
+\item \verb"\scSolideInt[nom style]{style et couleur}" : permet de dÃ©finir le style et la couleur de l'intÃ©rieur du symbole, cette commande est mÃ©morisÃ©e jusqu'Ã  la prochaine dÃ©finition.
 
 
-\item \verb"\scSolides{style ext}{style int}" : permet de configurer simultanément les deux parties du symbole.
+\item \verb"\scSolides{style ext}{style int}" : permet de configurer simultanÃ©ment les deux parties du symbole.
 
-Ces commandes permettent aussi de définir le style des autres symboles (roues dentées et poulies). Pour celles-ci il est préférable d'utiliser directement la commande \verb"\scSolides{style}{style}", avec le même style pour les deux paramètres.
+Ces commandes permettent aussi de dÃ©finir le style des autres symboles (roues dentÃ©es et poulies). Pour celles-ci il est prÃ©fÃ©rable d'utiliser directement la commande \verb"\scSolides{style}{style}", avec le mÃªme style pour les deux paramÃ¨tres.
 \end{itemize}
 
 \begin{tkzexample}[very small]
@@ -276,30 +276,30 @@ Ces commandes permettent aussi de définir le style des autres symboles (roues de
 Aux commandes classiques de dessin tikz le package rajoute quelques macros.
 
 \begin{itemize}
-\item \verb"\scRelier[style]{N1]{N2}"  permet de tracer une ligne directe entre le n\oe ud N1  et le n\oe ud N2 avec le style passé en option;
-\item \verb"\scRelierxy[style]{N1]{N2}"  permet de tracer une ligne brisée débutant par une ligne horizontale puis une ligne verticale entre le n\oe ud N1  et le n\oe ud N2 avec le style passé en option;
-\item  \verb"\scRelieryx[style]{N1]{N2}"  permet de tracer une ligne brisée débutant par une ligne verticale   puis une ligne horizontale  entre le n\oe ud N1  et le n\oe ud N2 avec le style passé en option;
+\item \verb"\scRelier[style]{N1]{N2}"  permet de tracer une ligne directe entre le n\oe ud N1  et le n\oe ud N2 avec le style passÃ© en option;
+\item \verb"\scRelierxy[style]{N1]{N2}"  permet de tracer une ligne brisÃ©e dÃ©butant par une ligne horizontale puis une ligne verticale entre le n\oe ud N1  et le n\oe ud N2 avec le style passÃ© en option;
+\item  \verb"\scRelieryx[style]{N1]{N2}"  permet de tracer une ligne brisÃ©e dÃ©butant par une ligne verticale   puis une ligne horizontale  entre le n\oe ud N1  et le n\oe ud N2 avec le style passÃ© en option;
 \end{itemize}
 
-Pour chacun de ces liens trois points intermédiaires sont définis:
+Pour chacun de ces liens trois points intermÃ©diaires sont dÃ©finis:
 \begin{itemize}
 \item N1-N2 : le point milieu,
-\item N1-N2a : le point à 0{,}25 du début,
-\item N1-N2b : le point à 0{,}75 du début.
+\item N1-N2a : le point Ã  0{,}25 du dÃ©but,
+\item N1-N2b : le point Ã  0{,}75 du dÃ©but.
 \end{itemize}
 
 
 \section{Autres commandes}
 
-\subsection{Référence de solides et points}
+\subsection{RÃ©fÃ©rence de solides et points}
 
-La commande \verb"\scRef[pos relative]{noeud}{texte}"  permet de placer le texte du n\oe ud. une flèche relit le texte au n\oe ud.
+La commande \verb"\scRef[pos relative]{noeud}{texte}"  permet de placer le texte du n\oe ud. une flÃ¨che relit le texte au n\oe ud.
 
-le style de la flèche et du texte est configurable par les deux commandes de configuration \verb"\scStyleRef[nom]{style}"  pour le texte et \verb"\scStyleLien[nom]{style}" pour la flèche.
+le style de la flÃ¨che et du texte est configurable par les deux commandes de configuration \verb"\scStyleRef[nom]{style}"  pour le texte et \verb"\scStyleLien[nom]{style}" pour la flÃ¨che.
 
 \subsection {graphe de structure}
 \begin{description}
-\item[Graphe de structure bouclé] \verb"\GraphStrucBoucle[angle]{nb}{liste des solides}{rayon}"
+\item[Graphe de structure bouclÃ©] \verb"\GraphStrucBoucle[angle]{nb}{liste des solides}{rayon}"
 
 \begin{figure}[!ht]
 \centering
@@ -316,16 +316,16 @@ node distance=1em]{LGraphe3};
 \node[left of=LGraphe5] {LGraphe5};
 \end{tikzpicture}
 \end{tkzexample}
-\caption{Graphe de structure bouclé}
+\caption{Graphe de structure bouclÃ©}
 \label{fig:graphboucle}
 \end{figure}
 
 
 \begin{itemize}
-\item Les sommets du graphe sont nommé NGraphei avec i le numéro d'ordre du sommet.
-\item Les arcs entre les n\oe uds du schéma sont nommés LGraphei  avec i le numéro d'ordre de l'arc.
-\item par défaut, le graphe place le premier n\oe ud en bas angle=\ang{0} , pour débuter en haut, il faut préciser en option un  angle de \ang{180}.
-\item Le graphe est centré sur l'origine (0,0), pour le placer ailleurs il faudra utiliser un décalage d'origine.
+\item Les sommets du graphe sont nommÃ© NGraphei avec i le numÃ©ro d'ordre du sommet.
+\item Les arcs entre les n\oe uds du schÃ©ma sont nommÃ©s LGraphei  avec i le numÃ©ro d'ordre de l'arc.
+\item par dÃ©faut, le graphe place le premier n\oe ud en bas angle=\ang{0} , pour dÃ©buter en haut, il faut prÃ©ciser en option un  angle de \ang{180}.
+\item Le graphe est centrÃ© sur l'origine (0,0), pour le placer ailleurs il faudra utiliser un dÃ©calage d'origine.
 
 \end{itemize}
  
@@ -364,7 +364,7 @@ node distance=1em]{LGraphe3};
 
 \section{Exemples}
 
-\subsection{Système vis-ecrou}
+\subsection{SystÃ¨me vis-ecrou}
 
 \begin{figure}[!ht]
 \centering 
@@ -392,7 +392,7 @@ node distance=1em]{LGraphe3};
 \scRef[-1.5em,2em]{A-Cb}{0-corps}
 \end{tikzpicture}
 \end{tkzexample}
-\caption{Système vis -écrou}
+\caption{SystÃ¨me vis -Ã©crou}
 \label{fig:vis-ecrou}
 \end{figure}
 
@@ -400,7 +400,7 @@ node distance=1em]{LGraphe3};
 
 
 
-\subsection{Mécanisme de tête à polir}
+\subsection{MÃ©canisme de tÃªte Ã  polir}
 
 
 \begin{tkzexample}[very small]
@@ -409,13 +409,13 @@ node distance=1em]{LGraphe3};
 \scSolideExt[S1]{blue,thick} \scSolideExt[S0]{black,thick}
 \scSolideExt[S2]{red,thick} \scSolideExt[S3]{brown,thick}
 \scSolideExt[S4]{gray,thick} \scSolideExt[S5]{green,thick}
-%definition des coordonnées
+%definition des coordonnÃ©es
 \coordinate(O) at (0,0); \coordinate(B) at (15em,0);
 \coordinate(A) at (10em,5em); \coordinate(Oprime) at (5em,5em);
 \coordinate(C) at (0,10em); \coordinate(D) at (0,20em);
 \coordinate(E) at (-8em,20em); \coordinate(bat) at (5em,20em);
-%\definition des coordonnées des centres
-% des roues dentées
+%\definition des coordonnÃ©es des centres
+% des roues dentÃ©es
 \coordinate(P1) at (-8em,15em); \coordinate(P3) at (0,15em);
 \coordinate(P2) at (-8em,11em); \node[rectangle,minimum size=1.5em](P4) at (0,11em){};
 
@@ -434,7 +434,7 @@ node distance=1em]{LGraphe3};
  (L15) coordinate[pos=0.25,name=Sol6];
 %\draw[S0](L01) -- (L02);
 \scRelierxy[S3]{L31}{L34} \scRelier[S4]{L34}{L45}
-\scRelieryx[S5]{L45}{L15} %roues dentées
+\scRelieryx[S5]{L45}{L15} %roues dentÃ©es
 \scSolides{S2}{S2} \scRoueDentee{P1}{2.9em}
 \scRoueDentee{P2}{2.9em} \scRelier[S2]{L02}{P2}
 \scSolides{S1}{S1} \scRoueDentee{P3}{4.9em}
@@ -471,7 +471,7 @@ node distance=5em]{$\times$};
 
 
 
-\subsection{Train épicycloïdal}
+\subsection{Train Ã©picycloÃ¯dal}
 \begin{tkzexample}[very small]
 \begin{tikzpicture}
 \coordinate(P1) at (0,0);       \coordinate (P2) at (2,0);
@@ -496,11 +496,11 @@ node distance=5em]{$\times$};
 
 
 
-\subsection{Pont élévateur}
+\subsection{Pont Ã©lÃ©vateur}
 \begin{tkzexample}[very small]
 \begin{tikzpicture}
 
-\begin{scope}[yshift=0.5cm,scale=0.6,smooth, tension=.7,purple,thick] %dessin du véhicule
+\begin{scope}[yshift=0.5cm,scale=0.6,smooth, tension=.7,purple,thick] %dessin du vÃ©hicule
 \draw  plot coordinates {(-2.5,-0.) (-2,1) (-1,1)};
 \draw  plot coordinates {(2.5,-.0) (2,1) (1,1)};
 \draw  plot coordinates {(-2,1) (-1,1.3) (1,1.3) (2,1)};
@@ -519,7 +519,7 @@ node distance=5em]{$\times$};
 \coordinate (ZhautD) at (3.5,1.5);\coordinate (ZhautM) at (6,1.5);
 \coordinate (PM) at (6,0.5);\coordinate (bati) at (6,-2);
 
-%style des solides, couleurs épaisseurs
+%style des solides, couleurs Ã©paisseurs
 \tikzstyle{Chassis0}=[black,thick];
 \tikzstyle{Vis1}=[blue,thick];
 \tikzstyle{Vis2}=[red,thick];
@@ -532,7 +532,7 @@ node distance=5em]{$\times$};
 \scSolides{Bras3}{Chassis0} \scGlissierex[90]{glissG}{GG}
 \scSolides{Bras3}{Vis1} \scHelicoidalex[90]{heliG}{HG}
 \scSolides{Chassis0}{Vis1} \scPivotx[90]{pivG}{PG}
-\scRoueDentee{ZG}{1cm} % le noeud associé est note ZG#1
+\scRoueDentee{ZG}{1cm} % le noeud associÃ© est note ZG#1
 
 \scSolides{Bras4}{Chassis0} \scGlissierex[90]{glissD}{GD}
 \scSolides{Bras4}{Vis2} \scHelicoidalex[-90]{heliD}{HD}
@@ -705,7 +705,7 @@ node distance=5em]{$\times$};
 \node[above left=0.8em of M]{M};
 \node[right=0.8em of P]{P};
 
-\draw[latex-] (glisG1) -- ++ (-2,+1) node[left,text width=3.5cm]{Bras de suspension, le ressort n'est pas représenté};
+\draw[latex-] (glisG1) -- ++ (-2,+1) node[left,text width=3.5cm]{Bras de suspension, le ressort n'est pas reprÃ©sentÃ©};
 
 \draw[latex-] (glisG2) -- ++ (-1.5,+1) node[left,text width=3cm]{Verrou de blocage libre};
 \end{tikzpicture}
@@ -718,9 +718,9 @@ node distance=5em]{$\times$};
 
 \section{Vers le 3D}
 
-Dès que les possibilité de pgf/tikz le permettront, ce package évoluera pour permettre la  représentation spatiale des liaisons afin de réaliser des schémas cinématiques 3D. 
+DÃ¨s que les possibilitÃ© de pgf/tikz le permettront, ce package Ã©voluera pour permettre la  reprÃ©sentation spatiale des liaisons afin de rÃ©aliser des schÃ©mas cinÃ©matiques 3D. 
 
-Pour l'instant, il est possible de réaliser ce type de schéma avec les commandes de base de tikz.
+Pour l'instant, il est possible de rÃ©aliser ce type de schÃ©ma avec les commandes de base de tikz.
 
 \begin{tkzexample}[very small]
 \begin{tikzpicture}[scale=0.8, aspect=0.5,minimum height=1.5cm,minimum width=0.8cm]
@@ -766,7 +766,7 @@ cylinder body fill=blue!25] (pivC)at (C) {C};
 
 \section{Installation}
 \begin{itemize}
-\item Copier  le package rpcinematik.sty dans votre répertoire localtexmf/tex/latex \dots
-\item Placer dans l'entête de votre document \verb"\usepackage{rpcinematik}"
+\item Copier  le package rpcinematik.sty dans votre rÃ©pertoire localtexmf/tex/latex \dots
+\item Placer dans l'entÃªte de votre document \verb"\usepackage{rpcinematik}"
 \end{itemize}
 \end{document}

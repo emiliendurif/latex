@@ -1,0 +1,632 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Package définissant des commandes facilitant l'édition de documents                                  
+% -----------                                                                        
+% Auteur: Emmanuel Pinault-Bigeard
+% email: e.pinault-bigeard@upsti.fr
+% -----------
+% Version: 1.0 - 2017/11/23                                                                       
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UPSTI - http://www.upsti.fr
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%==============================================================================%
+%	Préambule
+%==============================================================================%
+% Pour faciliter les éventuelles mises à jour, il n'est pas conseillé de
+% modifier directement ce fichier.
+% Pour personnaliser ce package, il vaut mieux éditer le package 
+% UPSTI_Typographie_Custom.sty prévu à cet effet.
+%
+% Si on utilise, UPSTI_Document.sty, il est préférable de modifier
+% directement le fichier UPSTI_Custom.sty (voir documentation).
+%==============================================================================%
+
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{UPSTI_Typographie}[2017/11/23]
+
+
+%==============================================================================%
+%	Changelog
+%==============================================================================%
+% 1.0 - 2017/11/23 - Mise en ligne de la première version
+
+
+%==============================================================================%
+%	Importation des packages nécessaires
+%==============================================================================%
+\RequirePackage[utf8]{inputenc}       % Encodage
+\RequirePackage[T1]{fontenc}          % Encodage
+\RequirePackage[french]{babel}      % Gestion du français
+\RequirePackage[svgnames]{xcolor}     % Gestion des couleurs
+\RequirePackage[overload]{empheq}     % Encadrement des équations
+\RequirePackage{pifont}               % Symboles 
+\RequirePackage{wasysym}              % Symboles (dont diametre)
+\RequirePackage{graphicx}             % Images
+\RequirePackage{wrapfig}              % Gestion du wrapping de figures
+\RequirePackage{caption}              % Gestion des images et de leurs captions 
+\RequirePackage{subcaption}           % Gestion des captions
+\RequirePackage[tikz]{bclogo}         % Styles de boites (demonstrations, etc...)
+\RequirePackage{xargs}	              % Arguments optionnels mutliples
+\RequirePackage{multido}	            % Boucles
+\RequirePackage{listings}             % Coloration syntaxique pour code Python
+\RequirePackage{setspace}             % Gestion des interlignes
+\RequirePackage{longtable}            % Tableaux sur plusieurs pages   |
+\RequirePackage{calc}                 % Arithmétique                   |- Pour les QCM
+\RequirePackage{amssymb}              % Maths                          |
+\RequirePackage{multicol}             % Gestion des sections à plusieurs colonnes
+\RequirePackage{booktabs}             % Epaisseur des traits dans les tableaux
+\RequirePackage{array}                % Tableaux
+\RequirePackage[locale = FR]{siunitx} % Unités
+\RequirePackage{numprint}             % Affichage de nombres correctment avec \numprint{}
+\usetikzlibrary{calc}
+
+
+%==============================================================================%
+% Couleurs et autres commandes personnalisables
+%==============================================================================%
+%--------------------------------------------------------%
+% Dossier où les images par défaut sont stockées 
+%--------------------------------------------------------%
+% Si on utilise ce package seul, le dossier ci-dessous est utilisé. 
+% Si on utilise UPSTI_Document, on utilise la variable \UPSTIcheminImages par défaut, ou redéfinie dans UPSTI_Custom.sty
+\newcommand*{\UPSTIcheminDossierImagesTypographie}{C:/UPSTIlatex/}
+ 
+%--------------------------------------------------------%
+%	Couleurs par défaut (si on n'utilise pas UPSTI_Document)
+%--------------------------------------------------------%
+\makeatletter
+\@ifundefinedcolor{UPSTIcustomColor1}{\colorlet{UPSTIcustomColor1}{RoyalBlue}}{}
+\@ifundefinedcolor{UPSTIcustomColor2}{\colorlet{UPSTIcustomColor2}{red}}{}
+\@ifundefinedcolor{UPSTIcustomColor3}{\colorlet{UPSTIcustomColor3}{purple}}{}
+\@ifundefinedcolor{UPSTIcustomColor4}{\colorlet{UPSTIcustomColor4}{ForestGreen}}{}
+\@ifundefinedcolor{UPSTIcustomColor5}{\colorlet{UPSTIcustomColor5}{Orange}}{}
+\@ifundefinedcolor{UPSTIcouleurZoneACompleter}{\colorlet{UPSTIcouleurZoneACompleter}{black}}{}
+\@ifundefinedcolor{UPSTIcouleurCorrige}{\colorlet{UPSTIcouleurCorrige}{red}}{}
+\makeatother
+
+%--------------------------------------------------------%
+% Coloration syntaxique (pour code python)
+%--------------------------------------------------------%
+% Couleurs utilisées pour la coloration syntaxique
+\definecolor{Code}{rgb}{0,0,0}
+\definecolor{Decorators}{rgb}{0.3,0.3,0.3}
+\definecolor{Numbers}{rgb}{1,0,0}
+\definecolor{MatchingBrackets}{rgb}{0.25,0.5,0.5}
+\definecolor{Keywords}{rgb}{0,0,1}
+\definecolor{self}{rgb}{0,0,0}
+\definecolor{Strings}{rgb}{0,0.63,0}
+\definecolor{Comments}{rgb}{1,0.4,0}
+\definecolor{Backquotes}{rgb}{0,0,0}
+\definecolor{Classname}{rgb}{0,0,0}
+\definecolor{FunctionName}{rgb}{0,0,0}
+\definecolor{Operators}{rgb}{0,0,0}
+\definecolor{Background}{rgb}{0.95,0.95,0.95}
+
+% Formattage du code (package listing)
+\lstset{
+  numbers=left,
+  numberstyle=\scriptsize,
+  numbersep=1em,
+  xleftmargin=3em,
+  framextopmargin=2em,
+  framexbottommargin=2em,
+  showspaces=false,
+  showtabs=false,
+  showstringspaces=false,
+  breaklines=true,
+  frame=l,
+  tabsize=4,
+  % Basic
+  basicstyle=\ttfamily\footnotesize\setstretch{1},
+  backgroundcolor=\color{Background},
+  language=Python,
+  % Comments
+  commentstyle=\color{Comments}\slshape,
+  % Strings
+  stringstyle=\color{Strings},
+  morecomment=[s][\color{Strings}]{"""}{"""},
+  morecomment=[s][\color{Strings}]{'''}{'''},
+  % keywords
+  morekeywords={import,from,class,def,for,while,if,is,in,elif,else,not,and,or,print,break,continue,return,True,False,None,access,as,,del,except,exec,finally,global,import,lambda,pass,print,raise,try,assert},
+  keywordstyle={\color{Keywords}\bfseries},
+  % additional keywords
+  morekeywords={[2]@invariant},
+  keywordstyle={[2]\color{Decorators}},
+  keepspaces=true,
+  flexiblecolumns=true,
+  literate={é}{{\'e}}1 {à}{{\`a}}1 {è}{{\`e}}1 {ç}{{\c{c}}}1 {ù}{{\ù}}1 {ê}{{\^e}}1 {î}{{\^i}}1  {ô}{{\^o}}1  {û}{{\^uo}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {<-}{$\leftarrow$}{1}
+}
+
+%==============================================================================%
+% Numéros de questions et activités
+%==============================================================================%
+%--------------------------------------------------------%
+% Numérotation de question
+%--------------------------------------------------------%
+% Compteur
+\newcounter{UPSTInumeroQuestion}
+\newcommand*{\resetNumQuestion}{\setcounter{UPSTInumeroQuestion}{0}}
+
+% Intitule du numéro de question
+\newcommand{\UPSTIquestion}{\smallbreak\noindent\refstepcounter{UPSTInumeroQuestion}\textbf{Question \theUPSTInumeroQuestion} \quad} 
+
+%--------------------------------------------------------%
+% Activités
+%--------------------------------------------------------%
+% Compteur
+\newcounter{UPSTInumeroActivite}
+\newcommand*{\resetNumActivite}{\setcounter{UPSTInumeroActivite}{0}}
+
+% Environnement UPSTIactivite
+\newenvironmentx{UPSTIactivite}[6][1=,2=,3=,4=,5=,6=]    %1: couleur, 2: soustitre,  3: nom du groupe, 4: numéro activité, 5: override Activité, 6: desactiver le compteur 
+{%
+  \ifstrempty{#1}{\newcommand{\UPSTIVarianteUPSTIactivite}{20}}{\newcommand{\UPSTIVarianteUPSTIactivite}{#1}}
+  \ifcase \UPSTIVarianteUPSTIactivite
+    \colorlet{UPSTIcustomActiviteColor}{red}                      % Couleur pour le chef d'équipe
+    \or \colorlet{UPSTIcustomActiviteColor}{DarkOrange}           % Couleur pour l'équipe 1 / Modélisateur
+    \or \colorlet{UPSTIcustomActiviteColor}{Green}                % Couleur pour l'équipe 2 / Expérimentateur
+    \or \colorlet{UPSTIcustomActiviteColor}{teal}                 % Couleur pour l'équipe 3
+    \or \colorlet{UPSTIcustomActiviteColor}{magenta}              % Couleur pour l'équipe 4
+    \or \colorlet{UPSTIcustomActiviteColor}{yellow}               % Couleur pour l'équipe 5
+    \or \colorlet{UPSTIcustomActiviteColor}{DarkKhaki}            % Couleur pour l'équipe 6
+    \or \colorlet{UPSTIcustomActiviteColor}{green}                % Couleur pour l'équipe 7
+    \or \colorlet{UPSTIcustomActiviteColor}{blue}                 % Couleur pour le groupe au complet
+    \or \colorlet{UPSTIcustomActiviteColor}{gray}                 % grisée
+    \else \colorlet{UPSTIcustomActiviteColor}{UPSTIcustomColor1}  % Couleur par défaut
+  \fi
+
+  \vspace{0.5em}
+  \ifstrempty{#6}{\refstepcounter{UPSTInumeroActivite}}{}%
+  \mdfsetup{%
+    frametitle={%
+      \tikz[baseline=(current bounding box.east),outer sep=0pt]
+      \node[draw=UPSTIcustomActiviteColor,anchor=east,rectangle,rounded corners, fill=UPSTIcustomActiviteColor!30]
+        {\ifstrempty{#5}{Activité}{#5}\ifstrempty{#4}{~\theUPSTInumeroActivite}{#4}\ifstrempty{#2}{}{:~#2}\ifstrempty{#3}{}{~(#3)}};}
+  }%
+  \global\mdfdefinestyle{UPSTIactBox}{%
+    innertopmargin=0.5em,linecolor=UPSTIcustomActiviteColor,%
+    linewidth=0.5pt,topline=true,roundcorner=5pt,backgroundcolor=UPSTIcustomActiviteColor!5,
+    frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+  }
+
+\begin{mdframed}[style=UPSTIactBox]\relax%
+}
+{\end{mdframed}
+}
+
+
+%==============================================================================%
+% Boîtes
+%==============================================================================%
+%--------------------------------------------------------%
+% Boîtes avec logo
+%--------------------------------------------------------%
+% Mise en forme générique des boîtes
+\newcommand*{\UPSTImarginTop}{0.5em}                % Espacement avant la boîte
+\newcommand*{\UPSTImarginBottom}{-0.5em}               % Espacement après la boîte
+\newcommand*{\UPSTIboitesRayon}{0.15}               % Coins arrondis (rayon en cm)
+\newcommand*{\UPSTIboitesEpaisseurContour}{0.4}     % Épaisseur des traits
+\newcommand*{\UPSTIboitesCouleurContour}{gray!60}   % Couleur des traits
+
+% Boîte générique: 1: Titre, 2: Logo, 3: sousTitre, 4: Contenu, 5: options supplémentaires 
+\newcommandx{\UPSTIboiteGenerique}[5][3=,5=]{
+\vspace{\UPSTImarginTop}
+\begin{bclogo}[logo=#2, marge=4, epBord=\UPSTIboitesEpaisseurContour, arrondi=\UPSTIboitesRayon, couleurBord=\UPSTIboitesCouleurContour, barre=none, sousTitre=#3, #5]{\quad \normalcolor #1}
+{\vspace{0.5em}#4}
+\end{bclogo}
+\vspace{\UPSTImarginBottom}
+}
+
+% Application
+\newcommandx{\UPSTIappli}[3][1=,3=]{\UPSTIboiteGenerique{Application}{\bccrayon}[#1]{#2}[#3]}
+
+% A retenir
+\newcommandx{\UPSTIaRetenir}[3][1=,3=]{\UPSTIboiteGenerique{À retenir}{\bccoeur}[#1]{#2}[#3]}
+
+% Attention
+\newcommandx{\UPSTIattention}[3][1=,3=]{\UPSTIboiteGenerique{Attention}{\bcattention}[#1]{#2}[#3]}
+
+% Définition
+\newcommandx{\UPSTIdefinition}[3][1=,3=]{\UPSTIboiteGenerique{Définition}{\bctrombone}[#1]{#2}[#3]}
+
+% PresenceProf
+\newcommandx{\UPSTIpresenceProf}[3][1=,3=]{\UPSTIboiteGenerique{Appeler le professeur}{\bcoeil}[#1]{#2}[#3]}
+
+% Problématique
+\newcommandx{\UPSTIproblematique}[3][1=,3=]{\UPSTIboiteGenerique{Problématique}{\bcquestion}[#1]{#2}[#3]}
+
+% Propriété
+\newcommandx{\UPSTIpropriete}[3][1=,3=]{\UPSTIboiteGenerique{Propriété}{\bcoutil}[#1]{#2}[#3]}
+
+% Rappel
+\newcommandx{\UPSTIrappel}[3][1=,3=]{\UPSTIboiteGenerique{Rappel}{\bcrecyclage}[#1]{#2}[#3]}
+
+% Remarque
+\newcommandx{\UPSTIremarque}[3][1=,3=]{\UPSTIboiteGenerique{Remarque}{\bcplume}[#1]{#2}[#3]}
+
+% ToDo
+\newcommandx{\UPSTItoDo}[3][1=,3=]{\UPSTIboiteGenerique{TODO}{\bcpanchant}[#1]{#2}[couleurBord=red,#3]}
+
+%--------------------------------------------------------%
+% Boîtes version "Centrale"
+%--------------------------------------------------------%
+% Boîte générique
+\newcommand{\UPSTIboiteCentrale}[2]{
+\global\mdfdefinestyle{UPSTIboiteCentraleStyle}{%
+	linecolor=black,
+	linewidth=1pt,
+	leftline=false,
+	rightline=false,
+	frametitleaboveskip=-1em,
+	innertopmargin=-5pt,
+	innerbottommargin=7pt,
+%  leftmargin=3em,
+	innerrightmargin=0pt,
+	innerleftmargin=0pt,
+	frametitle={
+		\tikz[baseline=(current bounding box.east),outer sep=0pt]
+		\node[anchor=east,rectangle,fill=white]{\strut #1};}
+}
+\begin{mdframed}[style=UPSTIboiteCentraleStyle]{#2}\end{mdframed}}
+
+% Objectif (version Centrale)
+\newcommand{\UPSTIobjectif}[1]{\UPSTIboiteCentrale{Objectif}{#1}}
+
+%--------------------------------------------------------%
+% Boîtes (avec mdframed)
+%--------------------------------------------------------%
+\mdfdefinestyle{UPSTIboiteStandard}{
+	linecolor=gray,
+	%linewidth=0.6pt,
+	linewidth=0pt,
+	leftmargin=10pt,
+	topline=false,
+	rightline=false,
+	bottomline=false, 
+  innerrightmargin=0pt,
+  rightmargin=0pt
+}
+\mdfdefinestyle{UPSTIboiteDemo}{
+	linecolor=gray,
+	linewidth=0.6pt,
+	leftmargin=10pt,
+	topline=false,
+	rightline=false,
+	bottomline=false,
+  innerrightmargin=0pt,
+  rightmargin=0pt,
+  innerbottommargin=-5pt,
+  fontcolor=gray
+}
+
+\mdfdefinestyle{UPSTIboiteDemoACompleter}{
+	linecolor=gray,
+	linewidth=0.6pt,
+	leftmargin=10pt,
+	topline=false,
+	rightline=false,
+	bottomline=false,
+  innerrightmargin=0pt,
+  rightmargin=0pt,
+  innerbottommargin=-5pt,
+  fontcolor=UPSTIcouleurZoneACompleter
+}
+
+\makeatletter
+\newcommandx{\UPSTIboite}[4][1=,4=UPSTIboiteStandard]{
+  \vspace{.1cm}\noindent{#2} : {#1} \smallbreak\nobreak\@afterheading
+  \begin{mdframed}[style={#4}]
+  \vspace{0.2em} 
+  {#3}   
+  \vspace{0.7em} 
+  \end{mdframed}
+  \vspace{.1cm}
+}
+\makeatother
+
+% Démonstration
+\newcommandx{\UPSTIdemo}[2][1=]{
+  \UPSTIboite[#1]{{\underline{Démonstration}}}{#2}[UPSTIboiteDemo]
+}
+
+% Démonstration à compléter
+\newcommandx{\UPSTIdemoACompleter}[2][1=]{
+  \UPSTIboite[#1]{{\underline{Démonstration}}}{#2}[UPSTIboiteDemoACompleter]
+}
+
+
+%==============================================================================%
+% Environnements et commandes personnalisés
+%==============================================================================%
+%--------------------------------------------------------%
+% Titres
+%--------------------------------------------------------%
+% Titre standard
+\newcommandx{\UPSTItitreStd}[3][1=0,3=]{\ifnumequal{0}{#1}{}{\bigskip}\noindent\textbf{{#2}\ifblank{#3}{}{ :}} {#3}\smallbreak}
+
+% Variantes prédéfinies de Titre Standard
+\newcommandx{\UPSTIapplication}[1][1=]{\UPSTItitreStd{Application}[#1]\smallbreak}                   % Application
+\newcommand*{\UPSTIcompetences}{\UPSTItitreStd{Compétences visées:}}                         % Compétences visées
+\newcommand*{\UPSTIcontenuPoly}{\UPSTItitreStd{Contenu:}}                                    % Contenu Poly (pour les pages de gardes de TD)
+\newcommand*{\UPSTIdomainesDeCompetence}{\UPSTItitreStd{Domaines de compétences:}}           % Domaine de compétence
+\newcommand*{\UPSTIdemarcheIngenieur}{\UPSTItitreStd{Démarche de l'ingénieur:}}              % Démarche de l'ingénieur
+\newcommandx{\UPSTIexemple}[3][1=,2=,3=]{\noindent\textbf{Exemple{#3}{\ifstrempty{#2}{}{ #2}}:} {#1}\smallbreak}       % Exemple
+\newcommand*{\UPSTIobjectifs}{\UPSTItitreStd{Objectifs:}}                                    % Objectifs
+\newcommand*{\UPSTIprerequis}{\UPSTItitreStd{Prérequis:}}                                    % Prérequis
+\newcommandx{\UPSTIremarqueCond}[3][1=0,2=,3=]{\UPSTItitreStd[#1]{Remarque{#3}}[#2]\smallbreak}              % Remarque (version condensee)
+\newcommand*{\UPSTIsupport}[1]{\vspace{.1cm}\noindent  \ding{43} \UPSTItitreStd{Support de cours}[#1]\vspace{.1cm}}  % Support de cours
+
+%--------------------------------------------------------%
+% Autres titres
+%--------------------------------------------------------%
+% Documents réponses
+\newcommandx*{\UPSTIDRTitre}[2][2=]{\begin{center}\LARGE{\textbf{Document réponse #1} \ifblank{#2}{}{:
+
+#2}}\end{center}}
+
+% Documents ressources
+\newcommandx*{\UPSTIDResTitre}[2][2=]{\begin{center}\LARGE{\textbf{Document ressource #1} \ifblank{#2}{}{:\\ 
+
+#2}}\end{center}}
+
+% Documents techniques
+\newcommandx*{\UPSTIDTTitre}[2][2=]{\begin{center}\LARGE{\textbf{Document technique #1} \ifblank{#2}{}{:\\ 
+
+#2}}\end{center}}
+
+% Annexes
+\newcommandx*{\UPSTIannexeTitre}[2][2=]{\begin{center}\LARGE{\textbf{Annexe #1} \ifblank{#2}{}{: #2}}\end{center}}
+
+% Titres de parties pour les DS/DM
+\newcounter{UPSTInumeroPartie}
+\newcommandx{\UPSTIpartie}[3][1=1,2=]{\ifstrempty{#2}{\stepcounter{UPSTInumeroPartie}}{}\ifnumequal{1}{#1}{\newpage}{\vspace{2em}}\begin{center}\LARGE{\textbf{\ifstrempty{#2}{Partie \theUPSTInumeroPartie~- }{}{#3}}}\end{center}}
+\newcommand*{\resetNumPartie}{\setcounter{UPSTInumeroPartie}{0}}
+
+%--------------------------------------------------------%
+% Encadrements
+%--------------------------------------------------------%
+\makeatletter
+\newcommand{\UPSTIcadreText}[1]{\textcolor{UPSTIcustomColor1}{\fbox{\normalcolor #1}}}                    % Encadrement de texte
+\newcommand{\UPSTIcadreMath}[1]{\textcolor{UPSTIcustomColor1}{\fbox{\normalcolor\m@th$\displaystyle#1$}}} % Encadrement en mode Maths
+\newcommand{\UPSTIcadreTextDemo}[1]{\textcolor{UPSTIcustomColor1}{\fbox{\textcolor{gray}{#1}}}}                    % Encadrement de texte   (Demo)
+\newcommand{\UPSTIcadreMathDemo}[1]{\textcolor{UPSTIcustomColor1}{\fbox{\textcolor{gray}{\m@th$\displaystyle#1$}}}} % Encadrement en mode Maths (Demo)
+\newcommand{\UPSTIcadreTextCor}[1]{\textcolor{UPSTIcustomColor1}{\fbox{\textcolor{UPSTIcouleurZoneACompleter}{#1}}}} % Encadrement de texte (dans un corrigé) 
+\newcommand{\UPSTIcadreMathCor}[1]{\textcolor{UPSTIcustomColor1}{\fbox{\textcolor{UPSTIcouleurZoneACompleter}{\m@th$\displaystyle#1$}}}} % Encadrement en mode Maths (dans un corrigé)
+\makeatother
+
+%--------------------------------------------------------%
+% Formattage de texte
+%--------------------------------------------------------%
+% Texte mis en couleur
+\newcommandx*{\UPSTIcolorTxt}[2][1=]{\ifstrempty{#1}{\textcolor{UPSTIcustomColor1}{#2}}{\textbf{\textcolor{UPSTIcustomColor1}{#2}}}}   
+
+% Séparateur
+\newcommandx{\UPSTIseparateur}[3][1=0,2=0,3=2]{
+\vspace{#1 em}
+\begin{figure}[!ht]
+    \centering
+  \ifdef{\UPSTIcheminImages}{
+    \includegraphics[width=#3 cm]{\UPSTIcheminImages separateur.png}
+  }{
+    \includegraphics[width=#3 cm]{\UPSTIcheminDossierImagesTypographie separateur.png}
+  }
+	
+\end{figure}
+\vspace{#2 em}
+}
+
+% Grand logo sur les pages de garde des cours
+\newcommandx{\UPSTIlogoPageDeGarde}[4][1=6,2=1.7,3=1.8]{
+\vspace{#2 cm}
+\begin{figure}[!ht]
+  \centering
+	\includegraphics[width=#1 cm]{#4}
+\end{figure}
+\vspace{#3 cm}
+}
+
+%--------------------------------------------------------%
+% "Zones" réponses
+%--------------------------------------------------------%
+% Pointillés pour les réponses
+\newcommand{\UPSTIpointilles}[1][3]{%
+\noindent\multido{}{#1}{\vspace{0.5em}\makebox[\linewidth]{\dotfill}
+}}
+
+% Quadrillage pour les réponses
+\newcommandx{\UPSTIquadrillage}[2][2=16.5]{
+	\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+		\draw[gray!50](0,0)grid[step=0.5cm](#2,#1);
+	\end{tikzpicture}
+}
+
+%--------------------------------------------------------%
+% "Balisage" fonctionnel
+%--------------------------------------------------------%
+% Noms d'entreprise
+\newcommand*{\UPSTIentreprise}[1]{\textit{#1}}
+
+% Produits
+\newcommand*{\UPSTIproduit}[1]{\textit{#1}}
+
+% Noms de logiciel...
+\newcommand*{\UPSTIlogiciel}[1]{{#1}}
+
+% Noms de fichier
+\newcommand*{\UPSTIfichier}[1]{\texttt{#1}}
+
+% Extrait de code
+\newcommand*{\UPSTIcode}[1]{\texttt{#1}}
+
+% Menus de logiciel
+\newcommand*{\UPSTImenuLog}[1]{\textit{#1}}
+\newcommand*{\UPSTImenuLogFleche}{ $\rightarrow$ }
+
+% Action à effectuer dans un TP
+\newcommand{\UPSTIactionTP}[1]{\noindent\textbf{\textcolor{UPSTIcustomColor1}{\textit{#1}}}}
+
+% Preambule DS
+\newcommand{\UPSTIpreambuleDS}[1]{\begin{center}\begin{itshape}\large #1 \normalsize\end{itshape}\end{center}}
+
+% Preambule TP
+\newcommandx{\UPSTIpreambuleTP}[1]{\begin{itshape}\large #1 \normalsize\end{itshape}}
+
+% Figures
+\newcommand{\UPSTIfigure}[1]{\textsc{Figure} {\upshape #1}}
+\newcommand{\UPSTIfig}[1]{\textsc{Figure} {\upshape\ref{#1}}}
+
+% Tableau
+\newcommand{\UPSTItable}[1]{\textsc{Tableau} {\upshape\ref{#1}}}
+
+% Documents réponses
+\newcommand*{\UPSTIDR}[1]{\textit{DR{#1}}}
+
+
+%==============================================================================%
+% QCM
+%==============================================================================%
+%--------------------------------------------------------%
+% Symboles des cases cochées ou non
+%--------------------------------------------------------%
+\newcommand*{\UPSTIqcmNotChecked}{\raisebox{-0.3\height}{$\square$}}
+\newcommand*{\UPSTIqcmChecked}{\color{UPSTIcouleurCorrige}\raisebox{-0.3\height}{$\text{\rlap{$\checkmark$}}\square$}\color{black}}
+
+%--------------------------------------------------------%
+% Environnement du QCM
+%--------------------------------------------------------%
+% [1]: - si vide, c'est qu'on utilise le package UPSTI_Document. On se sert donc de \UPSTIidVersionDocumentDef
+%      - si on utilise UPSTI_Typographie en standalone, on a alors:
+%                                                             - si =1, on affiche le corrigé, 
+%                                                             - si =0, on ne l'affiche pas
+% [2]: largeur de la colonne question (par défaut: 60mm)
+% [3]: largeur de la colonne réponse (par défaut: 80mm)
+
+% Variable qui indiquera si on affiche ou non le corrigé
+\newcommand*{\UPSTIqcmIsCorrige}{0}
+
+% Variables qui définissent la largeur des colonnes question et réponse (j'ai pas trouvé comment faire moins crade....) 
+\newcommand*{\UPSTIqcmLargeurQuestion}{}
+\newcommand*{\UPSTIqcmLargeurReponse}{}
+
+% Compteur du numero de question
+\newcounter{UPSTIqcmNumQuestion}
+
+% Création de l'environnement QCM
+\newenvironmentx{UPSTIqcm}[3][1=,2=6cm,3=8cm]
+{
+
+% Pour savoir si on affiche le corrigé
+\ifstrempty{#1}{
+  % Cas où le premier paramètre a été omis
+  \ifdef{\UPSTIidDocumentDestinationDef}{
+    % Utilisation avec UPSTI_Document
+    \ifnumequal{1}{\UPSTIidDocumentDestinationDef}{
+      % Version élève
+      \renewcommand*{\UPSTIqcmIsCorrige}{0}
+    }{
+      % Version prof
+      \renewcommand*{\UPSTIqcmIsCorrige}{1}
+    }  
+  }{
+    % Utilisation standalone: par défaut, on masque les corrigés
+    \renewcommand*{\UPSTIqcmIsCorrige}{0}
+  }
+}{
+  % Cas où le premier paramètre est précisé
+  \ifnumequal{0}{#1}{\renewcommand*{\UPSTIqcmIsCorrige}{0}}{\renewcommand*{\UPSTIqcmIsCorrige}{1}}
+}
+
+% Définition des largeurs des colonnes question/réponse (nécessaire pour la macro UPSTIqcmQuestion)
+\renewcommand*{\UPSTIqcmLargeurQuestion}{#2}
+\renewcommand*{\UPSTIqcmLargeurReponse}{#3}
+
+% Mise à 0 du compteur de questions
+\setcounter{UPSTIqcmNumQuestion}{0}
+
+% Création du tableau
+\noindent\centering
+\begin{longtable}{ p{#2 - 7mm} p{#3} } \hline
+\hspace{-0.3em}\textbf{Questions} & \textbf{Réponses} \endhead
+}
+{
+\hline
+\end{longtable}
+}
+
+%--------------------------------------------------------%
+% Question
+%--------------------------------------------------------%
+% {1}: intitulé de la question
+% {2}: réponses {\UPSTIqcmReponse}
+\newcommand*{\UPSTIqcmQuestion}[2]{
+\hline
+\multicolumn{2}{l}{
+\begin{minipage}{\UPSTIqcmLargeurQuestion + \UPSTIqcmLargeurReponse}
+\begin{minipage}[t]{\UPSTIqcmLargeurQuestion - 5mm}
+\vspace{4pt}
+\stepcounter{UPSTIqcmNumQuestion}\textbf{\theUPSTIqcmNumQuestion .} #1
+\end{minipage}
+\begin{minipage}[t]{\UPSTIqcmLargeurReponse}
+ \vspace{2pt}
+ \begin{tabular}{l p{\UPSTIqcmLargeurReponse - 11mm}}
+ #2
+ \end{tabular}
+\end{minipage}
+\end{minipage}
+}\tabularnewline
+}
+
+%--------------------------------------------------------%
+% Réponse
+%--------------------------------------------------------%
+% {1}: 0 si mauvaise réponse, 1 si c'est une bonne réponse
+% {2}: intitulé de la réponse
+\newcommand*{\UPSTIqcmReponse}[2]{ \ifboolexpr{test{\ifnumequal{1}{#1}} and test{\ifnumequal{1}{\UPSTIqcmIsCorrige}}}{\UPSTIqcmChecked & \color{UPSTIcouleurCorrige}{#2}\color{black}}{\UPSTIqcmNotChecked & #2}  \\}
+
+
+%==============================================================================%
+% Divers
+%==============================================================================%
+%--------------------------------------------------------%
+% Formattage des unités SI
+%--------------------------------------------------------%
+\sisetup{inter-unit-product = \ensuremath{{}.{}}}
+\sisetup{exponent-product = \cdot}
+                          
+%--------------------------------------------------------%
+% Divers
+%--------------------------------------------------------%
+\renewcommand{\contentsname}{Sommaire} % Titre du sommaire
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}} % Nouveau type de colonnes pour les tableaux
+
+
+%==============================================================================%
+% Commandes dépréciées
+%==============================================================================%
+% DEPRECATED Parties
+\newcommandx*{\UPSTItitrePartie}[2][2=]{\begin{center}\LARGE{\textbf{Partie #1} \ifblank{#2}{}{:\newline 
+
+#2}}\end{center}}
+
+% DEPRECATED Message (dépréciée au profit de \UPSTIboiteGenerique)
+\newcommandx{\UPSTIboiteMessage}[2][1=]{\UPSTIboiteGenerique{#1}{\bcoutil}{#2}}
+
+% DEPRECATED Commentaires dans les équations 
+\newcommandx*{\UPSTIcomEq}[2][2=\qquad]{{#2}\textcolor{gray}{\left(\text{{#1}}\right)}}
+
+% DEPRECATED Couleur d'encadrement (avec Empheq) 
+\newcommand{\UPSTIencadrement}{\fcolorbox{UPSTIcustomColor1}{white}} % Couleur des encadrements d'équation     
+
+% DEPRECATED gestion des interlignes dans les itemize 
+% \newenvironment{itemize*}{\vspace{-0.7em}\begin{itemize}}{\end{itemize}}
+\newenvironment{itemize*}{\begin{itemize}}{\end{itemize}}
+
+
+%==============================================================================%
+% Package de personnalisation
+%==============================================================================%
+\RequirePackage{UPSTI_Typographie_Custom}	
+
+
+\endinput

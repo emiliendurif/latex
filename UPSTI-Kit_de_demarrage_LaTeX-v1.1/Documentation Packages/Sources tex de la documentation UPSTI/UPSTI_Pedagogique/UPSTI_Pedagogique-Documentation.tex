@@ -1,0 +1,253 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documentation pour le package UPSTI_Pedagogique
+% -----------                                                                        
+% Auteur: Emmanuel Pinault-Bigeard
+% email: e.pinault-bigeard@upsti.fr
+% -----------
+% Version: 1.1 - 2019/07/16
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UPSTI - http://www.upsti.fr
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{ltxdockit}[2010/09/26]
+\usepackage[utf8]{inputenc}   % LaTeX, comprends les accents !
+\usepackage[T1]{fontenc}      % Police contenant les caractères français
+\usepackage[french]{babel}  % Placez ici une liste de langues, la
+                              % dernière étant la langue principale
+%\usepackage[top=2cm, bottom=4.3cm, left=2cm, right=2cm, a4paper, footskip=2cm]{geometry}   	  % Ajustement des marges
+
+\usepackage{UPSTI_Pedagogique}	
+
+\titlepage{%
+  title={Documentation du package UPSTI\_Pedagogique},
+  subtitle={Compétences et diagrammes pédagogiques pour les S2I en CPGE},
+  url={http://upsti.fr},
+  author={UPSTI - Emmanuel Pinault-Bigeard},
+  email={e.pinault-bigeard@upsti.fr},
+  revision={v1.1},
+  date={2019/07/16}}
+
+\hypersetup{%
+  pdftitle={Documentation du package UPSTI\_Pedagogique},
+  pdfsubject={Compétences et diagrammes pédagogiques pour les S2I en CPGE},
+  pdfauthor={UPSTI - Emmanuel Pinault-Bigeard},
+  pdfkeywords={upsti, tex, latex, cours, si, s2i, sii, sciences, ingénieur, cpge}}
+
+\newcommand{\Lorem}{Lorem ipsum dolor sit amet consectetuer sed est non lorem euismod.}
+\newcommand{\ex}{\noindent Exemple:\quad}
+
+\begin{document}
+
+\printtitlepage
+
+\begin{center}
+	\includegraphics[width=10cm]{Images/logoUPSTI.jpg}
+\end{center}
+
+\tableofcontents
+
+\section{Présentation}
+
+Ce package est destiné à tracer quelques diagrammes relatifs à la pédagogie en CPGE pour les S2I. On pourra aussi l'utiliser pour lister les différentes compétences dans les documents pédagogiques.
+
+Pour éviter les conflits éventuels avec d'autres packages, toutes les commandes de ce package sont préfixées par \verb!UPSTI!.
+
+Si vous constatez des bugs ou erreurs, ou si vous avez des propositions d'amélioration, n'hésitez pas à me contacter ! (\href{mailto:e.pinault-bigeard@upsti.fr}{e.pinault-bigeard@upsti.fr})
+
+Merci à Raphaël Allais (\href{http://enseignement.allais.eu/}{http://enseignement.allais.eu/}) pour son travail au sujet des diagrammes de compétences... dont s'inspire partiellement ce package !
+
+\section{Utilisation du package}
+\noindent Le package est appelé en début de document par: \verb!\usepackage{UPSTI_Pedagogique}!. 
+
+\section{Changelog}
+\noindent\textbf{Version 1.1 - 16/07/2019}
+\begin{itemize}
+\item Correction de bugs mineurs (voir fichier source)
+\end{itemize}
+\noindent\textbf{Version 1.0 - 23/11/2017}
+\begin{itemize}
+\item Mise en ligne de la première version
+\end{itemize}
+
+\section{Personnalisation}
+Il est fortement recommandé de ne pas modifier directement le fichier\linebreak \texttt{UPSTI\_Pedagogique.sty}, afin notamment de faciliter les éventuelles mises à jour.
+
+Pour modifier le package, il vaut mieux redéfinir les macros à modifier dans le fichier \texttt{UPSTI\_Pedagogique\_Custom.sty} prévu à cet effet. 
+
+Quelques exemples de modifications y sont déjà présentes. Pour les tester, il suffit de décommenter les lignes concernées dans le fichier \texttt{UPSTI\_Pedagogique\_ \linebreak Custom.sty}.
+
+
+\section{Intégration avec UPSTI\_Document}
+\subsection{Utilisation sans UPSTI\_Document}
+Si vous utilisez ce package seul, vous devrez copier les 3 images contenues dans le zip du package dans le dossier \texttt{C:/UPSTIlatex/}. Si vous souhaitez utiliser un autre dossier, il faut changer le chemin dans le fichier \texttt{UPSTI\_Pedagogique\_Custom.sty}.
+
+Pour sélectionner la filière pour les diagrammes, 2 méthodes: indiquer le code de la filière dans les paramètres optionnels de chaque commande, ou définir une commande \verb!\UPSTIidFiliere! en préambule de votre document \LaTeX{} avec les codes suivants:
+\begin{enumerate}
+\item PTSI/PT
+\item PCSI/PSI  
+\item MPSI/MP 
+\item TSI
+\item ATS 
+\end{enumerate}
+
+\vspace{1em}
+\ex\verb!\newcommand{\UPSTIidFiliere}{3}! pour une MPSI
+
+
+\subsection{Utilisation avec UPSTI\_Document}
+Si ce package est utilisé avec \texttt{UPSTI\_Document}, les définitions de la filière et du chemin des images seront celles de \texttt{UPSTI\_Document}. 
+
+
+
+
+\section{Diagrammes de compétences}
+\begin{ltxsyntax}
+\cmditem{UPSTIdiagrammeCompetences}[opt scale][opt filiere][opt C1..C7]
+\end{ltxsyntax}
+
+\noindent Tracé de diagrammes de compétences. Si on doit préciser la filière, il faut utiliser le code suivant:
+\begin{enumerate}
+\item PTSI/PT
+\item PCSI/PSI  
+\item MPSI/MP 
+\item TSI
+\item ATS 
+\end{enumerate}
+
+\vspace{1em}
+\ex\verb!\UPSTIdiagrammeCompetences!
+
+\vspace{1em}
+\UPSTIdiagrammeCompetences
+
+\vspace{1em}
+\ex\verb!\UPSTIdiagrammeCompetences[0.55][3][1][1][0]!
+
+\vspace{1em}
+\UPSTIdiagrammeCompetences[0.55][3][1][1][0]
+
+\section{Diagrammes des écarts}
+\begin{ltxsyntax}
+\cmditem{UPSTIdiagrammeEcarts}[opt scale][opt E1..E3][opt img1..img3]
+\end{ltxsyntax}
+
+\noindent Permet de tracé le \og diagramme des écarts \fg{}
+
+\vspace{1em}
+\ex\verb!\UPSTIdiagrammeEcarts!
+
+\vspace{1em}
+\UPSTIdiagrammeEcarts
+
+\vspace{1em}
+\ex\verb!\UPSTIdiagrammeEcarts[0.7][1][0][1][][Images/tondeuse.png]!
+
+\vspace{1em}
+\UPSTIdiagrammeEcarts[0.7][1][0][1][][Images/tondeuse.png]
+
+\section{Codes et intitulés des compétences}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcompetence}[opt filiere]{codeCompetence}[opt codeOuIntitule]
+\end{ltxsyntax}
+
+\noindent Permet d'écrire soit le code de la compétence en couleur, soit l'intitulé de la compétence, selon la valeur de \prm{codeOuIntitule} (rien: code compétence, 1: intitulé).
+
+\vspace{1em}
+\ex\verb!\UPSTIcompetence{C1-04}!
+
+\vspace{1em}
+\UPSTIcompetence{C1-04}
+
+
+
+\vspace{1em}
+\ex\verb!\UPSTIcompetence{C1-04}[1]!
+
+\vspace{1em}
+\UPSTIcompetence{C1-04}[1]
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTItableauCompetences}{Contenu}
+\end{ltxsyntax}
+
+\noindent Permet une mise en forme tableau.
+
+\vspace{1em}
+\ex
+
+\verb!\UPSTItableauCompetences{!
+
+\verb!  \UPSTIligneTableauCompetence{A1-01}!
+
+\verb!  \UPSTIligneTableauCompetence{B1-02}!
+
+\verb!  \UPSTIligneTableauCompetence{C1-03}!
+
+\verb!  \UPSTIligneTableauCompetence{D1-01}!
+
+\verb!}!
+
+
+\vspace{1em}
+\UPSTItableauCompetences{
+\UPSTIligneTableauCompetence{A1-01}
+\UPSTIligneTableauCompetence{B1-02}
+\UPSTIligneTableauCompetence{C1-03}
+\UPSTIligneTableauCompetence{D1-01}
+}
+
+\section{Divers}
+Les commandes suivantes ont été définies afin de standardiser la présentation des compétences dans les différents documents, notamment dans les en-têtes:
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIrefProg}
+\end{ltxsyntax}
+\UPSTIrefProg
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcomp}
+\end{ltxsyntax}
+\UPSTIcomp
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcompU}
+\end{ltxsyntax}
+\UPSTIcompU
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcompR}
+\end{ltxsyntax}
+\UPSTIcompR
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcompRU}
+\end{ltxsyntax}
+\UPSTIcompRU
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcompP}{codeCompetence}
+\end{ltxsyntax}
+\ex
+\verb!\UPSTIcompP{B1-01}!
+
+\UPSTIcompP{B1-01}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcompS}{codeCompetence}
+\end{ltxsyntax}
+\ex
+\verb!\UPSTIcompS{B1-01}!
+
+\UPSTIcompS{B1-01}
+
+
+\end{document}

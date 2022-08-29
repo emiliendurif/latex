@@ -1,0 +1,224 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Fichier de personnalisation du package UPSTI_SI                                  
+% -----------                                                                        
+% Auteur: Emmanuel Pinault-Bigeard                                                   
+% email: e.pinault-bigeard@upsti.fr
+% -----------
+% Version: 1.0 - 2017/11/23                                                                       
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UPSTI - http://www.upsti.fr
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{UPSTI_SI_Custom}[2017/11/23]
+
+%==============================================================================%
+%	Changelog
+%==============================================================================%
+% 1.0 - 2017/11/23 - Mise en ligne de la première version
+
+
+%==============================================================================%
+%	Personnalisation du package
+%==============================================================================%
+% Torseur des AM
+%\renewcommand*{\resultanteAM}[2]{\ensuremath{\resultante{\tAM{#1}{#2}}}} % Résultante d'une AM
+%\renewcommand*{\momentAM}[3]{\ensuremath{\moment{#1}{\tAM{#2}{#3}}}} % Moment d'une AM
+
+% Statique
+%\renewcommand*{\thResStatique}[1]{\ensuremath{\sum{\Res{\tAM{\ext}{#1}}}=\vNul}}% Théorème de la résultante statique
+%\renewcommand*{\thMomStatique}[2]{\ensuremath{\sum{\Mom{#2}{\tAM{\ext}{#1}}}=\vNul}}% Théorème du moment statique
+%\renewcommandx*{\changePtMomAM}[6][3=,6=]{\ensuremath{\ifstrempty{#6}{ \Mom{#5}{\tAM[#3]{#1}{#2}}+\vecteur{{#4}{#5}}\vect\Res{\tAM[#3]{#1}{#2}} }{ \underbrace{\Mom{#5}{\tAM[#3]{#1}{#2}}}_{#6}+\vecteur{{#4}{#5}}\vect\Res{\tAM[#3]{#1}{#2}} }}}
+%\renewcommandx*{\babarAM}[6][3=,6=]{\Mom{#4}{\tAM[#3]{#1}{#2}}=\changePtMomAM{#1}{#2}[#3]{#4}{#5}[#6]}% Formule de chgt de point d'un torseur des AM
+
+% Torseurs
+%\renewcommand*{\torseurLigne}[3]{\ensuremath{\indiceGauche{#1}{\left\lbrace\begin{array}{c}\displaystyle #2\\\displaystyle #3\end{array}\right\rbrace}}} % Pour centrer les composantes d'un torseur ligne
+
+% Valeur moyenne
+%\renewcommand*{\vmoy}[1]{\ensuremath{{#1}_{\text{moy}}}} % Valeur moyenne
+
+%--------------------------------------------------------%
+% Quadrillage pour le diagrame de Black
+%--------------------------------------------------------%
+% Voir si on ne peut pas plutôt utiliser \BlackGrid du package BodeGraph
+\newcommandx*{\grillePourBlack}[6][1=30,2=5,3=-20,4=20,5=-90,6=0]{  % Trace la grille pour le diagramme de Black: 1- Pas en x, 2- Pas en y, 3- Gmin, 4-Gmax, 5- phimin, 6- phimax 
+\draw[xstep=#1 ,ystep=#2,thin,gray!100] (#5,#3) grid (#6,#4);
+\foreach \xx in {0,-#1,...,#5}
+	{\node[below left,black] at (\xx,0){\tiny \xx};};
+
+\ifnumequal{#6}{0}{
+\foreach \xx in {0,-#2,...,#3}{
+	\ifnumequal{\xx}{0}{}{\node[right,black] at (0,\xx){\tiny \xx};}
+};
+\foreach \xx in {0,#2,...,#4}{
+	\ifnumequal{\xx}{0}{}{\node[right,black] at (0,\xx){\tiny \xx};}
+};
+}{
+\foreach \xx in {0,-#2,...,#3}{
+	\ifnumequal{\xx}{0}{}{\node[above right,black] at (0,\xx){\tiny \xx};}
+};
+\foreach \xx in {0,#2,...,#4}{
+	\ifnumequal{\xx}{0}{}{\node[above right,black] at (0,\xx){\tiny \xx};}
+};
+}
+
+\draw[<-,>=latex] (-#5*0.1,0) node[above right] {\small \phase\degres} --(#5+#5*0.05,0);
+\draw[->,>=latex] (0,#3+#3*0.05) --(0,#4+#4*0.05-#3*0.05) node[above] {\small \Gdbw};
+
+}
+
+
+%==============================================================================%
+% Rétro-compatibilité
+%==============================================================================%
+%--------------------------------------------------------%
+% Unités
+%--------------------------------------------------------%
+% Espace avant unité
+\newcommand{\sepUnite}{\,}
+
+% Séparateur
+\newcommand{\sepPointUnite}{\ensuremath{\cdot}}
+
+% Commande générale
+\newcommandx{\siU}[8][1=,2=,3=,4=,5=,6=,7=,8=]{\ensuremath{
+\ifstrempty{#1}{}{\sepUnite\ifthenelse{\equal{#2}{}}{\mathrm{#1}}{\mathrm{#1}^{#2}}}  
+\ifstrempty{#3}{}{\sepPointUnite \ifstrempty{#4}{\mathrm{#3}}{\mathrm{#3}^{#4}}}  
+\ifstrempty{#5}{}{\sepPointUnite \ifstrempty{#6}{\mathrm{#5}}{\mathrm{#5}^{#6}}}  
+\ifstrempty{#7}{}{\sepPointUnite \ifstrempty{#8}{\mathrm{#7}}{\mathrm{#7}^{#8}}}  
+}}
+
+% Longueurs, surfaces, volumes
+\newcommandx{\siUnm}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{nm}}}                           % nm
+\newcommandx{\siUmicm}[1][1=\sepUnite]           {\ensuremath{{#1}\upmu\mathrm{m}}}                       % µm
+\newcommandx{\siUmm}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{mm}}}                           % mm
+\newcommandx{\siUcm}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{cm}}}                           % cm
+\newcommandx{\siUdm}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{dm}}}                           % dm
+\newcommandx{\siUm}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{m}}}                            % m
+\newcommandx{\siUdam}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{dam}}}                          % dam
+\newcommandx{\siUhm}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{hm}}}                           % hm
+\newcommandx{\siUkm}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{km}}}                           % km
+\newcommandx{\siUrad}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{rad}}}                          % rad
+\newcommandx{\siUtr}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{tr}}}                           % tr
+\newcommandx{\siUtour}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{tr}}}                           % tr
+\newcommandx{\siUmmc}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{mm}^2}}                         % mm2
+\newcommandx{\siUcmc}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{cm}^2}}                         % cm2
+\newcommandx{\siUmc}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{m}^2}}                          % m2
+\newcommandx{\siUmmcc}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{mm}^3}}                         % mm3
+\newcommandx{\siUcmcc}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{cm}^3}}                         % cm3
+\newcommandx{\siUmcc}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{m}^3}}                          % m3
+\newcommandx{\siUmmccc}[1][1=\sepUnite]          {\ensuremath{{#1}\mathrm{mm}^4}}                         % mm4
+
+\newcommandx{\siUmmparrad}[1][1=\sepUnite]       {\ensuremath{{#1}\mathrm{mm}/\mathrm{rad}}}              % mm/rad
+\newcommandx{\siUmmpartour}[1][1=\sepUnite]      {\ensuremath{{#1}\mathrm{mm}/\mathrm{tr}}}               % mm/tr
+
+\newcommandx{\siUmL}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{ml}}}                           % ml
+\newcommandx{\siUL}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{l}}}                            % l
+
+\newcommandx{\siUparm}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{m}^{-1}}}                       % m-1
+\newcommandx{\siUparmc}[1][1=\sepUnite]          {\ensuremath{{#1}\mathrm{m}^{-2}}}                       % m-2
+\newcommandx{\siUparmcc}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{m}^{-3}}}                       % m-3
+
+% Temps
+\newcommandx{\siUmics}[1][1=\sepUnite]           {\ensuremath{{#1}\upmu\mathrm{s}}}                       % µs
+\newcommandx{\siUms}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{ms}}}                           % ms
+\newcommandx{\siUs}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{s}}}                            % s
+\newcommandx{\siUmin}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{min}}}                          % min
+\newcommandx{\siUh}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{h}}}                            % h
+\newcommandx{\siUpars}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{s}^{-1}}}                       % s-1
+\newcommandx{\siUparss}[1][1=\sepUnite]          {\ensuremath{{#1}\mathrm{s}^{-2}}}                       % s-2
+
+% Vitesses
+\newcommandx{\siUmicmpars}[1][1=\sepUnite]       {\ensuremath{{#1}\upmu\mathrm{m}\sepPointUnite\mathrm{s}^{-1}}}   % µm.s-1
+\newcommandx{\siUmmpars}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{mm}\sepPointUnite\mathrm{s}^{-1}}}       % mm.s-1
+\newcommandx{\siUcmpars}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{cm}\sepPointUnite\mathrm{s}^{-1}}}       % cm.s-1
+\newcommandx{\siUmpars}[1][1=\sepUnite]          {\ensuremath{{#1}\mathrm{m}\sepPointUnite\mathrm{s}^{-1}}}        % m.s-1
+\newcommandx{\siUkmpars}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{km}\sepPointUnite\mathrm{s}^{-1}}}       % km.s-1
+\newcommandx{\siUradpars}[1][1=\sepUnite]        {\ensuremath{{#1}\mathrm{rad}\sepPointUnite\mathrm{s}^{-1}}}      % rad.s-1
+\newcommandx{\siUtourpars}[1][1=\sepUnite]       {\ensuremath{{#1}\mathrm{tr}/\mathrm{s}}}                         % tr/s
+\newcommandx{\siUtourparmin}[1][1=\sepUnite]     {\ensuremath{{#1}\mathrm{tr}/\mathrm{min}}}                       % tr/min
+\newcommandx{\siUkmparh}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{km}/\mathrm{h}}}                         % km/h
+\newcommandx{\siUmcpars}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{m}^2\sepPointUnite\mathrm{s}^{-1}}}      % m2.s-1
+
+% Accélérations
+\newcommandx{\siUmmparss}[1][1=\sepUnite]        {\ensuremath{{#1}\mathrm{mm}\sepPointUnite\mathrm{s}^{-2}}}       % mm.s-2
+\newcommandx{\siUmparss}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{m}\sepPointUnite\mathrm{s}^{-2}}}        % m.s-2
+\newcommandx{\siUradparss}[1][1=\sepUnite]       {\ensuremath{{#1}\mathrm{rad}\sepPointUnite\mathrm{s}^{-2}}}      % rad.s-2
+
+% Masse
+\newcommandx{\siUmg}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{mg}}}                                    % mg
+\newcommandx{\siUg}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{g}}}                                     % g
+\newcommandx{\siUkg}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{kg}}}                                    % kg
+\newcommandx{\siUt}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{t}}}                                     % t
+
+% Masse volumique, débit
+\newcommandx{\siUkgpardmcc}[1][1=\sepUnite]      {\ensuremath{{#1}\mathrm{kg}\sepPointUnite\mathrm{dm}^{-3}}}      % kg.dm-3
+\newcommandx{\siUkgparmcc}[1][1=\sepUnite]       {\ensuremath{{#1}\mathrm{kg}\sepPointUnite\mathrm{m}^{-3}}}       % kg.m-3
+\newcommandx{\siUkgpars}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{kg}\sepPointUnite\mathrm{s}^{-1}}}       % kg.s-1
+\newcommandx{\siUlparmin}[1][1=\sepUnite]        {\ensuremath{{#1}\mathrm{l}\sepPointUnite\mathrm{min}^{-1}}}      % l.min-1
+\newcommandx{\siUkgmc}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{kg}\sepPointUnite\mathrm{m}^2}}          % kg.m2
+\newcommandx{\siUkgmmc}[1][1=\sepUnite]          {\ensuremath{{#1}\mathrm{kg}\sepPointUnite\mathrm{mm}^2}}         % kg.mm2
+
+% Actions mécaniques
+\newcommandx{\siUN}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{N}}}                            % N
+\newcommandx{\siUdaN}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{daN}}}                          % daN
+\newcommandx{\siUNm}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{N.m}}}                          % N.m
+\newcommandx{\siUNmm}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{N.mm}}}                         % N.mm
+\newcommandx{\siUNparmm}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{N}\sepPointUnite\mathrm{mm}^{-1}}}        % N.mm-1
+\newcommandx{\siUNparcm}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{N}\sepPointUnite\mathrm{cm}^{-1}}}        % N.cm-1
+\newcommandx{\siUNparm}[1][1=\sepUnite]          {\ensuremath{{#1}\mathrm{N}\sepPointUnite\mathrm{m}^{-1}}}         % N.m-1
+
+% Energie, puissance
+\newcommandx{\siUW}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{W}}}                            % W
+\newcommandx{\siUkW}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{kW}}}                           % kW
+\newcommandx{\siUJ}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{J}}}                            % J
+\newcommandx{\siUkJ}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{kJ}}}                           % kJ
+\newcommandx{\siUMJ}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{MJ}}}                           % MJ
+\newcommandx{\siUWparmparK}[1][1=\sepUnite]      {\ensuremath{{#1}\mathrm{W}\sepPointUnite\mathrm{m}^{-1}\sepPointUnite\mathrm{K}^{-1}}}  % W.m-1.K-1
+\newcommandx{\siUJparkg}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{J}\sepPointUnite\mathrm{kg}^{-1}}}                     % J.kg-1
+\newcommandx{\siUJpars}[1][1=\sepUnite]          {\ensuremath{{#1}\mathrm{J}\sepPointUnite\mathrm{s}^{-1}}}                      % J.s-1
+\newcommandx{\siUJparkgparK}[1][1=\sepUnite]     {\ensuremath{{#1}\mathrm{J}\sepPointUnite\mathrm{kg}^{-1}\sepPointUnite\mathrm{K}^{-1}}} % J.kg.K-1
+\newcommandx{\siUWparmc}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{W}\sepPointUnite\mathrm{m}^{-2}}}                      % W.m-2
+\newcommandx{\siUkJparkg}[1][1=\sepUnite]        {\ensuremath{{#1}\mathrm{kJ}\sepPointUnite\mathrm{kg}^{-1}}}                    % kJ.kg-1
+
+% Températures
+\newcommandx{\siUdeg}[1][1=\sepUnite]            {\ensuremath{\degree}}                                   % °
+\newcommandx{\siUdegC}[1][1=\sepUnite]           {\ensuremath{\degree\mathrm{C}}}                         % °C
+\newcommandx{\siUK}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{K}}}                            % K
+
+% Pression
+\newcommandx{\siUPa}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{Pa}}}                           % Pa
+\newcommandx{\siUMPa}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{MPa}}}                          % MPa
+\newcommandx{\siUGPa}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{GPa}}}                          % GPa
+\newcommandx{\siUbar}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{bar}}}                          % bar
+\newcommandx{\siUbars}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{bars}}}                         % bars
+\newcommandx{\siUNparmc}[1][1=\sepUnite]         {\ensuremath{{#1}\mathrm{N}\sepPointUnite\mathrm{m}^{-2}}}        % N.m-2
+\newcommandx{\siUNparmmc}[1][1=\sepUnite]        {\ensuremath{{#1}\mathrm{N}\sepPointUnite\mathrm{mm}^{-2}}}       % N.mm-2
+\newcommandx{\siUdaNparmmc}[1][1=\sepUnite]      {\ensuremath{{#1}\mathrm{daN}\sepPointUnite\mathrm{mm}^{-2}}}     % daN.mm-2
+
+% Elec
+\newcommandx{\siUmV}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{mV}}}                           % mV
+\newcommandx{\siUV}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{V}}}                            % V
+\newcommandx{\siUmA}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{mA}}}                           % mA
+\newcommandx{\siUA}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{A}}}                            % A
+\newcommandx{\siUT}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{T}}}                            % T
+\newcommandx{\siUF}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{F}}}                            % F
+\newcommandx{\siUC}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{C}}}                            % C
+\newcommandx{\siUohm}[1][1=\sepUnite]            {\ensuremath{{#1}\Omega}}                                % Ω
+\newcommandx{\siUkohm}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{k}\Omega}}                      % kΩ
+\newcommandx{\siUMohm}[1][1=\sepUnite]           {\ensuremath{{#1}\mathrm{M}\Omega}}                      % MΩ
+\newcommandx{\siUparohmparm}[1][1=\sepUnite]     {\ensuremath{{#1}\Omega^{-1}\sepPointUnite\textrm{m}^{-1}}}       % Ω-1.m-1
+\newcommandx{\siUVparm}[1][1=\sepUnite]          {\ensuremath{{#1}\mathrm{V}\sepPointUnite\textrm{m}^{-1}}}        % V.m-1
+\newcommandx{\siUeV}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{eV}}}                           % eV
+\newcommandx{\siUdB}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{dB}}}                           % dB
+\newcommandx{\siUH}[1][1=\sepUnite]              {\ensuremath{{#1}\mathrm{H}}}                            % H 
+\newcommandx{\siUmH}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{mH}}}                           % mH 
+
+% Fréquence
+\newcommandx{\siUHz}[1][1=\sepUnite]             {\ensuremath{{#1}\mathrm{Hz}}}                           % Hz
+\newcommandx{\siUkHz}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{kHz}}}                          % kHz
+\newcommandx{\siUMHz}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{MHz}}}                          % MHz
+\newcommandx{\siUGHz}[1][1=\sepUnite]            {\ensuremath{{#1}\mathrm{GHz}}}                          % GHz
+
+
+\endinput

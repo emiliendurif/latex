@@ -17,7 +17,7 @@
 \input{\pathpackage/notations/boites.tex}
 \input{\pathpackage/style.tex}		%Style, mise en page
 
-% Commandes générales
+% Commandes gÃ©nÃ©rales
 %===============================
 
 
@@ -54,16 +54,16 @@
 \renewcommand	{\titreresume}		{Exemple de document Latex}
 \renewcommand	{\numero}		{C0-1}
 \renewcommand	{\auteur}		{Emilien DURIF}
-\renewcommand	{\etablissement}	{Lycée La Martinière Monplaisir Lyon}
-\renewcommand	{\discipline}		{Sciences Industrielles pour l'Ingénieur}
-\renewcommand	{\classe}		{Classe préparatoire M.P.S.I.}
+\renewcommand	{\etablissement}	{LycÃ©e La MartiniÃ¨re Monplaisir Lyon}
+\renewcommand	{\discipline}		{Sciences Industrielles pour l'IngÃ©nieur}
+\renewcommand	{\classe}		{Classe prÃ©paratoire M.P.S.I.}
 \renewcommand	{\annee}		{2017 - 2018}
 \renewcommand	{\icone}		{\pathpackage/images/logo_martiniere.jpg}
 \renewcommand	{\competences}		{}
-\renewcommand	{\date}		{3 février 2018}
+\renewcommand	{\date}		{3 fÃ©vrier 2018}
 
 %Commandes
-%\setTexteATrouOn				%Active le texte à trou
+%\setTexteATrouOn				%Active le texte Ã  trou
 
 
 
@@ -75,76 +75,76 @@
 	%Page de garde
 	%----------------------
 	\input{\pathpackage/page_de_garde.tex}
-	\subsection*{Compétences}
+	\subsection*{CompÃ©tences}
 	\begin{itemize}
-	\item Apprendre à utiliser Latex
+	\item Apprendre Ã  utiliser Latex
 \end{itemize}	
 
 
 \section{Introduction}
-\subsection{Objectif de la modélisation}
-Dans le chapitre précédent nous avons aborder les notions de \textbf{puissance}, \textbf{travail}, et \textbf{énergie}. Ces notions sont fondamentales pour :
+\subsection{Objectif de la modÃ©lisation}
+Dans le chapitre prÃ©cÃ©dent nous avons aborder les notions de \textbf{puissance}, \textbf{travail}, et \textbf{Ã©nergie}. Ces notions sont fondamentales pour :
 \begin{itemize}
-\item dimensionner des composants d'une chaine d'énergie en terme de puissance transmissible ;
-\item déterminer des équations de mouvement pour prévoir les performances d'un système ;
-\item estimer le rendement d'une chaine complète d'énergie.
+\item dimensionner des composants d'une chaine d'Ã©nergie en terme de puissance transmissible ;
+\item dÃ©terminer des Ã©quations de mouvement pour prÃ©voir les performances d'un systÃ¨me ;
+\item estimer le rendement d'une chaine complÃ¨te d'Ã©nergie.
 \end{itemize}
 
 \textbf{C'est l'objet de ce chapitre d'application}
 
 
-\subsection{Présentation du support du cours}
+\subsection{PrÃ©sentation du support du cours}
 
-Le système étudié permet de déposer automatiquement des composants électroniques sur un circuit.
-On s'intéresse ici à la modélisation d'un seul axe (selon la direction notée $\overrightarrow{y}_0$) actionné par un moteur électrique et utilisant un mécanisme de transformation de mouvement "\textit{vis-écrou}".
+Le systÃ¨me Ã©tudiÃ© permet de dÃ©poser automatiquement des composants Ã©lectroniques sur un circuit.
+On s'intÃ©resse ici Ã  la modÃ©lisation d'un seul axe (selon la direction notÃ©e $\overrightarrow{y}_0$) actionnÃ© par un moteur Ã©lectrique et utilisant un mÃ©canisme de transformation de mouvement "\textit{vis-Ã©crou}".
 
-\textbf{Hypothèses :}
+\textbf{HypothÃ¨ses :}
 \begin{itemize}
-\item le référentiel associé au repère $R_0=\quadruplet{O_0}{\overrightarrow{x}_0}{\overrightarrow{y}_0}{\overrightarrow{z}_0}$ est supposé galiléen ;
-\item les solides seront supposés indéformables ; 
-\item on notera $J_1$ le moment d'inertie du solide 1 (composé d'une vis à billes et de l'arbre moteur) selon l'axe $\couple{O_0}{\overrightarrow{y}_0}$ : $J_1=I_{\couple{O_0}{\overrightarrow{y}_0}}(S_1)$ ;
+\item le rÃ©fÃ©rentiel associÃ© au repÃ¨re $R_0=\quadruplet{O_0}{\overrightarrow{x}_0}{\overrightarrow{y}_0}{\overrightarrow{z}_0}$ est supposÃ© galilÃ©en ;
+\item les solides seront supposÃ©s indÃ©formables ; 
+\item on notera $J_1$ le moment d'inertie du solide 1 (composÃ© d'une vis Ã  billes et de l'arbre moteur) selon l'axe $\couple{O_0}{\overrightarrow{y}_0}$ : $J_1=I_{\couple{O_0}{\overrightarrow{y}_0}}(S_1)$ ;
 \item on note $M_3$ et $G_3$ respectivement la masse et le centre d'inertie du solide $S_3$ ;
-\item la position de $G_3$ est définie par $\overrightarrow{O_0G_3}=y\cdot \overrightarrow{y}_0+z\cdot \overrightarrow{z}_0$
-\item les liaisons sont supposées parfaites (sans jeu ni frottement) sauf la glissière entre $S_0$ et $S_3$ (Coefficient de frottement noté $\mu$) et la pivot entre $S_0$ et $S_1$ (couple résistant noté $C_r$).
-\item Seul l'action de pesanteur sur $S_3$ sera supposée non négligeable.
+\item la position de $G_3$ est dÃ©finie par $\overrightarrow{O_0G_3}=y\cdot \overrightarrow{y}_0+z\cdot \overrightarrow{z}_0$
+\item les liaisons sont supposÃ©es parfaites (sans jeu ni frottement) sauf la glissiÃ¨re entre $S_0$ et $S_3$ (Coefficient de frottement notÃ© $\mu$) et la pivot entre $S_0$ et $S_1$ (couple rÃ©sistant notÃ© $C_r$).
+\item Seul l'action de pesanteur sur $S_3$ sera supposÃ©e non nÃ©gligeable.
 \end{itemize}
 
 
 
-\textbf{Données numériques associées au système :}
+\textbf{DonnÃ©es numÃ©riques associÃ©es au systÃ¨me :}
 \begin{itemize}
-\item Coefficient de frottement dans la liaison glissière (rail + patin à billes) : $\mu = 0,1$.
-\item Pas de la vis à billes : $p = 20 mm$.
-\item Diamètre de la vis à billes : $D =25 mm$.
-\item Moment d'inertie de la vis à billes suivant l'axe $\overrightarrow{y}_0$ : $I_v = 2,15 \times 10^{-4} kg\cdot m^2$.
-\item Couple résistant sur la vis due à son guidage (paliers + joints): $Cr = 3 N.m$
+\item Coefficient de frottement dans la liaison glissiÃ¨re (rail + patin Ã  billes) : $\mu = 0,1$.
+\item Pas de la vis Ã  billes : $p = 20 mm$.
+\item DiamÃ¨tre de la vis Ã  billes : $D =25 mm$.
+\item Moment d'inertie de la vis Ã  billes suivant l'axe $\overrightarrow{y}_0$ : $I_v = 2,15 \times 10^{-4} kg\cdot m^2$.
+\item Couple rÃ©sistant sur la vis due Ã  son guidage (paliers + joints): $Cr = 3 N.m$
 \item $l$, longueur libre de la vis -entre deux paliers- (mm) : $1000mm$.
-\item Caractéristiques du moteur d'axe (puissance, vitesse maxi, inertie) :
+\item CaractÃ©ristiques du moteur d'axe (puissance, vitesse maxi, inertie) :
 \begin{itemize}
 \item Couple maximal, $C_{max} = 21,2 Nm$.
-\item Fréquence de rotation maximale, $Nm = 6000 tr/min$.
+\item FrÃ©quence de rotation maximale, $Nm = 6000 tr/min$.
 \item Moment d'inertie du rotor du moteur suivant l'axe $\overrightarrow{y}_0$, $I_m = 1,6 \times 10^{-4} kg\cdot m^2$.
 \end{itemize}
 
 \end{itemize}
 
 \begin{objectif}
-L'objectif de cette étude est de relier les grandeurs liées à l'actionneur du système (moteur) :
+L'objectif de cette Ã©tude est de relier les grandeurs liÃ©es Ã  l'actionneur du systÃ¨me (moteur) :
 \begin{itemize}
-\item couple moteur transmis à $S_1$ : $\overrightarrow{C}_{Moteur\to S_1}\cdot \overrightarrow{y}_0=C_m(t)$ ;
+\item couple moteur transmis Ã  $S_1$ : $\overrightarrow{C}_{Moteur\to S_1}\cdot \overrightarrow{y}_0=C_m(t)$ ;
 \item vitesse de rotation de $S_1$ : $\overrightarrow{\Omega}(S_1/R_0)\cdot \overrightarrow{y}_0=\dot{\theta}(t)$.
 \end{itemize} 
-à celles liées à l'effecteur (tête de dépose $S_3$) : 
+Ã  celles liÃ©es Ã  l'effecteur (tÃªte de dÃ©pose $S_3$) : 
 \begin{itemize}
 \item masse : $M_3$;
-\item cinématique de $S_3$ : $\overrightarrow{a}(G_3R_0)\cdot \overrightarrow{y}_0=\ddot{y}(t)$.
+\item cinÃ©matique de $S_3$ : $\overrightarrow{a}(G_3R_0)\cdot \overrightarrow{y}_0=\ddot{y}(t)$.
 \end{itemize}
 \end{objectif}
 
-\subsection{Bilan de la modélisation du chapitre précédent}
-\begin{bilan}[Bilan des résultats du chapitre précédent]
+\subsection{Bilan de la modÃ©lisation du chapitre prÃ©cÃ©dent}
+\begin{bilan}[Bilan des rÃ©sultats du chapitre prÃ©cÃ©dent]
 \begin{itemize}
-\item Puissance galiléenne des actions mécaniques extérieures : 
+\item Puissance galilÃ©enne des actions mÃ©caniques extÃ©rieures : 
 \begin{align*}
 \mathcal{P}(ext \rightarrow E/R_0)=\left(C_m\pm C_r\right)\cdot \dot{\theta}(t)\pm Y_{03}\cdot \dot{y}(t)
 \end{align*}
@@ -152,7 +152,7 @@ L'objectif de cette étude est de relier les grandeurs liées à l'actionneur du sy
 \begin{align*}
 \mathcal{P}_{int}(E)=0
 \end{align*}
-\item Energie cinétique équivalente de l'ensemble $E$ ramenée l'axe de translation du solide 3 : 
+\item Energie cinÃ©tique Ã©quivalente de l'ensemble $E$ ramenÃ©e l'axe de translation du solide 3 : 
 \begin{align*}
 E_c(E/R_0)=\frac{1}{2}M_{eq}\dot{y}^2
 \end{align*}
@@ -163,13 +163,13 @@ M_{eq}(E)=\left(I_m+I_v\right)\cdot \left(\frac{2\pi}{p}\right)^2+ M_3
 \end{bilan}
 
 
-\section{Théorème de l'énergie cinétique}
+\section{ThÃ©orÃ¨me de l'Ã©nergie cinÃ©tique}
 \subsection{Introduction}
-Le théorème de l'énergie cinétique est la traduction du Principe Fondamental de la Dynamique d'un point de vue énergétique.
-\subsection{Énoncé pour un solide}
+Le thÃ©orÃ¨me de l'Ã©nergie cinÃ©tique est la traduction du Principe Fondamental de la Dynamique d'un point de vue Ã©nergÃ©tique.
+\subsection{Ã‰noncÃ© pour un solide}
 
-\begin{theoreme}[Théorème de l'énergie cinétique]
-La dérivée par rapport au temps de l'énergie cinétique d'un solide $S$ dans son mouvement par rapport au référentiel galiléen $R$ est égale à la puissance galiléenne des actions mécaniques extérieures à $S$.
+\begin{theoreme}[ThÃ©orÃ¨me de l'Ã©nergie cinÃ©tique]
+La dÃ©rivÃ©e par rapport au temps de l'Ã©nergie cinÃ©tique d'un solide $S$ dans son mouvement par rapport au rÃ©fÃ©rentiel galilÃ©en $R$ est Ã©gale Ã  la puissance galilÃ©enne des actions mÃ©caniques extÃ©rieures Ã  $S$.
 Soit :
 
 \begin{align}
@@ -184,10 +184,10 @@ Soit :
 
 
 
-\subsection{Énoncé pour un ensemble de solides}
+\subsection{Ã‰noncÃ© pour un ensemble de solides}
 
-\begin{theoreme}[Théorème de l'énergie cinétique pour un ensemble de solides]
-Soit $(E)$ un ensemble de $n$ solide ($S_1$, $S_2$, $\ldots$, $S_n$) en mouvement par rapport à un repère galiléen $R$. Le théorème de l'énergie cinétique s'écrit alors :
+\begin{theoreme}[ThÃ©orÃ¨me de l'Ã©nergie cinÃ©tique pour un ensemble de solides]
+Soit $(E)$ un ensemble de $n$ solide ($S_1$, $S_2$, $\ldots$, $S_n$) en mouvement par rapport Ã  un repÃ¨re galilÃ©en $R$. Le thÃ©orÃ¨me de l'Ã©nergie cinÃ©tique s'Ã©crit alors :
 
 \begin{align}
 \boxed{
@@ -197,31 +197,31 @@ Soit $(E)$ un ensemble de $n$ solide ($S_1$, $S_2$, $\ldots$, $S_n$) en mouvemen
 
 Avec :
 \begin{itemize}
-\item $\mathcal{P}_{int}(E)$ la puissance intérieur à $E$ qui est nul s'il n'y a pas d'apport d'énergie interne ni de dissipation (liaisons parfaites).
-\item $\mathcal{P}(ext\rightarrow E/R_0)$, la puissance galiléenne de $E$ dans son mouvement par rapport à $R_0$.
+\item $\mathcal{P}_{int}(E)$ la puissance intÃ©rieur Ã  $E$ qui est nul s'il n'y a pas d'apport d'Ã©nergie interne ni de dissipation (liaisons parfaites).
+\item $\mathcal{P}(ext\rightarrow E/R_0)$, la puissance galilÃ©enne de $E$ dans son mouvement par rapport Ã  $R_0$.
 \end{itemize}
 
 \end{theoreme}
 
 \begin{remarque}
 \begin{itemize}
-\item Dans le théorème de l'énergie cinétique, contrairement au principe fondamental de la dynamique, on tient compte de la puissance des actions mutuelles donc internes à l'ensemble matériel $E$ que l'on considère.
-\item Ce théorème permet d'obtenir une seule équation scalaire. Cette méthode est donc moins riche que le principe fondamental de la dynamique mais permet d'obtenir quasiment directement les équations de mouvements.
-\item Pour obtenir une équation de mouvement (\textit{ie} éliminer les inconnues en actions mécaniques) il faut alors combiner d'autres équations issues des théorèmes généraux de la dynamique.
+\item Dans le thÃ©orÃ¨me de l'Ã©nergie cinÃ©tique, contrairement au principe fondamental de la dynamique, on tient compte de la puissance des actions mutuelles donc internes Ã  l'ensemble matÃ©riel $E$ que l'on considÃ¨re.
+\item Ce thÃ©orÃ¨me permet d'obtenir une seule Ã©quation scalaire. Cette mÃ©thode est donc moins riche que le principe fondamental de la dynamique mais permet d'obtenir quasiment directement les Ã©quations de mouvements.
+\item Pour obtenir une Ã©quation de mouvement (\textit{ie} Ã©liminer les inconnues en actions mÃ©caniques) il faut alors combiner d'autres Ã©quations issues des thÃ©orÃ¨mes gÃ©nÃ©raux de la dynamique.
 \end{itemize}
 \end{remarque}
 
-\begin{exemple}[Application du théorème de l'énergie cinétique au système de dépose de composant]
-\question{Appliquer le théorème de l'énergie cinétique à l'ensemble $E$}
+\begin{exemple}[Application du thÃ©orÃ¨me de l'Ã©nergie cinÃ©tique au systÃ¨me de dÃ©pose de composant]
+\question{Appliquer le thÃ©orÃ¨me de l'Ã©nergie cinÃ©tique Ã  l'ensemble $E$}
 
 \begin{texteCache}
-En combinant les résultats des différentes questions précédentes, on obtient : 
+En combinant les rÃ©sultats des diffÃ©rentes questions prÃ©cÃ©dentes, on obtient : 
 
 \begin{align*}
 M_{eq}\cdot \dot{y}(t)\cdot \ddot{y}(t)=\left(C_m\pm C_r\right)\cdot \dot{\theta}(t)\pm Y_{03}\cdot \dot{y}(t)+0
 \end{align*}
 
-On peut postuler un sens de déplacement : $\dot{y}(t)>0$, ainsi $\dot{\theta}=-\frac{2\pi}{p}\dot{y}(t)<0$,  $C_r>0$, $Y_{03}<0$ : 
+On peut postuler un sens de dÃ©placement : $\dot{y}(t)>0$, ainsi $\dot{\theta}=-\frac{2\pi}{p}\dot{y}(t)<0$,  $C_r>0$, $Y_{03}<0$ : 
 
 \begin{align*}
 M_{eq}\cdot \dot{y}(t)\cdot \ddot{y}(t)=\left[-\left(C_m+ C_r\right)\cdot \frac{2\pi}{p}+ Y_{03}\right]\cdot \dot{y}(t)
@@ -229,11 +229,11 @@ M_{eq}\cdot \dot{y}(t)\cdot \ddot{y}(t)=\left[-\left(C_m+ C_r\right)\cdot \frac{
 \end{texteCache}
 \end{exemple}
 
-\begin{exemple}[Détermination de l'équation de mouvement du système de dépose de composant]
-\question{Déterminer des équations supplémentaires issues des théorèmes généraux pour déterminer l'équation de mouvement du système permettant de relier $C_m$ à $y(t)$}
+\begin{exemple}[DÃ©termination de l'Ã©quation de mouvement du systÃ¨me de dÃ©pose de composant]
+\question{DÃ©terminer des Ã©quations supplÃ©mentaires issues des thÃ©orÃ¨mes gÃ©nÃ©raux pour dÃ©terminer l'Ã©quation de mouvement du systÃ¨me permettant de relier $C_m$ Ã  $y(t)$}
 
 \begin{texteCache}
-Il faut éliminer le paramètre $Y_{03}$. Pour cela on peut écrire le théorème de la résultante dynamique appliqué à $S_3$ en projection selon $\overrightarrow{z}_0$ : 
+Il faut Ã©liminer le paramÃ¨tre $Y_{03}$. Pour cela on peut Ã©crire le thÃ©orÃ¨me de la rÃ©sultante dynamique appliquÃ© Ã  $S_3$ en projection selon $\overrightarrow{z}_0$ : 
 
 \begin{align*}
 Z_{03}-M_3\cdot g=0
@@ -245,7 +245,7 @@ Or la loi de Coulomb donne (avec $Z_{03}>0$ et $Y_{03}<0$) :
 Y_{03}=-\mu\cdot Z_{03}=-\mu\cdot M_3\cdot g
 \end{align*}
 
-Ainsi l'équation de mouvement obtenue est (en éliminant $\dot{y}(t)\neq 0$): 
+Ainsi l'Ã©quation de mouvement obtenue est (en Ã©liminant $\dot{y}(t)\neq 0$): 
 
 \begin{align*}
 \boxed{
@@ -254,7 +254,7 @@ M_{eq}\cdot \ddot{y}(t)=-\left(C_m+ C_r\right)\cdot \frac{2\pi}{p}- \mu\cdot M_3
 \end{align*}
 \end{texteCache}
 
-\question{Déterminer le couple moteur à fournir dans le cas le plus défavorable (accélération maximale).}
+\question{DÃ©terminer le couple moteur Ã  fournir dans le cas le plus dÃ©favorable (accÃ©lÃ©ration maximale).}
 
 \begin{texteCache}
 \begin{align*}
@@ -262,40 +262,40 @@ C_m=-\frac{p}{2\pi}\left[M_{eq}\ddot{y}_{max}+M_3\cdot g\cdot \mu\right]-C_r
 =-\frac{p}{2\pi}M_3\left(\ddot{y}_{max}+g\cdot \mu\right)-\left(I_m+I_v\right)\frac{2\pi}{p}\ddot{y}_{max}-C_r
 \end{align*}
 
-L'application numérique donne  : $C_m=-3,79N\cdot m$
+L'application numÃ©rique donne  : $C_m=-3,79N\cdot m$
 \end{texteCache}
 \end{exemple}
 
 
 
-\section{Notion de rendement énergétique}
-\subsection{Définition du rendement d'une chaine fonctionnelle}
+\section{Notion de rendement Ã©nergÃ©tique}
+\subsection{DÃ©finition du rendement d'une chaine fonctionnelle}
 
-Une étude dynamique d'une chaine fonctionnelle peut se décomposer en deux parties :
+Une Ã©tude dynamique d'une chaine fonctionnelle peut se dÃ©composer en deux parties :
 
 \begin{itemize}
-\item En \textbf{régime permanent} (variation d'énergie cinétique négligeable): étude des effets dissipatifs pour estimer une puissance nominale des actionneurs.
-\item En \textbf{régime transitoire} : évaluation du complément de puissance pour permettre au système de fonctionner.
+\item En \textbf{rÃ©gime permanent} (variation d'Ã©nergie cinÃ©tique nÃ©gligeable): Ã©tude des effets dissipatifs pour estimer une puissance nominale des actionneurs.
+\item En \textbf{rÃ©gime transitoire} : Ã©valuation du complÃ©ment de puissance pour permettre au systÃ¨me de fonctionner.
 \end{itemize} 
 
 \begin{definition}[rendement d'une chaine fonctionnelle]
-Le rendement se définit \textbf{en régime permanent} comme la puissance utile sur la puissance d'entrée d'une chaine fonctionnelle : 
+Le rendement se dÃ©finit \textbf{en rÃ©gime permanent} comme la puissance utile sur la puissance d'entrÃ©e d'une chaine fonctionnelle : 
 
 \begin{align*}
 \boxed{
-\eta=\frac{\mathcal{P}(utile)}{\mathcal{P}(entrée)}
+\eta=\frac{\mathcal{P}(utile)}{\mathcal{P}(entrÃ©e)}
 }
 \end{align*}
 
 \begin{itemize}
 \item $\eta\in\left[0,1\right]$
-\item $\mathcal{P}(entrée)>0$ définit la puissance fournie par l'actionneur \textbf{en régime permanent}.
-\item $\mathcal{P}(utile)>0$ définit la puissance fournie à l'aval d'une chaine fonctionnelle (effecteur par exemple) \textbf{en régime permanent}.
+\item $\mathcal{P}(entrÃ©e)>0$ dÃ©finit la puissance fournie par l'actionneur \textbf{en rÃ©gime permanent}.
+\item $\mathcal{P}(utile)>0$ dÃ©finit la puissance fournie Ã  l'aval d'une chaine fonctionnelle (effecteur par exemple) \textbf{en rÃ©gime permanent}.
 \end{itemize}
 \end{definition}
 
-\begin{propriete}[Rendement global d'une chaine d'énergie]
-Le \textbf{rendement global} d'une chaine d'énergie comportant $n$ éléments de rendements $\eta_i$ est donné par : 
+\begin{propriete}[Rendement global d'une chaine d'Ã©nergie]
+Le \textbf{rendement global} d'une chaine d'Ã©nergie comportant $n$ Ã©lÃ©ments de rendements $\eta_i$ est donnÃ© par : 
 
 \begin{align}
 \boxed{
@@ -303,17 +303,17 @@ Le \textbf{rendement global} d'une chaine d'énergie comportant $n$ éléments de r
 }
 \end{align}
 
-Chacun des rendements successifs $\eta_i$ étant au plus égale à 1, le rendement global est nécessairement inférieur ou égal au plus mauvais rendement.
+Chacun des rendements successifs $\eta_i$ Ã©tant au plus Ã©gale Ã  1, le rendement global est nÃ©cessairement infÃ©rieur ou Ã©gal au plus mauvais rendement.
 \end{propriete}
 
-\subsection{Détermination d'une puissance dissipée}
+\subsection{DÃ©termination d'une puissance dissipÃ©e}
 
 \begin{propriete}[Estimation des dissipations]
-On peut évaluer en régime permanent les pertes ou puissance dissipée à partir de la connaissance du rendement $\eta$ : 
+On peut Ã©valuer en rÃ©gime permanent les pertes ou puissance dissipÃ©e Ã  partir de la connaissance du rendement $\eta$ : 
 
 \begin{align}
 \boxed{
-\mathcal{P}(dissipée)=(1-\eta)\cdot \mathcal{P}(entrée)
+\mathcal{P}(dissipÃ©e)=(1-\eta)\cdot \mathcal{P}(entrÃ©e)
 }
 \end{align}
 
@@ -321,43 +321,43 @@ On peut évaluer en régime permanent les pertes ou puissance dissipée à partir de
 
 \end{propriete}
 
-\begin{exemple}[Expression des pertes dissipées par la liaison hélicoïdale dans le système de dépose de composants]
-On cherche à déterminer en régime permanent les pertes au niveaux de la liaison hélicoïdale entre $S_1$ et $S_2$. On considère donc les actions mécaniques de frottement nulles partout ailleurs dans le système global. On introduit alors un rendement $\eta$ défini en régime permanent et donc à variation d'énergie cinétique négligeable.
+\begin{exemple}[Expression des pertes dissipÃ©es par la liaison hÃ©licoÃ¯dale dans le systÃ¨me de dÃ©pose de composants]
+On cherche Ã  dÃ©terminer en rÃ©gime permanent les pertes au niveaux de la liaison hÃ©licoÃ¯dale entre $S_1$ et $S_2$. On considÃ¨re donc les actions mÃ©caniques de frottement nulles partout ailleurs dans le systÃ¨me global. On introduit alors un rendement $\eta$ dÃ©fini en rÃ©gime permanent et donc Ã  variation d'Ã©nergie cinÃ©tique nÃ©gligeable.
 
-\question{En considérant le système $E_1=\left\{S_1+S_2\right\}$, définir le rendement.}
+\question{En considÃ©rant le systÃ¨me $E_1=\left\{S_1+S_2\right\}$, dÃ©finir le rendement.}
 
 \begin{texteCache}
 \begin{align*}
-\eta=\frac{\mathcal{P}(utile)}{\mathcal{P}(entrée)}=\frac{\mathcal{P}(S_2\to S_3/R_0)}{\mathcal{P}(moteur\to S_1/R_0)}
+\eta=\frac{\mathcal{P}(utile)}{\mathcal{P}(entrÃ©e)}=\frac{\mathcal{P}(S_2\to S_3/R_0)}{\mathcal{P}(moteur\to S_1/R_0)}
 \end{align*}
 \end{texteCache}
 
-\question{On définit la puissance dissipée comme la puissance des inter-effort entre $S_1$ et $S_2$. En appliquant un théorème de l'énergie cinétique à $S_2/R_0$ et $S_1/R_0$ en régime permanent donner l'expression des puissances dissipées dans la liaison hélicoïdale.}
+\question{On dÃ©finit la puissance dissipÃ©e comme la puissance des inter-effort entre $S_1$ et $S_2$. En appliquant un thÃ©orÃ¨me de l'Ã©nergie cinÃ©tique Ã  $S_2/R_0$ et $S_1/R_0$ en rÃ©gime permanent donner l'expression des puissances dissipÃ©es dans la liaison hÃ©licoÃ¯dale.}
 
 \begin{itemize}
-\item Expression de $\mathcal{P}(dissipée)$ :
+\item Expression de $\mathcal{P}(dissipÃ©e)$ :
 \begin{texteCache}
 \begin{align*}
-\mathcal{P}(dissipée)=-\mathcal{P}(S_1\leftrightarrow S_2)=-\left(\mathcal{P}(S_1\to S_2/R_0)+\mathcal{P}(S_2\to S_1/R_0)\right)
+\mathcal{P}(dissipÃ©e)=-\mathcal{P}(S_1\leftrightarrow S_2)=-\left(\mathcal{P}(S_1\to S_2/R_0)+\mathcal{P}(S_2\to S_1/R_0)\right)
 \end{align*}
 \end{texteCache}
-\item TEC appliqué à $S_2/R_0$ en régime permanent : 
+\item TEC appliquÃ© Ã  $S_2/R_0$ en rÃ©gime permanent : 
 \begin{texteCache}
 \begin{align*}
 \mathcal{P}(S_1\to S_2/R_0)=-\mathcal{P}(S_3\to S_2/R_0)
 \end{align*}
 \end{texteCache}
 
-\item TEC appliqué à $S_1/R_0$ en régime permanent :
+\item TEC appliquÃ© Ã  $S_1/R_0$ en rÃ©gime permanent :
 \begin{texteCache}
 \begin{align*}
 \mathcal{P}(moteur\to S_1/R_0)=-\mathcal{P}(S_2\to S_1/R_0)
 \end{align*}
 \end{texteCache}
-\item en combinant ces équations on obtient $\mathcal{P}(dissipée)$ : 
+\item en combinant ces Ã©quations on obtient $\mathcal{P}(dissipÃ©e)$ : 
 \begin{texteCache}
 \begin{align*}
-\mathcal{P}(dissipée)=-\left(-\mathcal{P}(S_3\to S_2/R_0)-\mathcal{P}(moteur\to S_1/R_0)\right)\\
+\mathcal{P}(dissipÃ©e)=-\left(-\mathcal{P}(S_3\to S_2/R_0)-\mathcal{P}(moteur\to S_1/R_0)\right)\\
 =-\mathcal{P}(S_2\to S_3/R_0)+\mathcal{P}(moteur\to S_1/R_0)=\left(1-\eta\right)\mathcal{P}(moteur\to S_1/R_0)
 \end{align*}
 \end{texteCache}
@@ -366,17 +366,17 @@ On cherche à déterminer en régime permanent les pertes au niveaux de la liaison 
 
 \end{exemple}
 
-\begin{exemple}[Quantification des pertes dans la liaison hélicoïdale en régime permanent maximal]
+\begin{exemple}[Quantification des pertes dans la liaison hÃ©licoÃ¯dale en rÃ©gime permanent maximal]
 On donne : 
 \begin{itemize}
-\item Rendement $\eta$ dans la liaison hélicoïdale : $\eta=0,8$ ; 
+\item Rendement $\eta$ dans la liaison hÃ©licoÃ¯dale : $\eta=0,8$ ; 
 \end{itemize}
 
-\question{Déterminer dans ces conditions les dissipations.}
+\question{DÃ©terminer dans ces conditions les dissipations.}
 
 \begin{texteCache}
 \begin{align*}
-\mathcal{P}(dissipée)=C_{max}\cdot \dot{\theta}_{max}\cdot \left(\eta-1\right)\\
+\mathcal{P}(dissipÃ©e)=C_{max}\cdot \dot{\theta}_{max}\cdot \left(\eta-1\right)\\
 =21,2\times6000\frac{2\pi}{60}\cdot \left(1-\eta\right)=2664W
 \end{align*}
 \end{texteCache}

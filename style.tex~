@@ -1,17 +1,17 @@
 
 
 
-%Mise à zéro des variables
+%Mise Ã  zÃ©ro des variables
 %==================================
 
 
-\newcommand	{\partie}		{Sciences de l'ingénieur}
+\newcommand	{\partie}		{Sciences de l'ingÃ©nieur}
 \newcommand	{\titre}		{Analyse fonctionnelle}
 \newcommand	{\numero}		{1}
-\newcommand	{\auteur}		{Raphaël ALLAIS}
-\newcommand	{\etablissement}	{Lycée Gustave Eiffel de Dijon}
-\newcommand	{\discipline}		{Sciences de L'ingénieur}
-\newcommand	{\classe}		{Classe préparatoire P.T.S.I.}
+\newcommand	{\auteur}		{RaphaÃ«l ALLAIS}
+\newcommand	{\etablissement}	{LycÃ©e Gustave Eiffel de Dijon}
+\newcommand	{\discipline}		{Sciences de L'ingÃ©nieur}
+\newcommand	{\classe}		{Classe prÃ©paratoire P.T.S.I.}
 \newcommand	{\annee}		{2011 - 2012}
 \newcommand	{\icone}		{../../latex/images/logo_eiffel.png}
 \newcommand	{\competences}		{}
@@ -22,17 +22,17 @@
 %======================================
 
 %Sections
-\renewcommand\thesection{\Roman{section}}%Numérotation en chiffres romains
+\renewcommand\thesection{\Roman{section}}%NumÃ©rotation en chiffres romains
 \titleformat{\section}[hang]{\LARGE\bfseries}{\thesection.}{1em}{}[\rule{\linewidth}{.5pt}]
 \newcommand{\sectionbreak}{\clearpage}%Change de page a chaque section
 %\titlespacing*{\section}{0px}{20cm}{\wordsep}
 
 %Subsection
-\renewcommand\thesubsection{\arabic{subsection}}%Numérotation en chiffres arabes
+\renewcommand\thesubsection{\arabic{subsection}}%NumÃ©rotation en chiffres arabes
 \titlespacing*{\subsection}{0cm}{1cm}{0.5cm}
 
 %Subsubsection
-\renewcommand\thesubsubsection{\alph{subsubsection})}%Numérotation en lettres
+\renewcommand\thesubsubsection{\alph{subsubsection})}%NumÃ©rotation en lettres
 \titlespacing*{\subsubsection}{1cm}{0.5cm}{0.3cm}
 
 
@@ -47,8 +47,8 @@
 
 \renewcommand{\footrulewidth}{1px}
 \lfoot{\etablissement}	%Pied de gauche --> Etablissement
-\cfoot{\thepage\ / \pageref{LastPage}}	%Pied Centre --> n°de page
-\rfoot{\classe \\ Année \annee}
+\cfoot{\thepage\ / \pageref{LastPage}}	%Pied Centre --> nÂ°de page
+\rfoot{\classe \\ AnnÃ©e \annee}
 
 
 
@@ -60,11 +60,11 @@
 
 
 
-%Booléen de texte à trou
+%BoolÃ©en de texte Ã  trou
 \newboolean{texteATrou}
 \setboolean{texteATrou}{false}	%Petite condition qui choisit entre 2 formats d'image
-\newcommand{\setTexteATrouOn}{\setboolean{texteATrou}{true}}	%Active le texte à trous
-\newcommand{\setTexteATrouOff}{\setboolean{texteATrou}{false}}	%Désactive le texte à trous
+\newcommand{\setTexteATrouOn}{\setboolean{texteATrou}{true}}	%Active le texte Ã  trous
+\newcommand{\setTexteATrouOff}{\setboolean{texteATrou}{false}}	%DÃ©sactive le texte Ã  trous
 \definecolor{couleurTrou}{rgb}{0,0.5,0}
 \newcommand{\trou}[1]{\ifthenelse{\boolean{texteATrou}}{\ifthenelse{\boolean{makingOf}}{\textcolor{couleurTrou}{#1}}{\hphantom{#1}}}{#1}}
 

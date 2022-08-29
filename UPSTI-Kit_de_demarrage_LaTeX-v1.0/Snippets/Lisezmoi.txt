@@ -1,0 +1,1 @@
+Ce fichier a pour objectif de fournir un certain nombre d'exemples de codes réutilisables par copier/coller.

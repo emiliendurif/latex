@@ -13,10 +13,10 @@
 % Cotes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\dnom}	{\ensuremath{d_{\text{nom}}}}	%Diamètre nominal
-\newcommand{\dmoy}	{\ensuremath{d_{\text{moy}}}}	%Diamètre nominal
-\newcommand{\dinf}	{\ensuremath{d_{\text{inf}}}}	%Diamètre nominal
-\newcommand{\dsup}	{\ensuremath{d_{\text{sup}}}}	%Diamètre nominal
+\newcommand{\dnom}	{\ensuremath{d_{\text{nom}}}}	%DiamÃ¨tre nominal
+\newcommand{\dmoy}	{\ensuremath{d_{\text{moy}}}}	%DiamÃ¨tre nominal
+\newcommand{\dinf}	{\ensuremath{d_{\text{inf}}}}	%DiamÃ¨tre nominal
+\newcommand{\dsup}	{\ensuremath{d_{\text{sup}}}}	%DiamÃ¨tre nominal
 
 
 % Symboles

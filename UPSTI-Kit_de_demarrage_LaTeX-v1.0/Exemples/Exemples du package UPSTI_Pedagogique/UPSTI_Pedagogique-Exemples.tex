@@ -1,0 +1,73 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% E.Pinault-Bigeard - e.pinault-bigeard@upsti.fr
+% http://s2i.pinault-bigeard.com
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+
+%---------------------------------%
+% Packages génériques (pour la mise en forme de ce document exemple)
+%---------------------------------%
+\RequirePackage[top=2cm, bottom=4.3cm, left=2cm, right=2cm, a4paper, footskip=5cm]{geometry}
+
+%---------------------------------%
+% Appel du package
+%---------------------------------%
+\RequirePackage{UPSTI_Pedagogique}
+
+%---------------------------------%
+% Paramètres du package
+%---------------------------------%
+% Choix de la filière
+% 1- PTSI/PT
+% 2- PCSI/PSI (PC ?)  
+% 3- MPSI/MP 
+% 4- TSI
+% 5- ATS 
+\newcommand{\UPSTIidFiliere}{1}	% TSI
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Début du document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{document}
+
+\section{Diagrammes de compétences}
+\subsection{Par défaut (on a choisi PTSI en début de package)}
+\UPSTIdiagrammeCompetences
+
+\subsection{En gérant l'échelle et les compétences actives/inactives}
+\UPSTIdiagrammeCompetences[0.7][][1][1][0][1][0]
+
+\subsection{En changeant la filière (en MP, par exemple)}
+\UPSTIdiagrammeCompetences[][3]
+
+
+\section{Diagramme des écarts}
+
+\subsection{Par défaut}
+\UPSTIdiagrammeEcarts
+
+\subsection{En changeant les images}
+\UPSTIdiagrammeEcarts[][0][0][0][][Images/tondeuse.png]
+
+\subsection{En changeant l'échelle et en encadrant un écart spécifique (le 2)}
+\UPSTIdiagrammeEcarts[0.8][0][1]
+
+\section{Liste des compétences}
+\subsection{Affichage du numéro de compétence en couleur}
+\UPSTIcompetence{C1-04}
+
+\subsection{Affichage de l'intitulé de la compétence}
+\UPSTIcompetence{C1-04}[1]
+
+\subsection{Liste de compétences sous forme de tableau}
+\vspace{1em}
+\UPSTItableauCompetences{
+\UPSTIligneTableauCompetence{A1-01}
+\UPSTIligneTableauCompetence{B1-02}
+\UPSTIligneTableauCompetence{C1-03}
+\UPSTIligneTableauCompetence{D1-01}
+}
+
+\end{document}

@@ -1,0 +1,1098 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Package général pour l'édition de documents LaTeX standardisés et personnalisables                                  
+% -----------                                                                        
+% Auteur: Emmanuel Pinault-Bigeard                                                   
+% email: e.pinault-bigeard@upsti.fr
+% -----------
+% Version: 1.1 - 2019/07/16
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UPSTI - http://www.upsti.fr
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%==============================================================================%
+%	Préambule
+%==============================================================================%
+% Pour faciliter les éventuelles mises à jour, il n'est pas conseillé de
+% modifier directement ce fichier.
+% Pour personnaliser ce package, il vaut mieux éditer le package 
+% UPSTI_Custom.sty prévu à cet effet.
+%==============================================================================%
+
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{UPSTI_Document}[2019/07/16]
+
+ %==============================================================================%
+%	Changelog
+%==============================================================================%
+% 1.1 - 2019/07/16
+%  - Retrait d'un vspace dans UPSTIcorrectionEnv
+%  - Correction du bug de centrage vertical du titre dans l'en-tête de: Style: default - Template: default
+% 1.0 - 2017/11/23 - Mise en ligne de la première version
+
+%==============================================================================%
+%	Importation des packages nécessaires
+%==============================================================================%
+
+%--------------------------------------------------------%
+% Options du package
+%--------------------------------------------------------%
+% options possibles:
+%   - vide             : document vide
+%   - basic            : mise en page simple
+%   - corrigeUPTSI     : corrigé de concours UPSTI
+%   - modelePerso      : si on ne veut pas utiliser les templates par défaut (on charge alors le template contenu dans UPSTI_Modele_Perso.sty)
+%
+%   - kholle           : mise en page pour sujet de kholle
+%   - QCM              : mise en page pour QCM avec AMC
+%
+%   - margesEtroites   : cqfd
+%
+%   - noSI             : on ne charge pas le package UPSTI_SI (chargé par défaut)
+%   - noTypographie    : on ne charge pas le package UPSTI_Typographie (chargé par défaut)
+%   - noPedagogique    : on ne charge pas le package UPSTI_Pedagogique (chargé par défaut)
+%   - noCustomPackages : on ne charge pas les packages créés par les collègues: schemabloc, rpcinematik, bodegraph
+%   - noPackages       : on ne charge aucun package, pour n'utiliser que la fonction mise en page
+
+\newif\if@vide \@videfalse
+\DeclareOption{vide}{\@videtrue}
+\newif\if@basic \@basicfalse
+\DeclareOption{basic}{\@basictrue}
+\newif\if@kholle \@khollefalse
+\DeclareOption{kholle}{\@kholletrue}
+\newif\if@QCM \@QCMfalse
+\DeclareOption{QCM}{\@QCMtrue}
+\newif\if@corrigeUPTSI \@corrigeUPTSIfalse
+\DeclareOption{corrigeUPTSI}{\@corrigeUPTSItrue}
+\newif\if@margesEtroites \@margesEtroitesfalse
+\DeclareOption{margesEtroites}{\@margesEtroitestrue}
+\newif\if@modelePerso \@modelePersofalse
+\DeclareOption{modelePerso}{\@modelePersotrue}
+\newif\if@noSI \@noSIfalse
+\DeclareOption{noSI}{\@noSItrue}
+\newif\if@noTypographie \@noTypographiefalse
+\DeclareOption{noTypographie}{\@noTypographietrue}
+\newif\if@noPedagogique \@noPedagogiquefalse
+\DeclareOption{noPedagogique}{\@noPedagogiquetrue}
+\newif\if@noCustomPackages \@noCustomPackagesfalse
+\DeclareOption{noCustomPackages}{\@noCustomPackagestrue}
+\newif\if@noPackages \@noPackagesfalse
+\DeclareOption{noPackages}{\@noPackagestrue}
+\DeclareOption*{} % Ne rien faire quand une option est inconnue
+\ProcessOptions
+
+%--------------------------------------------------------%
+% Packages génériques
+%--------------------------------------------------------%
+% Pour éviter les conflits de packages, je suis obligé de mettre ça ici !
+\if@QCM
+  \PassOptionsToPackage{svgnames}{xcolor}
+  \RequirePackage[francais,bloc,completemulti]{automultiplechoice}		% AMC
+\fi
+
+\RequirePackage[utf8]{inputenc}         % Encodage
+\RequirePackage[T1]{fontenc}            % Encodage
+\RequirePackage[french]{babel}        % Gestion du français
+\RequirePackage[svgnames]{xcolor}       % Gestion des couleurs
+
+\RequirePackage{geometry}               % Mise en page
+
+\RequirePackage{amsmath}                %
+\RequirePackage{amssymb}                % Maths
+\RequirePackage{mathrsfs}               %
+
+\RequirePackage{etoolbox}               % Scripting
+\RequirePackage{xargs}	                % Arguments optionnels mutliples
+
+%==============================================================================%
+% Gestion du mode prof/élève
+%==============================================================================%
+%--------------------------------------------------------%
+% Commande et environnement pour les corrigés
+%--------------------------------------------------------%
+% Gestion des corrections à masquer sur les docs élève
+% Le premier paramètre facultatif indique quand il est égal à 1 qu'on ne doit pas sauter de ligne après le corrigé (dans une cellule de tableau par exemple)
+\newcommandx{\UPSTIcorrection}[2][1=0]{
+  \ifnumequal{1}{\UPSTIidVersionDocumentDef}{
+    \noindent\small\color{UPSTIcouleurCorrige} #2\normalsize\color{black}\ifnumequal{0}{#1}{\vspace{1em}\par}
+  }{}
+}
+
+% Même chose que \UPSTIcorrection, mais sous la forme d'environnement (utile dans certains cas)
+\newenvironment{UPSTIcorrectionEnv}{
+\ifnumequal{1}{\UPSTIidVersionDocumentDef}{\noindent\small\color{UPSTIcouleurCorrige}}{\comment}
+}{
+\ifnumequal{1}{\UPSTIidVersionDocumentDef}{\normalsize\color{black}\vspace{1em}}{\endcomment}
+}
+
+% Commande pour spécifier la couleur d'un élément à compléter (blanc pour le doc élève, rouge pour le doc prof, noir pour la version publiée)
+\newcommand{\UPSTIaCompleter}[1]{\textcolor{UPSTIcouleurZoneACompleter}{#1}}  
+
+% Même chose sous forme d'environnement (au cas où il y aurait plusieurs paragraphes)
+\newenvironment{UPSTIaCompleterEnv}{\color{UPSTIcouleurZoneACompleter}}{}         
+
+% Affichage conditionnel (avec possibilité de mettre le contenu en rouge)
+\newcommand{\UPSTIeleveOnly}[1]{\ifnumequal{1}{\UPSTIidVersionDocumentDef}{}{#1}}
+\newcommandx{\UPSTIprofOnly}[2][1=0]{\ifnumequal{1}{\UPSTIidVersionDocumentDef}{\ifnumequal{1}{#1}{\color{UPSTIcouleurCorrige}{#2}\color{black}}{#2}}{}}
+\newcommandx{\UPSTIprofEleve}[3][1=0]{\ifnumequal{1}{\UPSTIidVersionDocumentDef}{\ifnumequal{1}{#1}{\color{UPSTIcouleurCorrige}{#2}\color{black}}{#2}}{#3}}
+
+% Même chose que \UPSTIcorrection, mais sous la forme d'environnement (utile dans certains cas)
+\newenvironment{UPSTIeleveOnlyEnv}{\ifnumequal{1}{\UPSTIidVersionDocumentDef}{\comment}{}}{\ifnumequal{1}{\UPSTIidVersionDocumentDef}{\endcomment}{}}
+\newenvironment{UPSTIprofOnlyEnv}{\ifnumequal{1}{\UPSTIidVersionDocumentDef}{}{\comment}}{\ifnumequal{1}{\UPSTIidVersionDocumentDef}{}{\endcomment}}
+
+
+%==============================================================================%
+% "Compilation" des différentes variables spécifiées dans le document
+%==============================================================================%
+%--------------------------------------------------------%
+% Compilation conditionnelle (permet de générer plusieurs version d'un même document (prof, élève...) en ligne de commande)
+%--------------------------------------------------------%
+% - P: version prof
+% - E: version élève
+% - Pub: version "publiée"
+% - U: choix utilisateur dans le fichier tex
+\ifdef{\ChoixDeVersion}{}{\def\ChoixDeVersion{U}} % Si \ChoixDeVersion n'est pas défini dans la ligne de commande de compilation, on regarde l'option \UPSTIversionDocument définie au sein du fichier tex
+ 
+%--------------------------------------------------------%
+% Hook
+%--------------------------------------------------------%
+% \UPSTIeditCustomVarsBridge permet d'adapter un package personnalisé préexistant au package UPSTI_Document
+\newcommand{\UPSTIeditCustomVarsBridge}{} 
+
+%--------------------------------------------------------%
+% Début du script de définition des différentes variables en fonction des variables du document
+%--------------------------------------------------------%
+\newcommand{\UPSTIcompileVars}{
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Hook
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Permet de définir des variables personnalisées AVANT les variables génériques (\UPSTIeditCustomVars est définie dans UPSTI_Custom.sty si on doit modifier certaines valeurs)
+  \UPSTIeditCustomVars
+  
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Version du document à compiler
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % - 1: Version prof, avec corrigés et zones à compléter en couleur (rouge par défaut)
+  % - 2: Version élève, sans les corrigés (!) et avec les zones à compléter éventuelles vides (ie: écrites en blanc)
+  % - 3: Version "publiée", sans les corrigés et avec les éventuelles zones à compléter en noir.
+  \ifdef{\UPSTIidVersionDocument}{}{\newcommand{\UPSTIidVersionDocument}{1}} % Par défaut: prof
+  \ifthenelse{\equal{\ChoixDeVersion}{U}}
+  {\newcommand{\UPSTIidVersionDocumentDef}{\UPSTIidVersionDocument}} % U: Choix défini par l'utilisateur dans le fichier tex
+  {
+    \ifthenelse{\equal{\ChoixDeVersion}{P}}
+      {\newcommand{\UPSTIidVersionDocumentDef}{1}}      % P: Version prof
+      {
+        \ifthenelse{\equal{\ChoixDeVersion}{E}}
+          {\newcommand{\UPSTIidVersionDocumentDef}{2}}  % E: Version élève
+          {\newcommand{\UPSTIidVersionDocumentDef}{3}}  % Pub: Version pour la publication     
+      }
+  }
+
+  % Définition des couleurs utilisées dans les zones à compléter selon la version du doc
+  \ifcase\UPSTIidVersionDocumentDef
+    Erreur dans UPSTIidVersionDocumentDef (=0)
+    \or \colorlet{UPSTIcouleurZoneACompleter}{UPSTIcouleurCorrige}   % Document prof
+    \or \colorlet{UPSTIcouleurZoneACompleter}{white}                 % Document élève
+    \or \colorlet{UPSTIcouleurZoneACompleter}{black}                 % Document à publier
+    \else Erreur dans UPSTIidVersionDocumentDef (Trop grand)
+  \fi
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Matière
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % - 1: S2I
+  % - 2: IPT
+  % - 3: TIPE
+  \ifdef{\UPSTIidMatiere}{}{\newcommand{\UPSTIidMatiere}{1}} % Par défaut: S2I
+  \ifcase\UPSTIidMatiere
+    \or 
+      \newcommand{\UPSTIintituleMatiere}{Sciences Industrielles de l'Ingénieur}
+      \newcommand{\UPSTIsigleMatiere}{S2I}
+    \or 
+      \newcommand{\UPSTIintituleMatiere}{Informatique Pour Tous}
+      \newcommand{\UPSTIsigleMatiere}{IPT}
+    \or 
+      \newcommand{\UPSTIintituleMatiere}{Travaux d'Initiative Personnelle Encadrés}
+      \newcommand{\UPSTIsigleMatiere}{TIPE}
+    \else 
+      \newcommand{\UPSTIintituleMatiere}{Erreur dans UPSTIidMatiere (Trop grand)}
+      \newcommand{\UPSTIsigleMatiere}{Erreur}
+  \fi
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Type de document
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % 0: Custom (définir manuellement \UPSTItypeDocument dans le préambule du document) 
+  % 1: Cours 
+  % 2: TD
+  % 3: TP
+  % 4: Colle
+  % 5: DS
+  % 6: DM
+  % 7: Fiche Méthode
+  % 8: Fiche Synthèse
+  % 9: Formulaire
+  % 10: Mémo
+  % 11: Dossier Technique
+  % 12: Dossier Ressource
+  % 13: Concours Blanc
+  % 14: Document Réponses
+  % 15: Programme de colle
+  % 16: QCM
+  \ifdef{\UPSTIidTypeDocument}{}{\newcommand{\UPSTIidTypeDocument}{1}} % Par défaut: cours
+  \ifcase\UPSTIidTypeDocument
+    \or 
+      \newcommand{\UPSTItypeDocument}{Cours}
+    \or 
+      \newcommand{\UPSTItypeDocument}{TD}
+      \newcommand{\UPSTItypeDocumentLong}{Travaux Dirigés}
+    \or 
+      \newcommand{\UPSTItypeDocument}{TP}
+      \newcommand{\UPSTItypeDocumentLong}{Travaux Pratiques}
+    \or 
+      \newcommand{\UPSTItypeDocument}{\UPSTIintituleKholle}
+    \or
+      \newcommand{\UPSTItypeDocument}{DS}
+      \newcommand{\UPSTItypeDocumentLong}{Devoir Surveillé}
+    \or  
+      \newcommand{\UPSTItypeDocument}{DM}
+      \newcommand{\UPSTItypeDocumentLong}{Devoir Maison}
+    \or
+      \newcommand{\UPSTItypeDocument}{Méthode}
+      \newcommand{\UPSTItypeDocumentLong}{Fiche Méthode}
+    \or 
+      \newcommand{\UPSTItypeDocument}{Synthèse}
+      \newcommand{\UPSTItypeDocumentLong}{Fiche Synthèse}
+    \or 
+      \newcommand{\UPSTItypeDocument}{\small{Formulaire}}
+    \or 
+      \newcommand{\UPSTItypeDocument}{Mémo}
+    \or 
+      \newcommand{\UPSTItypeDocument}{DT}
+      \newcommand{\UPSTItypeDocumentLong}{Dossier Technique}
+    \or 
+      \newcommand{\UPSTItypeDocument}{DR}
+      \newcommand{\UPSTItypeDocumentLong}{Dossier Ressource}
+    \or
+      \newcommand{\UPSTItypeDocument}{CB}
+      \newcommand{\UPSTItypeDocumentLong}{Concours Blanc}
+    \or
+      \newcommand{\UPSTItypeDocument}{DR}
+      \newcommand{\UPSTItypeDocumentLong}{Document Réponses}
+    \or
+      \newcommand{\UPSTItypeDocument}{\UPSTIintituleKholle}
+      \newcommand{\UPSTItypeDocumentLong}{Programme de \UPSTIintituleKholle}
+    \or
+      \newcommand{\UPSTItypeDocument}{QCM}
+      \newcommand{\UPSTItypeDocumentLong}{QCM}
+    \else 
+    \newcommand{\UPSTItypeDocument}{Erreur dans UPSTItypeDocument (Trop grand)}
+  \fi
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Classe concernée
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % 0: Custom (définir manuellement \UPSTItypeDocument dans le préambule du document) 
+  % 1- PTSI
+  % 2- PT
+  % 3- PT*
+  % 4- PCSI
+  % 5- PSI
+  % 6- PSI*
+  % 7- MPSI
+  % 8- MP
+  % 9- MP*
+  % 10- TSI1
+  % 11- TSI2
+  % 12- ATS
+  % 13- PC(?)
+  % 14- PC*(???)
+  % 15- Sup
+  % 16- Spé  
+  \ifdef{\UPSTIidClasse}{}{\newcommand{\UPSTIidClasse}{2}} % Par défaut, on est en PT
+  \ifdef{\UPSTIclasse}{}{
+    \ifcase\UPSTIidClasse
+      Erreur dans UPSTIidClasse (=0)
+      \or % PTSI 
+        \newcommand{\UPSTIclasse}{PTSI}
+      \or % PT 
+        \newcommand{\UPSTIclasse}{PT}
+      \or % PT* 
+        \newcommand{\UPSTIclasse}{PT*}
+      \or % PCSI 
+        \newcommand{\UPSTIclasse}{PCSI}
+      \or % PSI 
+        \newcommand{\UPSTIclasse}{PSI}
+      \or % PSI* 
+        \newcommand{\UPSTIclasse}{PSI*}
+      \or % MPSI 
+        \newcommand{\UPSTIclasse}{MPSI}
+      \or % MP 
+        \newcommand{\UPSTIclasse}{MP}
+      \or % MP 
+        \newcommand{\UPSTIclasse}{MP*}
+      \or % TSI1 
+        \newcommand{\UPSTIclasse}{TSI1}
+      \or % TSI2
+        \newcommand{\UPSTIclasse}{TSI2}
+      \or % ATS
+        \newcommand{\UPSTIclasse}{ATS}
+      \or % PC 
+        \newcommand{\UPSTIclasse}{PC}
+      \or % PC 
+        \newcommand{\UPSTIclasse}{PC*}
+      \or % Sup 
+        \ifdef{\UPSTIintituleSup}{}{\newcommand{\UPSTIintituleSup}{Sup}} % Permet de customiser l'intitulé sup dans le fichier custom
+        \newcommand{\UPSTIclasse}{\UPSTIintituleSup}
+      \or % Spé 
+        \ifdef{\UPSTIIntituleSpé}{}{\newcommand{\UPSTIIntituleSpé}{Spé}} % Permet de customiser l'intitulé spé dans le fichier custom
+        \newcommand{\UPSTIclasse}{\UPSTIIntituleSpé}
+      \else Erreur dans UPSTIidClasse (Trop grand)
+    \fi
+  }
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Définition des méta informations du fichier PDF généré
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \if@vide
+  \else
+    \if@corrigeUPTSI
+    \else
+      \hypersetup{ 
+          pdftitle={\UPSTItypeDocument\ifdef{\UPSTItitreEnTetePages}{ - \UPSTItitreEnTetePages}{\ifdef{\UPSTItitreEnTete}{ - \UPSTItitreEnTete}{}}\ifdef{\UPSTItitrePreambule}{ - \UPSTItitrePreambule}{}\ifdef{\UPSTItitre}{ - \UPSTItitre}{}},
+          pdfauthor={\UPSTIauteur\ifdef{\UPSTIsource}{ (d'après: \UPSTIsource)}{}}
+      }
+    \fi
+  \fi
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Spécifiques aux sujets de concours
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \if@corrigeUPTSI
+    %^^^^^^^^^^^^%
+    % Concours
+    %^^^^^^^^^^^^%
+    % 0: Custom (définir manuellement \UPSTIconcoursIntitule et \UPSTIconcoursSigle dans le préambule du document) 
+    % 1- Banque PT
+    % 2- Mines-Ponts
+    % 3- Centrale-Supelec
+    % 4- e3a
+    % 5- X/ENS
+    % 6- CCP
+    % 7- ATS
+    \ifdef{\UPSTIidConcours}{}{\newcommand{\UPSTIidConcours}{1}} % Par défaut, on est sur la banque PT
+    \ifcase\UPSTIidConcours
+      \or
+        \newcommand{\UPSTIconcoursIntitule}{Banque PT}
+        \newcommand{\UPSTIconcoursSigle}{Banque PT}
+      \or
+        \newcommand{\UPSTIconcoursIntitule}{Concours Commun Mines-Ponts}
+        \newcommand{\UPSTIconcoursSigle}{CCMP}
+      \or 
+        \newcommand{\UPSTIconcoursIntitule}{Concours Centrale-Supélec}
+        \newcommand{\UPSTIconcoursSigle}{CCS}
+      \or
+        \newcommand{\UPSTIconcoursIntitule}{e3a - ENSAM, ESTP, Polytech}
+        \newcommand{\UPSTIconcoursSigle}{e3a}
+      \or
+        \newcommand{\UPSTIconcoursIntitule}{X/ENS}
+        \newcommand{\UPSTIconcoursSigle}{X/ENS}
+      \or 
+        \newcommand{\UPSTIconcoursIntitule}{Concours Communs Polytechniques}
+        \newcommand{\UPSTIconcoursSigle}{CCP}
+      \or 
+        \newcommand{\UPSTIconcoursIntitule}{ATS}
+        \newcommand{\UPSTIconcoursSigle}{ATS}
+      \else Erreur dans UPSTIidConcours (Trop grand)
+    \fi
+    \ifdef{\UPSTIconcoursSigle}{}{\newcommand{\UPSTIconcoursSigle}{\UPSTIconcoursIntitule}} % Pour rendre le sigle du concours facultatif
+
+    %^^^^^^^^^^^^%
+    % Infos du PDF
+    %^^^^^^^^^^^^%
+    \hypersetup{ 
+        pdftitle={\UPSTIconcoursSigle \UPSTIfiliere \UPSTIsession - \UPSTItitreSujet - Corrigé UPSTI},
+        pdfauthor={UPSTI}
+    }
+  \fi
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Divers
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \renewcommand{\contentsname}{Sommaire} % Titre du sommaire (par défaut: index, remplacé ici par sommaire lors de l'utilisation de la commande \tableofcontents)
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Hooks
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Permet de définir des variables personnalisées APRES les variables génériques (\UPSTIeditCustomVarsEnd est définie dans UPSTI_Custom.sty si on doit modifier certaines valeurs)
+  \UPSTIeditCustomVarsEnd
+  
+  % Permet d'adapter un package personnalisé préexistant au package UPSTI_Document. \UPSTIeditCustomVarsBridge doit donc être défini dans le fichier .sty du package à adapter
+  \UPSTIeditCustomVarsBridge
+}
+
+
+%==============================================================================%
+% Mise en page
+%==============================================================================%
+%--------------------------------------------------------%
+% Si on utilise un template personnalisé, on le charge ici. Sinon, on génère le template.
+%--------------------------------------------------------%
+\if@modelePerso
+  \RequirePackage{UPSTI_Modele_Perso}
+\else
+
+%******************************************** DEBUT de la zone à recopier dans UPSTI_Modele_Perso.sty ********************************************
+%--------------------------------------------------------%
+% Options et packages spécifiques aux différents templates
+%--------------------------------------------------------%
+\if@vide
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Style: vide
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \pagestyle{empty}
+
+  % Gestion des marges
+  \if@margesEtroites
+    \geometry{a4paper, top=1cm, bottom=1cm, left=1cm, right=1cm}   % Marges étroites
+  \else  
+    \geometry{a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm}   % Marges étroites
+  \fi
+\else
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Styles: basic, default et corrigeUPSTI
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Packages spécifiques
+  \RequirePackage{tabularx}                     % Tableaux avancés
+  \RequirePackage{fancyhdr}                     % Styles de pages
+  \RequirePackage{lastpage}                     % Gestion des pages
+  \RequirePackage[pdftex,hidelinks]{hyperref}   % Infos sur le PDF
+
+  % Défnition du parskip
+  \newcommand{\UPSTIparskipValue}{0.5em}
+
+  % Puces
+  \RequirePackage{enumitem}
+  \setlist{itemsep=0pt,parsep=0pt,topsep=-0.4em}
+  \setlist[itemize,1]{label=$\bullet$,after={\vspace{\UPSTIparskipValue}}}
+  \setlist[itemize,2]{label=$\diamond$,leftmargin=2em}
+  \setlist[itemize,3]{label=$\circ$,leftmargin=2em}
+  \setlist[enumerate,1]{after={\vspace{\UPSTIparskipValue}}}
+  \setlist[description,1]{after={\vspace{\UPSTIparskipValue}}}
+
+
+  % Espacements des paragraphes (pour aérer un peu le document)
+  \setlength{\parskip}{\UPSTIparskipValue} % Espacement entre paragraphes
+  \newcommand{\UPSTIparskipMinipage}{\setlength{\parskip}{\medskipamount}
+  \makeatletter
+  \newcommand{\@minipagerestore}{\setlength{\parskip}{\medskipamount}}
+  \makeatother
+  }
+
+  % Réglages divers
+  \allowdisplaybreaks[1] % Sauts de pages autorisés dans les équations
+
+  % Mise en forme des tableaux
+  \renewcommand{\tabularxcolumn}[1]{>{\small}m{#1}} % Centrage vertical des cellules dans les colonnes X de tabularX
+  \setlength\extrarowheight{2pt}
+  
+  % Divers
+  \newcommand{\UPSTIversionProf}{\textcolor{UPSTIcouleurCorrige}{~\raisebox{1.5pt}{\small{\textcircledP}}}} % Signe distinctif pour montrer que c'est une version corrigée (dans l'en-tête)
+
+  \if@basic
+    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+    % Style: basic
+    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+    % Gestion des marges
+    \if@margesEtroites
+      \geometry{a4paper, top=1.5cm, bottom=1cm, left=1cm, right=1cm, head=13.6pt, headsep=0.5cm, foot=12pt, footskip=0cm}   % Marges étroites
+    \else
+      \if@QCM
+        \geometry{a4paper, top=2cm, bottom=2.5cm, left=2cm, right=2cm}  % Marges par défaut (+ fooskip)
+      \else
+        \geometry{a4paper, top=2.5cm, bottom=2cm, left=2cm, right=2cm, head=14pt} % Marges par défaut
+      \fi
+    \fi
+
+  \else
+    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+    % Styles: default et corrigeUPSTI
+    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+    \RequirePackage{background}                   % Styles de pages
+    \RequirePackage{colortbl}             % Gestion des couleurs dans les tableaux
+
+    % Lignes grises pour les tableaux
+    \newcommand{\rcline}[1]{\arrayrulecolor{gray!60}\cline{#1}\arrayrulecolor{black}} % \rcline: Couleurs des lignes horizontales (en gris clair)
+
+    \if@QCM
+      %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+      % Template: QCM
+      %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+      % Gestion des marges
+      \geometry{a4paper, headsep=0cm, top=3cm, bottom=3cm, left=2cm, right=2cm, a4paper, footskip=1.8cm}  % Marges uniques
+
+    \else
+      %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+      % Templates: kholle et default
+      %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+      % Gestion des marges
+      \if@margesEtroites
+        \geometry{a4paper, top=1cm, bottom=1cm, left=1cm, right=1cm, head=13.6pt, headsep=0.5cm, foot=12pt, footskip=0cm}   % Marges étroites
+      \else
+        \geometry{a4paper, top=2cm, bottom=4.3cm, left=2cm, right=2cm, a4paper, footskip=5cm}                               % Marges par défaut
+      \fi
+
+      \if@kholle
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        % Template: kholle
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+ 
+      \else
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        % Template: default
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+      \fi
+    \fi
+    \if@corrigeUPTSI  
+      \RequirePackage{wallpaper}
+    \fi
+  \fi
+\fi
+
+
+%--------------------------------------------------------%
+% Création des en-têtes et pieds de page selon les options
+%--------------------------------------------------------%
+% Il y a 4 styles différents:
+%  - default: en-tête logo du lycée
+%  - basic: en-tête simple LaTeX
+%  - vide: aucun en-tête
+%  - corrigeUPSTI: pour les corrigés de sujets diffusés au nom de l'UPSTI
+%
+% Pour les 2 premiers styles, il y a jusqu'à 3 templates différents:
+%  - default: pour la quasi-totalité des documents
+%  - kholle: pour les sujets de colle (ne donne pas d'information sur le lycée ou sur la classe, car les sujets peuvent servir dans plusieurs lycées) 
+%  - QCM: pour les QCM réalisés par AMC
+\newcommand{\UPSTIbuildPage}{
+  \if@vide
+    % Style: vide (quelque soit le template) 
+    \pagestyle{empty}
+  \else
+    \pagestyle{fancy} % On précise que les en-têtes sont gérés par fancyhdr
+ 
+    \if@basic
+      % Style: basic
+      \UPSTIbuildTemplatebasic
+    \else
+      \if@corrigeUPTSI
+        % Style: corrigé UPSTI
+        \UPSTIbuildTemplatecorrigeUPSTI
+
+      \else
+        % Style: default
+        \if@QCM
+          
+          % On force le mode élève (le mode prof n'a pas de sens pour AMC)
+          \renewcommand{\UPSTIidVersionDocument}{2}
+  
+          % Template: QCM
+          \UPSTIbuildTemplatedefaultdefault
+        \else
+          \if@kholle
+            % Template: kholle
+            \UPSTIbuildTemplatedefaultkholle
+          \else
+            % Template: default
+            \UPSTIbuildTemplatedefaultdefault
+          \fi
+        \fi
+      \fi
+    \fi
+  \fi
+}
+
+
+%==============================================================================%
+% Définition des différents templates
+%==============================================================================%
+%--------------------------------------------------------%
+% Style: basic
+%--------------------------------------------------------%
+\newcommand{\UPSTIbuildTemplatebasic}{
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Commun à tous les templates du style basic
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \renewcommand{\headrulewidth}{0.75pt}
+  \renewcommand{\footrulewidth}{0.75pt}
+  \fancyhead[C]{}
+  \if@QCM
+  \else
+    \fancyfoot[R]{\thepage/\pageref{LastPage}} 
+  \fi
+    
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Template: kholle
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Commandes obligatoires:
+  %  - UPSTIidVersionDocument: version prof ou élève
+  %  - UPSTItitreEnTete: thème de la colle
+  %  - UPSTItitre: titre de l'exercice
+  \if@kholle
+
+    % Header et Footer
+    \fancyhead[L]{\UPSTIheaderLeft}
+    \fancyhead[R]{\UPSTIintituleKholle \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\UPSTIversionProf}{}}
+    \fancyfoot[L]{} 
+    \fancyfoot[C]{\ifdef{\UPSTItitre}{\UPSTItitre}{\UPSTItitreEnTete}}
+    
+    % Titre principal
+    \begin{center}
+      \vspace*{-5mm}
+      \Large{\textbf{\UPSTIintituleKholle: \UPSTItitreEnTete}} \\
+      \LARGE{\textbf{\UPSTItitre}}
+    \end{center}
+    \vspace{3mm}
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Template: default
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Commandes obligatoires:
+  %  - UPSTIidClasse: code classe
+  %  - UPSTIidTypeDocument: type de document (Cours, TD, TP, etc...)
+  %  - UPSTIidVersionDocument: version prof ou élève
+  %  - UPSTItitre: titre du document
+  %
+  % Commandes facultatives:
+  %  - UPSTIidMatiere: Code matière (S2I, IPT, TIPE...)
+  %  - UPSTInumeroChapitre: numéro du chapitre
+  \else
+    % Header et Footer
+    \if@QCM
+      \renewcommand{\headrulewidth}{0pt}
+      \fancyfoot[C]{\ifdef{\UPSTItitreEnTetePages}{\UPSTItitreEnTetePages}{\ifdef{\UPSTItitre}{\UPSTItitre}{\UPSTItitreEnTete}} - \thepage/\pageref{LastPage}}
+    \else
+      \fancyhead[L]{\ifdef{\UPSTIheaderLeftOverride}{\UPSTIheaderLeftOverride}{\UPSTIheaderLeft{} \UPSTIclasse{} - \UPSTIsigleMatiere}}
+      \fancyhead[R]{\UPSTItypeDocument \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\UPSTIversionProf}{}}
+      \fancyfoot[L]{\ifdef{\UPSTInumeroChapitre}{Chapitre \UPSTInumeroChapitre}{}} 
+      \fancyfoot[C]{\ifdef{\UPSTItitreEnTetePages}{\UPSTItitreEnTetePages}{\ifdef{\UPSTItitre}{\UPSTItitre}{\UPSTItitreEnTete}}}
+    \fi
+
+    % Titre principal
+    \ifdef{\UPSTInumeroChapitre}{
+      \vspace*{2cm}
+      \noindent{\huge \textbf{Chapitre \UPSTInumeroChapitre}\vspace{1.2cm}}
+      
+      \noindent{\textbf{\Huge \UPSTItitre}}
+      \vspace{1.5cm}
+    }{
+      \begin{center}
+        \if@QCM
+          \textbf{\Huge \UPSTItitre}
+          \vspace{1em}
+        \else
+          \vspace*{0.5cm}
+          \textbf{\Huge \UPSTItitre}
+          \vspace{1cm}
+        \fi        
+      \end{center}
+    }                                        
+  \fi
+}
+
+%--------------------------------------------------------%
+% Style: default - Template: QCM
+%--------------------------------------------------------%
+\newcommand{\UPSTIbuildTemplatedefaultQCM}{}
+
+%--------------------------------------------------------%
+% Style: default - Template: kholle
+%--------------------------------------------------------%
+% Commandes obligatoires:
+%  - UPSTIidVersionDocument: version prof ou élève
+%  - UPSTItitreEnTete: thème de la colle
+%  - UPSTItitre: titre de l'exercice
+%  - UPSTInumeroVersion: version du document
+%
+% Commandes facultatives:
+%  - UPSTIdocumentCollegial: si le document est fait par un prof particulier ou par une équipe
+\newcommand{\UPSTIbuildTemplatedefaultkholle}{
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % En-tête
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \vspace*{-5mm}
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Titre principal
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \begin{center}
+    \vspace*{-5mm}
+    \LARGE{\textbf{\UPSTIintituleKholle: \UPSTItitreEnTete}} \\
+    \LARGE{\textbf{\textsc{\UPSTItitre}}}
+  \end{center}
+  \vspace*{3mm}
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Header
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \setlength{\headheight}{1.5cm}
+  \def\headrule{
+     {\color{gray!60}\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi  % Couleur de la ligne (gris clair)
+     \hrule\@height\headrulewidth\@width\headwidth
+     \vskip-\headrulewidth}
+   } 
+  \fancyhead[L]{\UPSTIheaderLeft}
+  \fancyhead[C]{\ifdef{\UPSTItitre}{\UPSTItitre}{\UPSTItitreEnTete}}
+  \fancyhead[R]{\UPSTIintituleKholle \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\UPSTIversionProf}{}}
+  \fancyfoot[C]{} % On n'affiche pas le numéro de page de fancyhdr 
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Footer
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \backgroundsetup{
+    scale=1,
+    color=black,
+    opacity=1,
+    angle=0,
+    position=current page.south,
+    vshift=60pt,
+    contents={
+      \small
+      \begin{minipage}{0.06\textwidth}
+        \ifdef{\UPSTIdocumentCollegial}{
+          \rule[3pt]{0cm}{24pt} \includegraphics[width=\linewidth,height=26pt,keepaspectratio]{\UPSTIlogoAuteurCollegial}
+        }{
+          \rule[3pt]{0cm}{24pt} \includegraphics[width=\linewidth,height=26pt,keepaspectratio]{\UPSTIlogoAuteur}
+        }
+      \end{minipage}
+      \begin{minipage}{.98\textwidth}
+        \begin{tabularx}{\textwidth}{ l >{\centering\arraybackslash} X r}
+         	\rcline{1-3}
+          \ifthenelse{\thepage=1}{v\UPSTInumeroVersion}{} & \footnotesize{\textcolor{black}{Page \thepage\ /   \pageref{LastPage}}} & \raisebox{-5pt}{\includegraphics[height=13pt,keepaspectratio]{\UPSTIlogoLicence}}  \tabularnewline	
+        \end{tabularx}
+      \end{minipage}\hspace{.02\textwidth}
+    }
+  }
+}
+
+%--------------------------------------------------------%
+% Style: default - Template: default
+%--------------------------------------------------------%
+% Commandes obligatoires:
+%  - UPSTIidClasse: code classe
+%  - UPSTIidTypeDocument: type de document (Cours, TD, TP, etc...)
+%  - UPSTIidVersionDocument: version prof ou élève
+%  - UPSTItitreEnTete: Titre principal (dans le bandeau de la première page)
+%  - UPSTInumeroVersion: version du document
+%
+% Commandes facultatives:
+%  - UPSTIauteur: nom de l'auteur, si ce n'est pas l'auteur par défaut défini dans UPSTI_Custom.sty
+%  - UPSTIdocumentCollegial: si le document est fait par un prof particulier ou par une équipe
+%  - UPSTIduree: Durée de l'activité
+%  - UPSTIidMatiere: Code matière (S2I, IPT, TIPE...)
+%  - UPSTImessage: texte personnalisé dans la ligne sous le titre dans le bandeau
+%  - UPSTInoteBasDePremierePage: en bas à droite de la première page
+%  - UPSTInumero: numéro du TD, Cours, DS, etc...
+%  - UPSTInumeroChapitre: numéro du chapitre
+%  - UPSTIprogramme: références au programme, dans la ligne sous le titre dans le bandeau
+%  - UPSTIserie: numéro de série (pour les TP notamment)
+%  - UPSTIsource: sources et références
+%  - UPSTIsousTitreEnTete: Titre principal (dans le bandeau de la première page)
+%  - UPSTItitre: titre de l'exercice
+%  - UPSTItitrePreambule: sous-titre de l'exercice
+%  - UPSTIvariante: variante du template (en fonction du lycée... voir dans UPSTI_Custom.sty)
+\newcommand{\UPSTIbuildTemplatedefaultdefault}{
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Bandeau sur la première page
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \if@QCM
+    \vspace*{-10mm}
+  \else
+    % On n'affiche pas l'en-tête sur la première page
+    \thispagestyle{empty}   
+    \vspace*{-20mm}
+  \fi
+  \noindent\begin{minipage}[c]{\linewidth}
+  \noindent
+  \rule{\linewidth}{0.8pt}
+  \begin{minipage}[c]{2.35cm}
+  	\includegraphics[width=2.35cm]{\UPSTIlogoLycee}
+  \end{minipage} \hfill
+  \begin{minipage}[c]{14.5cm}
+    % On simplifie le tableau d'en-tête pour les dossiers technique et ressource
+    % Version DT et DR
+    \ifboolexpr {test{\ifnumequal{11}{\UPSTIidTypeDocument}} or test{\ifnumequal{12}{\UPSTIidTypeDocument}} or test{\ifdef{\UPSTInoRightHeader}}} 
+    {\begin{tabularx}{\textwidth}{m{0cm} >{\centering\arraybackslash} X  >{\centering\arraybackslash} m{2cm}}
+     	\rule[-0.2cm]{0cm}{0.8cm} & \UPSTIenTetePrincipal \ifdef{\UPSTInumeroChapitre}{ - Chapitre \UPSTInumeroChapitre}{}\ifdef{\UPSTIenTetePrincipalCustom}{ - \UPSTIenTetePrincipalCustom}{} &   \tabularnewline	
+% v1.0     	\rule[-1.1cm]{0cm}{2.2cm} & \huge{\textsc{\textbf{\UPSTItitreEnTete}}}  \ifdef{\UPSTIsousTitreEnTete}{\linebreak\Large{\UPSTIsousTitreEnTete}}{} &  \tabularnewline
+     	\rule{0cm}{2.2cm} & \huge{\textsc{\textbf{\UPSTItitreEnTete}}}  \ifdef{\UPSTIsousTitreEnTete}{\linebreak\Large{\UPSTIsousTitreEnTete}}{} &  \tabularnewline
+     	\rcline{2-3}
+% v1.0    	\rule[-0.2cm]{0cm}{0.8cm} & \ifdef{\UPSTImessage}{\UPSTImessage}{\UPSTItypeDocument} & \ifdef{\UPSTIduree}{ \normalsize{\UPSTIduree} - }{}v\UPSTInumeroVersion \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\textcolor{UPSTIcouleurCorrige}{\UPSTIversionProf}}{}\tabularnewline	
+    	\rule[0.4cm]{0cm}{0.3cm} & \ifdef{\UPSTImessage}{\UPSTImessage}{\UPSTItypeDocument} & \ifdef{\UPSTIduree}{ \normalsize{\UPSTIduree} - }{}v\UPSTInumeroVersion \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\textcolor{UPSTIcouleurCorrige}{\UPSTIversionProf}}{}\tabularnewline	
+    \end{tabularx}}
+    % Version standard
+    {\begin{tabularx}{\textwidth}{m{0cm} >{\centering\arraybackslash} X  >{\centering\arraybackslash} m{2cm}}
+      \rule[-0.2cm]{0cm}{0.8cm} & \UPSTIenTetePrincipal \ifdef{\UPSTInumeroChapitre}{ - Chapitre \UPSTInumeroChapitre}{}\ifdef{\UPSTIenTetePrincipalCustom}{ - \UPSTIenTetePrincipalCustom}{} & \textbf{\textcolor{UPSTIcustomColor1}{\UPSTIclasse}}  \tabularnewline	
+      \rcline{3-3}
+% v1.0      \rule[-1.1cm]{0cm}{2.2cm} & \huge{\textsc{\textbf{\UPSTItitreEnTete}}}  \ifdef{\UPSTIsousTitreEnTete}{\linebreak\Large{\UPSTIsousTitreEnTete}}{} & \Large{\UPSTItypeDocument}\ifdef{\UPSTInumero}{\Large{ \UPSTInumero}}{}\ifdef{\UPSTIserie}{ \qquad \normalsize{Série~\UPSTIserie}}{} \tabularnewline
+      \rule{0cm}{2.2cm} & \huge{\textsc{\textbf{\UPSTItitreEnTete}}}  \ifdef{\UPSTIsousTitreEnTete}{\linebreak\Large{\UPSTIsousTitreEnTete}}{} & \Large{\UPSTItypeDocument}\ifdef{\UPSTInumero}{\Large{ \UPSTInumero}}{}\ifdef{\UPSTIserie}{ \qquad \normalsize{Série~\UPSTIserie}}{} \tabularnewline
+      \rcline{2-3}
+% v1.0      \rule[-0.2cm]{0cm}{0.8cm} & \ifnumless{\UPSTIidTypeDocument}{4}{\ifdef{\UPSTIprogramme}{\UPSTIprogramme}{}}{\ifnumequal{\UPSTIidTypeDocument}{10}{\ifdef{\UPSTIprogramme}{\UPSTIprogramme}{}}{}} \ifdef{\UPSTImessage}{\UPSTImessage}{} & \ifdef{\UPSTIduree}{ \normalsize{\UPSTIduree} - }{}v\UPSTInumeroVersion \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\textcolor{UPSTIcouleurCorrige}{\UPSTIversionProf}}{} \tabularnewline	
+      \rule[0.4cm]{0cm}{0.3cm} & \ifnumless{\UPSTIidTypeDocument}{4}{\ifdef{\UPSTIprogramme}{\UPSTIprogramme}{}}{\ifnumequal{\UPSTIidTypeDocument}{10}{\ifdef{\UPSTIprogramme}{\UPSTIprogramme}{}}{}} \ifdef{\UPSTImessage}{\UPSTImessage}{} & \ifdef{\UPSTIduree}{ \normalsize{\UPSTIduree} - }{}v\UPSTInumeroVersion \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\textcolor{UPSTIcouleurCorrige}{\UPSTIversionProf}}{} \tabularnewline	
+    \end{tabularx}}
+  \end{minipage}
+  \rule{\linewidth}{0.8pt}
+  \end{minipage}
+  \ifstrempty{\UPSTIcoordonneesLycee}{
+  }{
+    \noindent\begin{minipage}[c]{\linewidth}
+      \vspace*{1mm}
+      \centering\footnotesize{\textit{\textcolor{UPSTIcustomColor1}{\UPSTIcoordonneesLycee}}}
+    \end{minipage}
+  }
+  \vspace*{4mm}
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Titre principal
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \ifboolexpr {test{\ifdef{\UPSTItitrePreambule}} or test{\ifdef{\UPSTItitre}}} {
+    \begin{center}
+      % Sous Titre optionnel
+      \ifdef{\UPSTItitrePreambule}{
+        \vspace*{-3mm}
+        \LARGE{\textbf{\UPSTItitrePreambule}}
+        \ifdef{\UPSTItitre}{ \\ }{}
+      }{}
+      \ifdef{\UPSTItitre}{\LARGE{\textbf{\textsc{\UPSTItitre}}}}{}
+    \end{center}
+    \vspace{2mm}
+  } 
+  {\vspace{1em}} % Espacement en dessous du cartouche s'il n'y a pas de titre principal
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Header (sauf pour la première page, qui possède le grand en-tête)
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \if@QCM
+  \else
+    \setlength{\headheight}{1.5cm}
+    \def\headrule{
+       {\color{gray!60}\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi  % Couleur de la ligne (gris clair)
+       \hrule\@height\headrulewidth\@width\headwidth
+       \vskip-\headrulewidth}
+     } 
+    \ifboolexpr {test{\ifnumequal{11}{\UPSTIidTypeDocument}} or test{\ifnumequal{12}{\UPSTIidTypeDocument}}} { % DT, DR 
+      \fancyhead[L]{\UPSTIheaderLeft}
+      \fancyhead[C]{\ifdef{\UPSTItitre}{\UPSTItitreEnTete : \UPSTItitre}{\UPSTItitreEnTete}}
+      \fancyhead[R]{\UPSTItype \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\UPSTIversionProf}{}}
+    }{ % Autres types de documents
+      \fancyhead[L]{\ifdef{\UPSTIheaderLeftOverride}{\UPSTIheaderLeftOverride}{\UPSTIheaderLeft{} \UPSTIclasse{} - \UPSTIsigleMatiere}}
+      \fancyhead[C]{\ifdef{\UPSTItitreEnTetePages}{\UPSTItitreEnTetePages}{\ifdef{\UPSTItitre}{\UPSTItitre}{\UPSTItitreEnTete}}}
+      \fancyhead[R]{\UPSTItypeDocument \ifnumequal{1}{\UPSTIidVersionDocumentDef}{\UPSTIversionProf}{}}
+    }
+    \fancyfoot[C]{} % On n'affiche pas le numéro de page de fancyhdr 
+  \fi
+  
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Footer
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \backgroundsetup{
+    scale=1,
+    color=black,
+    opacity=1,
+    angle=0,
+    position=current page.south,
+    vshift=60pt,
+    contents={%
+      \small%
+      \begin{minipage}{0.06\textwidth}
+        \ifdef{\UPSTIdocumentCollegial}{
+          \rule[3pt]{0cm}{24pt} \includegraphics[width=\linewidth,height=26pt,keepaspectratio]{\UPSTIlogoAuteurCollegial}
+        }{
+          \rule[3pt]{0cm}{24pt} \includegraphics[width=\linewidth,height=26pt,keepaspectratio]{\UPSTIlogoAuteur}
+        }
+      \end{minipage}%
+      \begin{minipage}{.98\textwidth}
+        \textcolor{black}{
+        \begin{tabularx}{\textwidth}{ X X r}
+      		\tiny{\ifdef{\UPSTIdocumentCollegial}{\UPSTIfooterWebSiteCollegial}{\UPSTIfooterWebSite}} & \multicolumn{2}{r}{\ifnumequal{4}{\UPSTIidTypeDocument}{}{\ifthenelse{\thepage=1}{\ifdef{\UPSTInoteBasDePremierePage}{\tiny{\textcolor{black}{\UPSTInoteBasDePremierePage}}}{}}{}\ifthenelse{\thepage=\pageref{LastPage}}{\ifdef{\UPSTIsource}{\tiny{\textcolor{black}{D'après: \UPSTIsource}}}{}}{}}} \tabularnewline	
+         	\rcline{1-3}
+      		\footnotesize{\UPSTIfooterLycee} & \footnotesize{Page \thepage\ /   \pageref{LastPage}} & \raisebox{-5pt}{\includegraphics[height=13pt,keepaspectratio]{\UPSTIlogoLicence}}  \tabularnewline	
+        \end{tabularx}
+        }
+      \end{minipage}\hspace{.02\textwidth}%
+    }
+  }
+}
+
+
+%--------------------------------------------------------%
+% Style: default - Template: default
+%--------------------------------------------------------%
+% Commandes obligatoires:
+%  - UPSTIidVersionDocument: version prof ou élève
+%  - UPSTIfiliere: filière(s)
+%  - UPSTIidConcours: code concours (E3A, Mines-Ponts,etc.)
+%  - UPSTIepreuveIntitule: Intitule de l'épreuve
+%  - UPSTIepreuveSigle: Sigle de l'épreuve
+%  - UPSTIsession: année de l'épreuve
+%  - UPSTItitreSujet: titre du sujet
+%
+% Commandes facultatives:
+%  - UPSTIauteur: n'apparaîtra pas sur le corrigé
+\newcommand{\UPSTIbuildTemplatecorrigeUPSTI}{
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Première page
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \thispagestyle{empty}   
+
+  \vspace{1cm}
+  \begin{figure}[!ht]
+    \centering
+  	\includegraphics[width=0.9\linewidth]{Src/UPSTI/bandeauUPSTI.jpg}
+  \end{figure}
+  
+  
+  \vspace{2cm}
+  \begin{center}
+      \LARGE{Éléments de correction des épreuves de concours de CPGE en Sciences Industrielles pour l'Ingénieur et en Informatique}
+
+      \vspace{4cm}
+      \Huge{\textbf{\UPSTItitreSujet}}
+  \end{center}
+  \vspace{4cm}
+
+  \begin{center}
+    \begin{tabular}{ >{\raggedleft\arraybackslash} p{3cm} p{12cm}}
+  		\textbf{\Large Concours :} & \Large\UPSTIconcoursIntitule \tabularnewline	
+  		\textbf{\Large Session :} & \Large\UPSTIsession \tabularnewline	
+  		\ifboolexpr{test{\ifnumequal{1}{\UPSTIidConcours}} or test{\ifnumequal{7}{\UPSTIidConcours}}}{}{\textbf{\Large Filière(s) :} & \Large\UPSTIfiliere \tabularnewline}	
+  		\textbf{\Large Épreuve :} & \Large\UPSTIepreuveIntitule \tabularnewline	
+    \end{tabular}
+  \end{center}
+
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Header (sauf pour la première page, qui possède le grand en-tête)
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \setlength{\headheight}{1.5cm}
+  \def\headrule{
+     {\color{gray!60}\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi  % Couleur de la ligne (gris clair)
+     \hrule\@height\headrulewidth\@width\headwidth
+     \vskip-\headrulewidth}
+  } 
+  \fancyhead[L]{\UPSTIconcoursSigle\ifboolexpr{test{\ifnumequal{1}{\UPSTIidConcours}} or test{\ifnumequal{7}{\UPSTIidConcours}}}{}{ \UPSTIfiliere} \UPSTIsession}
+  \fancyhead[C]{\UPSTItitreSujet}
+  \fancyhead[R]{\UPSTIepreuveSigle}
+  \fancyfoot[C]{} % On n'affiche pas le numéro de page de fancyhdr 
+  
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  % Footer
+  %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+  \backgroundsetup{
+    scale=1,
+    color=black,
+    opacity=1,
+    angle=0,
+    position=current page.south,
+    vshift=60pt,
+    contents={%
+      \small%
+      \begin{minipage}{0.06\textwidth}
+        \rule[3pt]{0cm}{24pt} \includegraphics[width=\linewidth,height=26pt,keepaspectratio]{Src/UPSTI/logoUPSTI.png}
+      \end{minipage}%
+      \begin{minipage}{.98\textwidth}
+        \textcolor{black}{
+        \begin{tabularx}{\textwidth}{ X X r}
+      		\tiny{www.upsti.fr} & & \tabularnewline	
+         	\rcline{1-3}
+      		\footnotesize{UPSTI} & \footnotesize{Page \thepage\ /   \pageref{LastPage}} & \raisebox{-5pt}{\includegraphics[height=13pt,keepaspectratio]{Src/UPSTI/by-nc-nd.png}}  \tabularnewline	
+        \end{tabularx}
+        }
+      \end{minipage}\hspace{.02\textwidth}%
+    }
+  }
+  
+  % Affichage du préambule si nécessaire
+  \ifnumequal{2}{\UPSTIidVersionDocumentDef}{
+    \input{Src/UPSTI/preambule.tex}
+    \CenterWallPaper{0.9}{Src/UPSTI/filigraneUPSTI.png}
+  }{\pagebreak}
+}
+
+%******************************************** FIN de la zone à recopier dans UPSTI_Modele_Perso.sty ********************************************
+\fi
+
+
+%==============================================================================%
+% Divers
+%==============================================================================%
+\newcommand{\UPSTIintituleKholle}{Colle} % Colle ou Khôlle ? Personnalisable dans UPSTI_Custom.sty
+\newcommand{\UPSTIenTetePrincipal}{\UPSTIenTetePrincipalFiliere~-~\UPSTIintituleMatiere}
+\newcommand{\UPSTIheaderLeft}{CPGE}  % Header left
+
+\if@QCM
+    % Zone d'identification 
+    %  - [1]: nombre de chiffres pour le code d'identification (défaut: 2); 
+    %  - [2]: code du champ d'idientification (etu par défaut)
+    \newcommandx{\UPSTIamcZoneIdentification}[2][1=2,2=etu]{
+      \noindent
+      \begin{minipage}[c]{0.48\linewidth}
+      % Nom
+      \champnom{\fbox{    
+      \begin{minipage}{.95\linewidth}
+      Nom et prénom :
+      
+      \vspace*{.5cm}\dotfill
+      \vspace*{1mm}
+      \end{minipage}
+      }}
+      \end{minipage} \hfill
+      \begin{minipage}[c]{.48\linewidth}
+      \vspace{0.5em}
+      % Code étudiant (sur 3 chiffres)
+      \AMCcodeH{#2}{#1}
+      \end{minipage} 
+      
+      \vspace{3em}
+    }
+\fi
+
+
+%==============================================================================%
+% Package de personnalisation générale
+%==============================================================================%
+\RequirePackage{UPSTI_Custom}	
+
+
+%==============================================================================%
+% Chargement des packages suivant options
+%==============================================================================%
+\if@noPackages
+\else
+  \if@noSI
+  \else
+    \RequirePackage{UPSTI_SI}           % commandes spécifiques à la SI
+  \fi
+  
+  \if@noTypographie
+  \else
+    \RequirePackage{UPSTI_Typographie}  % aides pour la présentation des documents
+  \fi
+  
+  \if@noPedagogique
+  \else
+    \RequirePackage{UPSTI_Pedagogique}  % commandes liées à la pédagogie (diagrammes, compétences...)
+  \fi
+  
+  % Packages réalisés par des collègues
+  \if@noCustomPackages
+  \else
+    \RequirePackage{schemabloc}         % Schémas blocs (R.Papanicola)
+    \RequirePackage{rpcinematik}        % Schémas cinématiques (R.Papanicola)
+    \RequirePackage{bodegraph}          % Diagrammes de Bode (R.Papanicola)
+  \fi
+\fi
+
+\endinput

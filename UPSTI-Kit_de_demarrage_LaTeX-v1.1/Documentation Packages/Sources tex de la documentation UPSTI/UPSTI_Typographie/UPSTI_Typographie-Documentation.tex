@@ -1,0 +1,743 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documentation pour le package UPSTI_Typographie
+% -----------                                                                        
+% Auteur: Emmanuel Pinault-Bigeard
+% email: e.pinault-bigeard@upsti.fr
+% -----------
+% Version: 1.1 - 2019/07/16
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UPSTI - http://www.upsti.fr
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{ltxdockit}[2010/09/26]
+\usepackage[utf8]{inputenc}   % LaTeX, comprends les accents !
+\usepackage[T1]{fontenc}      % Police contenant les caractères français
+\usepackage[french]{babel}  % Placez ici une liste de langues, la
+                              % dernière étant la langue principale
+%\usepackage[top=2cm, bottom=4.3cm, left=2cm, right=2cm, a4paper, footskip=2cm]{geometry}   	  
+
+\usepackage{UPSTI_Typographie}	
+
+\titlepage{%
+  title={Documentation du package UPSTI\_Typographie},
+  subtitle={Package pour la mise en forme des documents (de SI) en CPGE},
+  url={http://s2i.pinault-bigeard.com/ressources/latex},
+  author={UPSTI - Emmanuel Pinault-Bigeard},
+  email={e.pinault-bigeard@upsti.fr},
+  revision={v1.1},
+  date={2019/07/16}}
+
+\hypersetup{%
+  pdftitle={Documentation du package UPSTI\_Typographie},
+  pdfsubject={Package pour la mise en forme des documents},
+  pdfauthor={Emmanuel Pinault-Bigeard},
+  pdfkeywords={upsti, tex, latex, cours, si, cpge}}
+
+\newcommand{\Lorem}{Lorem ipsum dolor sit amet consectetuer sed est non lorem euismod.}
+\newcommand{\ex}{\noindent \textbf{Exemple:}\quad}
+
+%--------------------------------------------------------%
+% Adaptations pour cette documentation
+%--------------------------------------------------------%
+\frenchbsetup{StandardLists=true} % On utilise les puces anglo-saxonnes au lieux des tirets français
+\colorlet{UPSTIcouleurZoneACompleter}{red}
+\colorlet{UPSTIcustomColor1}{CornflowerBlue}
+
+\renewcommandx{\UPSTIseparateur}[3][1=0,2=0,3=2]{
+\vspace{#1 em}
+\begin{center}
+	\includegraphics[width=#3 cm]{\UPSTIcheminDossierImagesTypographie separateur.png}
+\end{center}
+\vspace{#2 em}
+}
+
+
+\begin{document}
+
+\printtitlepage
+
+\begin{center}
+	\includegraphics[width=10cm]{Images/logoUPSTI.jpg}
+\end{center}
+
+\tableofcontents
+
+\section{Présentation}
+Ce package est destiné à obtenir une mise en forme standardisée des documents pédagogiques. Il regroupe une série de commandes et environnements personnalisés relatifs à la mise en forme du texte.
+
+Pour éviter les conflits éventuels avec d'autres packages, toutes les commandes de ce package sont préfixées par \verb!UPSTI!.
+
+Pour toute remarque ou suggestion, n'hésitez pas à me contacter: \href{mailto:e.pinault-bigeard@upsti.fr}{e.pinault-bigeard@upsti.fr}
+
+\section{Utilisation du package}
+Le package est appelé en début de document par la commande:\linebreak \verb!\usepackage{UPSTI_Typographie}!. 
+
+\section{Changelog}
+
+\noindent\textbf{Version 1.1 - 16/07/2019}
+\begin{itemize}
+\item Correction de bugs mineurs (voir fichier source)
+\end{itemize}
+\noindent\textbf{Version 1.0 - 23/11/2017}
+\begin{itemize}
+\item Mise en ligne de la première version
+\end{itemize}
+
+\section{Numéros de questions et activités}
+\subsection{Numéros de questions}
+\begin{ltxsyntax}
+\cmditem{UPSTIquestion}
+\end{ltxsyntax}
+On peut remettre le compteur à zéro en utilisant: \verb!\resetNumQuestion!
+
+\ex\verb!\UPSTIquestion!
+
+\vspace{1em}
+\UPSTIquestion
+
+
+\subsection{Gestion et numérotation des activités}
+\begin{ltxsyntax}
+\envitem{UPSTIactivite}[couleur][sousTitre][nomGrp][numActivite][nomAlt][disableCpt]
+\end{ltxsyntax}
+
+\noindent Numérotation des activités (pour un TP par exemple), mais sous forme de boites. On peut utiliser 6 paramètres optionnels:
+\begin{enumerate}
+\item \prm{opt couleur}: couleur du cadre. Prend la couleur du document (\texttt{UPSTIcustomColor1}) par défaut.
+\item \prm{opt sousTitre}: titre à la suite du mot \og Activité\fg{}
+\item \prm{opt nomGrp}: pour spécifier le nom du groupe (ex: expérimentateurs)
+\item \prm{opt numActivite}: pour overrider le compteur
+\item \prm{opt nomAlt}: pour remplacer le mot \og Activité \fg{} 
+\item \prm{opt disableCpt}: pour désactiver le compteur
+\end{enumerate}
+
+\vspace{1em}
+\ex\verb!\begin{UPSTIactivite}!
+
+\begin{UPSTIactivite}
+\begin{itemize}
+\item \Lorem
+\end{itemize}
+\end{UPSTIactivite} 
+
+\vspace{1em}
+\ex\verb!\begin{UPSTIactivite}[2]!
+
+\begin{UPSTIactivite}[2]
+\begin{itemize}
+\item \Lorem
+\end{itemize}
+\end{UPSTIactivite} 
+
+\vspace{1em}
+\ex\verb!\begin{UPSTIactivite}[9][][][\,][Chef de projet][0]!
+
+\begin{UPSTIactivite}[0][][][\,][Chef de projet][0]
+\begin{itemize}
+\item \Lorem
+\end{itemize}
+\end{UPSTIactivite} 
+
+\section{Boîtes et zones de texte}
+\subsection{Boîtes avec logo}
+Toutes ces boîtes sont réalisées avec le package \href{https://www.ctan.org/pkg/bclogo}{bclogo}. S'y référer pour les icônes disponibles et les diverses options.
+
+\subsubsection{Commande générique}
+\begin{ltxsyntax}
+\cmditem{UPSTIboiteGenerique}{titre}{logo}[opt sousTitre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIboiteGenerique{Titre personnalisé}{\bctrefle}{\Lorem}!
+
+\UPSTIboiteGenerique{Titre personnalisé}{\bctrefle}{\Lorem}
+
+\ex\verb!\UPSTIboiteGenerique{Essai}{\bcbook}[test]{\Lorem}[couleurBord=red]!
+
+\UPSTIboiteGenerique{Essai}{\bcbook}[test]{\Lorem}[couleurBord=red]
+
+\subsubsection{Commandes prédéfinies}
+\begin{ltxsyntax}
+\cmditem{UPSTIappli}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIappli[Titre facultatif]{\Lorem}!
+
+\UPSTIappli[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIaRetenir}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIaRetenir[Titre facultatif]{\Lorem}!
+
+\UPSTIaRetenir[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIattention}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIattention[Titre facultatif]{\Lorem}!
+
+\UPSTIattention[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIdefinition}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIdefinition[Titre facultatif]{\Lorem}!
+
+\UPSTIdefinition[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIpresenceProf}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIpresenceProf[Titre facultatif]{\Lorem}!
+
+\UPSTIpresenceProf[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIproblematique}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIproblematique[Titre facultatif]{\Lorem}!
+
+\UPSTIproblematique[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIpropriete}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIpropriete[Titre facultatif]{\Lorem}!
+
+\UPSTIpropriete[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIrappel}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIrappel[Titre facultatif]{\Lorem}!
+
+\UPSTIrappel[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIremarque}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTIremarque[Titre facultatif]{\Lorem}!
+
+\UPSTIremarque[Titre facultatif]{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTItoDo}[opt titre]{contenu}[opt options bclogo]
+\end{ltxsyntax}
+\ex\verb!\UPSTItoDo[Titre facultatif]{\Lorem}!
+
+\UPSTItoDo[Titre facultatif]{\Lorem}
+
+
+\subsection{Boîtes (style \og Centrale\fg{})}
+\subsubsection{Commande générique}
+\begin{ltxsyntax}
+\cmditem{UPSTIboiteCentrale}{titre}{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIboiteCentrale{Titre personnalisé}{\Lorem}!
+
+\UPSTIboiteCentrale{Titre personnalisé}{\Lorem}
+
+\subsubsection{Commandes prédéfinies}
+\begin{ltxsyntax}
+\cmditem{UPSTIobjectif}{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIobjectif{\Lorem}!
+
+\UPSTIobjectif{\Lorem}
+
+\subsection{Boîtes (style \og mdframed\fg{})}
+\begin{ltxsyntax}
+\cmditem{UPSTIdemo}[opt titre]{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIdemo[Titre facultatif]{\Lorem}!
+
+\vspace{1em}
+\UPSTIdemo[Titre facultatif]{\Lorem}
+
+\noindent Si on utilise ce package avec le package \verb!\UPSTI\_document}!, on peut utiliser la commande \verb!\UPSTIdemoACompleter[Titre facultatif]{\Lorem}! qui permet de masquer le contenu de la démonstration en mode élève.
+
+\section{QCM}
+\begin{ltxsyntax}
+\envitem{UPSTIqcm}[isCorrige][largeurColQuest][largeurColRep]
+\end{ltxsyntax}
+
+\noindent Environnement pour les QCM.
+\begin{enumerate}
+\item \prm{opt isCorrige}: à laisser vide si on utilise aussi le package \texttt{UPSTI\_Document}. Si on utilise le package \texttt{UPSTI\_Typographie} seul, on met cette option à 0 pour avoir seulement les propositions, et à 1 pour avoir le corrigé (sans corrigé par défaut).
+\item \prm{opt largeurColQuest}: largeur de la colonne question (défaut: 6cm);
+\item \prm{opt largeurColRep}: largeur de la colonne réponse (défaut: 8cm)
+\end{enumerate}
+
+\begin{ltxsyntax}
+\cmditem{UPSTIqcmQuestion}{Texte}{Reponses}
+\end{ltxsyntax}
+\prm{Reponses} est composé de plusieurs propositions définies avec la commande \verb!UPSTIqcmReponse! ci-dessous.
+
+\begin{ltxsyntax}
+\cmditem{UPSTIqcmReponse}{isBonneReponse}{Texte}
+\end{ltxsyntax}
+Il faut mettre le paramètre \prm{isBonneReponse} à 1 si la réponse en question est la bonne. 0 sinon.
+
+\vspace{1em}
+\ex
+
+\noindent \verb!\begin{UPSTIqcm}!\\
+\verb!\UPSTIqcmQuestion{Intitulé de la question}{!\\
+\verb!\UPSTIqcmReponse{0}{Lorem ipsum dolor sit amet, consectetur adipiscing elit}!\\
+\verb!\UPSTIqcmReponse{1}{Excepteur sint occaecat cupidatat non proident}!\\
+\verb!}!\\
+\verb!\end{UPSTIqcm}!
+
+\begin{UPSTIqcm}
+	\UPSTIqcmQuestion{Intitulé de la question}{
+		\UPSTIqcmReponse{0}{Lorem ipsum dolor sit amet, consectetur adipiscing elit}
+		\UPSTIqcmReponse{1}{Excepteur sint occaecat cupidatat non proident}
+	}
+\end{UPSTIqcm}
+
+\vspace{1em}
+\ex
+
+\noindent \verb!\begin{UPSTIqcm}[1][7cm][7cm]!\\
+\verb!\UPSTIqcmQuestion{Intitulé de la question}{!\\
+\verb!\UPSTIqcmReponse{0}{Lorem ipsum dolor sit amet, consectetur adipiscing elit}!\\
+\verb!\UPSTIqcmReponse{1}{Excepteur sint occaecat cupidatat non proident}!\\
+\verb!}!\\
+\verb!\UPSTIqcmQuestion{2ème question}{!\\
+\verb!\UPSTIqcmReponse{1}{Lorem ipsum dolor sit amet, consectetur adipiscing elit}!\\
+\verb!\UPSTIqcmReponse{0}{Excepteur sint occaecat cupidatat non proident}!\\
+\verb!}!\\
+\verb!\end{UPSTIqcm}!
+
+\begin{UPSTIqcm}[1][7cm][7cm]
+	\UPSTIqcmQuestion{Intitulé de la question}{
+		\UPSTIqcmReponse{0}{Lorem ipsum dolor sit amet, consectetur adipiscing elit}
+		\UPSTIqcmReponse{1}{Excepteur sint occaecat cupidatat non proident}
+	}
+	\UPSTIqcmQuestion{2ème question}{
+		\UPSTIqcmReponse{1}{Lorem ipsum dolor sit amet, consectetur adipiscing elit}
+		\UPSTIqcmReponse{0}{Excepteur sint occaecat cupidatat non proident}
+	}
+\end{UPSTIqcm}
+
+\section{Environnements et commandes personnalisés}
+\subsection{Titres}
+\subsubsection{Commande générique}
+\begin{ltxsyntax}
+\cmditem{UPSTItitreStd}[opt separateur]{Titre personnalisé}[opt suiteTitre]
+\end{ltxsyntax}
+Si on met le premier paramètre optionnel à 1, on va sauter une ligne avant le titre. Si on l'ignore ou si on met 0, on ne saute pas de ligne.
+
+\ex\verb!\UPSTItitreStd[1]{Titre personnalisé}[suiteTitre]!
+
+\UPSTItitreStd[1]{Contenu}[suiteTitre]
+
+\ex\verb!\UPSTItitreStd{Titre personnalisé}[suiteTitre]!
+
+\UPSTItitreStd{Contenu}[suiteTitre]
+
+\subsubsection{Commandes prédéfinies}
+\begin{ltxsyntax}
+\cmditem{UPSTIapplication}[opt suiteTitre]
+\end{ltxsyntax}
+\ex\verb!\UPSTIapplication!
+
+\vspace{1em}
+\UPSTIapplication
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcompetences}
+\end{ltxsyntax}
+\ex\verb!\UPSTIcompetences!
+
+\vspace{1em}
+\UPSTIcompetences
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcontenuPoly}
+\end{ltxsyntax}
+\ex\verb!\UPSTIcontenuPoly!
+
+\vspace{1em}
+\UPSTIcontenuPoly
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIdomainesDeCompetence}
+\end{ltxsyntax}
+\ex\verb!\UPSTIdomainesDeCompetence!
+
+\vspace{1em}
+\UPSTIdomainesDeCompetence
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIdemarcheIngenieur}
+\end{ltxsyntax}
+\ex\verb!\UPSTIdemarcheIngenieur!
+
+\vspace{1em}
+\UPSTIdemarcheIngenieur
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIexemple}[opt suiteTitre][opt numExemple][opt s]
+\end{ltxsyntax}
+
+\noindent \verb!\UPSTIexemple[Manège]!: \UPSTIexemple[Manège] 
+\noindent \verb!\UPSTIexemple[Manège][2]!: \UPSTIexemple[Manège][2] 
+\noindent \verb!\UPSTIexemple[][][s]!: \UPSTIexemple[][][s]
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIobjectifs}
+\end{ltxsyntax}
+\ex\verb!\UPSTIobjectifs!
+
+\vspace{1em}
+\UPSTIobjectifs
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIprerequis}
+\end{ltxsyntax}
+\ex\verb!\UPSTIprerequis!
+
+\vspace{1em}
+\UPSTIprerequis
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIremarqueCond}[opt separateur][opt titre][opt s]
+\end{ltxsyntax}
+\ex\verb!\UPSTIremarqueCond[0][Contenu][s]!
+
+\vspace{1em}
+\UPSTIremarqueCond[0][Contenu][s]
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIsupport}{Contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIsupport{Contenu}!
+
+\vspace{1em}
+\UPSTIsupport{Contenu}
+
+\subsection{Autres titres}
+\begin{ltxsyntax}
+\cmditem{UPSTIDRTitre}{numéro}[opt titre]
+\end{ltxsyntax}
+\ex\verb!\UPSTIDRTitre{1}[Titre facultatif]!
+
+\UPSTIDRTitre{1}[Titre facultatif]
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIDResTitre}{numéro}[opt titre]
+\end{ltxsyntax}
+\ex\verb!\UPSTIDResTitre{1}[Titre facultatif]!
+
+\UPSTIDResTitre{1}[Titre facultatif]
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIDTTitre}{numéro}[opt titre]
+\end{ltxsyntax}
+\ex\verb!\UPSTIDTTitre{1}[Titre facultatif]!
+
+\UPSTIDTTitre{1}[Titre facultatif]
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIannexeTitre}{numéro}[opt titre]
+\end{ltxsyntax}
+\ex\verb!\UPSTIannexeTitre{1}!
+
+\UPSTIannexeTitre{1}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIpartie}[opt isSautDePage][opt afficheNumeroPartie]{titre}
+\end{ltxsyntax}
+Les parties sont numérotées automatiquement. Un saut de page est inséré automatiquement avant chaque nouvelle partie si on ne met pas \prm{isSautDePage} à 0. Si \prm{afficheNumeroPartie} est mis à 0, on n'affiche pas \og Partie n\fg{}.
+
+\ex\verb!\UPSTIpartie[0]{Titre de la partie}!
+
+\UPSTIpartie[0]{Titre de la partie}
+
+
+\subsection{Encadrements}
+\begin{ltxsyntax}
+\cmditem{UPSTIcadreText}{Contenu}
+\end{ltxsyntax}
+Encadrement en mode texte.
+
+\ex\verb!\UPSTIcadreText{Contenu}!
+
+\vspace{1em}
+\UPSTIcadreText{contenu}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcadreMath}{Contenu}
+\end{ltxsyntax}
+Encadrement en mode math.
+
+\ex\verb!\UPSTIcadreMathCor{y=ax+b}!
+
+\vspace{1em}
+\UPSTIcadreMath{y=ax+b}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcadreTextCor}{Contenu}
+\end{ltxsyntax}
+Encadrement en mode texte (dans un corrigé).
+
+\ex\verb!\UPSTIcadreTextCor{Contenu}!
+
+\vspace{1em}
+\UPSTIcadreTextCor{contenu}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcadreMathCor}{Contenu}
+\end{ltxsyntax}
+Encadrement en mode math (dans un corrigé).
+
+\ex\verb!\UPSTIcadreMathCor{y=ax+b}!
+
+\vspace{1em}
+\UPSTIcadreMathCor{y=ax+b}
+
+\subsection{Formattage de texte}
+\begin{ltxsyntax}
+\cmditem{UPSTIcolorTxt}[opt isGras]{Contenu}
+\end{ltxsyntax}
+
+\noindent Met un texte en valeur en prenant la couleur du document (\texttt{UPSTIcustomColor1}, défini par le choix de la classe). Met le texte en gras si \prm{isGras} est égal à 1.
+
+\ex\verb!\UPSTIcolorTxt{Contenu} - \UPSTIcolorTxt[1]{Contenu en gras}!
+
+\vspace{1em}
+\UPSTIcolorTxt{Contenu} - \UPSTIcolorTxt[1]{Contenu en gras}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIlogoPageDeGarde}[opt largeur][opt espaceAvant][opt espaceApres]{cheminImage}
+\end{ltxsyntax}
+
+\noindent Affiche un logo sur la page de garde. Utilisé pour avoir une présentation harmonisée de toutes les pages de garde.
+
+\ex\verb!\UPSTIlogoPageDeGarde{Src/Images/Pdg-dynamique.png}!
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIseparateur}[opt espaceAvant][opt espaceApres][opt largeur]
+\end{ltxsyntax}
+
+\ex\verb!\UPSTIseparateur[0][0]!
+
+\UPSTIseparateur[0][0]
+
+\textbf{Note:} Il est nécessaire de disposer d'une image \texttt{separateur.png} dans le dossier défini par la commande \verb!\UPSTIcheminDossierImagesTypographie! si ce package est utilisé seul, ou alors \verb!\UPSTIcheminImages! si ce package est utilisé avec le package \texttt{UPSTI\_Document}.
+
+Dans le cas d'une utilisation standalone, il est possible de personnalisé le dossier image en utilisant le fichier \texttt{UPSTI\_Typographie\_Custom} (voir \ref{custom}).
+
+\subsection{\og Zones\fg{} réponses}
+\begin{ltxsyntax}
+\cmditem{UPSTIpointilles}[opt nbLignes]
+\end{ltxsyntax}
+Lignes de pointillés (3 lignes par défaut).
+
+\ex\verb!\UPSTIpointilles!
+
+\UPSTIpointilles{}
+
+\begin{ltxsyntax}
+\cmditem{UPSTIquadrillage}{hauteur en cm}[opt largeur en cm]
+\end{ltxsyntax}
+Quadrillage pour les documents réponses.
+
+\ex\verb!\UPSTIquadrillage{2}[10]!
+
+\UPSTIquadrillage{2}[10]
+
+\subsection{\og Balisage\fg{} fonctionnel}
+\begin{ltxsyntax}
+\cmditem{UPSTIentreprise}{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIentreprise{Lorem ipsum}!
+
+\vspace{1em}
+\UPSTIentreprise{Lorem ipsum}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIproduit}{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIproduit{Lorem ipsum}!
+
+\vspace{1em}
+\UPSTIproduit{Lorem ipsum}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIlogiciel}{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIlogiciel{Lorem ipsum}!
+
+\vspace{1em}
+\UPSTIlogiciel{Lorem ipsum}
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIfichier}{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIfichier{Lorem ipsum}!
+
+\vspace{1em}
+\UPSTIfichier{Lorem ipsum}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIcode}{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTIcode{Lorem ipsum}!
+
+\vspace{1em}
+\UPSTIcode{Lorem ipsum}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTImenuLog}{contenu}
+\end{ltxsyntax}
+\ex\verb!\UPSTImenuLog{Lorem ipsum}!
+
+\vspace{1em}
+\UPSTImenuLog{Lorem ipsum}
+
+\vspace{1em}
+\noindent On peut aussi utiliser une flèche pour les menus en cascade:
+
+\ex\verb!\UPSTImenuLog{Fichier\UPSTImenuLogFleche Ouvrir}!
+
+\vspace{1em}
+\UPSTImenuLog{Fichier\UPSTImenuLogFleche Ouvrir}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIactionTP}{Contenu}
+\end{ltxsyntax}
+
+\ex\verb!\UPSTIactionTP{Contenu, le texte prend la couleur...}!
+
+\vspace{1em}
+\UPSTIactionTP{Contenu, le texte prend la couleur du document (\texttt{UPSTIcustomColor1}).}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIpreambuleDS}{contenu}]
+\end{ltxsyntax}
+\ex\verb!\UPSTIpreambuleDS{\Lorem}!
+
+\vspace{1em}
+\UPSTIpreambuleDS{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIpreambuleTP}{contenu}]
+\end{ltxsyntax}
+\ex\verb!\UPSTIpreambuleTP{\Lorem}!
+
+\vspace{1em}
+\UPSTIpreambuleTP{\Lorem}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIfig}{idFigure}
+\end{ltxsyntax}
+\ex\verb!\UPSTIfig{1}!
+
+\vspace{1em}
+\UPSTIfigure{1}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTItable}{idTable}
+\end{ltxsyntax}
+
+\noindent idem mais pour les références aux tableaux.
+
+\ex\verb!\UPSTItable{1}!
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIfigure}{nomFigure}
+\end{ltxsyntax}
+\noindent Même chose que \verb!\UPSTIfig!, sauf qu'au lieu de spécifier la référence d'une figure, on donne un texte quelconque.
+\ex\verb!\UPSTIfigure{fig1}!
+
+\vspace{1em}
+\UPSTIfigure{fig1}
+
+\vspace{1em}
+\begin{ltxsyntax}
+\cmditem{UPSTIDR}{numéro}
+\end{ltxsyntax}
+\ex\verb!\UPSTIDR{1}!
+
+\vspace{1em}
+\UPSTIDR{1}
+
+\section{Coloration syntaxique pour le code informatique}
+
+\begin{ltxsyntax}
+\envitem{lstlisting}
+\end{ltxsyntax}
+
+\noindent Le package \texttt{listings} est appelé dans ce package et s'utiliser simplement comme suit:
+
+\verb!\begin{lstlisting}!
+
+\verb!  def s(x):!
+
+\verb!    return sqrt(x) # racine!
+
+\verb!\end{lstlisting}!
+
+\begin{lstlisting}
+def s(x):
+	return sqrt(x) # racine
+\end{lstlisting}
+
+\textbf{Note:} Le package est défini par défaut pour le code Python. Si on veut la coloration syntaxique pour SQL, il suffit de rajouter la ligne suivante avant l'environnement en question: \verb!\lstset{language=SQL}!. On utilisera la commande suivante pour revenir à Python pour d'éventuels environnements de code ultérieurs:\linebreak \verb!\lstset{language=Python}!. Voir \url{https://www.ctan.org/pkg/listings} pour la prise en charge d'autres langages.
+
+\ex
+
+\verb!\lstset{language=SQL}!
+
+\verb!\begin{lstlisting}!
+
+\verb!  SELECT nom FROM utilisateurs !
+
+\verb!\end{lstlisting}!
+
+\lstset{language=SQL}
+\begin{lstlisting}
+SELECT nom FROM utilisateurs
+\end{lstlisting}
+
+
+\section{Personnalisation avec \texttt{UPSTI\_Typographie\_Custom.sty}\label{custom}}
+On peut personnaliser ce package intégralement en réécrivant les commandes  dans le fichier \texttt{UPSTI\_Typographie\_Custom.sty} avec \verb!\renewcommand! (il y a des exemples commentés dans le fichier \texttt{UPSTI\_Typographie\_Custom.sty}).
+
+\end{document}

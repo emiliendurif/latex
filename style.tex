@@ -1,32 +1,32 @@
 
 
 
-%Mise ‡ zÈro des variables
+%Mise √† z√©ro des variables
 %==================================
 
 
-%\newcommand	{\partie}		{Sciences de l'ingÈnieur}
+%\newcommand	{\partie}		{Sciences de l'ing√©nieur}
 %\newcommand	{\titre}		{Analyse fonctionnelle}
 %\newcommand	{\numero}		{1}
 %\newcommand	{\auteur}		{Emilien DURIF}
-%\newcommand	{\etablissement}	{LycÈe Gustave Eiffel de Dijon}
-%\newcommand	{\discipline}		{Sciences de L'ingÈnieur}
-%\newcommand	{\classe}		{Classe prÈparatoire P.T.S.I.}
+%\newcommand	{\etablissement}	{Lyc√©e Gustave Eiffel de Dijon}
+%\newcommand	{\discipline}		{Sciences de L'ing√©nieur}
+%\newcommand	{\classe}		{Classe pr√©paratoire P.T.S.I.}
 %\newcommand	{\annee}		{2011 - 2012}
 %\newcommand	{\icone}		{../../latex/images/logo_eiffel.png}
 %\newcommand	{\competences}		{}
 
-\newcommand	{\partie}		{Statique des solides}
-\newcommand	{\cycle}		{C1 : Performances statiques et cinÈmatiques des systËmes composÈs de chaine de solides}
+%\newcommand	{\partie}		{Statique des solides}
+\newcommand	{\cycle}		{C1 : Performances statiques et cin√©matiques des syst√®mes compos√©s de chaine de solides}
 \newcommand	{\cycleresume}		{C2 : Chaine de solides}
 \newcommand	{\titreresume}	{}
-\newcommand	{\titre}		{ModÈlisation des actions mÈcaniques et rÈsolution d'un problËme de statique}
+\newcommand	{\titre}		{Mod√©lisation des actions m√©caniques et r√©solution d'un probl√®me de statique}
 \newcommand	{\numero}		{C2-1}
 \newcommand	{\numerotd}		{1}
 \newcommand	{\auteur}		{Emilien DURIF}
-\newcommand	{\etablissement}	{LycÈe La MartiniËre Monplaisir Reims}
-\newcommand	{\discipline}		{Sciences Industrielles pour l'IngÈnieur}
-\newcommand	{\classe}		{Classe prÈparatoire P.S.I.}
+\newcommand	{\etablissement}	{Lyc√©e La Martini√®re Monplaisir Reims}
+\newcommand	{\discipline}		{Sciences Industrielles pour l'Ing√©nieur}
+\newcommand	{\classe}		{Classe pr√©paratoire P.S.I.}
 \newcommand	{\annee}		{2016 - 2017}
 \newcommand	{\icone}		{../../../../latex/images/logo_martiniere.jpg}
 \newcommand	{\competences}		{}
@@ -37,17 +37,17 @@
 %======================================
 
 %Sections
-\renewcommand\thesection{\Roman{section}}%NumÈrotation en chiffres romains
+\renewcommand\thesection{\Roman{section}}%Num√©rotation en chiffres romains
 \titleformat{\section}[hang]{\LARGE\bfseries}{\thesection.}{1em}{}[\rule{\linewidth}{.5pt}]
 \newcommand{\sectionbreak}{\clearpage}%Change de page a chaque section
 %\titlespacing*{\section}{0px}{20cm}{\wordsep}
 
 %Subsection
-\renewcommand\thesubsection{\arabic{subsection}}%NumÈrotation en chiffres arabes
+\renewcommand\thesubsection{\arabic{subsection}}%Num√©rotation en chiffres arabes
 \titlespacing*{\subsection}{0cm}{1cm}{0.5cm}
 
 %Subsubsection
-\renewcommand\thesubsubsection{\alph{subsubsection})}%NumÈrotation en lettres
+\renewcommand\thesubsubsection{\alph{subsubsection})}%Num√©rotation en lettres
 \titlespacing*{\subsubsection}{1cm}{0.5cm}{0.3cm}
 
 
@@ -62,8 +62,8 @@
 
 \renewcommand{\footrulewidth}{1px}
 \lfoot{\etablissement}	%Pied de gauche --> Etablissement
-\cfoot{\thepage\ / \pageref{LastPage}}	%Pied Centre --> n∞de page
-\rfoot{\classe \\ AnnÈe \annee}
+\cfoot{\thepage\ / \pageref{LastPage}}	%Pied Centre --> n¬∞de page
+\rfoot{\classe \\ Ann√©e \annee}
 
 
 
@@ -75,11 +75,11 @@
 
 
 
-%BoolÈen de texte ‡ trou
+%Bool√©en de texte √† trou
 \newboolean{texteATrou}
 \setboolean{texteATrou}{false}	%Petite condition qui choisit entre 2 formats d'image
-\newcommand{\setTexteATrouOn}{\setboolean{texteATrou}{true}}	%Active le texte ‡ trous
-\newcommand{\setTexteATrouOff}{\setboolean{texteATrou}{false}}	%DÈsactive le texte ‡ trous
+\newcommand{\setTexteATrouOn}{\setboolean{texteATrou}{true}}	%Active le texte √† trous
+\newcommand{\setTexteATrouOff}{\setboolean{texteATrou}{false}}	%D√©sactive le texte √† trous
 \definecolor{couleurTrou}{rgb}{0,0.5,0}
 \newcommand{\trou}[1]{\ifthenelse{\boolean{texteATrou}}{\ifthenelse{\boolean{makingOf}}{\textcolor{couleurTrou}{#1}}{\hphantom{#1}}}{#1}}
 
@@ -131,3 +131,32 @@
 	\renewcommand{\labelitemiii}	{>}%
 	\renewcommand{\labelitemiv}	{-}%
 }
+
+
+
+%%%%Commande au d√©but du document latex
+%Lettres grecques oubliees
+\newcommand{\Mu}{M} %mu majuscule
+
+%Mise en forme
+%\newcommand{\gras}[1]	{\textbf{#1}}
+\newcommand{\bouton}[1]	{\fbox{\footnotesize{\textsc{#1}}}}
+\newcommand{\toutpetit}[1]	{{\tiny{1}}}
+\newcommand{\PETIT}[1]		{{\scriptsize{#1}}}
+\newcommand{\Petit}[1]		{\footnotesize{#1}}
+\newcommand{\petit}[1]		{{\small{#1}}}
+\newcommand{\normal}[1]		{{\normalsize{#1}}}
+\newcommand{\grand}[1]		{{\large{#1}}}
+\newcommand{\Grand}[1]		{{\Large{#1}}}
+\newcommand{\GRAND}[1]		{{\LARGE{#1}}}
+\newcommand{\enorme}[1]		{{\huge{#1}}}
+\newcommand{\Enorme}[1]		{{\Huge{#1}}}
+
+%\newcommand{\oeuvre}		{\oe uvre}
+%\newcommand{\oeuvres}		{\oe uvres}
+
+\newcommand{\fig}[1]		{(fig.\ref{#1})}
+
+\newcommand{\miniCentre}[2][\linewidth]	{\begin{minipage}{#1}\begin{center}#2\end{center}\end{minipage}}
+%\newcommand{\sectionbreak}{}
+

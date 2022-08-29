@@ -34,4 +34,98 @@
 \newcommand{\fp}{\vForce[f_p]{\sS1}{\sS2}}
 
 
+\newcommand{\tVnn}[3]	{\ensuremath{\{\mathcal{V}^{#3}_{#1/#2}\}}}	%Torseur quelconque
+
+
+
+
+%\newcommand{\tCinematiqueCanAltnn}[9]{
+%\ensuremath{
+%\torseurColonne{#1}{\ifthenelse{\equal{#3}{1}}{p_{#9}}{0}\\\ifthenelse{\equal{#4}{1}}{q_{#9}}{0} \\ \ifthenelse{\equal{#5}{1}}{r_{#9}}{0}}{\ifthenelse{\equal{#6}{1}}{u_{#9}}{0}\\\ifthenelse{\equal{#7}{1}}{v_{#9}}{0} \\ \ifthenelse{\equal{#8}{1}}{w_{#9}}{0}}{}
+%}
+%}
+
+%\tCinematiqueCanAltnn{A}{n}{1}{1}{1}{1}{1}{1}{{i}{j}}
+\newcommand{\tCinematiqueCanAltnn}[9]{
+\ensuremath{
+\torseurColonne{#1}{
+\ifthenelse{\equal{#3}{1}}{p^{#2}_{#9}}{0}\\
+\ifthenelse{\equal{#4}{1}}{q^{#2}_{#9}}{0} \\
+ \ifthenelse{\equal{#5}{1}}{r^{#2}_{#9}}{0}}
+ {\ifthenelse{\equal{#6}{1}}{u^{#2}_{#9}}{0}\\
+ \ifthenelse{\equal{#7}{1}}{v^{#2}_{#9}}{0} \\
+  \ifthenelse{\equal{#8}{1}}{w^{#2}_{#9}}{0}}{}
+}
+}
+
+
+%\tActionMecaniqueCann{n}{i}{j}{1}{1}{1}{1}{1}{1}}{b}
+
+
+\newcommand{\tActionMecaniqueCanAltnn}[9]{
+\ensuremath{
+\torseurColonne{#1}{
+\ifthenelse{\equal{#3}{1}}{X^{#2}_{#9}}{0}\\
+\ifthenelse{\equal{#4}{1}}{Y^{#2}_{#9}}{0} \\
+ \ifthenelse{\equal{#5}{1}}{Z^{#2}_{#9}}{0}}
+ {\ifthenelse{\equal{#6}{1}}{L^{#2}_{#9}}{0}\\
+ \ifthenelse{\equal{#7}{1}}{M^{#2}_{#9}}{0} \\
+  \ifthenelse{\equal{#8}{1}}{N^{#2}_{#9}}{0}}{}
+}
+}
+
+\newcommand{\tCan}[3]{
+\ensuremath{
+{#2}_{#3}
+}
+}
+
+
+ 
+\newcommand{\tActionMecanique}[2]{
+\ensuremath{
+\{\mathcal{T}_{#1\to #2}\}
+}
+}
+
+
+\newcommand{\tAM}[2]{
+\tActionMecanique{#1}{#2}
+}
+
+\newcommand{\tAMnn}[3]{
+\ensuremath{
+\{\mathcal{T}^{#3}_{#1\to #2}\}
+}
+}
+
+
+
+
+\newcommand{\tActionMecaniqueCan}[9]{
+\ensuremath{
+\torseurColonne{#1}{
+\ifthenelse{\equal{#4}{0}}{0}{\ifthenelse{\equal{#4}{-1}}{-}{X_{{#2}{#3}}}}\\
+\ifthenelse{\equal{#5}{0}}{0}{\ifthenelse{\equal{#5}{-1}}{-}{Y_{{#2}{#3}}}}\\
+\ifthenelse{\equal{#6}{0}}{0}{\ifthenelse{\equal{#6}{-1}}{-}{Z_{{#2}{#3}}}}}
+{
+\ifthenelse{\equal{#7}{0}}{0}{\ifthenelse{\equal{#7}{-1}}{-}{L_{{#2}{#3}}}}\\
+\ifthenelse{\equal{#8}{0}}{0}{\ifthenelse{\equal{#8}{-1}}{-}{M_{{#2}{#3}}}}\\
+\ifthenelse{\equal{#9}{0}}{0}{\ifthenelse{\equal{#9}{-1}}{-}{N_{{#2}{#3}}}}}
+{}
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 

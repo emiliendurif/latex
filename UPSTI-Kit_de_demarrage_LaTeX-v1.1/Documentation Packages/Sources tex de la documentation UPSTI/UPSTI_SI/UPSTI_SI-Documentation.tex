@@ -1,0 +1,1648 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documentation pour le package UPSTI_SI
+% -----------                                                                        
+% Auteur: Emmanuel Pinault-Bigeard
+% email: e.pinault-bigeard@upsti.fr
+% -----------
+% Version: 1.1 - 2019/07/16
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UPSTI - http://www.upsti.fr
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{ltxdockit}[2010/09/26]
+\usepackage[utf8]{inputenc}   % LaTeX, comprends les accents !
+\usepackage[T1]{fontenc}      % Police contenant les caractères français
+\usepackage[french]{babel}  % Placez ici une liste de langues, la
+                              % dernière étant la langue principale
+\usepackage[top=2cm, bottom=2cm, left=3cm, right=2cm, a4paper, footskip=1cm]{geometry}   	  % Ajustement des marges
+
+\usepackage{UPSTI_SI}	
+
+\newcommand{\UPSTIrac}{\textit{(Raccourci)}}
+
+\titlepage{%
+  title={Documentation du package UPSTI\_SI},
+  subtitle={Package pour les Sciences de l'Ingénieur},
+  url={http://upsti.fr},
+  author={UPSTI - R.Allais - E.Pinault-Bigeard},
+  email={e.pinault-bigeard@upsti.fr},
+  revision={v1.1},
+  date={2019/07/16}}
+
+\hypersetup{%
+  pdftitle={Documentation du package UPSTI\_Pedagogique},
+  pdfsubject={Package pour les Sciences de l'Ingénieur},
+  pdfauthor={UPSTI - R.Allais - E.Pinault-Bigeard},
+  pdfkeywords={upsti, tex, latex, cours, si, s2i, sii, sciences, ingénieur, cpge}}
+
+%--------------------------------------------------------%
+% Adaptations pour ce document
+%--------------------------------------------------------%
+\frenchbsetup{StandardLists=true} % On utilise les puces anglo-saxonnes au lieux des tirets français
+
+\begin{document}
+
+\printtitlepage
+
+\begin{center}
+	\includegraphics[width=10cm]{Images/logoUPSTI.jpg}
+\end{center}
+
+\tableofcontents
+
+\pagebreak
+\section{Présentation}
+Ce package regroupe un certain nombre de commandes utiles à l'édition de documents relatifs aux Sciences de l'Ingénieur. S'il manque des choses (et il en manque !) ou si vous souhaitez modifier quelques notations, il est préférable d'utiliser \verb!renewcommand! dans le fichier \verb!UPSTI_SI_Custom.sty! afin de faciliter les futures mises à jour.
+
+Ce package a été initialement développé par Raphaël Allais (\url{http://enseignement.allais.eu/page-latex}). Merci pour son travail et pour sa volonté de partager !
+
+\section{Utilisation du package}
+\noindent Le package est appelé en début de document par la commande: \verb!\usepackage{UPSTI_SI}!
+
+\section{Changelog}
+\noindent\textbf{Version 1.1 - 16/07/2019}
+\begin{itemize}
+\item Correction de bugs mineurs (voir fichier source)
+\end{itemize}
+\noindent\textbf{Version 1.0 - 23/11/2017}
+\begin{itemize}
+\item Mise en ligne de la première version
+\end{itemize}
+
+\section{Théorie des mécanismes}
+\subsection{Liaisons}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\symboleLiaison! & \symboleLiaison & Symbole utilisé pour les liaisons
+\\\hline
+  \verb!\liaison{1}{2}! & \liaison{1}{2} & Liaison entre 1 et 2.
+\\\hline
+  \verb!\liaison[A]{1}{2}! & \liaison[A]{1}{2} & Liaison entre 1 et 2, avec précision du point ($A$).
+\\\hline
+  \verb!\liaisonEq! & \liaisonEq & Liaison équivalente
+\\\hline
+  \verb!\liaisonEq[1]! & \liaisonEq[1] & Liaison équivalente avec indice
+\\\hline
+  \verb!\liaisonEq[][A]! & \liaisonEq[][A] & Liaison équivalente avec précision du point
+\\\hline
+  \verb!\liaisonEq[1][A]! & \liaisonEq[1][A] & Liaison équivalente avec indice \textbf{et} précision du point
+\\\hline
+\end{tabular}
+
+\subsection{Hyperstatisme}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\inconnuesStatiques! & \inconnuesStatiques & Nombre d'inconnues statiques
+\\\hline
+  \verb!\inconnuesStatiques[i]! & \inconnuesStatiques[i] & Nombre d'inconnues statiques pour la liaison $i$
+\\\hline
+  \verb!\inconnuesCinematiques! & \inconnuesCinematiques & Nombre d'inconnues cinématiques
+\\\hline
+  \verb!\inconnuesCinematiques[i]! & \inconnuesCinematiques[i] & Nombre d'inconnues cinématiques pour la liaison $i$
+\\\hline
+  \verb!\nCyclomatique! & \nCyclomatique & Nombre cyclomatique
+\\\hline
+\end{tabular}
+
+\section{Cinématique}
+\subsection{Mouvements et trajectoires}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\trajectoire{A}{1}{2}! & \trajectoire{A}{1}{2} & Trajectoire
+\\\hline
+  \verb!\mouvement{1}{2}! & \mouvement{1}{2} & Mouvement
+\\\hline
+  \verb!\CIR{1}{2}! & \CIR{1}{2} & CIR
+\\\hline
+\end{tabular}
+
+\subsection{Vitesses - accélérations}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\vVitesse{A}{1}{2}! & \vVitesse{A}{1}{2} & Vecteur vitesse
+\\\hline
+  \verb!\vVitesse{A}{}{1}! & \vVitesse{A}{}{1} & Vecteur vitesse (1 seul indice)
+\\\hline
+  \verb!\vRotation{1}{2}! & \vRotation{1}{2} & Vecteur vitesse de rotation
+\\\hline
+  \verb!\vRotation{1}{}! & \vRotation{1}{} & Vecteur vitesse de rotation (1 seul indice)
+\\\hline
+  \verb!\vRotation[p]{1}{2}! & \vRotation[p]{1}{2} & Vecteur vitesse de rotation (avec exposant)
+\\\hline\hline
+  \verb!\accelerationSymbole! & \accelerationSymbole & Symbole de l'accélération
+\\\hline
+  \verb!\vAcceleration{A}{1}{2}! & \vAcceleration{A}{1}{2} & Vecteur accélération
+\\\hline
+\end{tabular}
+
+\subsection{Torseur cinématique}
+\subsubsection{Généralités}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\tCinematiqueSymbole! & \tCinematiqueSymbole & Symbole du torseur cinématique
+\\\hline
+  \verb!\tCinematique{1}{2}! & \tCinematique{1}{2} & Torseur cinématique 
+\\\hline
+  \verb!\tCinematique{1}{2}[A]! & \tCinematique{1}{2}[A] & Torseur cinématique (avec point)
+\\\hline
+  \verb!\tV{1}{2}! & \tV{1}{2} & Torseur cinématique \UPSTIrac
+\\\hline\hline
+  \verb!\resultanteCinematique{1}{2}! & \resultanteCinematique{1}{2} & Résultante du torseur cinématique
+\\\hline
+  \verb!\momentCinematique{A}{1}{2}! & \momentCinematique{A}{1}{2} & Moment du torseur cinématique
+\\\hline\hline
+  \verb!\tCinematiqueLigne{1}{2}{A}! & \tCinematiqueLigne{1}{2}{A} & Torseur cinématique (ligne)
+\\\hline
+
+\end{tabular}
+
+
+\subsubsection{Forme canonique}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\resultanteCinematiqueCan{x}{1}{2}! & \resultanteCinematiqueCan{x}{1}{2} & Composante de la résultante de la forme canonique du torseur cinématique
+\\\hline
+  \verb!\momentCinematiqueCan{x}{A}{1}{2}! & \momentCinematiqueCan{x}{A}{1}{2} & Composante du moment de la forme canonique du torseur cinématique
+\\\hline
+\end{tabular}
+
+\vspace{1em}
+\noindent Expression de la forme canonique tu torseur cinématique:
+
+\verb!\tCinematiqueCan{A}{1}{2}{1}{0}{1}{0}{1}{0}! \qquad $\Rightarrow$ \qquad \tCinematiqueCan{A}{1}{2}{1}{0}{1}{0}{1}{0}
+
+\vspace{1em}
+\noindent Variante:
+
+\verb!\tCinematiqueCanAlt{A}{1}{2}{1}{0}{1}{0}{1}{0}! \qquad $\Rightarrow$ \qquad \tCinematiqueCanAlt{A}{1}{2}{1}{0}{1}{0}{1}{0}
+
+\vspace{1em}
+\noindent Si on souhaite préciser 2 indices, on utilise l'expression suivante:
+
+\verb!\tCan{i}{\tCinematiqueCan{A}{1}{2}{1}{1}{1}{1}{1}{1}}{b}! \quad $\Rightarrow$ \quad \tCan{i}{\tCinematiqueCan{A}{1}{2}{1}{1}{1}{1}{1}{1}}{b}
+
+\vspace{1em}
+\noindent Dans ces 2 cas, il suffit de mettre des 1 ou des 0 pour afficher ou non les composantes du torseur.
+
+\subsection{Degrés de liberté}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\Rx! & \Rx & Rotation suivant $x$
+\\\hline
+  \verb!\Ry! & \Ry & Rotation suivant $y$
+\\\hline
+  \verb!\Rz! & \Rz & Rotation suivant $z$
+\\\hline
+  \verb!\Tx! & \Tx & Translation suivant $x$
+\\\hline
+  \verb!\Ty! & \Ty & Translation suivant $y$
+\\\hline
+  \verb!\Tz! & \Tz & Translation suivant $z$
+\\\hline
+\end{tabular}
+
+\subsection{Coordonnées variables dans le temps}
+\noindent 
+\begin{tabular}{|p{0.62\linewidth}|p{0.32\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}
+\\\hline\hline
+  \verb!\xt!, \verb!\xtp!, \verb!\xtpp!, \verb!\xp!, \verb!\xpp!  & \xt , \xtp , \xtpp , \xp , \xpp  
+\\\hline
+  \verb!\yt!, \verb!\ytp!, \verb!\ytpp!, \verb!\yp!, \verb!\ypp!  & \yt , \ytp , \ytpp , \yp , \ypp  
+\\\hline
+  \verb!\zt!, \verb!\ztp!, \verb!\ztpp!, \verb!\zp!, \verb!\zpp!  & \zt , \ztp , \ztpp , \zp , \zpp  
+\\\hline
+  \verb!\thetat!, \verb!\thetatp!, \verb!\thetatpp!, \verb!\thetap!, \verb!\thetapp!  & \thetat , \thetatp , \thetatpp , \thetap , \thetapp 
+\\\hline
+  \verb!\alphat!, \verb!\alphatp!, \verb!\alphatpp!, \verb!\alphap!, \verb!\alphapp!  & \alphat , \alphatp , \alphatpp , \alphap , \alphapp 
+\\\hline
+  \verb!\betat!, \verb!\betatp!, \verb!\betatpp!, \verb!\betap!, \verb!\betapp!  & \betat , \betatp , \betatpp , \betap , \betapp 
+\\\hline
+  \verb!\gammat!, \verb!\gammatp!, \verb!\gammatpp!, \verb!\gammap!, \verb!\gammapp!  & \gammat , \gammatp , \gammatpp , \gammap , \gammapp 
+\\\hline
+  \verb!\varphit!, \verb!\varphitp!, \verb!\varphitpp!, \verb!\varphip!, \verb!\varphipp!  & \varphit , \varphitp , \varphitpp , \varphip , \varphipp 
+\\\hline
+  \verb!\psit!, \verb!\psitp!, \verb!\psitpp!, \verb!\psip!, \verb!\psipp!  & \psit , \psitp , \psitpp , \psip , \psipp 
+\\\hline
+  \verb!\lambdat!, \verb!\lambdatp!, \verb!\lambdatpp!, \verb!\lambdap!, \verb!\lambdapp!  & \lambdat , \lambdatp , \lambdatpp , \lambdap , \lambdapp 
+\\\hline
+  \verb!\mut!, \verb!\mutp!, \verb!\mutpp!, \verb!\mup!, \verb!\mupp!  & \mut , \mutp , \mutpp , \mup , \mupp 
+\\\hline
+\end{tabular}
+
+\section{Actions mécaniques}
+\subsection{Force / couple}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\vForce{1}{2}! & \vForce{1}{2} & Vecteur force
+\\\hline
+  \verb!\vForce[A]{1}{2}! & \vForce[A]{1}{2} & Idem avec changement de lettre
+\\\hline
+  \verb!\vMoment{A}{1}{2}! & \vMoment{A}{1}{2} & Vecteur moment
+\\\hline
+  \verb!\vMoment{A}{}{\vForce{1}{2}}! & \vMoment{A}{}{\vForce{1}{2}} & Moment d'une force
+\\\hline
+  \verb!\vMoment[dM]{A}{1}{2}! & \vMoment[dM]{A}{1}{2} & Vecteur moment (personnalisé)
+\\\hline
+  \verb!\vF! & \vF & Force \vF
+\\\hline
+  \verb!\vF[1]! & \vF[1] & Force \vF avec indice
+\\\hline
+  \verb!\Cm! & \Cm & Couple moteur
+\\\hline
+  \verb!\Cr! & \Cr & Couple résistant
+\\\hline
+  \verb!\Cf! & \Cf & Couple de frottements
+\\\hline
+  \verb!\Fr! & \Fr & Force \Fr 
+\\\hline
+  \verb!\vg! & \vg & Gravité
+\\\hline
+\end{tabular}
+
+\subsection{Torseur des actions mécaniques}
+\subsubsection{Généralités}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\tActionMecaniqueSymbole! & \tActionMecaniqueSymbole & Symbole du torseur des AM
+\\\hline
+  \verb!\tActionMecanique{1}{2}! & \tActionMecanique{1}{2} & Torseur des AM
+\\\hline
+  \verb!\tActionMecanique[A]{1}{2}[B]! & \tActionMecanique[A]{1}{2}[B] & Torseur des AM (avec point et exposant facultatifs)
+\\\hline
+  \verb!\tAM{1}{2}! & \tAM{1}{2} & Torseur des AM \UPSTIrac
+\\\hline\hline
+  \verb!\resultanteAM{1}{2}! & \resultanteAM{1}{2} & Résultante du torseur des AM
+\\\hline
+  \verb!\momentAM{A}{1}{2}! & \momentAM{A}{1}{2} & Moment du torseur des AM
+\\\hline
+\end{tabular}
+
+\subsubsection{Forme canonique}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\composantetAM{X}{1}{2}! & \composantetAM{X}{1}{2} & Composante du torseur des AM
+\\\hline
+  \verb!\composantetAM[1]{X}{1}{2}! & \composantetAM[1]{X}{1}{2} & Idem, mais en ajoutant l'argument optionnel [1], on rajoute une flèche.
+\\\hline
+\end{tabular}
+
+\vspace{1em}
+\noindent Expression de la forme canonique du torseur des actions mécaniques:
+
+\verb!\tActionMecaniqueCan{A}{1}{2}{1}{0}{1}{0}{1}{0}! \qquad $\Rightarrow$ \qquad \tActionMecaniqueCan{A}{1}{2}{1}{0}{1}{0}{1}{0}
+
+\vspace{1em}
+\noindent Si on souhaite préciser 2 indices, on utilise l'expression suivante:
+
+\verb!\tCan{i}{\tActionMecaniqueCan{A}{1}{2}{1}{1}{-1}{-1}{-1}{1}}{b}!  $\Rightarrow$  \tCan{i}{\tActionMecaniqueCan{A}{1}{2}{1}{1}{-1}{-1}{-1}{1}}{b}
+
+\vspace{1em}
+\noindent Dans ces 2 cas, il suffit de mettre des 1 ou des 0 pour afficher ou non les composantes du torseur. On peut aussi \textbf{utiliser -1} pour les composantes qui s'annulent dans un \textbf{problème plan}.
+
+\section{Cinétique}
+\subsection{Torseur cinétique}
+\noindent 
+\begin{tabular}{|p{0.42\linewidth}|p{0.20\linewidth}|p{0.30\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\tCinetiqueSymbole! & \tCinetiqueSymbole & Symbole du torseur cinétique
+\\\hline
+  \verb!\momCinetiqueSymbole! & \momCinetiqueSymbole & Symbole du moment cinétique
+\\\hline
+  \verb!\tCinetique{1}{2}! & \tCinetique{1}{2} & Torseur cinétique
+\\\hline
+  \verb!\tCinetique{1}{2}[A]! & \tCinetique{1}{2}[A] & Torseur cinétique (avec point)
+\\\hline
+  \verb!\tC{1}{2}! & \tC{1}{2} & Torseur cinétique \UPSTIrac
+\\\hline\hline
+  \verb!\resultanteCinetique{1}{2}! & \resultanteCinetique{1}{2} & Résultante cinétique
+\\\hline
+  \verb!\resultanteCinetique[m_s]{1}{2}! & \resultanteCinetique[m_s]{1}{2} & Résultante cinétique (avec masse personnalisée)
+\\\hline
+  \verb!\resultanteCinetiqueDef{S_1}{S_2}! & \resultanteCinetiqueDef{S_1}{S_2} & Définition de la résultante cinétique
+\\\hline
+  \verb!\momentCinetique{A}{S_1}{S_2}! & \momentCinetique{A}{S_1}{S_2} & Moment cinétique
+\\\hline
+  \verb!\momentCinetiqueDef{A}{S_1}{S_2}! & \momentCinetiqueDef{A}{S_1}{S_2} & Définition du moment cinétique
+\\\hline\hline
+  \verb!\tCinetiqueLigne{1}{2}{A}! & \tCinetiqueLigne{1}{2}{A} & Torseur cinétique (ligne)
+\\\hline
+  \verb!\tCinetiqueLigne[m_s]{1}{2}{A}[b]! & \tCinetiqueLigne[m_s]{1}{2}{A}[b] & Torseur cinétique (ligne), avec une masse spécifiée (et/ou une base d'expression)
+\\\hline
+  \verb!\tCinetiqueLigneDef{S_1}{S_2}{A}! & \multicolumn{2}{l|}{\tCinetiqueLigneDef{S_1}{S_2}{A}} 
+\\\hline
+  \verb!\tCinetiqueLigneDef{S_1}{S_2}{A}[b]! & \multicolumn{2}{l|}{\tCinetiqueLigneDef{S_1}{S_2}{A}[b]} 
+\\\hline
+\end{tabular}
+
+\subsection{Opérateur d'inertie}
+\noindent 
+\begin{tabular}{|p{0.45\linewidth}|p{0.25\linewidth}|p{0.22\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\operateurInertie{A}{1}! & \operateurInertie{A}{1} & Tenseur d'inertie
+\\\hline
+  \verb!\Jeq! & \Jeq & Inertie équivalente
+\\\hline
+  \verb!\Meq! & \Meq & Masse équivalente
+\\\hline
+  \verb!\matriceInertie! & \matriceInertie & Matrice d'inertie (nulle)
+\\\hline
+  \verb!\matriceInertie[b][A][B][C]! & \matriceInertie[b][A][B][C] & Matrice d'inertie (diagonale)
+\\\hline
+  \verb!\matriceInertie[b][A][B][C][-D][-E][-F]! & \matriceInertie[b][A][B][C][-D][-E][-F] & Matrice d'inertie complète. (Les 6 arguments sont optionnels)
+\\\hline
+  \verb!\matriceInertieStd! & \matriceInertieStd & Matrice d'inertie standard
+\\\hline
+  \verb!\matriceInertieStd[1]! & \matriceInertieStd[1] & Matrice d'inertie standard (avec indice)
+\\\hline
+  \verb!\baseDuSolide! & \baseDuSolide & Base liée au solide
+\\\hline
+  \verb!\momInertieA! & \momInertieA & Moment d'inertie A
+\\\hline
+  \verb!\momInertieB! & \momInertieB & Moment d'inertie B
+\\\hline
+  \verb!\momInertieC! & \momInertieC & Moment d'inertie C
+\\\hline
+  \verb!\prodInertieD! & \prodInertieD & Produit d'inertie D
+\\\hline
+  \verb!\prodInertieE! & \prodInertieE & Produit d'inertie E
+\\\hline
+  \verb!\prodInertieF! & \prodInertieF & Produit d'inertie F
+\\\hline
+\end{tabular}
+
+\section{Dynamique}
+\noindent 
+\begin{tabular}{|p{0.42\linewidth}|p{0.20\linewidth}|p{0.30\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\tDynamiqueSymbole! & \tDynamiqueSymbole & Symbole du torseur dynamique
+\\\hline
+  \verb!\momDynamiqueSymbole! & \momDynamiqueSymbole & Symbole du moment dynamique
+\\\hline
+  \verb!\tDynamique{1}{2}! & \tDynamique{1}{2} & Torseur dynamique
+\\\hline
+  \verb!\tDynamique{1}{2}[A]! & \tDynamique{1}{2}[A] & Torseur dynamique (avec point)
+\\\hline
+  \verb!\tD{1}{2}! & \tD{1}{2} & Torseur dynamique \UPSTIrac
+\\\hline\hline
+  \verb!\resultanteDynamique{1}{2}! & \resultanteDynamique{1}{2} & Résultante dynamique
+\\\hline
+  \verb!\resultanteDynamique[m_s]{1}{2}! & \resultanteDynamique[m_s]{1}{2} & Résultante dynamique (avec masse personnalisée)
+\\\hline
+  \verb!\resultanteDynamiqueDef{S_1}{S_2}! & \resultanteDynamiqueDef{S_1}{S_2} & Définition de la résultante dynamique
+\\\hline
+  \verb!\momentDynamique{A}{S_1}{S_2}! & \momentDynamique{A}{S_1}{S_2} & Moment dynamique
+\\\hline
+  \verb!\momentDynamiqueDef{A}{S_1}{S_2}! & \momentDynamiqueDef{A}{S_1}{S_2} & Définition du moment dynamique
+\\\hline\hline
+
+  \verb!\tDynamiqueLigne{1}{2}{A}! & \tDynamiqueLigne{1}{2}{A} & Torseur dynamique (ligne)
+\\\hline
+  \verb!\tDynamiqueLigne[m_s]{1}{2}{A}[b]! & \tDynamiqueLigne[m_s]{1}{2}{A}[b] & Torseur dynamique (ligne), avec une masse spécifiée (et/ou une base d'expression)
+\\\hline
+  \verb!\tDynamiqueLigneDef{S_1}{S_2}{A}! & \multicolumn{2}{l|}{\tDynamiqueLigneDef{S_1}{S_2}{A}} 
+\\\hline
+  \verb!\tDynamiqueLigneDef{S_1}{S_2}{A}[b]! & \multicolumn{2}{l|}{\tDynamiqueLigneDef{S_1}{S_2}{A}[b]} 
+\\\hline
+
+\end{tabular}
+
+\section{Énergétique}
+\subsection{Notations}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\travailSymbole! & \travailSymbole & Symbole pour le travail
+\\\hline
+  \verb!\energieSymbole! & \energieSymbole & Symbole pour l'énergie
+\\\hline
+  \verb!\puissanceSymbole! & \puissanceSymbole & Symbole pour la puissance
+\\\hline
+\end{tabular}
+
+\subsection{Énergie cinétique}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\energieCinetique{1}{2}! & \energieCinetique{1}{2} & Énergie cinétique
+\\\hline
+  \verb!\energieCinetiqueAlt{1}{2}! & \energieCinetiqueAlt{1}{2} & Énergie cinétique (alternative)
+\\\hline
+\end{tabular}
+
+
+\subsection{Puissance}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\puissance{1}{2}{R}! & \puissance{1}{2}{R} & Puissance
+\\\hline
+  \verb!\puissanceInter{1}{2}! & \puissanceInter{1}{2} & Puissance des inter-efforts
+\\\hline
+  \verb!\puissanceExt! & \puissanceExt & Puissance extérieure
+\\\hline
+  \verb!\puissanceExt[1]! & \puissanceExt[1] & Puissance extérieure (+ repère)
+\\\hline
+  \verb!\puissanceInt! & \puissanceInt & Puissance intérieure
+\\\hline
+  \verb!\puissanceInt[1]! & \puissanceInt[1] & Puissance intérieure (+ repère)
+\\\hline
+  \verb!\puissanceMot! & \puissanceMot & Puissance moteur
+\\\hline
+\end{tabular}
+
+
+\section{Rdm}
+\subsection{Contraintes}
+\noindent
+\begin{tabular}{|p{0.4\linewidth}|p{0.18\linewidth}|p{0.34\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\vContrainte{A}{\vn{}}! & \vContrainte{A}{\vn{}} & Vecteur contrainte
+\\\hline
+  \verb!\vContrainte{}{\vn{}}! & \vContrainte{}{\vn{}} & Idem sans le point
+\\\hline
+  \verb!\vContrainte[\sigma]{A}{\vn{}}! & \vContrainte[\sigma]{A}{\vn{}} & Idem avec changement de notation
+\\\hline
+  \verb!\tenseurContraintes{A}! & \tenseurContraintes{A} & Tenseur des contraintes
+\\\hline
+  \verb!\tenseurContraintesStd! & \tenseurContraintesStd & Tenseur des contraintes standard
+\\\hline
+\end{tabular}
+
+\subsection{Moments quadratiques}
+\noindent
+\begin{tabular}{|p{0.45\linewidth}|p{0.10\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\momentQuadratique{x}! & \momentQuadratique{x} & Moment quadratique $/x$
+\\\hline
+  \verb!\momentQuadratique{x}[S]! & \momentQuadratique{x}[S] & Moment quadratique de la surface $S$  $/x$
+\\\hline
+  \verb!\momentQuadratique{x}[][A]! & \momentQuadratique{x}[][A] & Moment quadratique $/\axe{A}{\vx{}}$
+\\\hline
+  \verb!\momentQuadratique{x}[S][A]! & \momentQuadratique{x}[S][A] & Moment quadratique de la surface $S$ $/\axe{A}{\vx{}}$
+\\\hline
+  \verb!\momentQuadratiquePolaire! & \momentQuadratiquePolaire & Moment quadratique polaire
+\\\hline
+  \verb!\momentQuadratiquePolaire[1]! & \momentQuadratiquePolaire[1] & Moment quadratique polaire
+\\\hline
+  \verb!\momentQuadratiquePolaire[S_1][G_1]! & \momentQuadratiquePolaire[S_1][G_1] & Moment quadratique polaire
+\\\hline
+\end{tabular}
+
+\subsection{Torseur de cohésion}
+\subsubsection{Généralités}
+\noindent
+\begin{tabular}{|p{0.26\linewidth}|p{0.30\linewidth}|p{0.36\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\tCohesion! & \tCohesion & Torseur de cohésion
+\\\hline
+  \verb!\tCohesion[A]! & \tCohesion[A] & Idem avec point spécifié
+\\\hline
+  \verb!\tCoh! & \tCoh & Torseur de cohésion \UPSTIrac
+\\\hline
+  \verb!\resultanteCohesionDef! & \resultanteCohesionDef & Définition de la résultante du torseur de cohésion
+\\\hline
+  \verb!\momentCohesionDef! & \momentCohesionDef & Définition du moment du torseur de cohésion
+\\\hline
+  \verb!\tCohesionDef! & \tCohesionDef & Définition du torseur de cohésion
+\\\hline
+  \verb!\tCohesionDef[A]! & \tCohesionDef[A] & Idem en un autre point
+\\\hline\hline
+  \verb!\Mfy! & \Mfy & Moment fléchissant
+\\\hline
+  \verb!\Mfz! & \Mfz & Moment fléchissant
+\\\hline
+\end{tabular}
+
+\subsubsection{Forme canonique}
+\noindent Expression de la forme canonique du torseur de cohésion:
+
+\verb!\tCohesionCan{1}{1}{1}{1}{1}{1}! \qquad $\Rightarrow$ \qquad \tCohesionCan{1}{1}{1}{1}{1}{1}
+
+\vspace{1em}
+\noindent On peut éventuellement préciser un point et une base...:
+
+\verb!\tCohesionCan[A]{1}{0}{1}{0}{1}{0}[b]! \qquad $\Rightarrow$ \qquad \tCohesionCan[A]{1}{0}{1}{0}{1}{0}[b]
+
+\vspace{1em}
+\noindent Dans ces 2 cas, il suffit de mettre des 1 ou des 0 pour afficher ou non les composantes du torseur. 
+
+\subsection{Torseur des petits déplacements}
+\subsubsection{Généralités}
+\noindent
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\tDeplacementSymbole! & \tDeplacementSymbole & Symbole du torseur des déplacements
+\\\hline
+  \verb!\tDeplacement{1}{2}! & \tDeplacement{1}{2} & Torseur des déplacements
+\\\hline
+  \verb!\tDeplacement{1}{2}[A]! & \tDeplacement{1}{2}[A] & Idem avec un point spécifié
+\\\hline\hline
+  \verb!\tPetitDeplacementSymbole! & \tPetitDeplacementSymbole & Symbole du torseur des petits déplacements
+\\\hline
+  \verb!\tPetitDeplacement{1}{2}! & \tPetitDeplacement{1}{2} & Torseur des petits déplacements
+\\\hline
+  \verb!\tPetitDeplacement{1}{2}[A]! & \tPetitDeplacement{1}{2}[A] & Idem avec un point spécifié
+\\\hline
+  \verb!\tDep{1}{2}! & \tDep{1}{2} & Torseur des petits déplacements \UPSTIrac
+\\\hline\hline
+  \verb!\resultantePetitDeplacement! & \resultantePetitDeplacement & Résultante des petits déplacements
+\\\hline
+  \verb!\momentPetitDeplacement! & \momentPetitDeplacement & Moment des petits déplacements
+\\\hline
+\end{tabular}
+
+\subsubsection{Forme canonique}
+\noindent Expression de la forme canonique du torseur des petits déplacements:
+
+\verb!\tPetitDeplacementCan{1}{1}{1}{1}{1}{1}! \qquad $\Rightarrow$ \qquad \tPetitDeplacementCan{1}{1}{1}{1}{1}{1}
+
+\vspace{1em}
+\noindent On peut éventuellement préciser un point et une base...:
+
+\verb!\tPetitDeplacementCan[A]{1}{0}{1}{0}{1}{0}[b]! \qquad $\Rightarrow$ \qquad \tPetitDeplacementCan[A]{1}{0}{1}{0}{1}{0}[b]
+
+\vspace{1em}
+\noindent Dans ces 2 cas, il suffit de mettre des 1 ou des 0 pour afficher ou non les composantes du torseur. 
+
+\subsection{Torseur des petites déformations}
+\noindent
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\tPetitesDeformationsSymbole! & \tPetitesDeformationsSymbole & Symbole du torseur des petites déformations
+\\\hline
+  \verb!\tPetitesDeformations! & \tPetitesDeformations & Torseur des petites déformations
+\\\hline
+  \verb!\tPetitesDeformations[s]! & \tPetitesDeformations[s] & Torseur des petites déformations
+\\\hline
+  \verb!\tPetitesDeformations[x][A]! & \tPetitesDeformations[x][A] & Torseur des petites déformations
+\\\hline\hline
+  \verb!\resultantePetitesDeformations! & \resultantePetitesDeformations & Résultante
+\\\hline
+  \verb!\momentPetitesDeformations! & \momentPetitesDeformations & Moment
+\\\hline
+  \verb!\momentPetitesDeformations[A]! & \momentPetitesDeformations[A] & Moment
+\\\hline
+\end{tabular}
+
+
+\section{SLCI}
+\subsection{Transformée de Laplace}
+\noindent 
+\begin{tabular}{|p{0.5\linewidth}|p{0.15\linewidth}|p{0.27\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\laplace{x(t)}! & \laplace{x(t)} & Transformée de Laplace
+\\\hline
+  \verb!\laplaceInv{X(p)}! & \laplaceInv{X(p)} & Transformée de Laplace inverse
+\\\hline
+  \verb!\laplaceFleche! & \laplaceFleche & Symbole sur flèche
+\\\hline
+  \verb!\laplaceInvFleche! & \laplaceInvFleche & Idem, mais inverse...
+\\\hline
+\end{tabular}
+
+\subsection{Notations}
+\noindent 
+\begin{tabular}{|p{0.35\linewidth}|p{0.23\linewidth}|p{0.34\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\jw! & \jw & 
+\\\hline
+  \verb!\jw[\omega_3]! & \jw[\omega_3] & 
+\\\hline
+  \verb!\jo! & \jo & 
+\\\hline
+  \verb!\jo[\omega_3]! & \jo[\omega_3] & 
+\\\hline\hline
+  \verb!\Gw! & \Gw & Gain
+\\\hline
+  \verb!\Gw[\omega_1]! & \Gw[\omega_1] & Gain
+\\\hline
+  \verb!\Gdbw! & \Gdbw & Gain en dB
+\\\hline
+  \verb!\Gdbw[\omega_1]! & \Gdbw[\omega_1] & Gain en dB
+\\\hline
+  \verb!\phase! & \phase & Phase
+\\\hline
+  \verb!\phase[\omega_1]! & \phase[\omega_1] & Phase
+\\\hline\hline
+  \verb!\wCoupure! & \wCoupure & Pulsation de coupure
+\\\hline
+  \verb!\wCoupure[2]! & \wCoupure[2] & 
+\\\hline
+  \verb!\wResonance! & \wResonance & Pulsation de résonance
+\\\hline
+  \verb!\wResonance[3]! & \wResonance[3] & 
+\\\hline\hline
+
+  \verb!\eStatique! & \eStatique & Erreur statique
+\\\hline
+  \verb!\eTrainage! & \eTrainage & Erreur de trainage
+\\\hline
+  \verb!\trep! & \trep & Temps de réponse à 5\%
+\\\hline
+  \verb!\dnp! & \dnp & $n^{ième}$ dépassement
+\\\hline\hline
+
+  \verb!\MG! & \MG & Marge de gain
+\\\hline
+  \verb!\MP! & \MP & Marge de phase
+\\\hline
+  \verb!\BP! & \BP & Bande passante
+\\\hline
+  \verb!\FTBO! & \FTBO & FT boucle ouverte
+\\\hline
+  \verb!\FTBF! & \FTBF & FT boucle fermée
+\\\hline
+  \verb!\FTCD! & \FTCD & FT chaîne directe
+\\\hline
+  \verb!\FTCR! & \FTCR & FT chaîne retour
+\\\hline\hline
+
+  \verb!\Hbo! & \Hbo & FT boucle ouverte
+\\\hline
+  \verb!\Hbo[]! & \Hbo[] & idem sans la variable
+\\\hline
+  \verb!\Hbf! & \Hbf & FT boucle fermée
+\\\hline
+  \verb!\Hbf[]! & \Hbf[] & idem sans la variable
+\\\hline
+\end{tabular}
+
+\subsection{Signaux}
+\noindent 
+\begin{tabular}{|p{0.35\linewidth}|p{0.23\linewidth}|p{0.34\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\dirac! & \dirac & Dirac
+\\\hline
+  \verb!\dirac[t-\tau]! & \dirac[t-\tau] & 
+\\\hline
+  \verb!\echelon! & \echelon & Échelon
+\\\hline
+  \verb!\echelon[t-\tau]! & \echelon[t-\tau] & 
+\\\hline
+  \verb!\rampe! & \rampe & Rampe
+\\\hline
+  \verb!\rampe[t-\tau]! & \rampe[t-\tau] &
+\\\hline
+\end{tabular}
+
+\subsection{Formes canoniques}
+\noindent 
+\begin{tabular}{|p{0.35\linewidth}|p{0.23\linewidth}|p{0.34\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\amortissement! & \amortissement & Coefficient d'amortissement
+\\\hline\hline
+  \verb!\canonique1! & \canonique1 & Forme canonique du 1\ier ordre
+\\\hline
+  \verb!\canonique1[1.2]! & \canonique1[1.2] & Forme canonique du 1\ier ordre avec gain paramétré
+\\\hline
+  \verb!\canonique1[1.2][5]! & \canonique1[1.2][5] & Forme canonique du 1\ier ordre avec gain et constante de temps paramétrés
+\\\hline
+  \verb!\canonique2! & \canonique2 & Forme canonique du 2\ieme{} ordre
+\\\hline
+  \verb!\canonique2[1.2]! & \canonique2[1.2] & Forme canonique du 2\ieme{} ordre avec gain paramétré
+\\\hline
+  \verb!\canonique2[1.2][10]! & \canonique2[1.2][10] & Forme canonique du 2\ieme{} ordre avec gain et pulsation propre paramétrés
+\\\hline
+  \verb!\canonique2[1.2][10][\pi]! & \canonique2[1.2][10][\pi] & Forme canonique du 2\ieme{} ordre avec gain, pulsation propre et amortissement paramétrés
+\\\hline\hline
+  \verb!\canoniqueInv1! & \canoniqueInv1 & Forme canonique du 1\ier ordre, au numérateur
+\\\hline
+  \verb!\canoniqueInv2! & \canoniqueInv2 & Forme canonique du 2\ieme{} ordre, au numérateur
+\\\hline
+\end{tabular}
+
+\section{Électricité, électronique}
+Rajouter la commande \verb!\importPackagesElec! en préambule du document permet d'importer le package circuitikz \url{https://www.ctan.org/pkg/circuitikz} et de définir quelques styles de flèches pour les schémas électriques.
+
+\vspace{1em}
+\noindent 
+\begin{tabular}{|p{0.35\linewidth}|p{0.23\linewidth}|p{0.34\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\Req! & \Req & Résistance équivalente
+\\\hline
+  \verb!\RTh! & \RTh & Résistance de Thévenin
+\\\hline
+  \verb!\RN! & \RN & Résistance de Norton
+\\\hline
+  \verb!\ETh! & \ETh & Tension de Thévenin
+\\\hline
+  \verb!\IN! & \IN & Courant de Norton
+\\\hline\hline
+  \verb!\vmoy{U}! & \vmoy{U} & Valeur moyenne
+\\\hline
+  \verb!\veff{U}! & \veff{U} & Valeur efficace
+\\\hline
+  \verb!\vmax{U}! & \vmax{U} & Valeur de crête
+\\\hline
+\end{tabular}
+
+\section{Notations diverses}
+\noindent 
+\begin{tabular}{|p{0.35\linewidth}|p{0.23\linewidth}|p{0.34\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\numPiece{1}! & \numPiece{1} & Numéro de pièce
+\\\hline
+  \verb!\np{1}! & \np{1} & Numéro de pièce \UPSTIrac
+\\\hline
+  \verb!\npm{S_1}! & \npm{S_1} & Numéro de pièce (en mode math)
+\\\hline
+  \verb!\solide{1}! & \solide{1} & Numéro de solide
+\\\hline
+  \verb!\ensMat{1}! & \ensMat{1} & Ensemble matériel
+\\\hline
+  \verb!\ensSolides{1,2,3}! & \ensSolides{1,2,3} & Ensemble de solides
+\\\hline\hline
+  \verb!\cste! & \cste & Constante
+\\\hline
+  \verb!\AN! & \AN & Application numérique
+\\\hline\hline
+  \verb!\ext! & \ext & Extérieur
+\\\hline
+  \verb!\inter! & \inter & Intérieur
+\\\hline
+  \verb!\mot! & \mot & Moteur
+\\\hline
+  \verb!\atm! & \atm & Atmosphérique
+\\\hline
+  \verb!\pes! & \pes & Pesanteur
+\\\hline\hline
+  \verb!\maxi! & \maxi & Maximum
+\\\hline
+  \verb!\mini! & \mini & Minimum
+\\\hline
+  \verb!\moy! & \moy & Moyenne
+\\\hline\hline
+  \verb!\dl!, \verb!\dS!, \verb!\dV!, \verb!\dtau!, \verb!\dm! & \dl, \dS, \dV, \dtau, \dm & Petits éléments
+\\\hline
+\end{tabular}
+
+\section{Torseurs et tenseurs}
+\subsection{Écriture des torseurs}
+\noindent 
+\begin{tabular}{|p{0.47\linewidth}|p{0.15\linewidth}|p{0.30\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\torseur{X}! & \torseur{X} & Torseur
+\\\hline
+  \verb!\torseurLigne{A}{X}{Y}! & \torseurLigne{A}{X}{Y} & Torseur en ligne
+\\\hline
+  \verb!\tLigne{A}{X}{Y}! & \tLigne{A}{X_A}{Y} & Torseur en ligne \UPSTIrac
+\\\hline
+  \verb!\tLigne[l]{A}{X}{Y}! & \tLigne[l]{A}{X_A}{Y} & idem (alignement à gauche)
+\\\hline
+  \verb!\torseurColonne{A}{X\\Y\\Z}{L\\M\\N}{b}! & \torseurColonne{A}{X\\Y\\Z}{L\\M\\N}{b} & Torseur en colonne
+\\\hline
+  \verb!\tColonne{A}{X\\Y\\Z}{L\\M\\N}{b}! & \tColonne{A}{X_A\\Y_A\\Z}{L\\M\\N}{b} & Torseur en colonne \UPSTIrac
+\\\hline
+  \verb!\tColonne[l]{A}{X\\Y\\Z}{L\\M\\N}{b}! & \tColonne[l]{A}{X_A\\Y_A\\Z}{L\\M\\N}{b} & idem (alignement à gauche)
+\\\hline
+  \verb!\tNul! & \tNul & Torseur nul
+\\\hline
+\end{tabular}
+
+\subsection{Écriture des tenseurs}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\tenseur{I}! & \tenseur{I} & Tenseur
+\\\hline
+\end{tabular}
+
+\subsection{Éléments de réduction}
+\noindent 
+\begin{tabular}{|p{0.5\linewidth}|p{0.15\linewidth}|p{0.27\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\ResSymbole! & \ResSymbole & Symbole de la résultante
+\\\hline
+  \verb!\MomSymbole! & \MomSymbole & Symbole du moment
+\\\hline
+  \verb!\resultante{\torseur{T}}! & \resultante{\torseur{T}} & Résultante d'un torseur
+\\\hline
+  \verb!\Res{\torseur{T}}! & \Res{\torseur{T}} & Résultante d'un torseur \UPSTIrac
+\\\hline
+  \verb!\moment{A}{\torseur{T}}! & \moment{A}{\torseur{T}} & Moment d'un torseur
+\\\hline
+  \verb!\Mom{A}{\torseur{T}}! & \Mom{A}{\torseur{T}} & Moment d'un torseur \UPSTIrac
+\\\hline
+  \verb!\elementsReduction{\torseur{T}}{A}{R}{M}! & \elementsReduction{\torseur{T}}{A}{R}{M} & Éléments de réduction
+\\\hline
+\end{tabular}
+
+\subsection{Opérateurs}
+\noindent 
+\begin{tabular}{|p{0.52\linewidth}|p{0.17\linewidth}|p{0.23\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\automoment{\torseur{T}}! & \automoment{\torseur{T}} & Automoment
+\\\hline
+  \verb!\axeCentral{\torseur{T}}! & \axeCentral{\torseur{T}} & Axe central
+\\\hline
+  \verb!\comoment{\torseur{T_1}}{\torseur{T_2}}! & \comoment{\torseur{T_1}}{\torseur{T_2}} & Comoment
+\\\hline
+  \verb!\devComoment{A}{\torseur{T_1}}{\torseur{T_2}}! & \devComoment{A}{\torseur{T_1}}{\torseur{T_2}} & Comoment développé
+\\\hline
+\end{tabular}
+
+\section{Notations mathématiques de base}
+\subsection{Fonctions}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\fonction{f}{t}! & \fonction{f}{t} & Fonction
+\\\hline
+  \verb!\atan{x}! & \atan{x} & Arctan
+\\\hline\hline
+  \verb!\deriv{f}! & \deriv{f} & Dérivée
+\\\hline
+  \verb!\derivn{f}! & \derivn{f} & Dérivée (variante)
+\\\hline
+  \verb!\deriv{f}[x]! & \deriv{f}[x] & Dérivée (on spécifie la variable)
+\\\hline
+  \verb!\deriv[2]{f}! & \deriv[2]{f} & Dérivée (avec ordre)
+\\\hline
+  \verb!\deriv[2]{f}[x]! & \deriv[2]{f}[x] & Avec tous les arguments...
+\\\hline
+\end{tabular}
+
+\vspace{1em}
+Pour toutes les variantes suivantes, on peut aussi utiliser un premier argument facultatif pour l'ordre de la dérivée, et un dernier pour spécifier la variable... ex: \verb!\derivV[2]{\vF}{R}[x]!
+\vspace{1em}
+
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\derivP{f}! & \derivP{f} & Dérivée partielle
+\\\hline
+  \verb!\derivPn{f}! & \derivPn{f} & Idem, mais avec affichage réduit
+\\\hline
+  \verb!\derivV{\vF}{R}! & \derivV{\vF}{R} & Dérivée vectorielle
+\\\hline
+  \verb!\derivVn{\vF}{R}! & \derivVn{\vF}{R} & Idem, mais avec affichage réduit
+\\\hline
+  \verb!\derivVl{\vF}{R}! & \derivVl{\vF}{R} & Variante de la dérivée vectorielle
+\\\hline
+  \verb!\derivVln{\vF}{R}! & \derivVln{\vF}{R} & Idem, mais avec affichage réduit
+\\\hline
+\end{tabular}
+
+
+\subsection{Ensembles}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\R! & \R & Nombre réel
+\\\hline
+  \verb!\couple{A}{B}! & \couple{A}{B} & Couple
+\\\hline
+  \verb!\triplet{A}{B}{C}! & \triplet{A}{B}{C} & Triplet
+\\\hline
+  \verb!\quadruplet{A}{B}{C}{D}! & \quadruplet{A}{B}{C}{D} & Quadruplet
+\\\hline
+\end{tabular}
+
+\subsection{Géométrie}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\segment{AB}! & \segment{AB} & Segment
+\\\hline
+  \verb!\droite{AB}! & \droite{AB} & Droite
+\\\hline
+  \verb!\arc{AB}! & \arc{AB} & Arc
+\\\hline
+  \verb!\angle{ABC}! & \angle{ABC} & Angle
+\\\hline
+  \verb!\axe{A}{\vx{}}! & \axe{A}{\vx{}} & Axe
+\\\hline
+  \verb!\plan{1}! & \plan{1} & Plan
+\\\hline
+\end{tabular}
+
+\subsection{Complexes}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\complexe{a}! & \complexe{a} & Grandeur complexe
+\\\hline
+  \verb!\zmod{a}! & \zmod{a} & Module
+\\\hline
+  \verb!\zmod{a}[(\jw)]! & \zmod{a}[(\jw)] & Module (avec texte supp.)
+\\\hline
+  \verb!\zarg{a}! & \zarg{a} & Argument
+\\\hline
+  \verb!\zarg{a}[(\jw)]! & \zarg{a}[(\jw)] & Argument (avec texte supp.)
+\\\hline
+  \verb!\zargn{a}! & \zargn{a} & Argument (variante)
+\\\hline
+\end{tabular}
+
+\subsection{Bases}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\bB{}! & \bB{} & Base vectorielle (notation)
+\\\hline
+  \verb!\bB{1}! & \bB{1} & Base vectorielle (avec indice)
+\\\hline
+  \verb!\base{\vx1}{\vy1}{\vz1}! & \base{\vx1}{\vy1}{\vz1} & Base vectorielle
+\\\hline
+  \verb!\bxyz! & \bxyz & Base préfabriquée
+\\\hline
+  \verb!\buvw! & \buvw & Base préfabriquée
+\\\hline
+\end{tabular}
+
+\subsection{Référentiels}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\referentiel{}! & \referentiel{} & Référentiel (notation)
+\\\hline
+  \verb!\referentiel{1}! & \referentiel{1} & Référentiel
+\\\hline
+\end{tabular}
+
+\subsection{Repères}
+\noindent 
+\begin{tabular}{|p{0.45\linewidth}|p{0.22\linewidth}|p{0.25\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\rR{}! & \rR{} & Repère (notation)
+\\\hline
+  \verb!\rR{1}! & \rR{1} & Repère (avec indice)
+\\\hline
+  \verb!\repere{O}{\vx1}{\vy1}{\vz1}! & \repere{O}{\vx1}{\vy1}{\vz1} & Repère
+\\\hline
+  \verb!\repere[\rR{1}]{O}{\vx1}{\vy1}{\vz1}! & \repere[\rR{1}]{O}{\vx1}{\vy1}{\vz1} & Idem avec nom
+\\\hline
+  \verb!\rOuvw! & \rOuvw & Repère préfabriqué
+\\\hline
+  \verb!\rROxyz! & \rROxyz & Repère préfabriqué
+\\\hline
+  \verb!\rOuvw! & \rOuvw & Repère préfabriqué
+\\\hline
+\end{tabular}
+
+\subsection{Opérateurs}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\scalaire! & \scalaire & Produit scalaire
+\\\hline
+  \verb!\scal! & \scal & Produit scalaire \UPSTIrac
+\\\hline
+  \verb!\vectoriel! & \vectoriel & Produit vectoriel
+\\\hline
+  \verb!\vect! & \vect & Produit vectoriel \UPSTIrac
+\\\hline
+  \verb!\abs{x}! & \abs{x} & Valeur absolue 
+\\\hline
+  \verb!\norme{\vF}! & \norme{\vF} & Norme
+\\\hline
+  \verb!\prodMixte{X}{Y}{Z}! & \prodMixte{X}{Y}{Z} & Produit mixte
+\\\hline
+  \verb!\doubleProdVect{X}{Y}{Z}! & \doubleProdVect{X}{Y}{Z} & Double produit vectoriel
+\\\hline
+\end{tabular}
+
+\subsection{Vecteurs}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\vecteur{u}! & \vecteur{u} & Vecteur
+\\\hline
+  \verb!\vecteur{u}[1]! & \vecteur{u}[1] & Vecteur avec indice
+\\\hline
+  \verb!\bipoint{A}{B}! & \bipoint{A}{B} & Bipoint
+\\\hline
+  \verb!\vLie{A}{\vu{}}! & \vLie{A}{\vu{}} & Vecteur lié
+\\\hline
+  \verb!\vColonne{X \\ Y \\ Z}! & \vColonne{X \\ Y \\ Z} & Vecteur en colonne
+\\\hline
+  \verb!\vColonne{X+X' \\ Y \\ Z}[\bB{}]! & \vColonne{X+X' \\ Y \\ Z}[\bB{}] & Idem, avec base spécifiée
+\\\hline
+  \verb!\vColonne[l]{X+X' \\ Y \\ Z}! & \vColonne[l]{X+X' \\ Y \\ Z} & Idem, mais le 1\ier{} paramètre gère l'alignement horizontal ($l$, $r$ ou $c$, $c$ par défaut)
+\\\hline
+\end{tabular}
+
+\subsection{Vecteurs pré-fabriqués}
+\noindent 
+\begin{tabular}{|p{0.5\linewidth}|p{0.15\linewidth}|p{0.27\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\vNul! & \vNul & Vecteur nul
+\\\hline\hline
+  \verb!\ve{}! & \ve{} &
+\\\hline
+  \verb!\vex!, \verb!\vey!, \verb!\vez! & \vex, \vey, \vez & 
+\\\hline
+  \verb!\ve{1}! ou \verb!\ve1! & \ve{1} & 
+\\\hline\hline
+  \verb!\ver! & \ver & 
+\\\hline
+  \verb!\vetheta! & \vetheta & 
+\\\hline\hline
+  \verb!\vx{}!, \verb!\vy{}!, \verb!\vz{}! & \vx{}, \vy{}, \vz{} & 
+\\\hline
+  \verb!\vx{1}! ou \verb!\vx1! & \vx1 & 
+\\\hline
+  \verb!\vy{1}! ou \verb!\vy1! & \vy1 & 
+\\\hline
+  \verb!\vz{1}! ou \verb!\vz1! & \vz1 & 
+\\\hline\hline
+  \verb!\vu{}!, \verb!\vv{}!, \verb!\vw{}! & \vu{}, \vv{}, \vw{} & 
+\\\hline
+  \verb!\vu{1}! ou \verb!\vu1! & \vu1 & 
+\\\hline
+  \verb!\vv{1}! ou \verb!\vv1! & \vv1 & 
+\\\hline
+  \verb!\vw{1}! ou \verb!\vw1! & \vw1 & 
+\\\hline\hline
+  \verb!\vn{}! & \vn{} & 
+\\\hline
+  \verb!\vn{1}! ou \verb!\vn1! & \vn1 & 
+\\\hline\hline
+  \verb!\vOM!, \verb!\vOG!, \verb!\vOP!, \verb!\vAB!, \verb!\vBA!, \verb!\vOA!, \verb!\vOB!,  & \vOM, \vOG, \vOP, \vAB, \vBA, \vOA, \vOB & Vecteurs préfabriqués
+\\\hline
+\end{tabular}
+
+\subsection{Divers}
+\noindent 
+\begin{tabular}{|p{0.4\linewidth}|p{0.15\linewidth}|p{0.37\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\indiceGauche{i}{R}! & \indiceGauche{i}{R} & Indice gauche
+\\\hline
+  \verb!\exposantGauche{i}{R}! & \exposantGauche{i}{R} & Exposant gauche
+\\\hline
+  \verb!\transposee{M}! & \transposee{M} & Transposée
+\\\hline
+  \verb!\ofrac{A}{B}! & \ofrac{A}{B} & Fraction (barre oblique)
+\\\hline
+  \verb!\parallele! & \parallele & Parallèle
+\\\hline
+  \verb!\pdix{2}! & \pdix{2} & Puissance de 10
+\\\hline
+  \verb!\condition{X(p)}{A=0}! & \condition{X(p)}{A=0} & Condition
+\\\hline
+\end{tabular}
+
+\section{Formules et théorèmes}
+\subsection{Cinématique}
+\begin{itemize}
+\item Formule de Bour (dérivation vectorielle): \verb!\Bour{\vu{}}{R_1}{R_2}!
+\[ \Bour{\vu{}}{R_1}{R_2}\]
+\item Formule de Bour (avec underbrace): \verb!\Bour{\vu{}}{R_1}{R_2}[\vNul]!
+\[ \Bour{\vu{}}{R_1}{R_2}[\vNul]\]
+\item Transport du moment cinématique: \verb!\changePtMomCinematique{1}{2}{B}{A}!
+\[ \changePtMomCinematique{1}{2}{B}{A} \]
+\item Transport du moment cinématique (avec underbrace): \verb!\changePtMomCinematique{1}{2}{B}{A}[\vNul]!
+\[ \changePtMomCinematique{1}{2}{B}{A}[\vNul] \]
+\item Formule de transport du moment cinématique (Varignon): \verb!\Varignon{1}{2}{B}{A}! ou \\ \verb!\babarCinematique{1}{2}{B}{A}!
+\[ \Varignon{1}{2}{B}{A} \]
+\item Formule de transport du moment cinématique (avec underbrace): \verb!\Varignon{1}{2}{B}{A}[\vNul]! ou \verb!\babarCinematique{1}{2}{B}{A}[\vNul]!
+\[ \Varignon{1}{2}{B}{A}[\vNul] \]
+\item Formule du champ des accélérations: \verb!\champAccelerations{1}{2}{B}{A}!
+\[ \champAccelerations{1}{2}{B}{A} \]
+\end{itemize}
+
+\subsection{Statique}
+\begin{itemize}
+\item Principe fondamental de la statique (eq. torsorielle): \verb!\PFS{1}! ou \verb!\PFS{1}[A]! (en spécifiant le point)
+\[ \PFS{1} \qquad \text{ou} \qquad \PFS{1}[A] \]
+\item Théorème de la résultante statique: \verb!\thResStatique{1}!
+\[ \thResStatique{1} \]
+\item Théorème du moment statique: \verb!\thMomStatique{1}{A}!
+\[ \thMomStatique{1}{A} \]
+\item Transport du moment: \verb!\changePtMomAM{1}{2}{B}{A}!
+\[ \changePtMomAM{1}{2}{B}{A} \]
+\item Transport du moment (avec underbrace): \verb!\changePtMomAM{1}{2}{B}{A}[\vNul]!
+\[ \changePtMomAM{1}{2}{B}{A}[\vNul] \]
+\item Formule de transport de moment (BABAR): \verb!\babarAM{1}{2}{B}{A}!
+\[ \babarAM{1}{2}{B}{A} \]
+\item Formule de transport de moment (avec underbrace): \verb!\babarAM{1}{2}{B}{A}[\vNul]!
+\[ \babarAM{1}{2}{B}{A}[\vNul] \]
+\end{itemize}
+
+\subsection{Cinétique, dynamique, énergétique}
+\begin{itemize}
+\item Principe fondamental de la dynamique (eq. torsorielle): \verb!\PFD{1}{\rR{g}}! ou \verb!\PFD{1}{\rR{g}}[A]! (en spécifiant le point)
+\[ \PFD{1}{\rR{g}} \qquad \text{ou} \qquad \PFD{1}{\rR{g}}[A] \]
+\item Théorème de la résultante dynamique: \verb!\thResDynamique{1}{\rR{g}}!. On peut aussi préciser la masse: \verb!\thResDynamique{1}{\rR{g}}[m_1]! 
+\[ \thResDynamique{1}{\rR{g}} \qquad \text{ou} \qquad \thResDynamique{1}{\rR{g}}[m_1] \]
+\item Théorème du moment dynamique: \verb!\thMomDynamique{1}{\rR{g}}{A}!
+\[ \thMomDynamique{1}{\rR{g}}{A} \]
+\item Transport du moment cinétique: 
+\begin{itemize}
+\item \verb!\changePtMomCinetique{1}{2}{B}{A}!: $\changePtMomCinetique{1}{2}{B}{A}$
+\item Masse: \verb!\changePtMomCinetique{1}{2}{B}{A}[m_1]!: $\changePtMomCinetique{1}{2}{B}{A}[m_1]$
+\item Point: \verb!\changePtMomCinetique{1}{2}{B}{A}[m_1][G_1]!: $\changePtMomCinetique{1}{2}{B}{A}[m_1][G_1]$
+\item Underbrace: \verb!\changePtMomCinetique{1}{2}{B}{A}[m_1][G_1][\vNul]!: $\changePtMomCinetique{1}{2}{B}{A}[m_1][G_1][\vNul]$
+\end{itemize}
+
+\vspace{1em}
+\item Formule de transport de moment cinétique: 
+\begin{itemize}
+\item \verb!\babarCinetique{1}{2}{B}{A}!: $\babarCinetique{1}{2}{B}{A}$
+\item Masse: \verb!\babarCinetique{1}{2}{B}{A}[m_1]!: $\babarCinetique{1}{2}{B}{A}[m_1]$
+\item Point: \verb!\babarCinetique{1}{2}{B}{A}[m_1][G_1]!: $\babarCinetique{1}{2}{B}{A}[m_1][G_1]$
+\item Underbrace: \verb!\babarCinetique{1}{2}{B}{A}[m_1][G_1][\vNul]!: $\babarCinetique{1}{2}{B}{A}[m_1][G_1][\vNul]$
+\end{itemize}
+
+\vspace{1em}
+\item Transport de moment dynamique: 
+\begin{itemize}
+\item \verb!\changePtMomDynamique{1}{2}{B}{A}!: $\changePtMomDynamique{1}{2}{B}{A}$
+\item Masse: \verb!\changePtMomDynamique{1}{2}{B}{A}[m_1]!: $\changePtMomDynamique{1}{2}{B}{A}[m_1]$
+\item Point: \verb!\changePtMomDynamique{1}{2}{B}{A}[m_1][G_1]!: $\changePtMomDynamique{1}{2}{B}{A}[m_1][G_1]$
+\item Underbrace: \verb!\changePtMomDynamique{1}{2}{B}{A}[m_1][G_1][\vNul]!: $\changePtMomDynamique{1}{2}{B}{A}[m_1][G_1][\vNul]$
+\end{itemize}
+
+\vspace{1em}
+\item Formule de transport de moment dynamique: 
+\begin{itemize}
+\item \verb!\babarDynamique{1}{2}{B}{A}!: $\babarDynamique{1}{2}{B}{A}$
+\item Masse: \verb!\babarDynamique{1}{2}{B}{A}[m_1]!: $\babarDynamique{1}{2}{B}{A}[m_1]$
+\item Point: \verb!\babarDynamique{1}{2}{B}{A}[m_1][G_1]!: $\babarDynamique{1}{2}{B}{A}[m_1][G_1]$
+\item Underbrace: \verb!\babarDynamique{1}{2}{B}{A}[m_1][G_1][\vNul]!: $\babarDynamique{1}{2}{B}{A}[m_1][G_1][\vNul]$
+\end{itemize}
+
+\vspace{1em}
+\item Théorème de Huygens: \verb!\thHuygens!
+\[ \thHuygens \]
+\item Théorème de Huygens (cas particulier): \verb!\thHuygens[A][S][m_s][][b][c]!
+\[ \thHuygens[A][S][m_s][][b][c] \]
+\item Théorème de l'énergie cinétique: \verb!\thEnergieCinetique{S_1}{\rR{g}}!
+\[ \thEnergieCinetique{S_1}{\rR{g}} \]
+\item Théorème de l'énergie cinétique (simplifié): \verb!\thEnergieCinetiqueSimple!
+\[ \thEnergieCinetiqueSimple \]
+\end{itemize}
+
+\subsection{Trains épicycloïdaux}
+\begin{itemize}
+\item Terme \og{}de gauche\fg{} de la formule de Willis: \verb!\WillisTGauche!
+\[ \WillisTGauche \]
+\item Idem, en précisant les indices: \verb!\WillisTGauche[1][2][3][0]!
+\[ \WillisTGauche[1][2][3][0] \]
+\item Formule de Willis: \verb!\Willis!
+\[ \Willis \]
+\item Idem, en précisant les indices: \verb!\Willis[1][2][3][0][\lambda_1]!
+\[ \Willis[1][2][3][0][\lambda_1] \]
+\item Formule de Willis linéarisée (Ravignaux): \verb!\Ravignaux!
+\[ \Ravignaux \]
+\item Idem, en précisant les indices: \verb!\Ravignaux[1][2][3][0][\lambda_1]!
+\[ \Ravignaux [1][2][3][0][\lambda_1] \]
+\end{itemize}
+
+\section{Tikz}
+\subsection{Grille}
+Pour créer des dessins Tikz, on peut utiliser une grille prédéfinie pour aider au positionnement des différents éléments. Il suffit d'utiliser la commande \verb!\tikzGrid! qui donne:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+\tikzGrid
+\begin{scope}[xshift=8cm]
+\tikzGrid[2]
+\node[align=center] at (0,-3.6) {\verb!\tikzGrid[2]!};
+\end{scope}
+\begin{scope}[xshift=15cm]
+\tikzGrid[3][1]
+\node[align=center] at (0,-3.6) {\verb!\tikzGrid[3][1]!};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+Si on fixe le deuxième paramètre facultatif à 1, alors \verb!\tikzGrid! trace une quadrillage plus fin.
+
+\subsection{Styles divers}
+\noindent Trait mixte: \verb!\traitMixte!
+
+\verb!\begin{tikzpicture}!
+
+\verb!\defTraitMixte!
+
+\verb!\draw[traitMixte] (0,0) -- (3,0);!
+
+\verb!\end{tikzpicture}!
+
+\begin{tikzpicture}
+\defTraitMixte
+\draw[traitMixte] (0,0) -- (3,0);
+\end{tikzpicture}
+
+
+
+\section{Bases, repères et figures planes}
+\subsection{Bases et repères}
+\noindent 
+\begin{tabular}{|p{0.5\linewidth}|p{0.15\linewidth}|p{0.27\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\dessinRepere! & \dessinRepere & Base standard
+\\\hline
+  \verb!\dessinRepere[\vu{}][\vv{}][\vw{}]! & \dessinRepere[\vu{}][\vv{}][\vw{}] & Idem, avec changement d'axes
+\\\hline
+  \verb!\dessinRepere[\vu{}][\vv{}][\vw{}][O]! & \dessinRepere[\vu{}][\vv{}][\vw{}][O] & Idem, mais avec un centre de repère
+\\\hline
+  \verb!\dessinRepere[\vu{}][\vw{}][\vv{}][][1]! & \dessinRepere[\vu{}][\vw{}][\vv{}][][1] & Idem, mais indirecte (on donne un 5\ieme{} argument non nul)
+\\\hline
+\end{tabular}
+
+\subsection{Bases et repères (3D)}
+\noindent 
+\begin{tabular}{|p{0.45\linewidth}|p{0.25\linewidth}|p{0.22\linewidth}|} \hline
+  \textbf{Commandes}&\textbf{Rendus}&\textbf{Commentaires}
+\\\hline\hline
+  \verb!\dessinRepereTri! & \dessinRepereTri & Repère en 3D
+\\\hline
+  \verb!\dessinRepereTri[\vy0][\vz0][\vx0][O]! & \dessinRepereTri[\vy0][\vz0][\vx0][O] & Idem, en spécifiant les axes
+\\\hline
+  \verb!\dessinRepereIso! & \dessinRepereIso & Repère en 3D isométrique
+\\\hline
+  \verb!\dessinRepereIso[\vy0][\vz0][\vx0][O]! & \dessinRepereIso[\vy0][\vz0][\vx0][O] & Idem, en spécifiant les axes
+\\\hline
+\end{tabular}
+
+\vspace{1em}
+On peut aussi utiliser les commandes \verb!\dessinRepereTriFig! et \verb!\dessinRepereIsoFig! (avec les mêmes paramètres) pour insérer ces figures dans un dessin Tikz.
+
+\subsection{Figures planes}
+\subsubsection{Principe}
+\noindent On utilise la commande \verb!\parametrageAngulaire! avec les paramètres suivants: 
+\begin{itemize}
+\item \verb!{1}!: Nom de l'angle,
+\item \verb![2]!: (Opt) Valeur de l'angle,
+\item \verb!{3}!, \verb!{4}!, \verb!{5}!: axes de la première base,
+\item \verb!{6}!, \verb!{7}!, \verb![8]!: axes de la base 2 (le 3\ieme{} est optionnel),
+\item \verb![9]!: (Opt) Orientation de l'axe normal au plan (=1 si vers le plan).
+\end{itemize}
+
+\vspace{1em}
+\noindent La couleur par défaut est noire, mais on peut spécifier les couleurs des 2 bases en utilisant la commande suivante (juste avant \verb!\parametrageAngulaire!): \verb!\setCouleursParametrage{couleur1}{couleur2}!.
+
+\noindent Si on veut afficher un paramétrage angulaire au sein d'une figure tikz, il faudra plutôt utiliser la commande \verb!\parametrageAngulaireFig!.
+
+\subsubsection{Exemples}
+\begin{itemize}
+\item Exemple de base: \\ \verb!\parametrageAngulaire{\alpha}{\vx{}}{\vy{}}{\vz{}}{\vx1}{\vy1}!
+\[ \parametrageAngulaire{\alpha}{\vx{}}{\vy{}}{\vz{}}{\vx1}{\vy1} \]
+\item Exemple complet: \\ \verb!\parametrageAngulaire{\alpha}[35]{\vx{}}{\vz{}}{\vy{}}{\vx1}{\vz1}[\vy1][1]!
+\[ \parametrageAngulaire{\alpha}[35]{\vx{}}{\vz{}}{\vy{}}{\vx1}{\vz1}[\vy1][1] \]
+\item Avec gestion des couleurs: \\ \verb!\setCouleursParametrage{blue}{red}!\\ \verb!\parametrageAngulaire{\alpha}{\vx{}}{\vy{}}{\vz{}}{\vx1}{\vy1}!
+\[\setCouleursParametrage{blue}{red}\parametrageAngulaire{\alpha}{\vx{}}{\vy{}}{\vz{}}{\vx1}{\vy1}\]
+\end{itemize}
+
+\subsection{Figures planes multiples}
+\subsubsection{Principe}
+\noindent On utilise en premier lieu la commande \verb!\setFigurePlaneMultipleBase! 3 ou 4 fois (si on veut afficher 3 ou 4 bases sur la même figure) avec les paramètres suivants: 
+\begin{itemize}
+\item \verb![1]!: (Opt) Couleur de la base,
+\item \verb!{2}!: Nom de l'angle,
+\item \verb![3]!: (Opt) Base de référence pour l'angle,
+\item \verb!{4}!, \verb!{5}!, \verb![6]!: axes de la base.
+\end{itemize}
+
+\vspace{1em}
+\noindent Ensuite, on utilise la commande \verb!\figurePlaneMultiple! pour afficher la figure,  avec les paramètres suivants: 
+\begin{itemize}
+\item \verb![1]!: (Opt) Nombre de bases à afficher (3 ou 4, 3 par défaut);
+\item \verb![2]!: (Opt) Mettre cette valeur à 1 pour afficher l'égalité entre tous les vecteurs $\vz{i}$.
+\end{itemize}
+
+\noindent Si on veut afficher un paramétrage angulaire au sein d'une figure tikz, il faudra plutôt utiliser la commande \verb!\figurePlaneMultipleFig!.
+
+\subsubsection{Exemples}
+\begin{itemize}
+\item Exemple par défaut: \\ \verb!\figurePlaneMultiple!
+\[ \figurePlaneMultiple \]
+\item Exemple complet: \\ 
+\verb!\setFigurePlaneMultipleBase0[black]{}{\vx0}{\vy0}{\vz0}!\\
+\verb!\setFigurePlaneMultipleBase1[blue]{\alpha}{\vx{g}}{\vy{g}}{\vz{g}}!\\
+\verb!\setFigurePlaneMultipleBase2[red]{\beta}{\vx{g'}}{\vy{g'}}{\vz{g'}}!\\
+\verb!\setFigurePlaneMultipleBase3[orange]{\varphi}{\vx3}{\vy3}{\vz3}!\\
+\verb!\figurePlaneMultiple[4]!\\
+\setFigurePlaneMultipleBase0[black]{}{\vx0}{\vy0}{\vz0}
+\setFigurePlaneMultipleBase1[blue]{\alpha}{\vx{g}}{\vy{g}}{\vz{g}}
+\setFigurePlaneMultipleBase2[red]{\beta}{\vx{g'}}{\vy{g'}}{\vz{g'}}
+\setFigurePlaneMultipleBase3[orange]{\varphi}{\vx3}{\vy3}{\vz3}
+\[ \figurePlaneMultiple[4] \]
+\item Variante: \\ 
+\verb!\setFigurePlaneMultipleBase0[black]{}{\vx0}{\vy0}{\vz0}!\\
+\verb!\setFigurePlaneMultipleBase1[ForestGreen]{\alpha}{\vx{g}}{\vy{g}}{\vz{g}}!\\
+\verb!\setFigurePlaneMultipleBase2[cyan]{\beta}[1]{\vx{g'}}{\vy{g'}}{\vz{g'}}!\\
+\verb!\setFigurePlaneMultipleBase3[purple]{\varphi}[2]{\vx3}{\vy3}{\vz3}!\\
+\verb!\figurePlaneMultiple[4][1]!\\
+\setFigurePlaneMultipleBase0[black]{}{\vx0}{\vy0}{\vz0}
+\setFigurePlaneMultipleBase1[ForestGreen]{\alpha}{\vx{g}}{\vy{g}}{\vz{g}}
+\setFigurePlaneMultipleBase2[cyan]{\beta}[1]{\vx{g'}}{\vy{g'}}{\vz{g'}}
+\setFigurePlaneMultipleBase3[purple]{\varphi}[2]{\vx3}{\vy3}{\vz3}
+\[ \figurePlaneMultiple[4][1] \]
+\end{itemize}
+
+\section{Graphe des liaisons}
+\subsection{Principe}
+L'idée est de définir un environnement personnalisé simplifiant la création de graphes des liaisons. Il faut commencer par repérer la position des différentes pièces, puis utiliser les commandes suivantes:
+
+\vspace{1em}
+\begin{itemize}
+\item \verb!\glConfig[1][2]!: Configuration pour l'affichage du graphe des liaisons
+\begin{itemize}
+\item \verb![1]!: style des liaisons
+\item \verb![2]!: style des pièces
+\end{itemize}
+\item \verb!\glPiece{1}{2}{3}[4]!: Pièce, avec comme paramètres:
+\begin{itemize}
+\item \verb!{1}!: coordonnées de la pièce (ex: \verb!{0,0}!)
+\item \verb!{2}!: nom du nœud (node)
+\item \verb!{3}!: numéro de la pièce
+\item \verb![4]!: style Tikz (optionnel)
+\end{itemize}
+\item \verb!\glBati[1]{2}{3}{4}[5][6]!: Bâti:
+\begin{itemize}
+\item \verb![1]!: orientation en degrés
+\item \verb!{2}!: coordonnées de la pièce (ex: \verb!{0,0}!)
+\item \verb!{3}!: nom du nœud (node)
+\item \verb!{4}!: numéro de la pièce
+\item \verb![5]!: scale
+\item \verb![6]!: style Tikz (optionnel)
+\end{itemize}
+\item \verb!\glLiaison[1][2]{3}[4][5][6]!: Liaison, avec comme paramètres:
+\begin{itemize}
+\item \verb![1]!: Courbure du trait de liaison (habituellement: \verb!bend left! ou \verb!bend right!) (optionnel)
+\item \verb![2]!: Style du trait de liaison (couleur, pointillés...) (optionnel)
+\item \verb!{3}!: nom du nœud 1
+\item \verb!{4}!: nom du nœud 2
+\item \verb![5]!: Texte (optionnel)
+\item \verb![5]!: Style et position du texte (\verb!right!, \verb!below!, \verb!above left! ...) (optionnel)
+\end{itemize}
+%\item \verb!\glDeuxL[1]{2}{3}!: Mini-tableau pour écrire les liaisons sur 2 lignes
+%\begin{itemize}
+%\item \verb![1]!: alignement (défaut: centré \verb!c!)
+%\item \verb!{2}!: ligne 1
+%\item \verb!{3}!: ligne 2
+%\end{itemize}
+\end{itemize}
+
+\subsection{Exemple}
+\noindent
+\verb!\begin{grapheLiaisons}[scale=0.55]!\\
+\indent\verb!\glBati{0,1}{P0}{0}[1.5]!\\
+\indent\verb!\glPiece{-5,5}{P1}{1}!\\
+\indent\verb!\glPiece{0,9}{P2}{2}!\\
+\indent\verb!\glPiece{5,5}{P3}{3}!\\
+\indent\verb!\glLiaison[bend left]{P0}{P1}[Gliss.\\ axe \axe{A}{\vz{}}][left=1em, align=center]!\\
+\indent\verb!\glLiaison[bend right]{P0}{P3}[Pct][right]!\\
+\indent\verb!\glLiaison[bend left]{P1}{P2}[Piv.\\axe \axe{K}{\vx{}}][left=1em, align=center]!\\
+\indent\verb!\glLiaison[bend left=10]{P1}{P3}[Rot.\\ centre $C'$][above, align=center]!\\
+\indent\verb!\glLiaison[bend right=10]{P1}{P3}[LA \axe{C}{\vy{}}][below]!\\
+\indent\verb!\glLiaison[bend left]{P2}{P3}[Pct][right]!\\
+\verb!\end{grapheLiaisons}!
+
+\begin{center}
+\begin{grapheLiaisons}[scale=0.55]
+\glBati{0,1}{P0}{0}[1.5]
+\glPiece{-5,5}{P1}{1}
+\glPiece{0,9}{P2}{2}
+\glPiece{5,5}{P3}{3}
+\glLiaison[bend left]{P0}{P1}[Gliss.\\ axe \axe{A}{\vz{}}][left=1em, align=center]
+\glLiaison[bend right]{P0}{P3}[Pct][right]
+\glLiaison[bend left]{P1}{P2}[Piv.\\axe \axe{K}{\vx{}}][left=1em, align=center]
+\glLiaison[bend left=10]{P1}{P3}[Rot.\\ centre $C'$][above, align=center]
+\glLiaison[bend right=10]{P1}{P3}[LA \axe{C}{\vy{}}][below]
+\glLiaison[bend left]{P2}{P3}[Pct][right]
+\end{grapheLiaisons}
+\end{center}
+
+\section{Diagrammes des efforts intérieurs}
+\subsection{Principe}
+Pour tracer les diagrammes d'efforts intérieurs, on pourra utiliser les commandes suivantes:
+
+\vspace{1em}
+\begin{itemize}
+\item \verb!\PoutreEncastrement{1}{2}[3][4]!: Liaison encastrement
+\begin{itemize}
+\item \verb!{1}!: Position $x$
+\item \verb!{2}!: Position $y$
+\item \verb![3]!: (Opt) Orientation (en degrés)
+\item \verb![4]!: (Opt) Scale
+\end{itemize}
+
+\vspace{1em}
+\item \verb!\PoutreAppuiSimple{1}{2}[3][4]!: Appui simple
+\begin{itemize}
+\item \verb!{1}!: Position $x$
+\item \verb!{2}!: Position $y$
+\item \verb![3]!: (Opt) Orientation (en degrés)
+\item \verb![4]!: (Opt) Scale
+\end{itemize}
+
+\vspace{1em}
+\item \verb!\PoutreRotule{1}{2}[3][4]!: Rotule
+\begin{itemize}
+\item \verb!{1}!: Position $x$
+\item \verb!{2}!: Position $y$
+\item \verb![3]!: (Opt) Orientation (en degrés)
+\item \verb![4]!: (Opt) Scale
+\end{itemize}
+
+\vspace{1em}
+\item \verb!\PoutreBaseLocale{1}{2}[3][4]!: Axes de la base locale
+\begin{itemize}
+\item \verb!{1}!: Position $x$
+\item \verb!{2}!: Position $y$
+\item \verb![3]!: (Opt) Étiquette des abcisses (défaut: $x$)
+\item \verb![4]!: (Opt) Étiquette des ordonnées (défaut: $y$)
+\end{itemize}
+
+\vspace{1em}
+\item \verb!\PoutreCharge{1}{2}{3}[4][5][6][7][8]!: Glisseur
+\begin{itemize}
+\item \verb!{1}!: Position $x$
+\item \verb!{2}!: Position $y$
+\item \verb!{3}!: Nom
+\item \verb![4]!: (Opt) Orientation (en degrés) 
+\item \verb![5]!: (Opt) Inversion (1 si inversé)
+\item \verb![6]!: (Opt) Couleur
+\item \verb![7]!: (Opt) Longueur
+\item \verb![8]!: (Opt) Style du node
+\end{itemize}
+
+\vspace{1em}
+\item \verb!\PoutreChargeRepartie{1}{2}{3}{4}[5][6][7]!: Charge répartie
+\begin{itemize}
+\item \verb!{1}!: Position $x$
+\item \verb!{2}!: Position $y$
+\item \verb!{3}!: Longueur
+\item \verb!{4}!: Nom
+\item \verb![5]!: (Opt) Orientation (en degrés)
+\item \verb![6]!: (Opt) Couleur
+\item \verb![7]!: (Opt) Scale
+\end{itemize}
+
+\vspace{1em}
+\item \verb!\PoutreDiagAxes{1}{2}{3}{4}[5]!: Axes pour les diagrammes
+\begin{itemize}
+\item \verb!{1}!: Nom du diagramme
+\item \verb!{2}!: Position $x$ de la poutre
+\item \verb!{3}!: $y_{min}$
+\item \verb!{4}!: $y_{max}$
+\item \verb![5]!: (Opt) Nom de l'axe des abscisses
+\end{itemize}
+
+\vspace{1em}
+\item \verb!\PoutreDiagCfg[2]!: Configuration des diagrammes
+\begin{itemize}
+\item \verb![1]!: (Opt) Couleur
+\item \verb![2]!: (Opt) Options tikz supplémentaires
+\end{itemize}
+
+\end{itemize}
+
+\subsection{Exemples}
+
+\subsubsection{Poutre encastrée, charge simple}
+\noindent\verb!\begin{tikzpicture}!\\
+\indent\verb!\PoutreEncastrement{0}{0}!\\
+\indent\verb!\PoutreBaseLocale{6.2}{0.7}!\\
+\indent\verb!\draw[line width=2.5pt] (0,0) -- (6,0) node[below right] {$A$};!\\
+\indent\verb!\PoutreCharge{6}{0}{$Q$}!\\
+\indent\verb!\node at (0,0)[left=0.2] {$O$};!\\
+\indent\verb!\draw (0,-0.6) -- (0,-1.1);!\\
+\indent\verb!\draw (6,-0.1) -- (6,-1.1);!\\
+\indent\verb!\draw[<->,>=latex] (0,-0.9) -- (6,-0.9) node [midway, above] {$L$};!\\
+\verb!\end{tikzpicture}!
+
+\begin{center}
+\begin{tikzpicture}
+\PoutreEncastrement{0}{0}
+\PoutreBaseLocale{6.2}{0.7}
+\draw[line width=2.5pt] (0,0) -- (6,0) node[below right] {$A$};
+\PoutreCharge{6}{0}{$Q$}
+\node at (0,0)[left=0.2] {$O$};
+\draw (0,-0.6) -- (0,-1.1);
+\draw (6,-0.1) -- (6,-1.1);
+\draw[<->,>=latex] (0,-0.9) -- (6,-0.9) node [midway, above] {$L$};
+\end{tikzpicture}
+\end{center}
+
+\subsubsection{Exemple avec tracé des diagrammes}
+\noindent\verb!\begin{tikzpicture}!\\
+\indent\verb!% Tracé de la poutre!\\
+\indent\verb!\draw (0,-0.1) -- (0,-1);!\\
+\indent\verb!\PoutreAppuiSimple{0}{0}!\\
+\indent\verb!\PoutreAppuiSimple{4}{0}!\\
+\indent\verb!\PoutreBaseLocale{6.2}{0.6}!\\
+\indent\verb!\PoutreChargeRepartie{0}{0}{6}{$p_0$}!\\
+\indent\verb!\node at (4.3,0)[below right] {$A$};!\\
+\indent\verb!\node at (6,0)[above right] {$B$};!\\
+\indent\verb!\draw[line width=2.5pt] (0,0) -- (6,0);!\\
+\indent\verb!\node at (0,0)[above, left=0.2] {$O$};!\\
+\indent\verb!\draw (4,-0.1) -- (4,-0.7);!\\
+\indent\verb!\draw (0,-0.4) -- (0,-1.3);!\\
+\indent\verb!\draw (6,-0.1) -- (6,-1.3);!\\
+\indent\verb!\draw[<->,>=latex] (0,-0.5) -- (4,-0.5) node [midway, above] {$a$};!\\
+\indent\verb!\draw[<->,>=latex] (0,-1.1) -- (6,-1.1) node [midway, above] {$L$};!\\
+
+\indent\verb!% Diagrammes des efforts intérieurs!\\
+\indent\verb!Voir code source!\\
+\verb!\end{tikzpicture}!
+
+
+\begin{center}
+\begin{tikzpicture}
+% Tracé de la poutre
+\draw (0,-0.1) -- (0,-1);
+\PoutreAppuiSimple{0}{0}
+\PoutreAppuiSimple{4}{0}
+\PoutreBaseLocale{6.2}{0.6}
+\PoutreChargeRepartie{0}{0}{6}{$p_0$}
+\node at (4.3,0)[below right] {$A$};
+\node at (6,0)[above right] {$B$};
+\draw[line width=2.5pt] (0,0) -- (6,0);
+\node at (0,0)[above, left=0.2] {$O$};
+\draw (4,-0.1) -- (4,-0.7);
+\draw (0,-0.4) -- (0,-1.3);
+\draw (6,-0.1) -- (6,-1.3);
+\draw[<->,>=latex] (0,-0.5) -- (4,-0.5) node [midway, above] {$a$};
+\draw[<->,>=latex] (0,-1.1) -- (6,-1.1) node [midway, above] {$L$};
+
+% Diagrammes des efforts intérieurs
+\begin{scope}[yshift=-2.9cm]
+\PoutreDiagCfg[red]
+
+% Diagramme Ty
+\begin{scope}
+\filldraw[diagCourbe] (0,0) -- (0,0.3*1.5) -- plot [smooth,domain=0:4] (\x,{0.3*(1.5-\x)}) -- plot [smooth,domain=4:6] (\x,{0.3*(6-\x)}) -- cycle ;
+\PoutreDiagAxes{$T_y$}{5.5}{-0.9}{1}
+\draw[diagCourbeAcc] plot [smooth,domain=0:4] (\x,{0.3*(1.5-\x)}) -- plot [smooth,domain=4:6] (\x,{0.3*(6-\x)});
+\draw (-0.1,0.3*2) node[left,color=red]{\small{$(L-a)p_0$}} -- (0.1,0.3*2);
+\draw (-0.1,0.3*1.5) node[below left,color=red]{\small{$L\left(1-\frac{L}{2a}\right)p_0$}} -- (0.1,0.3*1.5);
+\draw (-0.1,-0.3*2.5) node[left,color=red]{\small{$\left[L\left(1-\frac{L}{2a}\right)-a\right]p_0$}} -- (0.1,-0.3*2.5);
+\end{scope}
+
+% Diagramme Mfz
+\begin{scope}[yshift=-3cm]
+\filldraw[diagCourbe] plot [smooth,domain=0:4] (\x,{0.4*(1/2*\x^2-3/2*\x)}) -- plot [smooth,domain=4:6] (\x,{0.4*1/2*(6-\x)^2}) -- cycle ;
+\PoutreDiagAxes{\Mfz}{5.5}{-0.6}{1.3}
+\draw[diagCourbeAcc] plot [smooth,domain=0:4] (\x,{0.4*(1/2*\x^2-3/2*\x)}) -- plot [smooth,domain=4:6] (\x,{0.4*1/2*(6-\x)^2});
+\draw (-0.1,0.8) node[left,color=red]{\small{$\frac{p_0}{2}(L-a)^2$}} -- (0.1,0.8);
+\end{scope}
+\end{scope}
+
+
+\end{tikzpicture}
+\end{center}
+
+
+
+
+\end{document}

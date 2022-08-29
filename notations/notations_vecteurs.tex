@@ -8,8 +8,9 @@
 
 %Commandes de base
 %-----------------------------
-\newcommand{\vecteur}[1]	{\ensuremath{	\protect\overrightarrow{#1}}}	%Fait un vecteur
-\newcommand{\vecteurIndice}[2]	{\ifthenelse{\equal{#2}{\ }}{\vecteur{{#1}}\ }{\vecteur{{#1}_{#2}}}}	%Fait un vecteur avec un indice (x1, y1...), ou un vecteur simple si indice = espace
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\vecteur}[1]	{\ensuremath{\overrightarrow{#1}}}	%Fait un vecteur
+\newcommand{\vecteurIndice}[2]	{\ifthenelse{\equal{#2}{\ }}{\vecteur{{#1}}}{\vecteur{{#1}_{#2}}}}	%Fait un vecteur avec un indice (x1, y1...), ou un vecteur simple si indice = espace
 \newcommand{\vecteurChamp}[2]	{\fonction{\vecteur{#1}}{#2}}
 \newcommand{\bipoint}[2]	{\ensuremath{	\vecteur{\segment{#1#2}}	}}	%bipoint
 \newcommand{\vLie}[2]		{\ensuremath{	\couple{#1}{#2}	}}			%Vecteur lie
@@ -17,6 +18,7 @@
 \newcommand{\fN}[2][] {\ensuremath{	\protect\overrightarrow{N_{#1\rightarrow#2}}}}			%Vecteur lie
 \newcommand{\fT}[2][]	{\ensuremath{	\protect\overrightarrow{T_{#1\rightarrow#2}}}}
 \newcommand{\fpbis}	{\ensuremath{	\protect\overrightarrow{f_{p (S_1\rightarrow S_2)}}}}
+\newcommand{\angl}[2]{\left(\vect{#1},\vect{#2}\right)}
 
 %Espaces
 %--------------------------------
@@ -25,8 +27,8 @@
 
 
 
-%Représentation des vecteurs
-\newcommand{\vColonne}[2][]	{\ensuremath{	\left( \begin{array}{c} #2 \end{array} \right)_{#1}	}}	%Vecteur colonne (avec coordonnées)
+%ReprÃ©sentation des vecteurs
+\newcommand{\vColonne}[2][]	{\ensuremath{	\left( \begin{array}{c} #2 \end{array} \right)_{#1}	}}	%Vecteur colonne (avec coordonnÃ©es)
 
 
 %Operateurs Vectoriel
@@ -43,7 +45,7 @@
 
 
 \newcommand{\vNul}		{\ensuremath{	\overrightarrow{0}	}}	%Symbole d'une base
-\newcommand{\vPreFab}[2][]	{\ifthenelse{\equal{#1}{}}	{\vecteur{#2}}	{\vecteurChamp{#2}{#1}}	}	%Vecteur qui choisit tout seul si c'est un vecteur simple ou un champ (présence d'un parametre ou non)
+\newcommand{\vPreFab}[2][]	{\ifthenelse{\equal{#1}{}}	{\vecteur{#2}}	{\vecteurChamp{#2}{#1}}	}	%Vecteur qui choisit tout seul si c'est un vecteur simple ou un champ (prÃ©sence d'un parametre ou non)
 
 
 %Tout ce qui est vecteurs e_i
@@ -56,7 +58,11 @@
 %\newcommand{\e}{\ensuremath{\overrightarrow {e_2}}}
 %\newcommand{\e}{\ensuremath{\overrightarrow {e_3}}}
 
-\newcommand{\vx}[1]{\vecteurIndice{x}{#1}}	%x_i
+\newcommand{\vxi}[1]{\vecteurIndice{x}{#1}}	%x_i
+\newcommand{\vyi}[1]{\vecteurIndice{y}{#1}}	%y_i
+\newcommand{\vzi}[1]{\vecteurIndice{z}{#1}}	%z_i
+
+\newcommand{\vx}[1]{\vecteurIndice{x}{#1}}
 \newcommand{\vy}[1]{\vecteurIndice{y}{#1}}	%y_i
 \newcommand{\vz}[1]{\vecteurIndice{z}{#1}}	%z_i
 
@@ -84,13 +90,13 @@
 \newcommand{\uy}{\ensuremath{u_y}}
 \newcommand{\uz}{\ensuremath{u_z}}
 
-\newcommand{\vv}[1][]	{	\vPreFab[#1]{v}	}
+%\newcommand{\vv}[1][]	{	\vPreFab[#1]{v}	}
 \newcommand{\vV}[1][]	{	\vPreFab[#1]{V}	}
-%\newcommand{\vV}[1]{\vecteur{V_{#1}}}
-%\newcommand{\vV}[1][]{\ifthenelse{\equal{#1}{}}{ \ensuremath{\overrightarrow{V}}  }{   \ensuremath{\overrightarrow{V_{(#1)}}}     }}
-%\newcommand{\Vx}{\ensuremath{v_x}}	\newcommand{\vx}{\Vx}
-%\newcommand{\Vy}{\ensuremath{v_y}}	\newcommand{\vy}{\Vy}
-%\newcommand{\Vz}{\ensuremath{v_z}}	\newcommand{\vz}{\Vz}
+\renewcommand{\vV}[1]{\vecteur{V_{#1}}}
+\renewcommand{\vV}[1][]{\ifthenelse{\equal{#1}{}}{ \ensuremath{\overrightarrow{V}}  }{   \ensuremath{\overrightarrow{V_{(#1)}}}     }}
+\newcommand{\Vx}{\ensuremath{v_x}}	\renewcommand{\vx}{\Vx}
+\newcommand{\Vy}{\ensuremath{v_y}}	\renewcommand{\vy}{\Vy}
+\newcommand{\Vz}{\ensuremath{v_z}}	\renewcommand{\vz}{\Vz}
 
 
 \newcommand{\vw}[1][]	{	\vPreFab[#1]{w}	}
@@ -137,10 +143,16 @@
 %-------------------------
 \newcommand{\B}		{\ensuremath{	\mathscr{B}	}}	%Symbole d'une base
 \newcommand{\Bxyz}	{\triplet{\vex}{\vey}{\vez}}
-\newcommand{\Buvw}	{\triplet{\vu}{\vv}{\vw}}
+\newcommand{\Buvw}	{\triplet{\vu}{\overrightarrow{v}}{\vw}}
 \newcommand{\base}[3]	{\ensuremath{\left(#1,#2,#3\right)}}	
 
 
 %Repere
 %-------------------------
-%\newcommand{\repere}[4]	{\ensuremath{	\left(#1,#2,#3,#4\right)	}}
+\newcommand{\repere}[4]	{\ensuremath{	\left(#1,#2,#3,#4\right)	}}
+\newcommand{\rep}[1]{\mathcal{R}_{#1}}
+
+% Vecteur omega
+ \newcommand{\vecto}[2]{%
+\vect{\Omega\left( {#1}/{#2}\right)}
+}

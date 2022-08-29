@@ -1,0 +1,48 @@
+***********************************************
+* UPSTI - Kit de démarrage LaTeX              *
+***********************************************
+Version 1.0 - 2017/11/23
+Distribué pour l'UPSTI (www.upsti.fr)
+E.Pinault-Bigeard - e.pinault-bigeard@upsti.fr
+***********************************************
+
+Ce zip contient:
+ - un tutoriel d'installation de l'environnement de travail MiKTeX/Texmaker;
+ - les packages UPSTI_Document, UPSTI_SI, UPSTI_Pedagogique et UPSTI_Typographie (chaque package étant fourni avec sa documentation);
+ - le dossier UPSTIlatex regroupant les diverses images génériques utilisées par UPSTI_Document;
+ - un squelette vierge de document tex basé sur l'utilisation de UPSTI_Document;
+ - quelques exemples de documents pédagogiques rédigés avec UPSTI_Document;
+ - un fichier regroupant divers extraits de code (snippets) fréquemment utilisés, pour faire des copier/coller;
+ - quelques packages rédigés par des collègues (avec leur documentation);
+ - le VBscript de compilation rapide des fichiers tex (pour générer les sujets et les corrigés en un seul clic);
+ - le script python de migration EPB_Cours -> UPSTI_document;
+ - un tutoriel d'installation d'AMC sous Windows (pour créer des QCM à correction automatique), permettant de rendre AMC entièrement fonctionnel en quelques clics.
+
+Pour ce qui est de l'utilisation de LaTeX en général, internet regorge de ressources de qualité !
+
+Tous ces documents, packages et autres scripts sont fournis tels quels... En espérant que les bugs ne soient pas trop nombreux... Pour toute question, n'hésitez pas à me contacter: e.pinault-bigeard@upsti.fr
+
+Merci à:
+ - Oriane AUBERT, Florent LE BOURHIS, Pierre MAUBORGNE et Rémi PONCHE pour leur(s) relecture(s) et tests;
+ - Raphaël ALLAIS et Robert PAPANICOLA pour le partage de leurs packages.
+
+Pour l'UPSTI, 
+Emmanuel PINAULT-BIGEARD
+
+
+***********************************************
+* Procédure d'installation rapide             *
+***********************************************
+ - Installer l'environnement Miktex/Texmaker (dossier "Installation environnement LaTeX")
+ - Copier le contenu du dossier "Packages" dans votre dossier de packages défini dans Miktex Settings (admin)
+ - Copier le dossier "UPSTIlatex" à la racine du C
+ - Vous pouvez normalement maintenant ouvrir le fichier UPSTI_Snippets.tex et le compiler (ainsi que les autres fichiers exemples fournis dans ce kit).
+
+Pour des informations détaillées, consulter la documentation dans le dossier "Documentation packages"
+
+
+***********************************************
+* Changelog                                   *
+***********************************************
+ - 1.0 - 2017/11/23 - Mise en ligne de la première version 
+

@@ -27,7 +27,7 @@
 \newenvironment{definition}[1][]	{\refstepcounter{cptDefinition}
 					\begin{center}
 						\begin{minipage}{\tailleDesBoites\linewidth}
-							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{Définition \thecptDefinition\ : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{DÃ©finition \thecptDefinition\ : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
@@ -35,7 +35,7 @@
 \newenvironment{definitions}[1][]	{\refstepcounter{cptDefinition}
 					\begin{center}
 						\begin{minipage}{\tailleDesBoites\linewidth}
-							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{Définitions \thecptDefinition\ : \emph{#1}}
+							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{DÃ©finitions \thecptDefinition\ : \emph{#1}}
 								\begin{itemize}}
 					{			\end{itemize}
 							\end{bclogo}
@@ -143,7 +143,7 @@
 \newenvironment{propriete}[1][]	{\refstepcounter{cptPropriete}
 				\begin{center}
 					\begin{minipage}{\tailleDesBoites\linewidth}
-						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{Propriété \thecptPropriete\ : \emph{#1}}}
+						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{PropriÃ©tÃ© \thecptPropriete\ : \emph{#1}}}
 				{		\end{bclogo}
 					\end{minipage}
 				\end{center}}
@@ -151,7 +151,7 @@
 \newenvironment{proprietes}[1][]{\refstepcounter{cptPropriete}
 				\begin{center}
 					\begin{minipage}{\tailleDesBoites\linewidth}
-						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{Propriétés \thecptPropriete\ : \emph{#1}}
+						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{PropriÃ©tÃ©s \thecptPropriete\ : \emph{#1}}
 							\begin{itemize}}
 				{			\end{itemize}
 						\end{bclogo}
@@ -172,14 +172,14 @@
 \newenvironment{theoreme}[1][]	{\refstepcounter{cptTheoreme}
 				\begin{center}
 					\begin{minipage}{\tailleDesBoites\linewidth}
-						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{Théorème \thecptTheoreme\ : \emph{#1}}}
+						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{ThÃ©orÃ¨me \thecptTheoreme\ : \emph{#1}}}
 				{		\end{bclogo}
 					\end{minipage}
 				\end{center}}
 \newenvironment{theoremes}[1][]	{\refstepcounter{cptTheoreme}
 				\begin{center}
 					\begin{minipage}{\tailleDesBoites\linewidth}
-						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{Théorèmes \thecptTheoreme\ : \emph{#1}}
+						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{ThÃ©orÃ¨mes \thecptTheoreme\ : \emph{#1}}
 							\begin{itemize}}
 				{			\end{itemize}
 						\end{bclogo}
@@ -273,7 +273,7 @@
 \newenvironment{demonstration}[1][]	{\stepcounter{cptDemonstration}
 					\begin{center}
 						\begin{minipage}{0.95\linewidth}
-							\begin{bclogo}[couleur=fond_demo,couleurBord=bord_demo,arrondi=0.2,logo=\bcpanchant]{Démonstration \thecptDemonstration\ : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_demo,couleurBord=bord_demo,arrondi=0.2,logo=\bcpanchant]{DÃ©monstration \thecptDemonstration\ : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
@@ -295,14 +295,14 @@
 \newenvironment{resume}[1][]	{\stepcounter{cptResume}
 					\begin{center}
 						\begin{minipage}{0.95\linewidth}
-							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{Résumé \thecptResume\ : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{RÃ©sumÃ© \thecptResume\ : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
 
 \newenvironment{resume*}[1][]	{	\begin{center}
 						\begin{minipage}{0.95\linewidth}
-							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{Résumé : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{RÃ©sumÃ© : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
@@ -316,8 +316,8 @@
 %Booleen qui affiche les notes - commentaires
 \newboolean{makingOf}
 %\setboolean{makingOf}{false}	%Petite condition qui choisit entre 2 formats d'image
-\newcommand{\setMakingOfOn}{\setboolean{makingOf}{true}}	%Active le texte à trous
-\newcommand{\setMakingOfOff}{\setboolean{makingOf}{false}}	%Active le texte à trous
+\newcommand{\setMakingOfOn}{\setboolean{makingOf}{true}}	%Active le texte Ã  trous
+\newcommand{\setMakingOfOff}{\setboolean{makingOf}{false}}	%Active le texte Ã  trous
 \setMakingOfOff
 
 \definecolor{fond_makingOf}{RGB}{230,255,230} %Couleur du fond
@@ -452,7 +452,7 @@
 \newcommand{\question}[1]
 				{	\par	%Fini un paragraphe
 					\refstepcounter{cptQuestions}
-					%\global\advance\cptQuestions\@ne	%Incrémente le compteur
+					%\global\advance\cptQuestions\@ne	%IncrÃ©mente le compteur
 					\vspace{0.3cm}
 					\fbox{\gras{Q\thecptQuestions.}} 
 					{\itshape #1 }
@@ -461,7 +461,7 @@
 
 %\newenvironment{question}[1][]	{	\par	%Fini un paragraphe
 %					\refstepcounter{cptQuestions}
-%					%\global\advance\cptQuestions\@ne	%Incrémente le compteur
+%					%\global\advance\cptQuestions\@ne	%IncrÃ©mente le compteur
 %					\itshape\vspace{0.3cm}
 %					\fbox{Q\thecptQuestions.} 
 %				}
@@ -473,7 +473,7 @@
 \newenvironment{questions}[1][]	{
 
 					\itshape \vspace{0.3cm}
-					\addtocounter{cptQuestions}{-1}	%Désincrémenter le compteur
+					\addtocounter{cptQuestions}{-1}	%DÃ©sincrÃ©menter le compteur
 					%\global\advance\cptQuestions-\@ne
 					%\def\labelitemi{\global\advance\cptQuestions\@ne Q\the\cptQuestions.}
 					\renewcommand{\labelitemi}{\refstepcounter{cptQuestions}\fbox{Q\thecptQuestions.}}
@@ -513,8 +513,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newboolean{reponses}
-\newcommand{\setReponsesOn}{\setboolean{reponses}{true}}	%Active le texte à trous
-\newcommand{\setReponsesOff}{\setboolean{reponses}{false}}	%Active le texte à trous
+\newcommand{\setReponsesOn}{\setboolean{reponses}{true}}	%Active le texte Ã  trous
+\newcommand{\setReponsesOff}{\setboolean{reponses}{false}}	%Active le texte Ã  trous
 \setReponsesOff
 
 \newenvironment{reponse}[1][]	{	\par	%Fini un paragraphe

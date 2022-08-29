@@ -27,7 +27,7 @@
 \newenvironment{definition}[1][]	{\refstepcounter{cptDefinition}
 					\begin{center}
 						\begin{minipage}{\tailleDesBoites\linewidth}
-							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{D�finition \thecptDefinition\ : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{Définition \thecptDefinition\ : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
@@ -35,12 +35,28 @@
 					\newenvironment{definition_large}[1][]	{\refstepcounter{cptDefinition}
 					\begin{center}
 						\begin{minipage}{1.05\linewidth}
-							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{D�finition \thecptDefinition\ : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{Définition \thecptDefinition\ : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% partieds
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\newcounter{cptpartieDS}	%Compteur des algorithmes
+
+\newenvironment{partieDS}[1][]	{\refstepcounter{cptpartieDS}
+\textbf{Partie \thecptpartieDS\ : \emph{#1}}}
+
+
+\newenvironment{partieDSst}[1][]	{
+\textbf{\emph{#1}}}
+					
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ALGORITHME
@@ -71,7 +87,7 @@
 \newenvironment{regle}[1][]	{\refstepcounter{cptRegle}
 					\begin{center}
 						\begin{minipage}{\tailleDesBoites\linewidth}
-							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{R�gle \thecptRegle\ : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_definition,couleurBord=bord_definition,arrondi=0.2,logo=\bcplume]{Règle \thecptRegle\ : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
@@ -239,7 +255,7 @@
 \newenvironment{propriete}[1][]	{\refstepcounter{cptPropriete}
 				\begin{center}
 					\begin{minipage}{\tailleDesBoites\linewidth}
-						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{Propri�t� \thecptPropriete\ : \emph{#1}}}
+						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{Propriété \thecptPropriete\ : \emph{#1}}}
 				{		\end{bclogo}
 					\end{minipage}
 				\end{center}}
@@ -247,7 +263,7 @@
 \newenvironment{proprietes}[1][]{\refstepcounter{cptPropriete}
 				\begin{center}
 					\begin{minipage}{\tailleDesBoites\linewidth}
-						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{Propri�t�s \thecptPropriete\ : \emph{#1}}
+						\begin{bclogo}[couleur=fond_propriete,couleurBord=bord_propriete,arrondi=0.2,logo=\bccrayon]{Propriétés \thecptPropriete\ : \emph{#1}}
 							\begin{itemize}}
 				{			\end{itemize}
 						\end{bclogo}
@@ -268,14 +284,14 @@
 \newenvironment{theoreme}[1][]	{\refstepcounter{cptTheoreme}
 				\begin{center}
 					\begin{minipage}{\tailleDesBoites\linewidth}
-						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{Th�or�me \thecptTheoreme\ : \emph{#1}}}
+						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{Théorème \thecptTheoreme\ : \emph{#1}}}
 				{		\end{bclogo}
 					\end{minipage}
 				\end{center}}
 \newenvironment{theoremes}[1][]	{\refstepcounter{cptTheoreme}
 				\begin{center}
 					\begin{minipage}{\tailleDesBoites\linewidth}
-						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{Th�or�mes \thecptTheoreme\ : \emph{#1}}
+						\begin{bclogo}[couleur=fond_theoreme,couleurBord=bord_theoreme,arrondi=0.2,logo=\bccrayon]{Thï¿½orï¿½mes \thecptTheoreme\ : \emph{#1}}
 							\begin{itemize}}
 				{			\end{itemize}
 						\end{bclogo}
@@ -332,7 +348,7 @@
 \newenvironment{docreponsetd}[1][]	{\refstepcounter{cptdocreponsetd}
 				\begin{center}
 					\begin{minipage}{0.95\linewidth}
-						\begin{bclogo}[couleur=fond_docreponsetd,couleurBord=bord_docreponsetd,arrondi=0.2,logo=\bcquestion]{Document r�ponse \thecptdocreponsetd\ : \emph{#1}}}
+						\begin{bclogo}[couleur=fond_docreponsetd,couleurBord=bord_docreponsetd,arrondi=0.2,logo=\bcquestion]{Document réponse \thecptdocreponsetd\ : \emph{#1}}}
 				{		\end{bclogo}
 					\end{minipage}
 				\end{center}}
@@ -344,7 +360,7 @@
 
 \newenvironment{reponsetd}[1][]	{\begin{center}
 					\begin{minipage}{0.95\linewidth}
-						\begin{bclogo}[couleur=fond_docreponsetd,couleurBord=bord_docreponsetd,arrondi=0.2,logo=\bcoeil]{R�ponses aux diff�rentes questions}}
+						\begin{bclogo}[couleur=fond_docreponsetd,couleurBord=bord_docreponsetd,arrondi=0.2,logo=\bcoeil]{Réponses aux différentes questions}}
 				{		\end{bclogo}
 					\end{minipage}
 				\end{center}}
@@ -408,7 +424,7 @@
 \newenvironment{demonstration}[1][]	{\stepcounter{cptDemonstration}
 					\begin{center}
 						\begin{minipage}{0.95\linewidth}
-							\begin{bclogo}[couleur=fond_demo,couleurBord=bord_demo,arrondi=0.2,logo=\bcpanchant]{D�monstration \thecptDemonstration\ : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_demo,couleurBord=bord_demo,arrondi=0.2,logo=\bcpanchant]{Démonstration \thecptDemonstration\ : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
@@ -430,14 +446,14 @@
 \newenvironment{resume}[1][]	{\stepcounter{cptResume}
 					\begin{center}
 						\begin{minipage}{0.95\linewidth}
-							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{R�sum� \thecptResume\ : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{Rï¿½sumï¿½ \thecptResume\ : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
 
 \newenvironment{resume*}[1][]	{	\begin{center}
 						\begin{minipage}{0.95\linewidth}
-							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{R�sum� : \emph{#1}}}
+							\begin{bclogo}[couleur=fond_resume,couleurBord=bord_resume,arrondi=0.2,logo=\bcpanchant]{Résumé : \emph{#1}}}
 					{		\end{bclogo}
 						\end{minipage}
 					\end{center}}
@@ -451,8 +467,8 @@
 %Booleen qui affiche les notes - commentaires
 \newboolean{makingOf}
 %\setboolean{makingOf}{false}	%Petite condition qui choisit entre 2 formats d'image
-\newcommand{\setMakingOfOn}{\setboolean{makingOf}{true}}	%Active le texte � trous
-\newcommand{\setMakingOfOff}{\setboolean{makingOf}{false}}	%Active le texte � trous
+\newcommand{\setMakingOfOn}{\setboolean{makingOf}{true}}	%Active le texte ï¿½ trous
+\newcommand{\setMakingOfOff}{\setboolean{makingOf}{false}}	%Active le texte ï¿½ trous
 \setMakingOfOff
 
 \definecolor{fond_makingOf}{RGB}{255,255,255} %Couleur du fond
@@ -565,6 +581,15 @@
 				{		\end{bclogo}
 					\end{minipage}
 				\end{center}}
+				
+				
+				\newenvironment{obj}[1][]	{\refstepcounter{cptObjectif}
+				\begin{center}
+					\begin{minipage}{0.95\linewidth}
+						\begin{bclogo}[couleur=fond_objectif,couleurBord=bord_objectif,arrondi=0.2,logo=\bclampe]{Objectif \thecptObjectif\ : \emph{#1}}}
+				{		\end{bclogo}
+					\end{minipage}
+				\end{center}}
 
 \newenvironment{objectif*}[1][]	{\begin{center}
 					\begin{minipage}{0.95\linewidth}
@@ -606,7 +631,7 @@
 \newcommand{\exercice}[1]	{\refstepcounter{cptExos}
 				\section*{Exercice \thecptExos\ : #1}
 				\resetQuestions}
-
+%
 
 
 
@@ -616,15 +641,15 @@
 % QUESTION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\newcounter{cptQuestions}
-%
-%\newcommand{\resetQuestions}{\setcounter{cptQuestions}{0}}
-%
-%
+\newcounter{cptQuestions}
+
+\newcommand{\resetQuestions}{\setcounter{cptQuestions}{0}}
+
+
 %\newcommand{\question}[1]
 %				{	\par	%Fini un paragraphe
 %					\refstepcounter{cptQuestions}
-%					%\global\advance\cptQuestions\@ne	%Incr�mente le compteur
+%					%\global\advance\cptQuestions\@ne	%Incrï¿½mente le compteur
 %					\vspace{0.3cm}
 %					\fbox{\gras{Q\thecptQuestions.}} 
 %					{\itshape #1 }
@@ -637,13 +662,13 @@
 }
 
 \newcounter{activite}
-\newcommand{\activite}[1]{{\stepcounter{activite}\bf Activit� \arabic{activite} : #1}
+\newcommand{\activite}[1]{{\stepcounter{activite}\bf Activité \arabic{activite} : #1}
 
 }
 
 %\newenvironment{question}[1][]	{	\par	%Fini un paragraphe
 %					\refstepcounter{cptQuestions}
-%					%\global\advance\cptQuestions\@ne	%Incr�mente le compteur
+%					%\global\advance\cptQuestions\@ne	%Incrï¿½mente le compteur
 %					\itshape\vspace{0.3cm}
 %					\fbox{Q\thecptQuestions.} 
 %				}
@@ -655,7 +680,7 @@
 \newenvironment{questions}[1][]	{
 
 					\itshape \vspace{0.3cm}
-					\addtocounter{cptQuestions}{-1}	%D�sincr�menter le compteur
+					\addtocounter{cptQuestions}{-1}	%Dï¿½sincrï¿½menter le compteur
 					%\global\advance\cptQuestions-\@ne
 					%\def\labelitemi{\global\advance\cptQuestions\@ne Q\the\cptQuestions.}
 					\renewcommand{\labelitemi}{\refstepcounter{cptQuestions}\fbox{Q\thecptQuestions.}}
@@ -695,8 +720,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newboolean{reponses}
-\newcommand{\setReponsesOn}{\setboolean{reponses}{true}}	%Active le texte � trous
-\newcommand{\setReponsesOff}{\setboolean{reponses}{false}}	%Active le texte � trous
+\newcommand{\setReponsesOn}{\setboolean{reponses}{true}}	%Active le texte ï¿½ trous
+\newcommand{\setReponsesOff}{\setboolean{reponses}{false}}	%Active le texte ï¿½ trous
 \setReponsesOff
 
 \newenvironment{reponse}[1][]	{	\par	%Fini un paragraphe
@@ -771,3 +796,79 @@
 					\clearpage
 					\newpage
 				}
+				
+				
+				%%% Boîtes pour les documents
+\newtcolorbox[auto counter]{pabox}[2][]{%
+%sharp corners,boxrule = 0.2mm,colback=white,colbacktitle=white!99!black,colframe=white!5!black,coltitle=black,fonttitle=\bfseries,breakable,
+sharp corners,boxrule = 0.2mm,left=1mm,right=1mm,colback=white,colbacktitle=white,colframe=white!5!black,coltitle=black,fonttitle=\bfseries,breakable,
+title=Document ~\thetcbcounter~- #2,#1}
+\newcommand{\doc}[3]{\begin{pabox}[label={#1}]{#2}#3\end{pabox}}
+
+
+
+ \newcounter{exo}
+
+
+\makeatletter             
+\renewcommand{\subparagraph}{\@startsection{exo}{5}{\z@}%
+                                    {-2ex \@plus-.2ex \@minus .2ex}%
+                                    {0ex}%               
+{\normalfont\bfseries Question \hspace{.7cm} }}
+\makeatother
+\renewcommand{\thesubparagraph}{\arabic{subparagraph}} 
+\makeatletter
+
+
+
+%Partie Xavier
+\newif\ifprof
+
+\newenvironment{corrige}{\begin{coBox}\begin{correctionT}}{\end{correctionT}\end{coBox}}
+
+%% Boite pour les corriges
+%\newtheoremstyle{correctionbox}% % Theorem style name
+%{0pt}% Space above
+%{0pt}% Space below
+%{\normalfont}% % Body font
+%{}% Indent amount
+%{\small\bf\sffamily\color{violet}}% % Theorem head font
+%{\;}% Punctuation after theorem head
+%{0.25em}% Space after theorem head
+%{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber%{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+%\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+%\renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
+
+
+%----------------------------------------------------------------------------------------
+%	DEFINITION OF COLORED BOXES
+%----------------------------------------------------------------------------------------
+
+\RequirePackage[framemethod=tikz]{mdframed} % Required for creating the theorem, definition, exercise and corollary boxes
+
+% Theorem box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+backgroundcolor=ocre!10,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+innerbottommargin=5pt]{tBox}
+
+
+% Correction
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+backgroundcolor=violet!10,
+linecolor=violet,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+innerbottommargin=5pt]{coBox}
+
+\newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\hfill{\color{ocre}\tiny\ensuremath{\blacksquare}}\end{exerciseT}\end{eBox}}

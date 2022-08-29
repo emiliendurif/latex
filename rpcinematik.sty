@@ -338,6 +338,17 @@
 \end{scope}
 }
 
+\newcommand*{\scRoueConique}[4][0]{
+\node[minimum width=2*#3,minimum height=0.5em] (RD#2) at (#2){};
+\begin{scope}[rotate=#1,transform shape]
+\coordinate[right of=RD#2, node distance=#3](dZ#2);
+\coordinate[left of=RD#2, node distance=#3](gZ#2);
+\draw[scStylesolideint] (dZ#2)--(gZ#2);
+\draw[scStylesolideint] (dZ#2) --+({90-#4}:0.5em) -- +({-90-#4}:0.5em) ;
+\draw[scStylesolideint] (gZ#2) --+({90+#4}:0.5em) -- +({-90+#4}:0.5em) ;
+\end{scope}
+}
+
 \newcommand{\scCouronne}[3][0]{
 \node[minimum width=2*#3,minimum height=0.5em] (RD#2) at (#2){};
 \begin{scope}[rotate=#1,transform shape]
@@ -347,6 +358,7 @@
 \draw[scStylesolideext] (gZ#2) -- ++(0,0.5em) --++ (0,-1em);
 \draw[scStylesolideext] (gZ#2) -- ++(-1em,0)coordinate[name=gZ#2];
 \draw[scStylesolideext] (dZ#2) -- ++(1em,0)coordinate[name=dZ#2];
+\node[fit= (#2) (dZ#2) (gZ#2), minimum height=1em,inner sep=0](Cour-#2){};
 \end{scope}
 }
 
@@ -360,11 +372,15 @@
 
 
 %Ressort
+
 \newcommand{\scRessort}[3][1em]{
 \begin{scope}[decoration={zigzag,amplitude=#1}]
 \draw [decorate](#2) -- (#3)coordinate[name=scRessort,midway] ;
 \end{scope}
 }
+
+
+
 
 \newcommand{\scArcFleche}[4]{
 \begin{scope}[shift={(#1)}]
@@ -377,7 +393,7 @@
 
 
 %figures de calculs 
-% la commande non étoilée permet le dessin d'un figure de calcul indépendant la commande étoilée doit être intégrée dans un environnement tikz
+% la commande non Ã©toilÃ©e permet le dessin d'un figure de calcul indÃ©pendant la commande Ã©toilÃ©e doit Ãªtre intÃ©grÃ©e dans un environnement tikz
 
 \newcommand*{\scFigCalc}{\@ifstar\scFigCalcSeul\scFigCalctikz}
 \newcommand{\scFigCalctikz}[6][]{\begin{tikzpicture}
@@ -402,7 +418,7 @@
 \end{scope}}
 
 
-% dessin d'un point et de son nom, la commande étoilée permet d'utilisée les notations mathématiques pour les points ou un nom long différent de la référence, position du texte est précisée en option [above right] par défaut.
+% dessin d'un point et de son nom, la commande Ã©toilÃ©e permet d'utilisÃ©e les notations mathÃ©matiques pour les points ou un nom long diffÃ©rent de la rÃ©fÃ©rence, position du texte est prÃ©cisÃ©e en option [above right] par dÃ©faut.
 
 \newcommand*{\scPoint}{\@ifstar\scPointmath\scPointseul}
 \newcommand{\scPointseul}[3][above right]{

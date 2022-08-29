@@ -5,7 +5,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{titlepage}	%Début de la page de garde
+\begin{titlepage}	%DÃ©but de la page de garde
 %=======================================================
 
   \begin{center} %----------------------------------------
@@ -28,7 +28,7 @@
     
 					\textsc{\Large \classe}\\[0.5cm]
 
-					\textsc{\Large Année \annee}\\[1cm]
+					\textsc{\Large AnnÃ©e \annee}\\[1cm]
 				\end{center}
 			\end{minipage}
 		\end{tabular}
@@ -58,7 +58,7 @@
 
 
 
-    %Partie inférieur
+    %Partie infÃ©rieur
     %.........................
 
     \vfill

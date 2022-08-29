@@ -1,0 +1,325 @@
+
+% !TeX encoding = iso-8859-1
+% % !TeX spellcheck = fr 
+
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{rp-sysml}[2018/03/20]
+
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+\RequirePackage{relsize}
+
+\usetikzlibrary{shapes,arrows,positioning,fit,shapes.geometric,calc,backgrounds,decorations.markings,shapes.multipart}
+
+
+
+\tikzset{extend/.style={dashed,->,thick,every to/.append style={to path=--node {\smaller[1] \og extend \fg} (\tikztotarget)\tikztonodes}}}%
+
+\tikzset{composition/.style={diamond->,thick}}%
+
+\tikzset{synchrone/.style={-triangle 45,thick}}%
+
+\tikzset{reponse/.style={-angle 45,thick,dashed}}%
+
+\tikzset{asynchrone/.style={-angle 45,thick}}%
+
+
+\tikzset{fond/.style={#1},
+fond/.default={fill=yellow!30,text=red}
+}%
+
+\tikzset{styleCase/.style={#1},
+styleCase/.default={fill=yellow!30,text=red}
+}%
+
+\tikzset{styleBlock/.style={#1},
+styleBlock/.default={fill=green!30,text=black}
+}%
+
+
+\tikzset{styleReq/.style={#1},
+styleReq/.default={fill=yellow!30,text=red}
+}%
+
+
+
+\tikzset{agregation/.style={open diamond->,thick}}%
+
+
+\tikzset{association/.style={<->,thick}}%
+
+\tikzset{include/.style={dashed,->,thick, every to/.append style={to path=-- node {\smaller[1] \og include \fg} (\tikztotarget) \tikztonodes}}}
+
+\tikzset{deriv/.style={dashed,->,thick, every to/.append style={to path=-- node {\smaller[1] \og deriveReqt \fg} (\tikztotarget) \tikztonodes}}}
+
+\tikzset{refine/.style={dashed,->,thick, every to/.append style={to path=-- node {\smaller[1] \og refine \fg} (\tikztotarget) \tikztonodes}}}
+
+\tikzset{satisfy/.style={dashed,->,thick, every to/.append style={to path=-- node {\smaller[1] \og satisfy \fg} (\tikztotarget) \tikztonodes}}}
+
+\tikzset{verify/.style={dashed,->,thick, every to/.append style={to path=-- node {\smaller[1] \og verify \fg} (\tikztotarget) \tikztonodes}}}
+
+\tikzset{trace/.style={dashed,->,thick, every to/.append style={to path=-- node {\smaller[1] \og trace \fg} (\tikztotarget) \tikztonodes}}}
+
+\tikzset{portFlux/.style={decoration={markings,
+mark connection node=my node,
+mark=at position 0.5em  with {\node [draw,blue,thin,transform shape,inner sep=0,minimum size=1.2em,fill=white,anchor=east,align=center] (my node) {\smaller[2]$\to$};},
+mark=at position 0.5  with {\arrow{stealth}},
+mark=at position -0.5em  with {\node [draw,blue,thin,transform shape,inner sep=0,minimum size=1.2em,fill=white,anchor=west,align=center] (my node) {\smaller[2]$\to$};},
+},postaction={decorate}}}
+
+\tikzset{portStandard/.style={decoration={markings,
+mark connection node=my node,
+mark=at position 0.5em  with {\node [draw,blue,thin,transform shape,inner sep=0,minimum size=1em,fill=white,anchor=east] (my node) {};},
+mark=at position 0.5  with {\arrow{stealth}},
+mark=at position -0.5em  with {\node [draw,blue,thin,transform shape,inner sep=0,minimum size=1em,fill=white,anchor=west] (my node) {};},
+},postaction={decorate}}}
+
+
+\pgfarrowsdeclare{oplus}{oplus}
+{
+  \pgfarrowsleftextend{+-.5\pgflinewidth}%
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.5\pgflinewidth%
+  \pgfutil@tempdimb=9\pgfutil@tempdima
+  \advance\pgfutil@tempdimb by.5\pgflinewidth
+  \pgfarrowsrightextend{+\pgfutil@tempdimb}%
+}
+{
+  \pgfutil@tempdima=0.4pt%
+  \advance\pgfutil@tempdima by.5\pgflinewidth%
+  \pgfsetdash{}{+0pt}%
+  \pgfpathcircle{\pgfqpoint{4.5\pgfutil@tempdima}{0bp}}%
+                {4.5\pgfutil@tempdima}%
+  \pgfpathmoveto{\pgfqpoint{4.5\pgfutil@tempdima}%
+                           {-4.5\pgfutil@tempdima}}%
+  \pgfpathlineto{\pgfqpoint{4.5\pgfutil@tempdima}%
+                           {4.5\pgfutil@tempdima}}%
+  \pgfpathmoveto{\pgfqpoint{9\pgfutil@tempdima}{.bp}}%
+  \pgfpathlineto{\pgfqpoint{.bp}{.bp}}%
+  \pgfusepathqstroke
+}  
+
+\tikzset{contenance/.style={oplus-,thick}}
+
+\newcommand{\blockDetails}[2]{
+{\centering\textit{#1}\par}#2
+}
+
+
+
+\newcommand{\sysmlActeur}[4][]{ %\sysmlacteur[tikz options]{pos}{texte}{nom}
+\coordinate[shift={(#2)}](sysmlActeur);
+%\coordinate[#2] (pos);
+\begin{scope}[#1]
+\node[align=center,inner sep=0,minimum size=0.5em,below =1.5em of sysmlActeur,text width=6em](textActeur#4) at (#2){#3};
+\node[above=3em of textActeur#4,draw,circle,#1](teteActeur#4){};
+\draw(teteActeur#4) -- ++(0,-1.8em)coordinate[pos=.3](brasActeur) coordinate(bassinActeur);
+\draw (bassinActeur) --++ (0.5em,-1em) coordinate(piedDroitActeur);
+\draw (bassinActeur) --++ (-0.5em,-1em) coordinate(piedGaucheActeur);
+\draw (brasActeur) --++ (0.5em,-.5em) coordinate(mainDroitActeur);
+\draw (brasActeur) --++ (-0.5em,-.5em) coordinate(mainGaucheActeur);
+\end{scope}
+\node[fit=(teteActeur#4) (piedDroitActeur) (piedGaucheActeur),rectangle,name=#4]{};
+\node[fit=(#4) (textActeur#4),name=Acteur#4,#1]{};
+}
+
+\tikzset{usecase/.style={align=center,inner sep=0,minimum size=.6em,minimum height=2em,draw,ellipse,text width=6em,styleCase}}
+
+\newcommand{\sysmlCase}[4][]{%\sysmlCase[tikz option]{pos}{texte}{nom}
+\node[usecase,#1](#4) at (#2){#3};
+}
+
+
+\newcommand{\cadreUseCase}[3][]{
+\node[fit=#3](cadre1Usecase){};
+\node[above =0.5em of cadre1Usecase](textUseCase){#2};
+\node[fit=(cadre1Usecase) (textUseCase), draw,#1](cadreUC){};
+}
+
+%\newcommand{\cadreUseCase}[3][]{
+%\node[fit=#3](cadre1Usecase){};
+%\node[above =1em of cadre1Usecase](textUseCase){#2};
+%\node[fit=(cadre1Usecase) (textUseCase), draw,#1](cadreUC){};
+%}
+
+\newcommand{\cartoucheUseCase}[4][]{
+\node[fit=#3](cartoucheUsecase#2){};
+\node[above=1em of cartoucheUsecase#2.north west, right](textUseCase#2){uc : #2 [#4]};
+\node[draw,fit=(cartoucheUsecase#2) (textUseCase#2)](Usecase#2){};
+\node[inner sep=0,minimum size=1.5em] (coinusecase) at (textUseCase#2.south east){};
+\draw(coinusecase.north) -- (coinusecase.west) -| (Usecase#2.north west) -| (coinusecase.north);
+}
+
+\newcommand{\sysmlCartouche}[3][]{
+\node[fit=#3](cartouche){};
+\node[above=1em of cartouche.north west, right](textcartouche){#2};
+\begin{pgfonlayer}{background}
+\node[draw,fit=(cartouche) (textcartouche),#1](cadreCartouche){};
+\node[inner sep=0,minimum size=1.5em] (coinCadreCartouche) at (textcartouche.south east){};
+\draw(coinCadreCartouche.north) -- (coinCadreCartouche.west) -| (cadreCartouche.north west) -| (coinCadreCartouche.north);
+\end{pgfonlayer}
+}
+
+\newcommand{\cartoucheRequir}[4][]{
+\begin{pgfonlayer}{background}
+\node[fit=#3](cartoucheRequir){};
+\node[above=1em of cartoucheRequir.north west, right](textRequir){req : #2 [#4]};
+\node[draw,fit=(cartoucheRequir) (textRequir)](Requir){};
+\node[inner sep=0,minimum size=1.5em] (coinusecase) at (textRequir.south east){};
+\draw(coinusecase.north) -- (coinusecase.west) -| (Requir.north west) -| (coinusecase.north);
+\end{pgfonlayer}
+}
+
+
+\newcommand{\sysmlReq}[5][]{
+\node[inner sep=0]at(#2)(enteteReq#3){$<<$ requirement  $>>$};
+\node[below=0em of enteteReq#3,name=titreReq#3,rectangle, text width=8em,align=center,#1]{#4};
+\node[below=0em of titreReq#3,rectangle,text width=8em,name=textReq#3,#1]{\smaller[1] #5};
+\begin{pgfonlayer}{background}
+\node[name=#3,fit=(enteteReq#3) (titreReq#3) (textReq#3), draw,#1,styleReq]{};
+\draw (#3.east|-titreReq#3.south) -- (#3.west|-titreReq#3.south);
+\end{pgfonlayer}
+}
+
+\newcommand{\sysmlReqUsa}[5][]{
+\node[inner sep=0]at(#2)(enteteReq#3){{<}{<}usabilityrequirement{>}{>}};
+\node[below=0em of enteteReq#3,name=titreReq#3,rectangle, text width=8em,align=center,#1]{#4};
+\node[below=0em of titreReq#3,rectangle,text width=8em,name=textReq#3,#1]{\smaller[1] #5};
+\begin{pgfonlayer}{background}
+\node[name=#3,fit=(enteteReq#3) (titreReq#3) (textReq#3), draw,styleReq,#1]{};
+\draw (#3.east|-titreReq#3.south) -- (#3.west|-titreReq#3.south);
+\end{pgfonlayer}
+}
+\newcommand{\sysmlReqPerf}[5][]{
+\node[inner sep=0]at(#2)(enteteReq#3){{<}{<}performancerequirement{>}{>}};
+\node[below=0em of enteteReq#3,name=titreReq#3,rectangle, text width=8em,align=center,#1]{#4};
+\node[below=0em of titreReq#3,rectangle,text width=8em,name=textReq#3,#1]{\smaller[1] #5};
+\begin{pgfonlayer}{background}
+\node[name=#3,fit=(enteteReq#3) (titreReq#3) (textReq#3), draw,styleReq,#1]{};
+\draw (#3.east|-titreReq#3.south) -- (#3.west|-titreReq#3.south);
+\end{pgfonlayer}
+}
+
+\newcommand{\sysmlReqPhys}[5][]{
+\node[inner sep=0]at(#2)(enteteReq#3){{<}{<}physicalrequirement{>}{>}};
+\node[below=0em of enteteReq#3,name=titreReq#3,rectangle, text width=8em,align=center,#1]{#4};
+\node[below=0em of titreReq#3,rectangle,text width=8em,name=textReq#3,#1]{\smaller[1] #5};
+\begin{pgfonlayer}{background}
+\node[name=#3,fit=(enteteReq#3) (titreReq#3) (textReq#3), draw,styleReq,#1]{};
+\draw (#3.east|-titreReq#3.south) -- (#3.west|-titreReq#3.south);
+\end{pgfonlayer}
+}
+
+\newcommand{\sysmlReqFonc}[5][]{
+\node[inner sep=0]at(#2)(enteteReq#3){{<}{<}functionalrequirement{>}{>}};
+\node[below=0em of enteteReq#3,name=titreReq#3,rectangle, text width=8em,align=center,#1]{#4};
+\node[below=0em of titreReq#3,rectangle,text width=8em,name=textReq#3,#1]{\smaller[1] #5};
+\begin{pgfonlayer}{background}
+\node[name=#3,fit=(enteteReq#3) (titreReq#3) (textReq#3), draw,styleReq,#1]{};
+\draw (#3.east|-titreReq#3.south) -- (#3.west|-titreReq#3.south);
+\end{pgfonlayer}
+}
+
+\newcommand{\sysmlBloc}[5][]{
+\node[inner sep=0,align=center,styleBlock,#1]at(#2)(enteteSter){{<}{<}Bloc {>}{>}};
+\node[below=0em of enteteSter,name=titreSter,rectangle, text width=8em,align=center,styleBlock,#1]{#4};
+\node[below=0em of titreSter,rectangle,text width=8em,name=textSter,#1]{\smaller[1] #5};
+\begin{pgfonlayer}{background}
+\node[name=#3,fit=(enteteSter) (titreSter) (textSter), draw,styleBlock,#1]{};
+\draw (#3.east|-titreSter.south) -- (#3.west|-titreSter.south);
+\end{pgfonlayer}
+}
+
+
+\newcommand{\sysmlStereotype}[6][]{
+\node[inner sep=0]at(#2)(enteteSter){{<}{<} #4 {>}{>}};
+\node[below=0em of enteteSter,name=titreSter,rectangle, text width=8em,align=center,#1]{#5};
+\node[below=0em of titreSter,rectangle,text width=8em,name=textSter,#1]{\smaller[1] #6};
+\begin{pgfonlayer}{background}
+\node[name=#3,fit=(enteteSter) (titreSter) (textSter), draw,,styleBlock]{};
+\draw (#3.east|-titreSter.south) -- (#3.west|-titreSter.south);
+\end{pgfonlayer}
+}
+
+
+\tikzset{IbdBloc/.style={fill=green!40,text=red,rectangle, text width=8em,align=center,draw,minimum height=2em,}
+}%
+
+\newcommand{\sysmlIbdBloc}[4][]{% %\sysmlIbdBloc[option]{pos}{des}{texte}{contenu}
+\node[IbdBloc,#1](#3) at(#2){:#4};%
+%\node[below=0em of titreSter#3,rectangle,name=textSter#3,minimum height=2em,#1]{#5};%
+%\node[name=#3,fit= (titreSter#3) (textSter#3),inner sep=0, draw,]{};%
+}
+
+
+
+\tikzset{StmBloc/.style={draw, rounded corners=1em, minimum height=4em, minimum width=4em,align=center,fill=yellow!20}}%
+
+\tikzset{StmBlocPart/.style={rectangle split, rectangle split parts=#1},
+rectangle split parts/.default=2
+}%
+
+\newcommand{\sysmlStmBlocComplet}[4][]{
+\node[StmBlocPart,StmBloc,#1](#2){#3
+\nodepart{two}
+#4};
+}
+
+\newcommand{\sysmlStmBloc}[3][]{
+\node[StmBloc,#1](#2){#3};
+}
+
+
+\tikzset{Stmtest/.style={diamond,draw}}
+
+\newcommand{\sysmlStmTest}[2][]{
+\node[Stmtest,draw,#1](#2){};
+}
+
+\tikzset{StmForkJoin/.style={minimum width=0.7em,minimum height=#1,fill},
+StmFork/.default=5em}
+
+\newcommand{\sysmlStmForkJoin}[3][]{
+\node[StmForkJoin,#1] (#2){};
+}
+
+
+\tikzset{StmStart/.style={circle,minimum size=1em,fill,text width=0}}
+
+\newcommand{\sysmlStmStart}[3][]{
+\node[StmStart,#1](#3) at (#2){};
+}
+
+\tikzset{StmStop/.style={circle,minimum size=1em,,double,ultra thick,fill,draw,,double distance=3pt}}
+\newcommand{\sysmlStmEnd}[2][]{
+\node[StmStop,#1](#2) {};
+}
+
+\tikzset{lien/.style={rounded corners,-latex}}%
+
+
+\newcommand{\cartoucheIbd}[4][]{
+\node[fit=#3](cartoucheIbd){};
+\node[above=1em of cartoucheIbd.north west, right](textIbd){ibd : #2 [#4]};
+\node[draw,fit=(cartoucheIbd) (textIbd)](Ibd){};
+\node[inner sep=0,minimum size=1.5em] (coinIbd) at (textIbd.south east){};
+\draw(coinIbd.north) -- (coinIbd.west) -| (Ibd.north west) -| (coinIbd.north);
+}
+
+\newcommand{\cartouchestm}[4][]{
+\node[fit=#3](cartoucheIbd){};
+\node[above=1em of cartoucheIbd.north west, right](textIbd){sm : #2 [#4]};
+\node[draw,fit=(cartoucheIbd) (textIbd)](Ibd){};
+\node[inner sep=0,minimum size=1.5em] (coinIbd) at (textIbd.south east){};
+\draw(coinIbd.north) -- (coinIbd.west) -| (Ibd.north west) -| (coinIbd.north);
+}
+
+\newcommand{\cartoucheBdd}[4][]{
+\node[fit=#3](cartoucheBdd){};
+\node[above=1em of cartoucheBdd.north west, right](textBdd){bdd : #2 [#4]};
+\node[draw,fit=(cartoucheBdd) (textBdd)](Bdd){};
+\node[inner sep=0,minimum size=1.5em] (coinBdd) at (textBdd.south east){};
+\draw(coinBdd.north) -- (coinBdd.west) -| (Bdd.north west) -| (coinBdd.north);
+}
+
+\newcommand{\Rule}{\vspace{0.5em} \hrule \vspace{0.5em}}

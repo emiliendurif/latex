@@ -21,8 +21,8 @@
 
 
 
-%Représentation des vecteurs
-\newcommand{\vColonne}[2][]	{\ensuremath{	\left( \begin{array}{c} #2 \end{array} \right)_{#1}	}}	%Vecteur colonne (avec coordonnées)
+%ReprÃ©sentation des vecteurs
+\newcommand{\vColonne}[2][]	{\ensuremath{	\left( \begin{array}{c} #2 \end{array} \right)_{#1}	}}	%Vecteur colonne (avec coordonnÃ©es)
 
 
 %Operateurs Vectoriel
@@ -39,7 +39,7 @@
 
 
 \newcommand{\vNul}		{\ensuremath{	\overrightarrow{0}	}}	%Symbole d'une base
-\newcommand{\vPreFab}[2][]	{\ifthenelse{\equal{#1}{}}	{\vecteur{#2}}	{\vecteurChamp{#2}{#1}}	}	%Vecteur qui choisit tout seul si c'est un vecteur simple ou un champ (présence d'un parametre ou non)
+\newcommand{\vPreFab}[2][]	{\ifthenelse{\equal{#1}{}}	{\vecteur{#2}}	{\vecteurChamp{#2}{#1}}	}	%Vecteur qui choisit tout seul si c'est un vecteur simple ou un champ (prÃ©sence d'un parametre ou non)
 
 
 %Tout ce qui est vecteurs e_i

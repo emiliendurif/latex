@@ -1,0 +1,1258 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Notations et macros relatives aux S2I                                 
+% -----------                                                                        
+% Auteurs: Raphaël Allais (http://enseignement.allais.eu/page-latex) - Emmanuel Pinault-Bigeard (e.pinault-bigeard@upsti.fr)                                                   
+% -----------
+% Version: 1.0 - 2017/11/23                                                                      
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UPSTI - http://www.upsti.fr
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%==============================================================================%
+%	Préambule
+%==============================================================================%
+% Pour faciliter les éventuelles mises à jour, il n'est pas conseillé de
+% modifier directement ce fichier.
+% Pour personnaliser ce package, il vaut mieux éditer le package 
+% UPSTI_SI_Custom.sty prévu à cet effet.
+%
+% Si on utilise, UPSTI_Document.sty, il est préférable de modifier
+% directement le fichier UPSTI_Custom.sty (voir documentation).
+%==============================================================================%
+
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{UPSTI_SI}[2017/11/23]
+
+
+%==============================================================================%
+%	Changelog
+%==============================================================================%
+% 1.0 - 2017/11/23 - Mise en ligne de la première version
+
+
+%==============================================================================%
+%	Importation des packages nécessaires
+%==============================================================================%
+\RequirePackage[svgnames]{xcolor} % Gestion des couleurs
+\RequirePackage{etoolbox}         % Scripting
+\RequirePackage{ifthen}           % Scripting
+\RequirePackage{xargs}            % Pour arguments optionnels multiples
+\RequirePackage{amsfonts}			    % Pour faire des maths (ensemble des reels, notamment)
+\RequirePackage{amsmath}		      % Maths
+\RequirePackage{amssymb}          % Maths
+\RequirePackage{mathrsfs}			    % Pour faire des maths (notamment le L de la transformée de Laplace)
+\RequirePackage{textcomp,gensymb} % Degrés et autres choses encore...
+\RequirePackage{upgreek}          % Lettres grecques
+\RequirePackage{cases}            % Systèmes d'équations
+\RequirePackage{tikz}             % Figures
+\usetikzlibrary{calc}             % Arithmétique
+\usetikzlibrary{patterns}         % Patterns Tikz
+
+
+%==============================================================================%
+%	Couleurs par défaut
+%==============================================================================%
+\makeatletter
+\@ifundefinedcolor{UPSTIcustomColor1}{\colorlet{UPSTIcustomColor1}{RoyalBlue}}{}
+\@ifundefinedcolor{UPSTIcustomColor2}{\colorlet{UPSTIcustomColor2}{red}}{}
+\@ifundefinedcolor{UPSTIcustomColor3}{\colorlet{UPSTIcustomColor3}{purple}}{}
+\@ifundefinedcolor{UPSTIcustomColor4}{\colorlet{UPSTIcustomColor4}{ForestGreen}}{}
+\@ifundefinedcolor{UPSTIcustomColor5}{\colorlet{UPSTIcustomColor5}{Orange}}{}
+\makeatother
+
+
+%==============================================================================%
+% Théorie des mécanismes
+%==============================================================================%
+%--------------------------------------------------------%
+% Liaisons
+%--------------------------------------------------------%
+\newcommand*{\symboleLiaison}{\ensuremath{\mathscr{L}}}
+\newcommandx*{\liaison}[3][1=]{\ensuremath{\symboleLiaison_{\ifstrempty{#3}{{#2}}{{#2}/{#3}}}^{#1}}} % Liaison
+\newcommandx*{\liaisonEq}[2][1=,2=]{\ensuremath{\symboleLiaison^{#2}_{eq{#1}}}} % Liaison Equivalente
+
+%--------------------------------------------------------%
+% Hyperstatisme
+%--------------------------------------------------------%
+\newcommandx{\inconnuesStatiques}[1][1=]	{\ifstrempty{#1}{\ensuremath{N_s}}{\ensuremath{n_{s_{#1}}}}}
+\newcommandx{\inconnuesCinematiques}[1][1=]	{\ifstrempty{#1}{\ensuremath{N_c}}{\ensuremath{n_{c_{#1}}}}}
+\newcommand{\nCyclomatique}		{\ensuremath{\gamma}}
+
+
+%==============================================================================%
+% Cinématique
+%==============================================================================%
+%--------------------------------------------------------%
+% Mouvements et trajectoires
+%--------------------------------------------------------%
+\newcommand*{\trajectoire}[3]{\ensuremath{T_{{#1}\in{#2}/{#3}}}} % Trajectoire
+\newcommand*{\mouvement}[2]{\ensuremath{\text{Mvt}_{{#1}/{#2}}}} % Mouvement
+\newcommand*{\CIR}[2]{\ensuremath{I_{{#1}/{#2}}}} % CIR
+
+%--------------------------------------------------------%
+% Vitesses - accélérations
+%--------------------------------------------------------%
+\newcommandx*{\vVitesse}[3]		   {\ensuremath{\ifstrempty{#2}{\vecteur{V_{#1/#3}}}{\vecteur{V_{#1\in#2/#3}}}}	}%{\vecteurChamp{V}{#2/#3}}{\vecteurChamp{V}{#1\in#2/#3}}}
+\newcommandx{\vRotation}[3][1=]{\ensuremath{\ifstrempty{#3}{\vecteur{\Omega^{#1}_{#2}}}{\vecteur{\Omega^{#1}_{#2/#3}}}}}
+\newcommand*{\accelerationSymbole}{\ensuremath{\Gamma}} % Symbole de l'accélération.
+\newcommandx*{\vAcceleration}[3] {\ensuremath{\ifstrempty{#2}{\vecteur{\accelerationSymbole_{#1/#3}}}{\vecteur{\accelerationSymbole_{#1\in #2/#3}}}}}
+
+%--------------------------------------------------------%
+% Torseur cinématique
+%--------------------------------------------------------%
+% Généralités
+\newcommand*{\tCinematiqueSymbole}{\ensuremath{\mathcal{V}}} % Symbole du Torseur Cinématique
+\newcommandx*{\tCinematique}[4][1=,4=]{\ensuremath{\torseur{\tCinematiqueSymbole\ifblank{#1}{}{^{#1}}_{#2/#3}}\ifblank{#4}{}{_{#4}}}} % Torseur Cinématique
+\newcommandx*{\tV}[4][1=,4=]{\tCinematique[#1]{#2}{#3}[#4]} % Torseur Cinématique (raccourci)
+
+\newcommand*{\tCinematiqueLigne}[3]{\ensuremath{{\tLigne{#3}{\resultanteCinematique{#1}{#2}}{\momentCinematique{#3}{#1}{#2}}}}} % Torseur cinématique en ligne avec les composantes
+                    
+\newcommand*{\resultanteCinematique}[2]{\ensuremath{\vRotation{#1}{#2}}} % Résultante Cinématique
+\newcommand*{\momentCinematique}[3]{\ensuremath{\vVitesse{#1}{#2}{#3}}} % Moment Cinématique
+
+% Forme canonique
+\newcommand*{\resultanteCinematiqueCan}[3]{\ensuremath{\omega^{#1}_{{#2}/{#3}}}} % Composante de la résultante de la forme canonique du torseur cinematique
+\newcommand*{\momentCinematiqueCan}[4]{\ensuremath{V^{#1}_{{#2},{#3}/{#4}}}} % Composante du moment de la forme canonique du torseur cinematique
+
+% \newcommand*{\resultanteCinematiqueCan}[3]{\ensuremath{
+% \ifstrequal{#1}{x}{p_{{#2}{#3}}}{
+% \ifstrequal{#1}{y}{q_{{#2}{#3}}}{
+% \ifstrequal{#1}{z}{r_{{#2}{#3}}}{\omega}
+% }}}} % Composante de la résultante de la forme canonique du torseur cinematique
+
+% \newcommand*{\momentCinematiqueCan}[4]{\ensuremath{
+% \ifstrequal{#1}{x}{u_{{#3}{#4}}}{
+% \ifstrequal{#1}{y}{v_{{#3}{#4}}}{
+% \ifstrequal{#1}{z}{w_{{#3}{#4}}}{V}
+% }}}} % Composante de la résultante de la forme canonique du torseur cinematique
+
+\newcommand*{\tCinematiqueCan}[9]{\ensuremath{\left\lbrace\begin{array}{c}\displaystyle % Torseur Cinématique en forme canonique : 1-Point, 2-S1, 3-S2, 4...9: 6 composantes. A utiliser avec \tCan{pt}{ce torseur}{base}
+    \ifnumequal{0}{#4}{0}{\ifnumequal{-1}{#4}{\cPlan}{\resultanteCinematiqueCan{x}{#2}{#3}}}\\
+    \ifnumequal{0}{#5}{0}{\ifnumequal{-1}{#5}{\cPlan}{\resultanteCinematiqueCan{y}{#2}{#3}}}\\
+    \ifnumequal{0}{#6}{0}{\ifnumequal{-1}{#6}{\cPlan}{\resultanteCinematiqueCan{z}{#2}{#3}}}
+  \end{array}\begin{array}{c}\displaystyle
+    \ifnumequal{0}{#7}{0}{\ifnumequal{-1}{#7}{\cPlan}{\momentCinematiqueCan{x}{#1}{#2}{#3}}}\\
+    \ifnumequal{0}{#8}{0}{\ifnumequal{-1}{#8}{\cPlan}{\momentCinematiqueCan{y}{#1}{#2}{#3}}}\\
+    \ifnumequal{0}{#9}{0}{\ifnumequal{-1}{#9}{\cPlan}{\momentCinematiqueCan{z}{#1}{#2}{#3}}}
+  \end{array}\right\rbrace}
+} 
+\newcommand*{\tCinematiqueCanAlt}[9]{\ensuremath{\left\lbrace\begin{array}{c}\displaystyle % Torseur Cinématique en forme canonique : 1-Point, 2-S1, 3-S2, 4...9: 6 composantes. A utiliser avec \tCan{pt}{ce torseur}{base}
+    \ifnumequal{0}{#4}{0}{\ifnumequal{-1}{#4}{\cPlan}{p_{{#2}{#3}}}}\\
+    \ifnumequal{0}{#5}{0}{\ifnumequal{-1}{#5}{\cPlan}{q_{{#2}{#3}}}}\\
+    \ifnumequal{0}{#6}{0}{\ifnumequal{-1}{#6}{\cPlan}{r_{{#2}{#3}}}}
+  \end{array}\begin{array}{c}\displaystyle
+    \ifnumequal{0}{#7}{0}{\ifnumequal{-1}{#7}{\cPlan}{u_{{#2}{#3}}}}\\
+    \ifnumequal{0}{#8}{0}{\ifnumequal{-1}{#8}{\cPlan}{v_{{#2}{#3}}}}\\
+    \ifnumequal{0}{#9}{0}{\ifnumequal{-1}{#9}{\cPlan}{w_{{#2}{#3}}}}
+  \end{array}\right\rbrace}
+} 
+
+%--------------------------------------------------------%
+% DDL
+%--------------------------------------------------------%
+\newcommand*{\Rx}	{\ensuremath{R_x}}
+\newcommand*{\Ry}	{\ensuremath{R_y}}
+\newcommand*{\Rz}	{\ensuremath{R_z}}
+\newcommand*{\Tx}	{\ensuremath{T_x}}
+\newcommand*{\Ty}	{\ensuremath{T_y}}
+\newcommand*{\Tz}	{\ensuremath{T_z}}
+\newcommand*{\mobilites}[6]{\ensuremath{\left[\begin{array}{c}\displaystyle % Mobilités
+    \ifnumequal{0}{#1}{0}{\Rx}\\
+    \ifnumequal{0}{#2}{0}{\Ry}\\
+    \ifnumequal{0}{#3}{0}{\Rz}
+  \end{array}\begin{array}{c}\displaystyle
+    \ifnumequal{0}{#4}{0}{\Tx}\\
+    \ifnumequal{0}{#5}{0}{\Ty}\\
+    \ifnumequal{0}{#6}{0}{\Tz}
+  \end{array}\right]}
+} 
+
+%--------------------------------------------------------%
+% Coordonnées variables dans le temps
+%--------------------------------------------------------%
+\newcommand*{\xt}   {\fonction{x}{t}}
+\newcommand*{\xtp}	{\fonction{\dot{x}}{t}}
+\newcommand*{\xtpp}	{\fonction{\ddot{x}}{t}}
+\newcommand*{\xp}	  {\ensuremath{\dot{x}}}
+\newcommand*{\xpp}	{\ensuremath{\ddot{x}}}
+
+\newcommand*{\yt}	  {\fonction{y}{t}}
+\newcommand*{\ytp}	{\fonction{\dot{y}}{t}}
+\newcommand*{\ytpp}	{\fonction{\ddot{y}}{t}}
+\newcommand*{\yp}	  {\ensuremath{\dot{y}}}
+\newcommand*{\ypp}	{\ensuremath{\ddot{y}}}
+
+\newcommand*{\zt}	  {\fonction{z}{t}}
+\newcommand*{\ztp}	{\fonction{\dot{z}}{t}}
+\newcommand*{\ztpp}	{\fonction{\ddot{z}}{t}}
+\newcommand*{\zp}	  {\ensuremath{\dot{z}}}
+\newcommand*{\zpp}	{\ensuremath{\ddot{z}}}
+
+\newcommand*{\thetat}	  {\fonction{\theta}{t}}
+\newcommand*{\thetatp}	{\fonction{\dot\theta}{t}}
+\newcommand*{\thetatpp}	{\fonction{\ddot\theta}{t}}
+\newcommand*{\thetap}	  {\ensuremath{\dot{\theta}}}
+\newcommand*{\thetapp}	{\ensuremath{\ddot{\theta}}}
+
+\newcommand*{\alphat}	  {\fonction{\alpha}{t}}
+\newcommand*{\alphatp}	{\fonction{\dot{\alpha}}{t}}
+\newcommand*{\alphatpp}	{\fonction{\ddot{\alpha}}{t}}
+\newcommand*{\alphap}	  {\ensuremath{\dot{\alpha}}}
+\newcommand*{\alphapp}	{\ensuremath{\ddot{\alpha}}}
+
+\newcommand*{\betat}	  {\fonction{\beta}{t}}
+\newcommand*{\betatp}	  {\fonction{\dot{\beta}}{t}}
+\newcommand*{\betatpp}	{\fonction{\ddot{\beta}}{t}}
+\newcommand*{\betap}	  {\ensuremath{\dot{\beta}}}
+\newcommand*{\betapp}	  {\ensuremath{\ddot{\beta}}}
+
+\newcommand*{\gammat}	  {\fonction{\gamma}{t}}
+\newcommand*{\gammatp}	{\fonction{\dot{\gamma}}{t}}
+\newcommand*{\gammatpp}	{\fonction{\ddot{\gamma}}{t}}
+\newcommand*{\gammap}	  {\ensuremath{\dot{\gamma}}}
+\newcommand*{\gammapp}	{\ensuremath{\ddot{\gamma}}}
+
+\newcommand*{\phit}	  {\fonction{\phi}{t}}
+\newcommand*{\phitp}	{\fonction{\dot{\phi}}{t}}
+\newcommand*{\phitpp}	{\fonction{\ddot{\phi}}{t}}
+\newcommand*{\phip}	  {\ensuremath{\dot{\phi}}}
+\newcommand*{\phipp}	{\ensuremath{\ddot{\phi}}}
+
+\newcommand*{\varphit}	  {\fonction{\varphi}{t}}
+\newcommand*{\varphitp}	  {\fonction{\dot{\varphi}}{t}}
+\newcommand*{\varphitpp}	{\fonction{\ddot{\varphi}}{t}}
+\newcommand*{\varphip}	 {\ensuremath{\dot{\varphi}}}
+\newcommand*{\varphipp}	  {\ensuremath{\ddot{\varphi}}}
+
+\newcommand*{\psit}	  {\fonction{\psi}{t}}
+\newcommand*{\psitp}	{\fonction{\dot{\psi}}{t}}
+\newcommand*{\psitpp}	{\fonction{\ddot{\psi}}{t}}
+\newcommand*{\psip}	  {\ensuremath{\dot{\psi}}}
+\newcommand*{\psipp}	{\ensuremath{\ddot{\psi}}}
+
+\newcommand*{\lambdat}	  {\fonction{\lambda}{t}}
+\newcommand*{\lambdatp}	  {\fonction{\dot{\lambda}}{t}}
+\newcommand*{\lambdatpp}	{\fonction{\ddot{\lambda}}{t}}
+\newcommand*{\lambdap}	  {\ensuremath{\dot{\lambda}}}
+\newcommand*{\lambdapp}	  {\ensuremath{\ddot{\lambda}}}
+
+\newcommand*{\mut}	  {\fonction{\mu}{t}}
+\newcommand*{\mutp}	  {\fonction{\dot{\mu}}{t}}
+\newcommand*{\mutpp}	{\fonction{\ddot{\mu}}{t}}
+\newcommand*{\mup}	  {\ensuremath{\dot{\mu}}}
+\newcommand*{\mupp}	  {\ensuremath{\ddot{\mu}}}
+
+\newcommand*{\omegat}	  {\fonction{\omega}{t}}
+\newcommand*{\omegatp}	  {\fonction{\dot{\omega}}{t}}
+\newcommand*{\omegatpp}	{\fonction{\ddot{\omega}}{t}}
+\newcommand*{\omegap}	  {\ensuremath{\dot{\omega}}}
+\newcommand*{\omegapp}	  {\ensuremath{\ddot{\omega}}}
+
+
+%==============================================================================%
+% Actions mécaniques
+%==============================================================================%
+%--------------------------------------------------------%
+% Force / Couple
+%--------------------------------------------------------%
+\newcommandx*{\vForce}[3][1=F]	{\ifstrempty{#2}{\vecteur{{#1}_{#3}}}{\vecteur{{#1}_{#2\rightarrow #3}}	}}  % Vecteur Force
+\newcommandx*{\vMoment}[4][1=\MomSymbole]	{ \ifstrempty{#3}{\vecteur{ {#1}_{{#2},#4} }}{\vecteur{ {#1}_{{#2},#3\rightarrow #4} }} }  % Vecteur Moment
+\newcommandx*{\vF}[1][1=]		{\vForce[F]{}{#1}}   % Raccourci
+\newcommand*{\Cm} {\ensuremath{C_\text{m}}}   % Couple moteur
+\newcommand*{\Cr} {\ensuremath{C_\text{r}}}   % Couple résistant
+\newcommand*{\Cf} {\ensuremath{C_\text{f}}}   % Couple de frottement
+\newcommand*{\Fr} {\ensuremath{F_\text{r}}}   % Force r
+\newcommand*{\vg}	{\vecteur{g}} % Gravité
+
+%--------------------------------------------------------%
+% Torseur des actions mécaniques
+%--------------------------------------------------------%
+% Généralités
+\newcommand*{\tActionMecaniqueSymbole}{\ensuremath{\mathcal{T}}} % Symbole du Torseur des Actions Mécaniques
+\newcommandx*{\tActionMecanique}[4][1=,4=]{\ensuremath{\torseur{\tActionMecaniqueSymbole\ifblank{#1}{}{^{#1}}_{{#2}\rightarrow {#3}}}\ifblank{#4}{}{_{#4}}}} % Torseur des AM
+\newcommandx*{\tAM}[4][1=,4=]{\tActionMecanique[#1]{#2}{#3}[#4]} % Torseur des Actions Mécaniques
+
+\newcommand*{\resultanteAM}[2]{\ensuremath{\vForce{#1}{#2}}} % Résultante d'une AM
+\newcommand*{\momentAM}[3]{\ensuremath{\vMoment{#1}{#2}{#3}}} % Moment d'une AM
+\newcommandx{\composantetAM}[4][1=0]{\ensuremath{{#2}_{{#3}{\ifnumequal{0}{#1}{}{\rightarrow}}{#4}}}} % Composante
+
+% Forme canonique
+\newcommand*{\tActionMecaniqueCan}[9]{\ensuremath{\left\lbrace\begin{array}{c}\displaystyle % Torseur Action Mecanique en forme canonique : 1-Point, 2-S1, 3-S2, 4...9: 6 composantes. A utiliser avec \tCan{pt}{ce torseur}{base}
+    \ifnumequal{0}{#4}{0}{\ifnumequal{-1}{#4}{\cPlan}{\composantetAM{X}{#2}{#3}}}\\
+    \ifnumequal{0}{#5}{0}{\ifnumequal{-1}{#5}{\cPlan}{\composantetAM{Y}{#2}{#3}}}\\
+    \ifnumequal{0}{#6}{0}{\ifnumequal{-1}{#6}{\cPlan}{\composantetAM{Z}{#2}{#3}}}
+  \end{array}\begin{array}{c}\displaystyle
+    \ifnumequal{0}{#7}{0}{\ifnumequal{-1}{#7}{\cPlan}{\composantetAM{L}{#2}{#3}}}\\
+    \ifnumequal{0}{#8}{0}{\ifnumequal{-1}{#8}{\cPlan}{\composantetAM{M}{#2}{#3}}}\\
+    \ifnumequal{0}{#9}{0}{\ifnumequal{-1}{#9}{\cPlan}{\composantetAM{N}{#2}{#3}}}
+  \end{array}\right\rbrace}
+} 
+
+
+%==============================================================================%
+% Cinétique
+%==============================================================================%
+%--------------------------------------------------------%
+% Torseur cinétique
+%--------------------------------------------------------%
+%\newcommand*{\tCinetiqueSymbole}{\ensuremath{\mathscr{C}}} % Symbole du Torseur Cinétique
+\newcommand*{\tCinetiqueSymbole}{\ensuremath{\mathcal{C}}} % Symbole du Torseur Cinétique
+\newcommand*{\momCinetiqueSymbole}{\ensuremath{\sigma}} % Symbole du Moment Cinétique
+\newcommandx*{\tCinetique}[4][1=,4=]{\ensuremath{\torseur{\tCinetiqueSymbole\ifblank{#1}{}{^{#1}}_{#2/#3}}\ifblank{#4}{}{_{#4}}}} % Torseur Dynamique
+\newcommandx*{\tC}[4][1=,4=]{\tCinetique[#1]{#2}{#3}[#4]} % Torseur Cinétique (raccourci)
+
+\newcommandx*{\tCinetiqueLigne}[6][1=m,5=,6=G]{\ensuremath{{\tLigne{#4}{\resultanteCinetique[#1][#6]{#2}{#3}}{\momentCinetique{#4}{#2}{#3}}}_{#5}}} % Torseur cinétique en ligne avec les composantes
+\newcommandx*{\tCinetiqueLigneDef}[4][4=]{\ensuremath{{\tLigne{#3}{\resultanteCinetiqueDef{#1}{#2}}{\momentCinetiqueDef{#3}{#1}{#2}}}_{#4}}} % Torseur cinétique en ligne avec les composantes
+
+\newcommandx*{\resultanteCinetique}[4][1=m,2=G]{\ensuremath{{#1}\,\vVitesse{#2}{#3}{#4}}} % Résultante Cinétique
+\newcommand*{\resultanteCinetiqueDef}[2]{\ensuremath{\int_{#1}\vVitesse{M}{#1}{#2}\, dm}} % Définition de la Résultante Cinétique
+\newcommand*{\momentCinetique}[3]{\ensuremath{\vecteur{\momCinetiqueSymbole _{{#1}\in{#2}/{#3}}}}} % Moment Cinétique
+\newcommand*{\momentCinetiqueDef}[3]{\ensuremath{\int_{#2}\vecteur{{#1}M}\vect\vVitesse{M}{#2}{#3}\, dm}} % Définition du Moment Cinétique
+
+%--------------------------------------------------------%
+% Opérateur d'inertie
+%--------------------------------------------------------%
+\newcommand*{\operateurInertie}[2]{\ensuremath{\tenseur{I}_{\left({#1},{#2}\right)}}} % Notation de l'opérateur d'inertie
+\newcommandx*{\matriceInertie}[7][1=,2=0,3=0,4=0,5=0,6=0,7=0]{\ensuremath{{\begin{pmatrix}{#2} & {#7} & {#6} \\ {#7} & {#3} & {#5} \\ {#6} & {#5} & {#4} \end{pmatrix}}_{#1}}} % Expression de la matrice d'inertie
+\newcommandx*{\matriceInertieStd}[1][1=]{\matriceInertie[\bB{#1}][A_{#1}][B_{#1}][C_{#1}][-D_{#1}][-E_{#1}][-F_{#1}]} % Matrice d'inertie standard
+
+\newcommand*{\baseDuSolide}{\ensuremath{\left(\vecteur{x_s},\vecteur{y_s},\vecteur{z_s}\right)}} % Base du solide (xs,ys,zs))
+\newcommand*{\intInertie}[1]{\ensuremath{\int_S{#1}\, dm}} %Intégrale pour le calcul des éléments d'inertie
+\newcommand*{\momInertieA}{\ensuremath{\intInertie{(y^2+z^2)}}} % Moment d'inertie A
+\newcommand*{\momInertieB}{\ensuremath{\intInertie{(x^2+z^2)}}} % Moment d'inertie B
+\newcommand*{\momInertieC}{\ensuremath{\intInertie{(x^2+y^2)}}} % Moment d'inertie C
+\newcommand*{\prodInertieD}{\ensuremath{\intInertie{yz}}} % Produit d'inertie D
+\newcommand*{\prodInertieE}{\ensuremath{\intInertie{xz}}} % Produit d'inertie E
+\newcommand*{\prodInertieF}{\ensuremath{\intInertie{xy}}} % Produit d'inertie F
+\newcommand*{\Jeq}{\ensuremath{J_{\text{eq}}}} % Inertie équivalente
+\newcommand*{\Meq}{\ensuremath{M_{\text{eq}}}} % Masse équivalente
+
+
+%==============================================================================%
+% Dynamique
+%==============================================================================%
+%--------------------------------------------------------%
+% Torseur dynamique
+%--------------------------------------------------------%
+%\newcommand*{\tDynamiqueSymbole}{\ensuremath{\mathscr{D}}} % Symbole du Torseur Dynamique
+\newcommand*{\tDynamiqueSymbole}{\ensuremath{\mathcal{D}}} % Symbole du Torseur Dynamique
+\newcommand*{\momDynamiqueSymbole}{\ensuremath{\delta}} % Symbole du Moment Dynamique
+\newcommandx*{\tDynamique}[4][1=,4=]{\ensuremath{\torseur{\tDynamiqueSymbole\ifblank{#1}{}{^{#1}}_{#2/#3}}\ifblank{#4}{}{_{#4}}}} % Torseur Dynamique
+\newcommandx*{\tD}[4][1=,4=]{\tDynamique[#1]{#2}{#3}[#4]} % Torseur Dynamique (raccourci)
+
+\newcommandx*{\tDynamiqueLigne}[6][1=m,5=,6=G]{\ensuremath{{\tLigne{#4}{\resultanteDynamique[#1][#6]{#2}{#3}}{\momentDynamique{#4}{#2}{#3}}}_{#5}}} % Torseur dynamique en ligne avec les composantes
+\newcommandx*{\tDynamiqueLigneDef}[4][4=]{\ensuremath{{\tLigne{#3}{\resultanteDynamiqueDef{#1}{#2}}{\momentDynamiqueDef{#3}{#1}{#2}}}_{#4}}} % Torseur dynamique en ligne avec les composantes
+
+\newcommandx*{\resultanteDynamique}[4][1=m,2=G]{\ensuremath{{#1}\,\vAcceleration{#2}{#3}{#4}}} % Résultante Dynamique
+\newcommand*{\resultanteDynamiqueDef}[2]{\ensuremath{\int_{#1}\vAcceleration{M}{#1}{#2}\, dm}} % Définition de la Résultante Dynamique
+\newcommand*{\momentDynamique}[3]{\ensuremath{\vecteur{\momDynamiqueSymbole _{{#1}\in{#2}/{#3}}}}} % Moment Dynamique
+\newcommand*{\momentDynamiqueDef}[3]{\ensuremath{\int_{#2}\vecteur{{#1}M}\vect\vAcceleration{M}{#2}{#3}\, dm}} % Définition du Moment Dynamique
+
+
+%==============================================================================%
+% Énergétique
+%==============================================================================%
+%--------------------------------------------------------%
+% Energie cinétique
+%--------------------------------------------------------%
+\newcommand{\energieCinetique}[2]{\ensuremath{E_{c\left({#1}/{#2}\right)}}}
+\newcommand{\energieCinetiqueAlt}[2]{\ensuremath{T_{\left({#1}/{#2}\right)}}}
+\newcommand{\travailSymbole}{\ensuremath{W}}
+\newcommand{\energieSymbole}{\ensuremath{E}}
+
+%--------------------------------------------------------%
+% Puissance
+%--------------------------------------------------------%
+\newcommand*{\puissanceSymbole}{\ensuremath{P}} % Symbole de la puissance
+\newcommand{\puissance}[3]{\ensuremath{\puissanceSymbole_{{#1}\rightarrow {#2}/{#3}}}} % [S1][S2][Repere]
+\newcommand{\puissanceInter}[2]{\ensuremath{\puissanceSymbole_{{#1}\leftrightarrow {#2}}}} % puissance des inter-efforts
+\newcommandx{\puissanceExt}[1][1=]{\ensuremath{\puissanceSymbole^{#1}_{\text{ext}}}} % puissance exterieure
+\newcommandx{\puissanceInt}[1][1=]{\ensuremath{\puissanceSymbole^{#1}_{\text{int}}}} % puissance interieure
+\newcommandx{\puissanceMot}{\ensuremath{\puissanceSymbole_{\text{mot}}}} % puissance moteur
+
+
+%==============================================================================%
+% Rdm
+%==============================================================================%
+%--------------------------------------------------------%
+% Contraintes
+%--------------------------------------------------------%
+\newcommandx*{\vContrainte}[3][1=T]	{\ifthenelse{\equal{#2}{} \OR \equal{#3}{}} {\ensuremath{\vecteur{#1}\scriptstyle{\left( #2#3 \right)}\displaystyle}}{\ensuremath{\vecteur{#1}\scriptstyle{\left( #2,#3 \right)}\displaystyle}}} % Vecteur contrainte
+\newcommandx*{\vContrainteNormale}[3][3=P]	{\vForceRepartie[n]{#1}{#2}[#3]} % Contrainte normale
+\newcommandx*{\vContrainteTangentielle}[3][3=P]	{\vForceRepartie[t]{#1}{#2}[#3]} % Contrainte tangentielle
+
+\newcommand*{\tenseurContraintes}[1]{\ensuremath{\tenseur{\sigma}_{{#1}}}} % Notation du tenseur des contraintes
+\newcommand*{\tenseurContraintesStd}{\ensuremath{{\begin{pmatrix}{\sigma_{xx}} & {\sigma_{xy}} & {\sigma_{xz}} \\ {\sigma_{yx}} & {\sigma_{yy}} & {\sigma_{yz}} \\ {\sigma_{zx}} & {\sigma_{zy}} & {\sigma_{zz}} \end{pmatrix}}}} % Tenseur des contraintes standard
+
+%--------------------------------------------------------%
+% Moments quadratiques
+%--------------------------------------------------------%
+\newcommandx*{\momentQuadratique}[3][2=,3=G]{\ensuremath{I_{\ifstrempty{#3}{#1}{#3_{{#1}}}}\ifstrempty{#2}{}{(#2)}}} % Moment quadratique axe, surface, point
+\newcommandx*{\momentQuadratiquePolaire}[2][1=,2=G]{\ensuremath{I_{#2}\ifstrempty{#1}{}{(#1)}}} % Moment quadratique polaire  (surface, point)
+
+%--------------------------------------------------------%
+% Torseur de cohésion
+%--------------------------------------------------------%
+% Généralités
+\newcommandx*{\tCohesion}[1][1=]{\ensuremath{\torseur{\tActionMecaniqueSymbole _{\text{coh}}}\ifblank{#1}{}{_{#1}}}} % Torseur de cohésion
+\newcommandx*{\tCoh}[1][1=]{\tCohesion[{#1}]} % Torseur de Cohésion (raccourci)
+
+\newcommand{\Mfy}{\ensuremath{M\!f_y}}
+\newcommand{\Mfz}{\ensuremath{M\!f_z}}
+
+\newcommandx*{\resultanteCohesionDef}{\ensuremath{\int_{S}\vContrainte{M}{\vx{}}.dS}}
+\newcommandx*{\momentCohesionDef}{\ensuremath{\int_{S}\vecteur{GM}\vect\vContrainte{M}{\vx{}}.dS}}
+\newcommandx*{\tCohesionDef}[1][1=G]{\tLigne{#1}{\resultanteCohesionDef}{\momentCohesionDef}} % Torseur de cohésion (définition)
+
+% Forme canonique
+\newcommandx*{\tCohesionCan}[8][1=G,8=]{\torseurColonne{#1}{ % Torseur de cohésion en forme canonique : 1-Point, 2...7: 6 composantes.
+  \ifnumequal{0}{#2}{0}{N}\\
+  \ifnumequal{0}{#3}{0}{T_y}\\
+  \ifnumequal{0}{#4}{0}{T_z}
+}{
+  \ifnumequal{0}{#5}{0}{Mt}\\
+  \ifnumequal{0}{#6}{0}{\Mfy}\\
+  \ifnumequal{0}{#7}{0}{\Mfz}
+}{#8}} 
+
+%--------------------------------------------------------%
+% Torseur des petits déplacements
+%--------------------------------------------------------%
+% Généralités
+\newcommand*{\tDeplacementSymbole}{\ensuremath{\text{Dep}}} % Symbole du Torseur des Déplacements
+\newcommandx*{\tDeplacement}[4][1=,4=]{\ensuremath{\torseur{\tDeplacementSymbole\ifblank{#1}{}{^{#1}}_{#2/#3}}\ifblank{#4}{}{_{#4}}}} % Torseur des déplacements
+\newcommand*{\tPetitDeplacementSymbole}{\ensuremath{\mathcal{U}}} % Symbole du Torseur des Petits Déplacements
+\newcommandx*{\tPetitDeplacement}[4][1=,4=]{\ensuremath{\torseur{\tPetitDeplacementSymbole\ifblank{#1}{}{^{#1}}_{#2/#3}}\ifblank{#4}{}{_{#4}}}} % Torseur des petits déplacements
+\newcommandx*{\tDep}[4][1=,4=]{\tPetitDeplacement[#1]{#2}{#3}[#4]} % 
+
+\newcommand*{\resultantePetitDeplacement}{\ensuremath{\vecteur{\theta}}} % Résultante Petits déplacements
+\newcommandx*{\momentPetitDeplacement}[1][1=]{\ensuremath{\vecteur{{U}\ifblank{#1}{}{_{#1}}}}} % Moment Petits déplacements
+
+% Forme canonique
+\newcommandx*{\tPetitDeplacementCan}[8][1=G,8=]{\torseurColonne{#1}{ % Torseur de cohésion en forme canonique : 1-Point, 2...7: 6 composantes.
+  \ifnumequal{0}{#2}{0}{\theta_x}\\
+  \ifnumequal{0}{#3}{0}{\theta_y}\\
+  \ifnumequal{0}{#4}{0}{\theta_z}
+}{
+  \ifnumequal{0}{#5}{0}{u_x}\\
+  \ifnumequal{0}{#6}{0}{u_y}\\
+  \ifnumequal{0}{#7}{0}{u_z}
+}{#8}} 
+
+%--------------------------------------------------------%
+% Torseur des petites déformations
+%--------------------------------------------------------%
+% Généralités
+\newcommand*{\tPetitesDeformationsSymbole}{\ensuremath{\mathcal{E}}} % Symbole du Torseur des Petits Déplacements
+\newcommandx*{\tPetitesDeformations}[2][1=x,2=]{ \ensuremath{ \torseur{\tPetitesDeformationsSymbole (#1)}\ifblank{#2}{}{_{#2}}}} % Torseur des petites déformations
+\newcommand*{\resultantePetitesDeformations}{\ensuremath{\vecteur{\gamma}}} % Résultante Petites déformations
+\newcommandx*{\momentPetitesDeformations}[1][1=]{\ensuremath{\vecteur{{\varepsilon}\ifblank{#1}{}{_{#1}}}}} % Moment Petites déformations
+ 
+%--------------------------------------------------------%
+% Diagrammes des efforts intérieurs
+%--------------------------------------------------------%
+\newcommandx*{\PoutreEncastrement}[4][3=0,4=1]{           % Encastrement: 1: Posx, 2: Posy, 3: rotate, 4: scale 
+\begin{scope}[xshift=#1 cm,yshift=#2 cm,rotate=#3,scale=#4]
+\draw (0,-0.5) -- ++(0,1) ;
+\fill[pattern=north west lines] (0,-0.5) -- ++(0,1) -- ++(-0.2,0) -- ++(0,-1) -- cycle ;
+\end{scope}
+} 
+
+\newcommandx*{\PoutreAppuiSimple}[4][3=0,4=1]{            % Appui simple: 1: Posx, 2: Posy, 3: rotate, 4: scale 
+\begin{scope}[xshift=#1 cm,yshift=#2 cm,rotate=#3,scale=#4]
+\draw (-0.3,-0.4) -- (0,0) -- (0.3,-0.4) -- cycle ;
+\filldraw[fill=white] (-0.2,-0.5) circle(0.1) ;
+\filldraw[fill=white] (0.2,-0.5) circle(0.1) ;
+\draw (-0.5,-0.6) -- ++(1,0) ;
+\fill[pattern=north west lines] (-0.5,-0.6) -- ++(1,0) -- ++(0,-0.2) -- ++(-1,0) -- cycle ;
+\end{scope}
+} 
+
+\newcommandx*{\PoutreRotule}[4][3=0,4=1]{            % Rotule: 1: Posx, 2: Posy, 3: rotate, 4: scale
+\begin{scope}[xshift=#1 cm,yshift=#2 cm,rotate=#3,scale=#4]
+\draw (-0.3,-0.6) -- (0,0) -- (0.3,-0.6) -- cycle ;
+\filldraw[fill=white] (0,0) circle(0.1) ;
+\draw (-0.5,-0.6) -- ++(1,0) ;
+\fill[pattern=north west lines] (-0.5,-0.6) -- ++(1,0) -- ++(0,-0.2) -- ++(-1,0) -- cycle ;
+\end{scope}
+}  
+
+\newcommandx*{\PoutreBaseLocale}[4][3=$\vx{}$,4=$\vy{}$]{            % Base locale: 1: Posx, 2: Posy, 3: vx , 4: vy
+\draw[->,>=latex] (#1,0) -- ++(1,0) node[right] {#3};
+\draw[->,>=latex] (0,#2) -- ++(0,1) node[left] {#4};
+}  
+
+\newcommandx*{\PoutreCharge}[8][4=0,5=0,6=UPSTIcustomColor1,7=1,8=right]{            % Charge: 1: Posx, 2: Posy, 3: Nom, 4: rotate, 5: inversion ?, 6: couleur, 7: dimension, 8: style du node 
+\begin{scope}[xshift=#1 cm,yshift=#2 cm,rotate=#4]
+\ifthenelse{\equal{#5}{0}}{
+\draw[<-,>=latex, ultra thick,#6] (0,0) -- ++(0,#7) node[#8] {#3};
+}{
+\draw[->,>=latex, ultra thick,#6] (0,0) -- ++(0,#7) node[#8] {#3};
+}
+\end{scope}
+}  
+ 
+\newcommandx*{\PoutreChargeRepartie}[8][5=0,6=UPSTIcustomColor1,7=0.4,8=0.2]{            % Charge: 1: Posx, 2: Posy, 3: Longueur, 4: Nom, 5: rotate, 6: couleur, 7: dimension, 8: espacement
+\begin{scope}[xshift=#1 cm,yshift=#2 cm,rotate=#5]
+\foreach \k in {0,#8,...,#3} {\draw[<-,>=latex,#6] (\k,0)--(\k,#7);}
+\draw[#6] (0,#7)--(#3,#7) node[midway,above] {\small #4};
+%\node at (#3,0)[above right,#6] ;
+\end{scope}
+}
+
+\newcommandx*{\PoutreDiagAxes}[5][5=x]{            % Axes pour le diagramme: 1: Nom du diagramme, 2: Posx de la poutre, 3: valeur min de l'ordonnee, 4: valeur max de l'ordonnee, 5: nom de l'axe des abcisses
+  \draw[->,>=latex] (0,#3) -- (0,#4) node[left] {#1};
+  \draw[->,>=latex] (-0.3,0) -- (1,0) -- ++(#2,0) node[right] {$#5$};
+}
+
+\newcommandx*{\PoutreDiagCfg}[2][1=UPSTIcustomColor1,2=]{  
+  \tikzstyle{diagCourbe}=[color=#1,pattern color=#1!70,pattern=vertical lines,#2];
+  \tikzstyle{diagCourbeAcc}=[#1, thick,#2];
+}
+
+
+%==============================================================================%
+%	Torseurs et tenseurs
+%==============================================================================%
+%--------------------------------------------------------%
+% Écriture des torseurs
+%--------------------------------------------------------%
+\newcommand*{\torseur}[1]{\ensuremath{\left\lbrace{#1}\right\rbrace}}
+
+\newcommandx*{\torseurLigne}[4][1=c]{\ensuremath{\indiceGauche{#2}{\left\lbrace\begin{array}{#1}\displaystyle #3\\\displaystyle #4\end{array}\right\rbrace}}}
+\newcommandx*{\tLigne}[4][1=c]{\ensuremath{\torseurLigne[#1]{#2}{#3}{#4}}}
+
+\newcommandx*{\torseurColonne}[5][1=c]{\ensuremath{\indiceGauche{#2}{\left\lbrace\begin{array}{#1}\displaystyle #3\end{array}\begin{array}{#1}\displaystyle #4\end{array}\right\rbrace}_{#5}}}
+\newcommandx*{\tColonne}[5][1=c]{\ensuremath{\torseurColonne[#1]{#2}{#3}{#4}{#5}}}
+
+\newcommand*{\tNul}{\ensuremath{\torseur{0}}} % Torseur nul    
+\newcommand*{\cPlan}{\ensuremath{\diagup}} % Termes nuls dans le plan
+\newcommand*{\tCan}[3]{\ensuremath{\indiceGauche{#1}{#2}_{#3}}} %Forme canonique d'un torseur: 1-Point, 2-Torseur, 3-Base, pour contourner la limite de 9 paramètres
+ 
+%--------------------------------------------------------%
+% Écriture des tenseurs
+%--------------------------------------------------------%
+\newcommand{\tenseur}[1]{\ensuremath{\bar{\bar{{#1}}}}}
+
+%--------------------------------------------------------%
+% Éléments de réduction
+%--------------------------------------------------------%
+\newcommand*{\ResSymbole}{\ensuremath{R}} % Symbole de la résultante
+\newcommand*{\MomSymbole}{\ensuremath{M}} % Symbole du moment
+
+\newcommand*{\resultante}[1]{\ensuremath{\vecteur{\ResSymbole\scriptstyle{#1}}}} % Résultante d'un torseur
+\newcommand*{\Res}[1]{\resultante{#1}} % Résultante d'un torseur (raccourci)
+
+\newcommand*{\moment}[2]{\ensuremath{\vecteur{\MomSymbole _{#1} \scriptstyle{#2}}}} % Moment d'un torseur
+\newcommand*{\Mom}[2]{\moment{#1}{#2}} % Moment d'un torseur (raccourci)
+
+\newcommand{\elementsReduction}[4]{\ensuremath{\left\lbrace\begin{array}{l}\displaystyle \Res{#1}={#3}\\\displaystyle \Mom{#2}{#1}={#4}\end{array}\right.}}  % Ecriture des elements de reduction: 1- torseur, 2- point, 3-resultante, 4- moment
+
+%--------------------------------------------------------%
+% Opérateurs
+%--------------------------------------------------------%
+\newcommand*{\automoment}[1]{\ensuremath{a\scriptstyle{#1}}} % Automoment d'un torseur
+\newcommand*{\axeCentral}[1]{\ensuremath{\left(\Delta\scriptstyle{#1}\right)}} % Axe central
+
+\newcommand*{\comoment}[2]{\ensuremath{{#1}\otimes{#2}}} % Comoment
+\newcommand*{\devComoment}[3]{\ensuremath{\resultante{#2}\cdot\moment{#1}{#3}+\moment{#1}{#2}\cdot\resultante{#3}}} % Comoment développé
+
+
+%==============================================================================%
+%	Bases, repères et figures planes
+%==============================================================================%
+\newcommandx*{\dessinRepere}[5][1=\vx{},2=\vy{},3=\vz{},4=,5=0]
+	{
+	\begin{tikzpicture}
+    \dessinRepereFig[#1][#2][#3][#4][#5]
+	\end{tikzpicture}
+	}
+
+\newcommandx*{\dessinRepereFig}[5][1=\vx{},2=\vy{},3=\vz{},4=,5=0]
+	{
+		\draw [->,very thick] (0,0) -- (1.2,0) ;
+		\draw [->,very thick] (0,0) -- (0,1.2) ;
+    \fill[white] (0,0) circle (0.13);
+    \draw [->,very thick] (0,0) circle (0.13);
+    \ifnumequal{#5}{0} {% z vers nous
+      \fill[black] (0,0) circle (0.03);
+      \draw [->,thick] (0,0) circle (0.04);
+    }{% z vers la feuille
+  		\begin{scope} [rotate=45]
+  			\draw [-,thick] (0,-0.12) -- (0,0.12) ;
+  			\draw [-,thick] (-0.12,0) -- (0.12,0) ;
+  		\end{scope}
+    }
+		\draw [anchor=north west] (1.1,0) node {${#1}$};
+		\draw [anchor=south west] (0,1.1) node {${#2}$};
+		\draw [anchor=north east] (-0.1,0) node {${#3}$};
+		\draw [anchor=north west] (-0.1,-0.1) node {${#4}$};
+	}
+
+\newcommandx*{\dessinRepereTri}[4][1=\vx{},2=\vy{},3=\vz{},4=]
+	{
+	\begin{tikzpicture}
+    \dessinRepereTriFig[#1][#2][#3][#4]
+	\end{tikzpicture}
+	}
+
+\newcommandx*{\dessinRepereTriFig}[4][1=\vx{},2=\vy{},3=\vz{},4=]
+	{
+		\draw [->] (0,0) -- (0,1.5) ;
+		\draw [right] (0,1.5) node {#1};
+		\draw [->] (0,0) -- (1.5,0) ;
+		\draw [right] (1.5,0) node {#2};
+		\begin{scope} [rotate=-135]
+  		\draw [->] (0,0) -- (1.2,0) ;
+  		\draw [below] (1.2,0) node {#3};
+		\end{scope}
+   	\node[below=1em, right] at (0,0){#4};
+	}
+
+\newcommandx*{\dessinRepereIso}[4][1=\vx{},2=\vy{},3=\vz{},4=]
+	{
+	\begin{tikzpicture}
+    \dessinRepereIsoFig[#1][#2][#3][#4]
+	\end{tikzpicture}
+	}
+
+\newcommandx*{\dessinRepereIsoFig}[4][1=\vx{},2=\vy{},3=\vz{},4=]
+	{
+		\begin{scope} [rotate=-30]
+  		\draw [->] (0,0) -- (1.5,0) ;
+  		\draw [right] (1.5,0) node {#1};
+		\end{scope}
+		\draw [->] (0,0) -- (0,1.5) ;
+		\draw [right] (0,1.5) node {#2};
+		\begin{scope} [rotate=-150]
+  		\draw [->] (0,0) -- (1.5,0) ;
+  		\draw [left] (1.5,0) node {#3};
+		\end{scope}
+   	\node[below] at (0,0){#4};
+	}
+ 
+%--------------------------------------------------------%
+% Paramétrage angulaire (figure plane)
+%--------------------------------------------------------%
+% {1}: Angle, [2]: Valeur de l'angle, {3},{4},{5}: axes b1, {6},{7},[8]: axes b2, [9]: orientation de l'axe normal au plan
+
+% Couleurs des 2 repères
+\newcommand*{\setCouleursParametrage}[2]{
+  \ifdef{\paramAngulaireCouleurA}{\renewcommand{\paramAngulaireCouleurA}{#1}}{\newcommand{\paramAngulaireCouleurA}{#1}} 
+  \ifdef{\paramAngulaireCouleurB}{\renewcommand{\paramAngulaireCouleurB}{#2}}{\newcommand{\paramAngulaireCouleurB}{#2}} 
+}
+
+% Tracé (noir par défaut))
+\newcommandx*{\parametrageAngulaire}[9][2=25,8=,9=0]   
+	{
+	\begin{tikzpicture}
+    \parametrageAngulaireFig{#1}[#2]{#3}{#4}{#5}{#6}{#7}[#8][#9]
+	\end{tikzpicture}
+	}
+
+  \newcommandx*{\parametrageAngulaireFig}[9][2=25,8=,9=0]   
+	{
+  % Gestion des couleurs
+  \ifdef{\paramAngulaireCouleurA}{\colorlet{paramAngColorA}{\paramAngulaireCouleurA}}{\colorlet{paramAngColorA}{black}} % Couleur par défaut du repere 1: noir
+  \ifdef{\paramAngulaireCouleurB}{\colorlet{paramAngColorB}{\paramAngulaireCouleurB}}{\colorlet{paramAngColorB}{black}} % Couleur par défaut du repere 2: noir
+  % Dessin
+
+    \tikzstyle{flecheFigure}=[->, >=latex]
+		\draw [flecheFigure,very thick, color=paramAngColorA] (0,0) -- (1.8,0) ;
+		\draw [flecheFigure,very thick, color=paramAngColorA] (0,0) -- (0,1.8) ;
+		\draw (2.1,0) node {\textcolor{paramAngColorA}{${#3}$}};
+		\draw (0,2.1) node {\textcolor{paramAngColorA}{${#4}$}};
+		\ifstrempty{#8}
+			{\draw [anchor=north east] (-0.1,0) node {\textcolor{paramAngColorA}{${#5}$}};}
+			{\draw [anchor=north east] (-0.1,0) node {\textcolor{paramAngColorA}{${#5}$}\textcolor{paramAngColorB}{${\,=#8}$}};}
+		\begin{scope} [rotate=#2]
+			\draw [flecheFigure, color=paramAngColorB] (0,0) -- (1.8,0) ;
+			\draw [flecheFigure, color=paramAngColorB] (0,0) -- (0,1.8) ;
+			\draw (2.1,0) node {\textcolor{paramAngColorB}{${#6}$}};
+			\draw (0,2.1) node {\textcolor{paramAngColorB}{${#7}$}};
+		\end{scope}
+		\draw [flecheFigure, color=paramAngColorB](1,0) arc (0:#2:1);
+		\draw [anchor=center]({#2/2}:1.25) node {\textcolor{paramAngColorB}{${#1}$}};
+		\draw[flecheFigure,rotate=90, color=paramAngColorB] (1,0) arc (0:#2:1);
+		\draw [rotate=90,anchor=center]({#2/2}:1.25) node {\textcolor{paramAngColorB}{${#1}$}};
+		%\draw (0,1) arc (90:$#2+90$:1);
+
+    \fill[white] (0,0) circle (0.13);
+    \draw [flecheFigure,very thick, color=paramAngColorA] (0,0) circle (0.13);
+    \ifnumequal{#9}{0} {% z vers nous
+      \fill[paramAngColorA] (0,0) circle (0.03);
+      \draw [flecheFigure,thick, color=paramAngColorA] (0,0) circle (0.04);
+    }{% z vers la feuille
+  		\begin{scope} [rotate=45]
+  			\draw [-,thick, color=paramAngColorA] (0,-0.12) -- (0,0.12) ;
+  			\draw [-,thick, color=paramAngColorA] (-0.12,0) -- (0.12,0) ;
+  		\end{scope}
+    }
+
+	}
+
+%--------------------------------------------------------%
+% Figures planes multiples
+%--------------------------------------------------------%
+% Paramètres
+% 1: base, 2: Couleur, 3: Angle, 4: ref angle, 5,6,7: 3 vecteurs
+\newcommandx{\setFigurePlaneMultipleBase}[7][2=,4=0]{
+  \ifcase #1
+    % Base 0
+    \ifstrempty{#2}{}{\ifdef{\figMultipleBaseACouleur}{\renewcommand{\figMultipleBaseACouleur}{#2}}{\newcommand{\figMultipleBaseACouleur} {#2}}}
+    \ifdef{\figMultipleBaseAVecteurA}{\renewcommand{\figMultipleBaseAVecteurA}{#5}}{\newcommand{\figMultipleBaseAVecteurA}{#5}} 
+    \ifdef{\figMultipleBaseAVecteurB}{\renewcommand{\figMultipleBaseAVecteurB}{#6}}{\newcommand{\figMultipleBaseAVecteurB}{#6}} 
+    \ifdef{\figMultipleBaseAVecteurC}{\renewcommand{\figMultipleBaseAVecteurC}{#7}}{\newcommand{\figMultipleBaseAVecteurC}{#7}} 
+
+    % Base 1
+    \or
+    \ifstrempty{#2}{}{\ifdef{\figMultipleBaseBCouleur} {\renewcommand{\figMultipleBaseBCouleur} {#2}}{\newcommand{\figMultipleBaseBCouleur} {#2}}} 
+    \ifdef{\figMultipleBaseBAngle}   {\renewcommand{\figMultipleBaseBAngle}   {#3}}{\newcommand{\figMultipleBaseBAngle}   {#3}} 
+    \ifdef{\figMultipleBaseBVecteurA}{\renewcommand{\figMultipleBaseBVecteurA}{#5}}{\newcommand{\figMultipleBaseBVecteurA}{#5}} 
+    \ifdef{\figMultipleBaseBVecteurB}{\renewcommand{\figMultipleBaseBVecteurB}{#6}}{\newcommand{\figMultipleBaseBVecteurB}{#6}} 
+    \ifdef{\figMultipleBaseBVecteurC}{\renewcommand{\figMultipleBaseBVecteurC}{#7}}{\newcommand{\figMultipleBaseBVecteurC}{#7}} 
+    
+    % Base 2
+    \or
+    \ifstrempty{#2}{}{\ifdef{\figMultipleBaseCCouleur} {\renewcommand{\figMultipleBaseCCouleur} {#2}}{\newcommand{\figMultipleBaseCCouleur} {#2}}} 
+    \ifdef{\figMultipleBaseCAngle}   {\renewcommand{\figMultipleBaseCAngle}   {#3}}{\newcommand{\figMultipleBaseCAngle}   {#3}} 
+    \ifdef{\figMultipleBaseCRef}     {\renewcommand{\figMultipleBaseCRef}     {#4}}{\newcommand{\figMultipleBaseCRef}     {#4}} 
+    \ifdef{\figMultipleBaseCVecteurA}{\renewcommand{\figMultipleBaseCVecteurA}{#5}}{\newcommand{\figMultipleBaseCVecteurA}{#5}} 
+    \ifdef{\figMultipleBaseCVecteurB}{\renewcommand{\figMultipleBaseCVecteurB}{#6}}{\newcommand{\figMultipleBaseCVecteurB}{#6}} 
+    \ifdef{\figMultipleBaseCVecteurC}{\renewcommand{\figMultipleBaseCVecteurC}{#7}}{\newcommand{\figMultipleBaseCVecteurC}{#7}} 
+    
+    % Base 3
+    \else
+    \ifstrempty{#2}{}{\ifdef{\figMultipleBaseDCouleur} {\renewcommand{\figMultipleBaseDCouleur} {#2}}{\newcommand{\figMultipleBaseDCouleur} {#2}}} 
+    \ifdef{\figMultipleBaseDAngle}   {\renewcommand{\figMultipleBaseDAngle}   {#3}}{\newcommand{\figMultipleBaseDAngle}   {#3}} 
+    \ifdef{\figMultipleBaseDRef}     {\renewcommand{\figMultipleBaseDRef}     {#4}}{\newcommand{\figMultipleBaseDRef}     {#4}} 
+    \ifdef{\figMultipleBaseDVecteurA}{\renewcommand{\figMultipleBaseDVecteurA}{#5}}{\newcommand{\figMultipleBaseDVecteurA}{#5}} 
+    \ifdef{\figMultipleBaseDVecteurB}{\renewcommand{\figMultipleBaseDVecteurB}{#6}}{\newcommand{\figMultipleBaseDVecteurB}{#6}} 
+    \ifdef{\figMultipleBaseDVecteurC}{\renewcommand{\figMultipleBaseDVecteurC}{#7}}{\newcommand{\figMultipleBaseDVecteurC}{#7}} 
+    
+  \fi
+}
+
+% Dessin
+% 1: nombre de bases à afficher (3 ou 4), 2: Afficher tous les z ou pas
+\newcommandx*{\figurePlaneMultiple}[2][1=3,2=]{
+	\begin{tikzpicture}[scale=0.8]
+    \figurePlaneMultipleFig[#1][#2]
+	\end{tikzpicture}
+}
+
+\newcommandx*{\figurePlaneMultipleFig}[2][1=3,2=]{
+
+  % Paramètres par défaut
+  \ifdef{\figMultipleBaseACouleur}{\colorlet{figMultipleBaseACouleur}{\figMultipleBaseACouleur}}{\colorlet{figMultipleBaseACouleur}{black}} % Couleur par défaut du repere 0: noir
+  \ifdef{\figMultipleBaseBCouleur}{\colorlet{figMultipleBaseBCouleur}{\figMultipleBaseBCouleur}}{\colorlet{figMultipleBaseBCouleur}{UPSTIcustomColor1}} % Couleur par défaut du repere 1: UPSTIcustomColor1
+  \ifdef{\figMultipleBaseCCouleur}{\colorlet{figMultipleBaseCCouleur}{\figMultipleBaseCCouleur}}{\colorlet{figMultipleBaseCCouleur}{UPSTIcustomColor3}} % Couleur par défaut du repere 2: UPSTIcustomColor3
+  \ifdef{\figMultipleBaseDCouleur}{\colorlet{figMultipleBaseDCouleur}{\figMultipleBaseDCouleur}}{\colorlet{figMultipleBaseDCouleur}{UPSTIcustomColor4}} % Couleur par défaut du repere 3: UPSTIcustomColor4
+  \ifdef{\figMultipleBaseCRef}{}{\newcommand{\figMultipleBaseCRef}{0}} 
+  \ifdef{\figMultipleBaseDRef}{}{\newcommand{\figMultipleBaseDRef}{0}} 
+  \ifdef{\figMultipleBaseBAngle}{}{\newcommand{\figMultipleBaseBAngle}{\theta_1}} 
+  \ifdef{\figMultipleBaseCAngle}{}{\newcommand{\figMultipleBaseCAngle}{\theta_2}} 
+  \ifdef{\figMultipleBaseDAngle}{}{\newcommand{\figMultipleBaseDAngle}{\theta_3}} 
+  \ifdef{\figMultipleBaseAVecteurA}{}{\newcommand{\figMultipleBaseAVecteurA}{\vx1}} 
+  \ifdef{\figMultipleBaseAVecteurB}{}{\newcommand{\figMultipleBaseAVecteurB}{\vy1}} 
+  \ifdef{\figMultipleBaseAVecteurC}{}{\newcommand{\figMultipleBaseAVecteurC}{\vz1}} 
+  \ifdef{\figMultipleBaseBVecteurA}{}{\newcommand{\figMultipleBaseBVecteurA}{\vx2}} 
+  \ifdef{\figMultipleBaseBVecteurB}{}{\newcommand{\figMultipleBaseBVecteurB}{\vy2}} 
+  \ifdef{\figMultipleBaseBVecteurC}{}{\newcommand{\figMultipleBaseBVecteurC}{\vz2}} 
+  \ifdef{\figMultipleBaseCVecteurA}{}{\newcommand{\figMultipleBaseCVecteurA}{\vx3}} 
+  \ifdef{\figMultipleBaseCVecteurB}{}{\newcommand{\figMultipleBaseCVecteurB}{\vy3}} 
+  \ifdef{\figMultipleBaseCVecteurC}{}{\newcommand{\figMultipleBaseCVecteurC}{\vz3}} 
+  \ifdef{\figMultipleBaseDVecteurA}{}{\newcommand{\figMultipleBaseDVecteurA}{\vx4}} 
+  \ifdef{\figMultipleBaseDVecteurB}{}{\newcommand{\figMultipleBaseDVecteurB}{\vy4}} 
+  \ifdef{\figMultipleBaseDVecteurC}{}{\newcommand{\figMultipleBaseDVecteurC}{\vz4}} 
+
+  % Parametres d'affichage des angles, en fonction des différentes configurations possibles
+  \ifnumequal{#1}{3}{
+    \ifnumequal{\figMultipleBaseCRef}{0}{
+      \def\figMultipleDistanceB{1.4}
+      \def\figMultipleDistanceC{2.2}
+    }{
+      \def\figMultipleDistanceB{1.7}
+      \def\figMultipleDistanceC{1.7}
+    }  
+  }{
+    \ifcase\figMultipleBaseDRef
+      % 0
+      \ifnumequal{\figMultipleBaseCRef}{0}{
+        \def\figMultipleDistanceB{1}
+        \def\figMultipleDistanceC{1.7}
+        \def\figMultipleDistanceD{2.4}
+      }{
+        \def\figMultipleDistanceB{1.4}
+        \def\figMultipleDistanceC{1.4}
+        \def\figMultipleDistanceD{2.2}
+      }  
+      % 1
+      \or 
+      \ifnumequal{\figMultipleBaseCRef}{0}{
+        \def\figMultipleDistanceB{1.4}
+        \def\figMultipleDistanceC{2.2}
+        \def\figMultipleDistanceD{1.4}
+      }{
+        \def\figMultipleDistanceB{1.4}
+        \def\figMultipleDistanceC{1.4}
+        \def\figMultipleDistanceD{2.2}
+      }  
+      % 2
+      \else 
+      \ifnumequal{\figMultipleBaseCRef}{0}{
+        \def\figMultipleDistanceB{1.4}
+        \def\figMultipleDistanceC{2.2}
+        \def\figMultipleDistanceD{2.2}
+      }{
+        \def\figMultipleDistanceB{1.7}
+        \def\figMultipleDistanceC{1.7}
+        \def\figMultipleDistanceD{1.7}
+      }  
+      
+    \fi
+  }
+  
+  % Dessin
+  \begin{scope}[thick, >=latex]
+
+    % Repère 0
+    \draw[->,figMultipleBaseACouleur, very thick] (0,0) -- (3,0);
+    \draw (3.3,0) node {\textcolor{figMultipleBaseACouleur}{$\figMultipleBaseAVecteurA$}};
+    \draw[->,figMultipleBaseACouleur, very thick] (0,0) -- (0,3); 
+    \draw (0,3.3) node {\textcolor{figMultipleBaseACouleur}{$\figMultipleBaseAVecteurB$}};
+    \ifstrempty{#2}
+		  {\draw (-0.5,-0.5) node {\textcolor{figMultipleBaseACouleur}{$\figMultipleBaseAVecteurC$}};}
+		  {\ifnumequal{#1}{3}
+        {\draw (-0.5,-0.6) node {\textcolor{figMultipleBaseACouleur}{$\figMultipleBaseAVecteurC$}\textcolor{figMultipleBaseBCouleur}{${\,=\figMultipleBaseBVecteurC}$}\textcolor{figMultipleBaseCCouleur}{${\,=\figMultipleBaseCVecteurC}$}};}
+        {\draw (-0.5,-0.6) node {\textcolor{figMultipleBaseACouleur}{$\figMultipleBaseAVecteurC$}\textcolor{figMultipleBaseBCouleur}{${\,=\figMultipleBaseBVecteurC}$}\textcolor{figMultipleBaseCCouleur}{${\,=\figMultipleBaseCVecteurC}$}\textcolor{figMultipleBaseDCouleur}{${\,=\figMultipleBaseDVecteurC}$}};}
+      }    
+
+    % Repère 1
+    \begin{scope}[rotate=20]
+      \draw[->,figMultipleBaseBCouleur] (0,0) -- (3,0);
+      \draw (3.3,0) node {\textcolor{figMultipleBaseBCouleur}{$\figMultipleBaseBVecteurA$}};
+      \draw[->,figMultipleBaseBCouleur] (0,0) -- (0,3); 
+      \draw (0,3.3) node {\textcolor{figMultipleBaseBCouleur}{$\figMultipleBaseBVecteurB$}};
+    \end{scope}
+%      \foreach \x in {0,90}{
+%        \begin{scope}[rotate=\x]
+        \draw[->,figMultipleBaseBCouleur] (\figMultipleDistanceB,0) arc (0:20:\figMultipleDistanceB);
+        \node[figMultipleBaseBCouleur] at (10:{\figMultipleDistanceB+0.3}) {\textcolor{figMultipleBaseBCouleur}{$\figMultipleBaseBAngle$}};
+%        \end{scope}
+%      }
+
+    % Repère 2
+    \begin{scope}[rotate=40]
+      \draw[->,figMultipleBaseCCouleur] (0,0) -- (3,0);
+      \draw (3.3,0) node {\textcolor{figMultipleBaseCCouleur}{$\figMultipleBaseCVecteurA$}};
+      \draw[->,figMultipleBaseCCouleur] (0,0) -- (0,3); 
+      \draw (0,3.3) node {\textcolor{figMultipleBaseCCouleur}{$\figMultipleBaseCVecteurB$}};
+    \end{scope}
+%      \foreach \x in {0,90}{
+%        \begin{scope}[rotate=\x]
+        \draw[->,figMultipleBaseCCouleur] ({\figMultipleBaseCRef*20}:\figMultipleDistanceC) arc ({\figMultipleBaseCRef*20}:40:\figMultipleDistanceC);
+        \node[figMultipleBaseCCouleur] at (30:{\figMultipleDistanceC+0.3}) {\textcolor{figMultipleBaseCCouleur}{$\figMultipleBaseCAngle$}};
+%        \end{scope}
+%      }
+
+    % Repère 3
+	  \ifnumequal{#1}{4}{
+      \begin{scope}[rotate=60]
+        \draw[->,figMultipleBaseDCouleur] (0,0) -- (3,0);
+        \draw (3.3,0) node {\textcolor{figMultipleBaseDCouleur}{$\figMultipleBaseDVecteurA$}};
+        \draw[->,figMultipleBaseDCouleur] (0,0) -- (0,3); 
+        \draw (0,3.3) node {\textcolor{figMultipleBaseDCouleur}{$\figMultipleBaseDVecteurB$}};
+      \end{scope}
+%        \foreach \x in {0,90}{
+%          \begin{scope}[rotate=\x]
+          \draw[->,figMultipleBaseDCouleur] ({\figMultipleBaseDRef*20}:\figMultipleDistanceD) arc ({\figMultipleBaseDRef*20}:60:\figMultipleDistanceD); 
+          \node[figMultipleBaseDCouleur] at (50:{\figMultipleDistanceD+0.3}) {\textcolor{figMultipleBaseDCouleur}{$\figMultipleBaseDAngle$}};
+%          \end{scope}
+%        }
+    }{}
+
+    % Vecteur "z"
+    \draw [very thick, color=figMultipleBaseACouleur, fill=white] (0,0) circle (0.18);
+    \draw [color=figMultipleBaseACouleur, fill=figMultipleBaseACouleur] (0,0) circle (0.04);
+  \end{scope}
+}
+
+ 
+%==============================================================================%
+%	Formules et théorèmes classiques 
+%==============================================================================%
+%--------------------------------------------------------%
+% Cinématique
+%--------------------------------------------------------%
+\newcommandx*{\Bour}[4][4=]{\ensuremath{\ifstrempty{#4}{\derivV{#1}{#3}=\derivV{#1}{#2}+\vRotation{#2}{#3}\vect{#1}}{\derivV{#1}{#3}=\underbrace{\derivV{#1}{#2}}_{#4}+\vRotation{#2}{#3}\vect{#1}}}}% Formule de Bour (dérivation vectorielle)
+\newcommandx*{\changePtMomCinematique}[5][5=]{\ensuremath{\ifstrempty{#5}{\vVitesse{#4}{#1}{#2}+\vecteur{{#3}{#4}}\vect\vRotation{#1}{#2}}{\underbrace{\vVitesse{#4}{#1}{#2}}_{#5}+\vecteur{{#3}{#4}}\vect\vRotation{#1}{#2}}}}
+\newcommandx*{\babarCinematique}[5][5=]{\vVitesse{#3}{#1}{#2}=\changePtMomCinematique{#1}{#2}{#3}{#4}[#5]}% Formule de chgt de point d'un moment cinematique
+\newcommandx*{\Varignon}[5][5=]{\babarCinematique{#1}{#2}{#3}{#4}[#5]}% Idem, mais nommé \Varignon
+\newcommand*{\champAccelerations}[4]{\vAcceleration{#3}{#1}{#2}=\vAcceleration{#4}{#1}{#2}+\vecteur{{#3}{#4}}\vect\derivV{\vRotation{#1}{#2}}{R_{#2}}+\vRotation{#1}{#2}\vect\left(\vecteur{{#3}{#4}}\vect\vRotation{#1}{#2}\right)} % Champ des accelerations
+
+%--------------------------------------------------------%
+% Statique
+%--------------------------------------------------------%
+\newcommandx*{\PFS}[2][2=]{\ensuremath{\sum\tAM{\ext}{#1}[#2]=\tNul}}% PFS (eq torsorielle)
+\newcommand*{\thResStatique}[1]{\ensuremath{\sum{\resultanteAM{\ext}{#1}}=\vNul}}% Théorème de la résultante statique
+\newcommand*{\thMomStatique}[2]{\ensuremath{\sum{\momentAM{#2}{\ext}{#1}}=\vNul}}% Théorème du moment statique
+\newcommandx*{\changePtMomAM}[6][3=,6=]{\ensuremath{\ifstrempty{#6}{\momentAM{#5}{#1}{#2}}{\underbrace{\momentAM{#5}{#1}{#2}}_{#6}}+\vecteur{{#4}{#5}}\vect\resultanteAM{#1}{#2} }}
+\newcommandx*{\babarAM}[6][3=,6=]{\momentAM{#4}{#1}{#2}=\changePtMomAM{#1}{#2}[#3]{#4}{#5}[#6]}% Formule de chgt de point d'un torseur des AM
+
+%--------------------------------------------------------%
+% Cinétique, dynamique, énergétique
+%--------------------------------------------------------%
+\newcommandx*{\PFD}[3][3=]{\ensuremath{\tAM{\ext}{#1}[#3]=\tDynamique{#1}{#2}[#3]}}% PFD (eq torsorielle)
+\newcommandx*{\thResDynamique}[4][3=m,4=G]{\ensuremath{\sum{\resultanteAM{\ext}{#1}}=\resultanteDynamique[#3][#4]{#1}{#2}}}% Théorème de la résultante dynamique
+\newcommand*{\thMomDynamique}[3]{\ensuremath{\sum{\momentAM{#3}{\ext}{#1}}=\momentDynamique{#3}{#1}{#2}}}% Théorème du moment dynamique
+\newcommandx*{\changePtMomCinetique}[7][5=m,6=G,7=]{\ifstrempty{#7}{\momentCinetique{#4}{#1}{#2}}{\underbrace{\momentCinetique{#4}{#1}{#2}}_{#7}}+\vecteur{{#3}{#4}}\vect\resultanteCinetique[#5][#6]{#1}{#2}}
+\newcommandx*{\babarCinetique}[7][5=m,6=G,7=]{\momentCinetique{#3}{#1}{#2}=\changePtMomCinetique{#1}{#2}{#3}{#4}[#5][#6][#7]}% Formule de chgt de point d'un moment cinetique
+\newcommandx*{\changePtMomDynamique}[7][5=m,6=G,7=]{\ifstrempty{#7}{\momentDynamique{#4}{#1}{#2}}{\underbrace{\momentDynamique{#4}{#1}{#2}}_{#7}}+\vecteur{{#3}{#4}}\vect\resultanteDynamique[#5][#6]{#1}{#2}}
+\newcommandx*{\babarDynamique}[7][5=m,6=G,7=]{\momentDynamique{#3}{#1}{#2}=\changePtMomDynamique{#1}{#2}{#3}{#4}[#5][#6][#7]}% Formule de chgt de point d'un moment dynamique
+\newcommandx*{\thHuygens}[7][1=O,2=S,3=m,4=a,5=b,6=c,7=G]{\ensuremath{\operateurInertie{#1}{#2}=\operateurInertie{#7}{#2}+{#3}\, \begin{pmatrix} 
+  \ifblank{#5}{\ifblank{#6}{0}{{#6}^2}}{\ifblank{#6}{{#5}^2}{{#5}^2+{#6}^2}} & \ifblank{#4}{0}{\ifblank{#5}{0}{-{#4}{#5}}} & \ifblank{#4}{0}{\ifblank{#6}{0}{-{#4}{#6}}} \\ 
+  \ifblank{#4}{0}{\ifblank{#5}{0}{-{#4}{#5}}} & \ifblank{#4}{\ifblank{#6}{0}{{#6}^2}}{\ifblank{#6}{{#4}^2}{{#4}^2+{#6}^2}} & \ifblank{#5}{0}{\ifblank{#6}{0}{-{#5}{#6}}} \\ 
+  \ifblank{#4}{0}{\ifblank{#6}{0}{-{#4}{#6}}} & \ifblank{#5}{0}{\ifblank{#6}{0}{-{#5}{#6}}} & \ifblank{#4}{\ifblank{#5}{0}{{#5}^2}}{\ifblank{#5}{{#4}^2}{{#4}^2+{#5}^2}} 
+\end{pmatrix}}}
+\newcommand*{\thEnergieCinetique}[2]{\deriv{\energieCinetique{#1}{#2}}=\puissance{\bar{#1}}{#1}{#2}}% Théorème de l'énergie cinétique
+\newcommand*{\thEnergieCinetiqueSimple}{\deriv{E_c}=\puissanceInt + \puissanceExt}% Théorème de l'énergie cinétique simplifié
+
+%--------------------------------------------------------%
+% Trains épicycloïdaux
+%--------------------------------------------------------%
+\newcommandx*{\WillisTGauche}[4][1=p_A,2=p_B,3=ps,4=ba]{\ensuremath{\dfrac{\omega_{{#1}/{#4}}-\omega_{{#3}/{#4}}}{\omega_{{#2}/{#4}}-\omega_{{#3}/{#4}}}}} % Terme de gauche de la formule de Willis
+\newcommandx*{\Willis}[5][1=p_A,2=p_B,3=ps,4=ba,5=\lambda]{\ensuremath{\WillisTGauche[#1][#2][#3][#4]={#5}=\left(-1\right)^p\,\dfrac{\prod{Z_{menantes}}}{\prod{Z_{menees}}}}} % Formule de Willis
+\newcommandx*{\Ravignaux}[5][1=p_A,2=p_B,3=ps,4=ba,5=\lambda]{\ensuremath{\omega_{{#1}/{#4}}-{#5}\,\omega_{{#2}/{#4}}+\left({#5}-1\right)\omega_{{#3}/{#4}}=0}} % Formule de Ravignaux 
+
+
+%==============================================================================%
+%	Notations diverses
+%==============================================================================%
+\newcommand*{\numPiece}[1]{\ensuremath{\textbf{#1}}} % Numero de pièce
+\newcommand*{\np}[1]{\numPiece{#1}} % Numero de pièce (Raccourci)
+\newcommand*{\npm}[1]{\ensuremath{\boldsymbol{#1}}} % Numero de pièce (en mode math)
+\newcommand*{\solide}[1]{\ensuremath{{#1}}} % Solide
+\newcommand*{\ensMat}[1]{\ensuremath{\left({#1}\right)}} % Ensemble matériel
+\newcommand*{\ensSolides}[1]{\ensuremath{\left\lbrace{#1}\right\rbrace}} % Ensemble de solides
+
+\newcommand*{\AN}{\text{\underline{AN:} }} % Application numérique
+\newcommand*{\cste}{\ensuremath{\text{cste}}} % cste
+\newcommand*{\moy}{\ensuremath{\text{moy}}} % cste
+
+\newcommand*{\ext}{\ensuremath{\text{ext}}} % ext
+\newcommand*{\inter}{\ensuremath{\text{int}}} % ext
+\newcommand*{\atm}{\ensuremath{\text{atm}}} % atm
+\newcommand*{\pes}{\ensuremath{\text{pes}}} % pesanteur
+\newcommand*{\maxi}{\ensuremath{\text{max}}} % max
+\newcommand*{\mini}{\ensuremath{\text{min}}} % min
+\newcommand*{\mot}{\ensuremath{\text{mot}}} % mot
+
+
+\newcommand*{\dl}{\ensuremath{\,d\ell}}    % dl
+\newcommand*{\dS}{\ensuremath{\,dS}}       % dS
+\newcommand*{\dV}{\ensuremath{\,dV}}       % dV
+\newcommand*{\dm}{\ensuremath{\,dm}}       % dm
+\newcommand*{\dtau}{\ensuremath{\,d\tau}}  % dtau
+
+
+%==============================================================================%
+%	Graphes des liaisons
+%==============================================================================%
+\newenvironment{grapheLiaisons}[1][]{
+\begin{tikzpicture}[#1]
+\glConfig
+}{\end{tikzpicture}}
+
+\newcommandx{\glConfig}[2][1=,2=]{
+\tikzstyle{liaison}=[align=center,#1,]
+\tikzstyle{piece}=[circle,draw,align=center,#2,]
+}
+\newcommandx{\glPiece}[4][4=]{\node ({#2}) at ({#1})[piece,#4] {#3};}         % Pièce
+\newcommandx{\glBati}[6][1=0,5=1,6=]{     % On a rajouté l'échelle et l'angle 
+  \glPiece{#2}{#3}{#4}[#6]
+  \gbati[#1]{#3}[#5][#6]
+}             % Bâti  (le premier paramètre est l'angle)
+\newcommandx{\glLiaison}[6][1=,2=,5=,6=above]{\draw [liaison,#2] ({#3}) to[#1] node[midway, #6]{#5} ({#4});}
+\newcommandx{\glDeuxL}[3][1=c]{\begin{tabular}{#1} {#2}\\{#3} \end{tabular}}  % deprecated (au profit de [align=center] et \\)
+
+\newcommandx{\gbati}[4][1=0,3=1,4=]{   % 1: angle, 2: position, 3: echelle, 4: parametres du noeud
+\begin{scope}[rotate=#1,scale=#3]
+\draw[#4] ({#2}.({#1}-90) --++(0,-0.2) coordinate (K);
+\draw[#4] (K) --++(0.35,0);
+\draw[#4] (K) --++(-0.35,0) coordinate (L);
+\foreach \x in {0,0.14, ...,0.65} {\draw[#4] ($(L) + (\x,0)$) --++(0.13,-0.13);};
+\end{scope}
+}
+
+
+%==============================================================================%
+%	Automatique SLCI
+%==============================================================================%
+%--------------------------------------------------------%
+% Transformée de Laplace
+%--------------------------------------------------------%
+\newcommand{\laplace}[1]{\ensuremath{\mathcal{L}{\ifstrempty{#1}{}{\left[{#1}\right]}}}}         % transformée de laplace
+\newcommand{\laplaceInv}[1]{\ensuremath{\mathcal{L}^{-1}{\ifstrempty{#1}{}{\left[{#1}\right]}}}} % transformée de laplace inverse
+\newcommand{\laplaceFleche}{\ensuremath{\xrightarrow{\laplace{}}}}         % transformée de laplace sur fleche
+\newcommand{\laplaceInvFleche}{\ensuremath{\xrightarrow{\laplaceInv{}}}}   % transformée inverse de laplace sur fleche
+
+%--------------------------------------------------------%
+% Notations
+%--------------------------------------------------------%
+\newcommandx*{\jw}[1][1=\omega]{\ensuremath{j#1}} % j \omega dans l'analyse fréquentielle
+\newcommandx*{\jo}[1][1=\omega]{\ensuremath{\left(j#1\right)}} % j \omega dans l'analyse fréquentielle
+
+\newcommandx*{\Gw}[1][1=\omega]{\ensuremath{G(#1)}} % Gain
+\newcommandx*{\Gdbw}[1][1=\omega]{\ensuremath{G_{db}(#1)}} % Gain en dB
+\newcommandx*{\phase}[1][1=\omega]{\ensuremath{\varphi(#1)}} % Phase
+\newcommand*{\wo}{\ensuremath{\omega_0}} 
+\newcommand*{\wCoupure}[1][]{\ensuremath{{\omega_c}_{#1}}} % Pulsation de coupure
+\newcommand*{\wResonance}[1][]{\ensuremath{{\omega_r}_{#1}}} % Pulsation de résonance
+
+\newcommand*{\eStatique}{\ensuremath{\varepsilon_S}}
+\newcommand*{\eTrainage}{\ensuremath{\varepsilon_V}}
+\newcommand*{\trep}{\ensuremath{t_{5\%}}}   % Temps de réponse à 5%
+\newcommandx{\dnp}[1][1=1]{\ensuremath{D_{#1\%}}}         % nième dépassement
+
+\newcommand*{\MG}{\ensuremath{\text{MG}}} % marge de gain
+\newcommand*{\MP}{\ensuremath{\text{M}_\varphi}} % marge de phase
+\newcommand*{\BP}{\ensuremath{\text{BP}}} % bande passante
+\newcommand*{\FTBO}{\ensuremath{\text{FTBO}}}
+\newcommand*{\FTBF}{\ensuremath{\text{FTBF}}}
+\newcommand*{\FTCD}{\ensuremath{\text{FTCD}}}
+\newcommand*{\FTCR}{\ensuremath{\text{FTCR}}}
+\newcommandx*{\Hbo}[1][1=p]{\ensuremath{H_{BO}\ifstrempty{#1}{}{(#1)}}} % Hbo
+\newcommandx*{\Hbf}[1][1=p]{\ensuremath{H_{BF}\ifstrempty{#1}{}{(#1)}}} % Hbf
+
+%--------------------------------------------------------%
+% Signaux
+%--------------------------------------------------------%
+\newcommand*{\echelon}[1][t]{\ensuremath{u(#1)}}
+\newcommand*{\rampe}[1][t]{\ensuremath{{r(#1)}}}
+\newcommand*{\dirac}[1][t]{\ensuremath{\delta(#1)}}
+
+%--------------------------------------------------------%
+% Forme canonique
+%--------------------------------------------------------%
+\newcommand*{\amortissement}{\ensuremath{\xi}} % Coefficient d'amortissement
+\newcommandx*{\canonique}[5][2=K,3=,4=\amortissement,5=0]	{   % 1: ordre, 2: Gain Statique, 3: Pulsation de coupure  ou Constante de temps, 4: Coefficient d'amortissement, 5: 1 si réduit
+	\ifthenelse{\equal{#1}{1}}
+		{\ensuremath{\dfrac{#2}{1+\ifstrempty{#3}{\tau}{#3} p}}}{}
+	\ifthenelse{\equal{#1}{2}}
+		{\ensuremath{\dfrac{#2}{1+\frac{2#4}{\ifstrempty{#3}{\omega_0}{#3}}p+\frac 1{{\ifstrempty{#3}{\omega_0}{#3}}^2}p^2}}}{}
+}
+\newcommandx*{\canoniqueInv}[5][2=K,3=,4=\amortissement,5=0]	{   % 1: ordre, 2: Gain Statique, 3: Pulsation de coupure  ou Constante de temps, 4: Coefficient d'amortissement, 5: 1 si réduit
+	\ifthenelse{\equal{#1}{1}}
+		{\ensuremath{1+\ifstrempty{#3}{\tau}{#3} p}}{}
+	\ifthenelse{\equal{#1}{2}}
+		{\ensuremath{1+\frac{2#4}{\ifstrempty{#3}{\omega_0}{#3}}p+\frac 1{{\ifstrempty{#3}{\omega_0}{#3}}^2}p^2}}{}
+}
+ 
+%--------------------------------------------------------%
+% Pour Tikz
+%--------------------------------------------------------%
+% Grille guide pour tikz
+\newcommandx*{\tikzGrid}[2][1=4,2=0]{   
+  \ifnumequal{1}{#2}{\draw[very thin,gray!30,step=1mm] (-{#1},-{#1}) grid ({#1},{#1})}{};
+  \draw[very thin,gray] (-{#1},-{#1}) grid ({#1},{#1});
+  \node at (0,0){$\bullet$};
+}
+
+% Grille de Black
+\newcommandx*{\UPSTIblackGrid}[6][1=30,2=5,3=-20,4=20,5=-90,6=0]{  % Trace la grille pour le diagramme de Black: 1- Pas en x, 2- Pas en y, 3- Gmin, 4-Gmax, 5- phimin, 6- phimax 
+\draw[xstep=#1 ,ystep=#2,thin,gray!100] (#5,#3) grid (#6,#4);
+\foreach \xx in {0,-#1,...,#5}
+	{\node[below left,black] at (\xx,0){\tiny \xx};};
+
+\ifnumequal{#6}{0}{
+\foreach \xx in {0,-#2,...,#3}{
+	\ifnumequal{\xx}{0}{}{\node[right,black] at (0,\xx){\tiny \xx};}
+};
+\foreach \xx in {0,#2,...,#4}{
+	\ifnumequal{\xx}{0}{}{\node[right,black] at (0,\xx){\tiny \xx};}
+};
+}{
+\foreach \xx in {0,-#2,...,#3}{
+	\ifnumequal{\xx}{0}{}{\node[above right,black] at (0,\xx){\tiny \xx};}
+};
+\foreach \xx in {0,#2,...,#4}{
+	\ifnumequal{\xx}{0}{}{\node[above right,black] at (0,\xx){\tiny \xx};}
+};
+}
+
+\draw[<-,>=latex] (-#5*0.1,0) node[above right] {\small \phase\degres} --(#5+#5*0.05,0);
+\draw[->,>=latex] (0,#3+#3*0.05) --(0,#4+#4*0.05-#3*0.05) node[above] {\small \Gdbw};
+
+}
+
+
+
+%==============================================================================%
+%	Électricité, electronique
+%==============================================================================%
+\newcommand*{\importPackagesElec}{
+\usepackage[nosiunitx,european]{circuitikz}
+\tikzstyle{flTension}=[-triangle 45]
+\tikzstyle{flTensionL}=[triangle 45-]
+}
+
+\newcommand*{\Req}{\ensuremath{R_{eq}}} % résistance équivalente
+\newcommand*{\RTh}{\ensuremath{R_{Th}}} % résistance de Thévenin
+\newcommand*{\RN}{\ensuremath{R_{N}}} % résistance de Norton
+\newcommand*{\ETh}{\ensuremath{E_{Th}}} % Tension de Thévenin
+\newcommand*{\IN}{\ensuremath{I_{N}}} % Courant de Norton
+
+%\newcommand*{\vmoy}[1]{\ensuremath{\bar{#1}}} % Valeur moyenne
+\newcommand*{\vmoy}[1]{\ensuremath{<\!#1\!\!>}} % Valeur moyenne
+%\newcommand*{\vmoy}[1]{\ensuremath{{#1}_{\text{moy}}}} % Valeur moyenne
+\newcommand*{\veff}[1]{\ensuremath{{#1}_{\text{eff}}}} % Valeur efficace
+\newcommand*{\vmax}[1]{\ensuremath{\hat{#1}}} % Valeur de crête
+
+
+%==============================================================================%
+%	Notations mathématiques de base
+%==============================================================================%
+%--------------------------------------------------------%
+% Fonctions
+%--------------------------------------------------------%
+\definecolor{couleurParametres}{rgb}{0.2,0.2,0.2}
+\newcommand*{\fonction}[2]	{\ensuremath{{#1}{\left(#2\right)}}}
+%\newcommand*{\fonction}[2]	{\ensuremath{{#1}{\scriptstyle\color{couleurParametres}{\left(#2\right)}}}}
+\newcommand*{\atan}[1][]	{\ifstrempty{#1}{\ensuremath{\tan^{-1}}}{\ensuremath{\tan^{-1}\left(#1\right)}}}
+
+\newcommandx*{\deriv}[3][1=,3=t]{\ensuremath{\dfrac{d^{#1} {#2}}{d{#3}^{#1}}}}
+\newcommandx*{\derivn}[3][1=,3=t]{\ensuremath{\dfrac{d^{#1}}{d{#3}^{#1}}\left({#2}\right)}}
+\newcommandx*{\derivP}[3][1=,3=t]{\ensuremath{\dfrac{\partial^{#1}}{\partial{#3}^{#1}}\left({#2}\right)}}
+\newcommandx*{\derivPn}[3][1=,3=t]{\ensuremath{\frac{\partial^{#1}}{\partial{#3}^{#1}}\left({#2}\right)}}
+\newcommandx*{\derivV}[4][1=,4=t]{\ensuremath{\left[\dfrac{d^{#1}{#2}}{d{#4}^{#1}}\right]_{#3}}}
+\newcommandx*{\derivVn}[4][1=,4=t]{\ensuremath{\left[\frac{d^{#1}{#2}}{d{#4}^{#1}}\right]_{#3}}}
+\newcommandx*{\derivVl}[4][1=,4=t]{\ensuremath{\left[\dfrac{d^{#1}}{d{#4}^{#1}}{#2}\right]_{#3}}}
+\newcommandx*{\derivVln}[4][1=,4=t]{\ensuremath{\left[\frac{d^{#1}}{d{#4}^{#1}}{#2}\right]_{#3}}}
+
+%--------------------------------------------------------%
+% Ensembles
+%--------------------------------------------------------%
+\newcommand*{\R}		{\ensuremath{\mathbb{R}}}
+\newcommand*{\couple}[2]	{\ensuremath{\left(#1,#2\right)}}	%Couple (ex : (U,V) )
+\newcommand*{\triplet}[3]	{\ensuremath{\left(#1,#2,#3\right)}}	%Triplet (ex : (U,V,W) )
+\newcommand*{\quadruplet}[4]	{\ensuremath{\left(#1,#2,#3,#4\right)}}	%Triplet (ex : (U,V,W) )
+
+%--------------------------------------------------------%
+% Géométrie
+%--------------------------------------------------------%
+\newcommand*{\segment}[1]	{\ensuremath{\left[#1\right]}}		%Fait un sement
+\newcommand*{\droite}[1]	{\ensuremath{\left(#1\right)}}
+\newcommand*{\plan}[1]	{\ensuremath{\pi_{#1}}} % Plan
+\newcommand*{\arc}[1]		{\ensuremath{\overset{\frown}{#1}}}		%Arc
+\renewcommand*{\angle}[1]	{\ensuremath{\widehat{#1}}} %(Redéfini : la fonction angle correspondait au symbole angle)
+\newcommand*{\axe}[2]{\couple{#1}{#2}} % Axe
+\newcommand*{\axeSV}[2]{\couple{#1}{\vecteur{#2}}} % Axe (deprecated))
+
+%--------------------------------------------------------%
+% Bases
+%--------------------------------------------------------%
+\newcommandx*{\base}[4][1=]	{\ensuremath{{#1}\triplet{#2}{#3}{#4}}}	
+\newcommand*{\bB}[1]		{\ensuremath{b_{#1}}}	%Symbole d'une base
+\newcommand*{\bxyz}	{\base{\vx{}}{\vy{}}{\vz{}}}
+\newcommand*{\buvw}	{\base{\vu{}}{\vv{}}{\vw{}}}
+
+%--------------------------------------------------------%
+% Repères
+%--------------------------------------------------------%
+\newcommand*{\rR}[1]		{\ensuremath{R_{#1}}}	%Symbole d'un repere
+\newcommandx*{\repere}[5][1=]	{\ensuremath{{#1}\quadruplet{#2}{#3}{#4}{#5}}}	
+\newcommand*{\rOxyz}		{\repere{O}{\vx{}}{\vy{}}{\vz{}}}
+\newcommand*{\rROxyz}		{\repere[\rR{}]{O}{\vx{}}{\vy{}}{\vz{}}}
+\newcommand*{\rOuvw}		{\repere{O}{\vu{}}{\vecteur{v}}{\vw{}}}
+
+%--------------------------------------------------------%
+% Référentiel
+%--------------------------------------------------------%
+\newcommand*{\referentiel}[1]	{\ensuremath{\mathcal{R}_{#1}}}	%Symbole d'un référentiel
+
+%--------------------------------------------------------%
+% Opérateurs
+%--------------------------------------------------------%
+\newcommand*{\abs}[1]			{\ensuremath{\left\vert #1 \right\vert}}	%Valeur absolue
+\newcommand*{\norme}[1]			{\ensuremath{\left\Vert #1 \right\Vert}}	%Norme
+\newcommand*{\prodMixte}[3]		{\ensuremath{\left(#1\wedge#2\right)\cdot#3}}	%produit mixte
+\newcommand*{\doubleProdVect}[3]	{\ensuremath{#1\wedge\left(#2\wedge#3\right)}}	%double produit vectoriel
+\newcommand*{\scalaire}			{\ensuremath{\cdot}}	%produit scalaire
+\newcommand*{\scal}			{\scalaire}	%produit scalaire (raccourci)
+\newcommand*{\vectoriel}		{\ensuremath{\land}}	%produit vectoriel
+\newcommand*{\vect}			{\vectoriel}	%produit vectoriel  (raccourci)
+
+%--------------------------------------------------------%
+% Vecteurs
+%--------------------------------------------------------%
+\newcommandx*{\vecteur}[2][2=]	{\ensuremath{\protect\overrightarrow{{#1}_{#2}}}}	%Fait un vecteur
+\newcommand{\vecteurIndice}[2]	{\vecteur{#1}[#2]} %Identique à vecteur, sauf que l'indice est obligatoire - Fait un vecteur avec un indice (x1, y1...), ou un vecteur simple si indice = espace
+\newcommand*{\bipoint}[2]	{\ensuremath{\vecteur{\segment{#1#2}}}}	%bipoint
+\newcommand*{\vLie}[2]		{\ensuremath{\couple{#1}{#2}}}			%Vecteur lie
+\newcommandx*{\vColonne}[3][1=c,3=]	{\ensuremath{\left( \begin{array}{#1} #2 \end{array} \right)_{#3}	}}	%Vecteur colonne (avec coordonnées)
+
+%--------------------------------------------------------%
+% Vecteurs pré-fabriqués
+%--------------------------------------------------------%
+\newcommand*{\vNul}		{\vecteur{0}}	%vecteur nul
+
+\newcommand*{\ve}[1]{\vecteurIndice{e}{#1}}	%\e_i
+\newcommand*{\vex}{\ve{x}}	%e_x
+\newcommand*{\vey}{\ve{y}}	%e_y
+\newcommand*{\vez}{\ve{z}}	%e_z
+
+\newcommandx*{\vx}[1]{\vecteurIndice{x}{#1}}	%x_i
+\newcommandx*{\vy}[1]{\vecteurIndice{y}{#1}}	%y_i
+\newcommandx*{\vz}[1]{\vecteurIndice{z}{#1}}	%z_i
+
+\newcommand*{\vu}[1]{\vecteurIndice{u}{#1}}	%u_i
+\newcommand*{\vv}[1]{\vecteurIndice{v}{#1}}	%v_i
+\newcommand*{\vw}[1]{\vecteurIndice{w}{#1}}	%w_i
+
+\newcommand*{\vn}[1]{\vecteurIndice{n}{#1}}	%n_i
+\newcommand*{\ver}		{\vecteur{e_r}}
+\newcommand*{\vetheta}{\vecteur{e_\theta}}
+
+\newcommand*{\vOM} {\vecteur{OM}}
+\newcommand*{\vOP} {\vecteur{OP}}
+\newcommand*{\vOG} {\vecteur{OG}}
+\newcommand*{\vAB} {\vecteur{AB}}
+\newcommand*{\vBA} {\vecteur{BA}}
+\newcommand*{\vOA} {\vecteur{OA}}
+\newcommand*{\vOB} {\vecteur{OB}}
+ 
+%--------------------------------------------------------%
+% Complexes
+%--------------------------------------------------------%
+\newcommand*{\complexe}[1]	{\ensuremath{\underline{#1}}}	%Nombre complexe
+\newcommandx*{\zmod}[2][2=]			{\ensuremath{\abs{\underline{#1}\ifstrempty{#2}{}{#2}}}}	%module d'un complexe
+\newcommandx*{\zarg}[2][2=]			{\ensuremath{\text{arg}\!\left(\underline{#1}\ifstrempty{#2}{}{#2}\right)}}	%argument d'un complexe
+\newcommandx*{\zargn}[1]		{\ensuremath{\text{arg}\!\left({#1}\right)}}	%argument d'un complexe (sans souligner le paramètre)
+\renewcommand{\Re}{\operatorname{Re}}%partie réelle d'un complexe
+\renewcommand{\Im}{\operatorname{Im}}%partie imaginaire d'un complexe
+
+%--------------------------------------------------------%
+% Divers
+%--------------------------------------------------------%
+\newcommand*{\indiceGauche}[2]		{\ensuremath{{\vphantom{#2}}_{#1}{#2}}}
+\newcommand*{\exposantGauche}[2]	{\ensuremath{{\vphantom{#2}}^{#1}{#2}}}
+\newcommand*{\transposee}[1]		{\ensuremath{\exposantGauche{\mathit t}{#1}}}
+\newcommand*{\ofrac}[2]{\ensuremath{{^{#1}\!/_{#2}}}}
+\newcommand*{\parallele}{/\!/} % Symbole parallele
+\newcommand*{\pdix}[1]		{\ensuremath{\times 10^{#1}}}
+\newcommand*{\condition}[2]		{\ensuremath{\left.{#1}\right|_{#2}}} %(condition, en bas à droite avec une barre verticale)
+
+%==============================================================================%
+%	Tikz
+%==============================================================================%
+\newcommand*{\defTraitMixte}{\tikzstyle{traitMixte}=[dash pattern=on 6mm off 1mm on 2mm off 1mm];} %Traits mixtes
+ 
+ 
+%==============================================================================%
+% Package de personnalisation
+%==============================================================================%
+\RequirePackage{UPSTI_SI_Custom}	
+
+\endinput

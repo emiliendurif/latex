@@ -1,0 +1,201 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Package de personnalisation du package UPSTI_Document
+% -----------                                                                        
+% Auteur: Emmanuel Pinault-Bigeard                                                   
+% email: e.pinault-bigeard@upsti.fr
+% -----------
+% Version: 1.0 - 2017/11/23                                                                       
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UPSTI - http://www.upsti.fr
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}[1999/01/01]
+\ProvidesPackage{UPSTI_Custom}[2017/11/23]
+
+%==============================================================================%
+%	Changelog
+%==============================================================================%
+% 1.0 - 2017/11/23 - Mise en ligne de la première version
+
+
+%==============================================================================%
+% Personnalisation du modèle
+%==============================================================================%
+%--------------------------------------------------------%
+% Images
+%--------------------------------------------------------%
+\newcommand{\UPSTIcheminImages}{C:/UPSTIlatex/_default/}
+\newcommand{\UPSTIlogoLicence}{\UPSTIcheminImages logoLicence.png}
+\newcommand{\UPSTIlogoLycee}{\UPSTIcheminImages logoLycee.png} 
+\newcommand{\UPSTIlogoAuteur}{\UPSTIcheminImages logoAuteur.png}
+\newcommand{\UPSTIlogoAuteurCollegial}{\UPSTIcheminImages logoAuteurCollegial.png}
+
+%--------------------------------------------------------%
+% En-têtes et pieds de page
+%--------------------------------------------------------%
+% En-têtes de pages
+\newcommand{\UPSTIenTetePrincipalFiliere}{CPGE}
+\newcommand{\UPSTIcoordonneesLycee}{UPSTI - Lycée Chaptal - 45 bvd des Batignolles - 75008 PARIS}
+
+% Pied de page
+\newcommand{\UPSTIfooterWebSite}{www.upsti.fr}
+\newcommand{\UPSTIfooterLycee}{UPSTI}
+\newcommand{\UPSTIfooterWebSiteCollegial}{www.upsti.fr}
+
+%--------------------------------------------------------%
+% Meta données du pdf
+%--------------------------------------------------------%
+\newcommand{\UPSTIauteur}{UPSTI}
+\newcommand{\UPSTImail}{contact@upsti.fr}
+
+%--------------------------------------------------------%
+% Définition des couleurs
+%--------------------------------------------------------%
+\colorlet{UPSTIcouleurCorrige}{red}
+\colorlet{UPSTIcustomColor1}{RoyalBlue}
+\colorlet{UPSTIcustomColor2}{red}
+\colorlet{UPSTIcustomColor3}{purple}
+\colorlet{UPSTIcustomColor4}{ForestGreen}
+\colorlet{UPSTIcustomColor5}{Orange}
+
+%--------------------------------------------------------%
+% Quelques exemples de personnalisation
+%--------------------------------------------------------%
+%\renewcommand{\UPSTIversionProf}{\textcolor{red}{~\raisebox{1pt}{$\bigstar$}}} % Signe distinctif pour montrer que c'est une version corrigée (dans l'en-tête)
+%\renewcommand*{\UPSTIarrondiBoites}{0} % Arrondi des coins des boîtes
+%\renewcommand{\UPSTIintituleKholle}{Khôlle}
+
+%==============================================================================%
+% Override: on peut définir ici des changements de variables conditionnels pour le modèle, en fonction de la valeur de \UPSTIvariante
+%==============================================================================%
+%--------------------------------------------------------%
+% Cas général
+%--------------------------------------------------------%
+\newcommand{\UPSTIeditCustomVars}{
+
+  % Pour overrider certaines macros quelque soit la variante du document
+  % \renewcommand*{\nomDeLaCommande} {Valeur}
+
+  % Définition des variantes (si on édite des documents pour différents lycées)
+  \ifdef{\UPSTIvariante}{
+  \ifcase\UPSTIvariante
+
+    % ~~~~~~~~~~~~~~~~
+    % Variante 0: UPSTI (ne pas modifier cette section)
+    % ~~~~~~~~~~~~~~~~
+    \renewcommand{\UPSTIcheminImages}{C:/UPSTIlatex/UPSTI/}
+    \renewcommand{\UPSTIenTetePrincipalFiliere}{CPGE}
+    \renewcommand{\UPSTIcoordonneesLycee}{}
+    \renewcommand{\UPSTIfooterWebSite}{www.upsti.fr}
+    \renewcommand{\UPSTIfooterLycee}{UPSTI}
+    \renewcommand{\UPSTIfooterWebSiteCollegial}{www.upsti.fr}
+    \renewcommand{\UPSTIauteur}{UPSTI}
+    \renewcommand{\UPSTImail}{contact@upsti.fr}
+    \colorlet{UPSTIcustomColor1}{blue}
+    % ~~~~~~~~~~~~~~~~
+  
+  \or 
+    % Variante 1: Lycée n°2 (Chaptal)
+    \renewcommand{\UPSTIcheminImages}{C:/UPSTIlatex/Chaptal/}
+    \renewcommand{\UPSTIenTetePrincipalFiliere}{CPGE}
+    \renewcommand{\UPSTIcoordonneesLycee}{Lycée Chaptal – 45 Boulevard des Batignolles – 75008 Paris}
+    \renewcommand{\UPSTIfooterWebSite}{}
+    \renewcommand{\UPSTIfooterLycee}{Lycée Chaptal - Paris}
+    \renewcommand{\UPSTIfooterWebSiteCollegial}{www.lycee-chaptal-paris.fr}
+    \renewcommand{\UPSTIauteur}{Sébastien GERGADIER}
+    \renewcommand{\UPSTImail}{prof2sii@gmail.com}
+    \colorlet{UPSTIcustomColor2}{ForestGreen}
+    \colorlet{UPSTIcustomColor4}{blue}
+  
+  \or 
+    % Variante 2: Lycee n°3 (Jean Zay)
+    \renewcommand{\UPSTIcheminImages}{C:/UPSTIlatex/JeanZay/}
+    \renewcommand{\UPSTIenTetePrincipalFiliere}{CPGE PTSI/PT}
+    \renewcommand{\UPSTIcoordonneesLycee}{Lycée Jean Zay – 21 rue Jean Zay – 63300 Thiers – Académie de Clermont-Ferrand}
+    \renewcommand{\UPSTIfooterLycee}{Lycée Jean Zay - Thiers}
+    \renewcommand{\UPSTIfooterWebSiteCollegial}{http://www.lyceejeanzay.net/}
+  
+  \or
+    % Variante 3: Lycee n°4 (Michelet)
+    \renewcommand{\UPSTIcheminImages}{C:/UPSTIlatex/Michelet/}
+    \renewcommand{\UPSTIenTetePrincipalFiliere}{CPGE}
+    \renewcommand{\UPSTIcoordonneesLycee}{Lycée Michelet – 5 Rue Jullien – 92170 Vanves – Académie de Versailles}
+    \renewcommand{\UPSTIfooterLycee}{Lycée Michelet - Vanves}
+    \renewcommand{\UPSTIfooterWebSiteCollegial}{http://www.michelet-vanves.ac-versailles.fr/}
+    \renewcommand{\UPSTIidClasse}{3}  % Forcément PCSI...
+                                                 
+  \or
+    % Variante 4: Lycee n°5 (Richelieu)
+    \renewcommand{\UPSTIcheminImages}{C:/UPSTIlatex/Richelieu/}
+    \renewcommand{\UPSTIenTetePrincipalFiliere}{CPGE TSI}
+    \renewcommand{\UPSTIcoordonneesLycee}{Lycée Richelieu – 64, rue George Sand – 92500 Rueil-Malmaison – Académie de Versailles}
+    \renewcommand{\UPSTIfooterLycee}{Lycée Richelieu - Rueil-Malmaison}
+    \renewcommand{\UPSTIfooterWebSiteCollegial}{www.lyc-richelieu-rueil.ac-versailles.fr}
+                                               
+  \else 
+    % Par défaut
+    
+  \fi
+  }{}
+}
+
+
+%--------------------------------------------------------%
+% Dans certains cas, on peut avoir à spécifier des changements de variables ici...
+%--------------------------------------------------------%
+\newcommand{\UPSTIeditCustomVarsEnd}{
+  \ifdef{\UPSTIvariante}{
+  \ifcase\UPSTIvariante
+
+    % Variante 0: Lycée Michelet
+
+    \or 
+      % Variante 1: Seb à Chaptal
+
+    \or 
+      % Variante 2 
+
+    \else 
+      % Par défaut
+          
+  \fi
+  }{}
+  
+  % Override de variables/commandes
+  %\colorlet{UPSTIcustomColor1}{green}  % Exemple: si on veut forcer la CustomColor1 à vert, quelles que soient les modifications de la variable faites précédemment...
+
+
+  %==============================================================================%
+  % Versioning (à utiliser avec le script de compilation)
+  % Supprimez ou commenter cette section si vous n'utilisez pas le vbscript de compilation rapide
+  %==============================================================================%
+  % Packages nécessaires
+  \RequirePackage{catchfile}              % |
+  \RequirePackage{atveryend}              % | Gestion des fichiers de version et révisions
+  \RequirePackage{newfile}                % |
+
+  % On incrémente le compteur dans le fichier révision, pour savoir par curiosité le nombre de compilations totale du fichier
+  \newcounter{revisions}
+  \IfFileExists{\jobname.revision}{%
+    \begingroup
+      \CatchFileEdef\tmp{\jobname.revision}{\endlinechar=-1\relax}%
+      \setcounter{revisions}{\tmp}%
+    \endgroup
+  }{}
+  \stepcounter{revisions}
+  
+  % On créée un fichier de version en fonction de la variable \UPSTInumeroVersion
+  \ifdef{\UPSTInumeroVersion}{
+  \AtVeryEndDocument{%
+    \newoutputstream{revision}%
+    \openoutputfile{\jobname.revision}{revision}%
+    \addtostream{revision}{\number\value{revisions}}%
+    \closeoutputstream{revision}%
+    \newoutputstream{version}%
+    \openoutputfile{\jobname.version}{version}%
+    \addtostream{version}{\UPSTInumeroVersion}%
+    \closeoutputstream{version}%
+  }
+  }{}
+}
+\endinput

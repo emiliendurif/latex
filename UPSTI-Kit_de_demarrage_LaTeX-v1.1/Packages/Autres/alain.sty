@@ -1,0 +1,350 @@
+\usepackage{etex}
+\usepackage[utf8]{inputenc} %pour prendre en compte les caractères accentués
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}  %pour avoir la césure des mots, les espacements à la française
+\usepackage{lmodern}
+\usepackage[geometry,weather,misc,clock]{ifsym}
+\usepackage{pifont}
+\usepackage{eurosym}
+\usepackage{amsmath}
+\usepackage{wasysym}
+\usepackage{amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage[usenames, dvipsnames,table]{xcolor}
+\usepackage{fancyhdr}  %pour personnaliser les entete et pied de page
+\usepackage{enumerate} %pour personnaliser les listes numérotées
+\usepackage{stmaryrd}  %pour \llbraket \rrbraket
+\usepackage{array}
+\usepackage{ccaption}
+\usepackage{supertabular}
+\usepackage{booktabs}
+\renewcommand\arraystretch{1.3} %hauteur des lignes ???
+\setlength\tabcolsep{1mm}       %pour les karnaugh
+
+\usepackage{hhline}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage{picins}    %permet d'insérer une image à coté d'un texte \parpic[r]{\includegraphics{}}texte...
+\usepackage[hang,raggedright]{subfigure}
+
+% Unités
+\usepackage[locale = FR]{siunitx}
+\sisetup{inter-unit-product = \ensuremath{{}\cdot{}}}
+\usepackage{numprint} %affichage de nombres correctment avec \numprint{}
+
+%\usepackage{icomma} %gestion des grands nombres
+\usepackage{slashbox} %pour les tableaux de karnaugh \backslashbox{ab}{cd}
+
+
+%%% ATTENTION AU PATH, MODIFICATION POUR QUE CA FONCTIONNE DANS LE SVN
+%%% SANS AVOIR A MODIFIER LE TEXMF CHEZ LES GENS
+%\RequirePackage[mode=buildnew,build={quote="}%,build={latexoptions={-synctex=1 --enable-write18 -interaction=nonstopmode -output-directory=generated}}]{standalone}
+\RequirePackage[mode=buildnew]{standalone}
+\usepackage{schemabloc}
+\usepackage{rpcinematik}
+\usepackage{bodegraph}
+\usetikzlibrary{calc}
+
+%definition style pour mettre un fond blanc dans un node sans avoir des marges énormes
+\tikzset{fondblanc/.style={ inner sep=2pt,fill=white,outer sep = 5pt}} 
+\tikzset{fondblanc2/.style={ inner sep=2pt,fill=white}} 
+\tikzset{fondblanc3/.style={ inner sep=0pt, outer sep = 0pt, fill=white}} 
+
+
+
+\let\titleori\@title
+\ifshowanswers
+\title{CORRIG\'E - \titleori}
+\fi
+
+\hypersetup{colorlinks=false, linkcolor=black, citecolor=blue, filecolor=blue, urlcolor=blue, linkbordercolor=,pdftitle=\@title, pdfauthor=\@author, pdfsubject=, pdfkeywords=,hidelinks}
+\usepackage{graphicx}
+\graphicspath{{images/}{generated}}
+\usepackage{calligra}
+\usepackage{multirow} %fusions des lignes dans tableau
+
+
+%Definition de la commande question
+\newcounter{Qu}
+\newcommand{\Question}[2][0]{
+\ifthenelse{\equal{#1}{0}}                      %demande-t-on une minipage ?
+{\ifshowanswers \else \medskip \fi\noindent {\refstepcounter{Qu}\textbf{Q\theQu .\hspace{0,7mm}}#2}\ifshowanswers \else \smallskip \fi}  %non donc on balance le texte
+{\ifshowanswers                                 %oui minipage en mode problem
+\noindent {\refstepcounter{Qu}\textbf{Q\theQu .\hspace{0,7mm}}#2}    %mode solution
+\else                                           %mode problem
+\noindent\begin{minipage}{#1}\noindent {\refstepcounter{Qu}\textbf{Q\theQu .\hspace{0,7mm}}#2}\end{minipage}\smallskip   
+\fi }
+}
+
+\newcounter{Ex}
+\newcommand{\Exercice}[1]{\vspace{0.25cm}\refstepcounter{Ex}\noindent{\textbf{\underline{Exercice \theEx} : #1}}\par}
+
+\newcommand{\Questionpb}[2][0]{%le premier argument entre [] est par défaut à 0
+\begin{onlyproblem}\Question[#1]{#2}\end{onlyproblem}
+}
+
+\newcommand{\Onlyproblem}[2][0]{%le premier argument entre [] est par défaut à 0
+%si le 2e arguement est 0
+\ifthenelse{\equal{#1}{0}}
+%on demande un environnement pb classique
+{\begin{onlyproblem}#2\end{onlyproblem}}
+%sinon on demande à faire une minipage
+{\begin{onlyproblem}\noindent\begin{minipage}{#1}\parskip2ex #2\end{minipage}\smallskip \end{onlyproblem} }
+}
+
+\newcounter{Sl}
+\addtocounter{Sl}{+1}
+\newcommand{\Solutioncnt}[1]{\noindent \textbf{R\theSl .\hspace{0,7mm}}\addtocounter{Sl}{+1} #1}
+\newcommand{\Solutionnorm}[1]{#1}
+
+\newif\ifmixte
+\let\mixte\mixtetrue
+\let\nomix\mixtefalse
+\nomix
+
+\newcommand{\Solution}[1]{
+\ifmixte
+%\noindent
+  \begin{solution}
+    \ifnum\theQu>0   
+    \Solutionnorm{#1}
+    \else
+    \Solutioncnt{#1}     
+    \fi
+    %\bigskip
+  \end{solution}
+\else
+%\noindent
+  \ifshowanswers
+  \begin{onlysolution}
+    \ifnum\theQu>0
+    \noindent\rule[0.1cm]{\linewidth}{0.8pt}\\   
+    \Solutionnorm{#1}
+    
+    \noindent\rule[0.1cm]{\linewidth}{0.8pt}
+    \else
+    \Solutioncnt{#1}     
+    \fi
+    %\bigskip
+  \end{onlysolution}
+  \fi
+\fi
+}
+
+%Définition de la commande Objectif : pour mettre en évidence l'objectif de la séquence
+\newcommand{\Obj}[1]{\noindent
+\rule[0.1cm]{1cm}{0.8pt} \textbf{Objectif} \rule[0.1cm]{\textwidth-2.9cm}{0.8pt}\\
+\textit{#1}\\
+\noindent\rule[0.1cm]{\textwidth}{0.8pt} }
+%Définition de la commande Définition : pour mettre en évidence l'objectif de la séquence
+\definecolor{graydef}{rgb}{.9,.9,.9}
+\newcommand{\Def}[2][0]{
+\ifthenelse{\equal{#1}{0}}{
+\vspace{.2cm}\noindent
+{\color{black}\vrule width 1.5mm}\colorbox[rgb]{0.9,0.9,0.9}{
+	\begin{minipage}{.97\linewidth} #2
+\end{minipage}}}{
+\vspace{.2cm}\noindent
+{\color{black}\vrule width 1.5mm}\colorbox[rgb]{0.9,0.9,0.9}{
+	\begin{minipage}{#1} #2
+\end{minipage}}}
+\vspace{.2cm}}
+
+
+
+%Définition de la commande SysML: pour donner les définitions du SysML
+\newcommand{\SysML}[1]{
+\vspace{.2cm}\noindent
+\reversemarginpar{\includegraphics[width=0.75cm]{../../sysml}} #1
+%\begin{minipage}{0.05\linewidth}\centering
+%	\includegraphics[height=0.75\linewidth]{../../sysml}
+%\end{minipage}
+%\vrule width 0.8pt 
+%\begin{minipage}[t]{.94\linewidth}#1
+%\end{minipage}
+\vspace{.2cm}}
+
+%Définition de la command Demo
+\newcommand{\Demo}[2][\linewidth]{
+\noindent\begin{tabular}{|p{#1}}
+\underline{Démonstration :}\\\parbox{#1}{#2}
+\end{tabular}
+}
+\newcommand{\Laplace}{\mathcal{L}} % transformée de laplace
+
+
+%Définition de la commande Remarque : pour mettre en évidence une remarque
+\newcommand{\Remarque}[1]{
+\vspace{.1cm}\noindent  \textit{\underline{Remarque}} : #1
+\vspace{.1cm}}
+
+%Définition de la commande Attention : pour mettre en évidence une remarque
+\newcommand{\Attention}[1]{
+\vspace{.1cm}\noindent  \underline{\textbf{Attention}} : #1
+\vspace{.1cm}}
+
+%Définition de la commande Exemple : pour mettre en évidence une remarque
+\newcommand{\Exemple}[1]{
+\vspace{.1cm}\noindent  \textit{\underline{Exemple} : #1}
+\vspace{.1cm}}
+
+%Définition de la commande Rappel : pour mettre en évidence une remarque
+\newcommand{\Rappel}[1]{
+\vspace{.1cm}\noindent  \textit{\underline{Rappel}} : #1
+\vspace{.1cm}}
+
+%%% Définition de l'environnement caché / pas caché : idée on met le texte en blanc
+%%% Pour les figure, on fait un \ifHideContent \else \fi dans le .tex
+\usepackage{calc}
+\usepackage[mathlines]{lineno}
+\newlength\foo
+\newsavebox{\foobox}
+\newif\ifHideContent
+\newenvironment{content}[1][white]{
+\begin{linenumbers*}
+\modulolinenumbers[100]
+	\ifHideContent
+		\color{#1}
+	\else
+		\color{blue}
+	\fi
+}{	
+\end{linenumbers*}
+	\settototalheight{\foo}{\fbox{1}}
+	\setlength{\foo}{\the\foo * \thelinenumber * \real{0.5}}
+	\ifHideContent
+		\vspace{\the\foo}
+	\fi
+\medskip
+}
+\newcommand{\Content}[2][white]{\ifHideContent{\Large\color{#1} #2}\else {\color{blue}#2} \fi}
+
+\newcommand{\HideContent}{\HideContenttrue}
+\newcommand{\ShowContent}{\HideContentfalse}
+
+
+
+
+%Définition des torseurs :
+\newcommand{\torseur}[2]{\left\{\mathcal{#1}_{#2} \right\}}
+\newcommand{\torseurh}[3]{\left\{\genfrac{}{}{0pt}{0}{#1}{#2}\right\}_{#3}}
+\newcommand{\torseurv}[8]{\left\{
+\begin{matrix}
+#1 & #4 \\ #2 & #5 \\ #3 &#6
+\end{matrix}
+\right\}_{{#7},{#8}}}
+
+%Définition des torseurs :
+%\newcommand{\torseur}[2]{\left \{\mbox{\relsize{2}{$\mathcal {#1}$}\relsize{-2}}\phantom{}_{\mbox{\scriptsize $#2$}} \right \}}
+%\newcommand{\torseurh}[3]{\left\{\genfrac{}{}{0pt}{0}{#1}{#2}\right\}_{#3}}
+%\newcommand{\torseurv}[8]{
+%\left\{\begin{array}{@{}c|c@{}} #1 & #4 \\ #2 & #5 \\ #3 & #6 \end{array} \right\}_{#7,#8}
+%}
+\newcommand{\derivee}[2]{\left.\dfrac{\d #1}{\d t}\right|_{#2}}
+\newcommand{\tripleint}{\int\!\!\!\!\!\int\!\!\!\!\!\int}
+
+% Notation cinématique et statique
+\newcommand{\cinematique}[2]{\mbox{#1}/\mbox{#2}}
+\newcommand{\statique}[2]{\mbox{#1}\rightarrow\mbox{#2}}
+\newcommand{\moment}[3]{\vv {#1}_{\scriptsize{#3}}(#2)}
+\newcommand{\resultante}[2]{\vv {#1}_{\scriptsize{#2}}}
+
+
+%Commande de base
+\newcommand{\jo}{\left(j\omega\right)} % j \omega dans l'analyse fréquentielle
+\newcommand{\tl}{\xrightarrow{\mathcal{L}}} % transformée de laplace sur fleche
+\newcommand{\tli}{\xrightarrow{\mathcal{L}^{-1}}} % transformée inverse de laplace sur fleche
+\renewcommand{\d}[1][]{\mathrm{d#1}}
+\newcommand{\dd}[1][]{\mathrm{d#1}}
+\newcommand{\vect}[2]{{#1}\wedge{#2}}
+\newcommand{\base}[3]{(\vec #1,\vec #2,\vec #3)}
+\newcommand{\vectbase}[4]{{\vphantom{\left| \begin{matrix}
+#1\\#2\\#3 \end{matrix} \right|}}_{#4}{\left| \begin{matrix}
+#1\\#2\\#3 \end{matrix} \right.}}
+%Pour avoir les paragraphes sous la forme I, II, III
+\renewcommand{\thesection}{\Roman{section}}
+\setcounter{secnumdepth}{3}
+\renewcommand{\Frlabelitemii}{$\bullet$}
+
+
+\makeatletter
+\renewcommand{\fnum@figure}{\figurename~\thefigure~}
+\makeatother
+\newcommand{\FIG}[1]{\textsc{Figure} {\upshape\ref{#1}}}
+\newcommand{\DR}[1]{document réponse \textsc{DR}~\ref{#1}}
+\AtBeginDocument{\renewcommand{\tablename}{\textsc{Tableau}}}
+
+
+
+% Footnote rule
+\setlength{\skip\footins}{0.119cm}
+\renewcommand\footnoterule{\vspace*{-0.018cm}\setlength\leftskip{0pt}\setlength\rightskip{0pt plus 1fil}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.018cm}}\vspace*{0.101cm}}
+% Pages styles
+\fancypagestyle{Standard}{\fancyhf{}
+  \fancyhead[L]{{\niveau} \hfill \hfill Sciences de l'Ingénieur}
+  \fancyfoot[L]{ \hfill\titleori\hfill \thepage{}/\pageref{LastPage}}
+  \renewcommand\headrulewidth{0.4pt}
+  \renewcommand\footrulewidth{0.4pt}
+  \renewcommand\thepage{\arabic{page}}
+}
+\fancypagestyle{Cours}{\fancyhf{}
+  \fancyhead[L]{{\niveau} \hfill \hfill Sciences de l'Ingénieur}
+  \fancyfoot[L]{Chapitre~\thechapter \hfill\titleori\hfill \thepage{}/\pageref{LastPage}}
+  \renewcommand\headrulewidth{0.4pt}
+  \renewcommand\footrulewidth{0.4pt}
+  \renewcommand\thepage{\arabic{page}}
+}
+\fancypagestyle{Info}{\fancyhf{}
+  \fancyhead[L]{{\niveau} \hfill \hfill Informatique}
+  \fancyfoot[L]{Chapitre~\thechapter \hfill\titleori\hfill \thepage{}/\pageref{LastPage}}
+  \renewcommand\headrulewidth{0.4pt}
+  \renewcommand\footrulewidth{0.4pt}
+  \renewcommand\thepage{\arabic{page}}
+}
+\fancypagestyle{Enonce}{\fancyhf{}
+  \fancyhead[L]{{\niveau} \hfill \hfill  Sciences de l'Ingénieur}
+  \fancyfoot[L]{\hfill \titleori\hfill \thepage{}/\pageref{theend}}
+  \renewcommand\headrulewidth{0.4pt}
+  \renewcommand\footrulewidth{0.4pt}
+  \renewcommand\thepage{\arabic{page}}
+}
+\fancypagestyle{DR}{\fancyhf{}
+  %\fancyhead[L]{{\niveau} \hfill \hfill }
+  \fancyfoot[L]{\hfill\thepage{}/\pageref{theend2}}
+  \renewcommand\headrulewidth{0pt}
+  \renewcommand\footrulewidth{0pt}
+  \renewcommand\thepage{\arabic{page}}
+}
+\fancypagestyle{plain}{\fancyhf{} %pour les premières pages de Chapitres
+  \fancyhead[L]{{\niveau} \hfill \hfill Sciences de l'Ingénieur}
+  \fancyfoot[L]{Chapitre~\thechapter\hfill \titleori\hfill \thepage{}/\pageref{LastPage}}
+  \renewcommand\headrulewidth{0.4pt}
+  \renewcommand\footrulewidth{0.4pt}
+  \renewcommand\thepage{\arabic{page}}
+}
+
+\fancypagestyle{rien}{\fancyhf{} %pour les premières pages de Chapitres
+  \fancyhead[L]{}
+  \fancyfoot[L]{}
+  \renewcommand\headrulewidth{0pt}
+  \renewcommand\footrulewidth{0pt}
+  \renewcommand\thepage{\arabic{page}}
+}
+\pagestyle{Standard}
+
+\makeatletter
+\def\maketitle{
+	\begin{center}
+		~\vskip 0.5cm
+		{\Huge \textbf{\@title}}
+		\vskip 1cm
+	\end{center}
+}
+\newcommand\maketitlenote[1]{
+	\begin{center}
+		~\vskip 0.5cm
+		{\Huge \textbf{\@title}#1}
+		\vskip 1cm
+	\end{center}
+}
+\makeatother

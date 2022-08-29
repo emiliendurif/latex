@@ -1,0 +1,47 @@
+
+   RDM - Flexion
+   Calcul des Structures par la Méthode des Éléments Finis
+
+   Version  - 6.17 - 29 mars 2011
+
+   Utilisateur : E.Pinault-Bigeard
+
+$debut du fichier
+$version
+6.17
+$SI unites
+$nom du fichier
+exercice8.fle
+$date
+7/10/2016
+$materiau
+nom Acier
+mod 2.10000E+11
+mas 8.00000E+03
+lim 2.50000E+08
+///
+$noeuds
+4
+1  0.00000000000E+00
+2  1.50000000000E-02
+3  3.50000000000E-02
+4  6.00000000000E-02
+$sections
+1
+noe 1 4
+nom Rond plein
+des D = 20.00 (mm)
+air  3.14159265359E-04
+izz  7.85398163397E-09
+vys  1.00000000000E-02
+vyi  1.00000000000E-02
+///
+$liaisons
+1
+enc  1
+$gpesanteur
+10.000
+$charges
+trapeze 2 3 -1.00000000000E+02 -2.00000000000E+02
+////
+$fin du fichier

@@ -11,7 +11,7 @@
 \newcommand{\Vc}	{\vCoupe}		%Vitesse de coupe (raccourci)
 \newcommand{\Vavance}	{\ensuremath{V_f}}	%Vitesse d'avance
 \newcommand{\Vf}	{\Vavance}		%Vitesse d'avance (raccourci)
-\newcommand{\Veco}	{\ensuremath{V_{CE}}}	%Vitesse économique de coupe
+\newcommand{\Veco}	{\ensuremath{V_{CE}}}	%Vitesse Ã©conomique de coupe
 
 \newcommand{\avance}	{\ensuremath{f}}		%Avance de l'outil
 \newcommand{\pPasse}	{\ensuremath{a}}	%Profondeur de passe
@@ -22,8 +22,8 @@
 
 %Angles
 \newcommand{\aCoupe}		{\ensuremath{	\gamma	}}		%Angle de coupe
-\newcommand{\aDepouille}	{\ensuremath{	\alpha	}}		%Angle de dépouille
-\newcommand{\aTaillant}		{\ensuremath{	\beta	}}		%Angle de dépouille
+\newcommand{\aDepouille}	{\ensuremath{	\alpha	}}		%Angle de dÃ©pouille
+\newcommand{\aTaillant}		{\ensuremath{	\beta	}}		%Angle de dÃ©pouille
 \newcommand{\aInclinaison}	{\ensuremath{	\lambda_r	}}	%Angle d'inclinaison
 \newcommand{\aInc}		{\aInclinaison}				%Angle d'inclinaison (raccourci)
 \newcommand{\aDirectionArete}	{\ensuremath{	\kappa_r	}}	%Angle de direction d'arete
@@ -33,14 +33,14 @@
 
 %Plans
 \newcommand{\fCoupe}		{\ensuremath{	A_\aCoupe	}}	%Face de coupe
-\newcommand{\fDepouille}	{\ensuremath{	A_\aDepouille	}}	%Face de dépouille
-\newcommand{\pRef}		{\ensuremath{	P_r	}}		%Plan de référence
+\newcommand{\fDepouille}	{\ensuremath{	A_\aDepouille	}}	%Face de dÃ©pouille
+\newcommand{\pRef}		{\ensuremath{	P_r	}}		%Plan de rÃ©fÃ©rence
 \newcommand{\pTravail}		{\ensuremath{	P_f	}}		%Plan de travail conventionnel
 \newcommand{\pArete}		{\ensuremath{	P_s	}}		%Plan d'arete de l'outil
 
 %Autre
 \newcommand{\rBec}		{\ensuremath{	R_\varepsilon	}}	%Rayon de bec de l'outil
-\newcommand{\usureDepouille}	{\ensuremath{	VB	}}		%Usure en dépouille
+\newcommand{\usureDepouille}	{\ensuremath{	VB	}}		%Usure en dÃ©pouille
 
 
 

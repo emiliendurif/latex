@@ -1,15 +1,15 @@
 %Includes
 %=============================
 
-\usepackage[latin1]{inputenc} 		%Caracteres francais
-%\usepackage[utf8]{inputenc} 		%Caracteres francais
+%\usepackage[latin1]{inputenc} 		%Caracteres francais
+\usepackage[utf8]{inputenc} 		%Caracteres francais
 \usepackage[T1]{fontenc} 		%Caracteres francais
 \usepackage[francais]{babel}		%On ecrit en francais
 \usepackage{graphicx}			%Pour les images
 \usepackage[top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}%Marges etc...
 \usepackage{fancybox}			%Des boites
 \usepackage[tikz]{bclogo}		%Pour faire des boites avec logo (remarques, etc...)
-\usepackage{xcolor}			%Pour d�finir les couleurs
+\usepackage{xcolor}			%Pour dï¿½finir les couleurs
 \usepackage{titlesec} 			%Pour modifier l'aspet des titres (sections, etc...)
 \usepackage{soul} 			%Pour souligner
 \usepackage{ifthen}			%Package des conditions
@@ -19,12 +19,12 @@
 \usepackage{amsmath}			%Pour faire des maths (environnement ``align'' notamment)
 \usepackage{amsfonts}			%Pour faire des maths (ensemble des reels, notamment)
 \usepackage{amssymb}
-\usepackage{mathrsfs}			%Pour faire des maths (notamment le L de la transform�e de Laplace)
+\usepackage{mathrsfs}			%Pour faire des maths (notamment le L de la transformï¿½e de Laplace)
 \usepackage{answers}
-\usepackage{pifont}			%Pour faire des chiffres entour�s
+\usepackage{pifont}			%Pour faire des chiffres entourï¿½s
 \usepackage[colorlinks=true,linktocpage]{hyperref}	%Pour faire des liens
-\usepackage{calc}			%Pour faire heightof et des calculs de coordonn�es
-\usepackage{import}			%Permet de g�rer les chemins relatifs des fichiers dans Latex
+\usepackage{calc}			%Pour faire heightof et des calculs de coordonnï¿½es
+\usepackage{import}			%Permet de gï¿½rer les chemins relatifs des fichiers dans Latex
 \usepackage{multirow}			%Pour faire des tableau avec plusieurs lignes
 \usepackage{tikz}			%Pour faire des dessins
 \usetikzlibrary{calc}
@@ -32,31 +32,54 @@
 \usepackage{enumerate}			%Pour personnaliser les listes ``enumerate''
 \usepackage{wasysym}			%Pour faire le symbole diametre
 \usepackage{array}			%Tableaux (notamment alignements)
-\usepackage{placeins} 	%Pour utiliser la commande \FloatBarrier pour vider la m�moire des figures.
+\usepackage{placeins} 	%Pour utiliser la commande \FloatBarrier pour vider la mï¿½moire des figures.
 \usepackage{calc} %Pour faire des calculs
 \usepackage{eurosym} %package euro
 \usepackage{epstopdf} % gestion du format eps
 \usepackage{hyperref}%Gestion des liens hypertextes
 \usepackage{fancyvrb}%Gestion des boites pour l'informatique
-\usepackage{listings}
+%\usepackage{listings}
+\usepackage{listingsutf8}
 \usepackage{fourier}
 \lstset{
 	language={Python},
 	columns=flexible,
 	basicstyle=\ttfamily,
-	keywordstyle=\color{blue}, % je voudrais mettre les mots-clé en gras (\bfseries) mais c'est incompatible avec typewriter
+	keywordstyle=\color{blue}, % je voudrais mettre les mots-clÃ© en gras (\bfseries) mais c'est incompatible avec typewriter
 	commentstyle=\color{gray}, % commentaires
 	backgroundcolor=\color{green!10}, % couleur du fond
 	frame=single, rulecolor=\color{green!10}, % encadrement + couleur de l'encadrement
 	%numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,
 	showstringspaces=false, % supprime les espaces apparents dans les lignes de texte
 	stringstyle=\color{red!50}\itshape,
+	inputencoding=utf8,
+	extendedchars=true,
+   literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1
 }
+%\usepackage{minted}
 \usepackage{multicol}
 \usepackage{algorithm2e}
 \usepackage{pgf, tikz} % dessins et courbes
-\usepackage{tkz-tab} % tableaux de variations
-\usepackage{circuitikz} % l est un "L" minuscule
+%\usepackage{subcaption}
+%\usepackage{tikz,pgfplots}
+%\usepackage{tkz-tab} % tableaux de variations
+%\usetikzlibrary{calc}
+%%\usepackage{pgf}
+%\usepackage{pgfplots}
+%\usetikzlibrary{babel}
+%\usepackage{circuitikz} % l est un "L" minuscule
 \DeclareSymbolFontAlphabet{\mathcal}{symbols}
 \usepackage{color}
 \usepackage{colortbl}
@@ -95,3 +118,73 @@
 
 \usepackage{textcomp}
 
+%\usepackage{stmaryrd}
+\usepackage{pythontex}
+\usepackage{supertabular}
+
+\usepackage{esvect}
+
+\usepackage[breakable]{tcolorbox}
+
+\usepackage{standalone}
+\usepackage{schemabloc}
+\usepackage{cancel}
+
+%%% Mise en forme des rÃ©fÃ©rences croisÃ©es
+\newcommand{\citedoc}[1]{\textbf{document \ref{#1}}}
+\newcommand{\citequest}[1]{\textbf{question Q\ref{#1}}}
+\newcommand{\citefig}[1]{\textbf{figure \ref{#1}}}
+\newcommand{\citetab}[1]{\textbf{tableau~\ref{#1}}}
+\newcommand{\citeannexe}[1]{\textbf{annexe \ref{#1}}}
+
+%% Gestion des numÃ©ros de parties, paragraphes et questions
+\newcounter{num_probleme} \setcounter{num_probleme}{0}
+\newcounter{num_exercice} \setcounter{num_exercice}{0}
+\newcounter{num_quest} \setcounter{num_quest}{0}
+\newcounter{num_partie} \setcounter{num_partie}{0}
+\newcounter{num_sspartie} \setcounter{num_sspartie}{0}
+\newcounter{num_doc} \setcounter{num_doc}{0}
+\newcounter{num_annexe} \setcounter{num_annexe}{0}
+
+
+\newcommand{\probleme}[1]{\stepcounter{num_probleme}
+			\setcounter{num_partie}{0}\vspace{2mm}
+			{\begin{center} \textbf{\large PROBL\`{E}ME
+			\arabic{num_probleme}\\ \vspace{2mm}#1}\end{center}
+			\vspace{2mm}}}
+%\newcommand{\titre}[1]{\begin{center} \textbf{\large #1}\end{center}
+%			\vspace{2mm}}
+%\newcommand{\exercice}[1]{\stepcounter{num_exercice}
+%			\setcounter{num_partie}{0}\vspace{2mm}
+%			{\begin{center} \textbf{\large EXERCICE
+%			\arabic{num_exercice}\\ \vspace{2mm}#1}\end{center}
+%			\vspace{2mm}}}
+\newcommand{\paragraphe}[1]{\vspace{4mm} {\textbf{#1}
+			\vspace{2mm}}}
+\newcommand{\partie}[1]{\stepcounter{num_partie}\setcounter{num_sspartie}{0}
+		   {\vspace{2mm}\begin{center} \textbf{\begin{large}Partie
+		    \Roman{num_partie} - \end{large}
+		    \begin{large}#1\end{large}}\\ \par \end{center}}}
+\newcommand{\souspartie}[1]{\stepcounter{num_sspartie}{\vspace{2mm} {
+		    \textbf{\Roman{num_partie}.\arabic{num_sspartie} - #1}
+			\vspace{2mm}}}}
+
+
+
+\usepackage{rp-sysml}
+\usepackage{rpcinematik}
+\usepackage{schemabloc}
+
+\usetikzlibrary{calc}
+\usepgflibrary{arrows}
+\usetikzlibrary{trees}
+\usetikzlibrary{plotmarks}
+
+\usepackage{pdfpages}%inclure un pdf complet
+
+\usepackage{xargs}
+
+
+\usepackage{siunitx}
+
+\makeatletter

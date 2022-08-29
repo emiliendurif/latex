@@ -6,7 +6,7 @@
 \newcommand{\tStatique}[2]	{\ensuremath{	\torseur{\T_{\left({#1}\rightarrow{#2}\right)}}	}}
 
 
-%Résultates
+%RÃ©sultates
 %=================================
 
 
